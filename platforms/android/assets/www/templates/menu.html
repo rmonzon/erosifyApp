@@ -1,0 +1,46 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-stable">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    <ion-content>
+      <ion-list>
+        <a class="item item-avatar" href="#">
+          <img ng-src="{{user.picture}}">
+          <h2>{{user.name}}</h2>
+          <p>Back off, man. I'm a scientist.</p>
+        </a>
+        <ion-item menu-close href="#/app/search">
+          <i class="icon ion-heart"></i>
+          Find My Match!
+        </ion-item>
+        <ion-item menu-close href="#/app/search">
+          <i class="icon ion-ios-people"></i>
+          Visitors
+        </ion-item>
+        <ion-item menu-close href="#/app/browse">
+          <i class="icon ion-chatbubbles"></i>
+          Messages
+        </ion-item>
+        <ion-item menu-close href="#/app/playlists">
+          <i class="icon ion-ios-star"></i>
+          Erosify Premium
+        </ion-item>
+        <ion-item menu-close href="#/app/browse">
+          <i class="icon ion-help-circled"></i>
+          Help & FAQs
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

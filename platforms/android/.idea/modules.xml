@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/CordovaLib/CordovaLib.iml" filepath="$PROJECT_DIR$/CordovaLib/CordovaLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/phonegap-facebook-plugin/erosify780476-FacebookLib/FacebookLib.iml" filepath="$PROJECT_DIR$/phonegap-facebook-plugin/erosify780476-FacebookLib/FacebookLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android.iml" filepath="$PROJECT_DIR$/android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/phonegap-facebook-plugin/phonegap-facebook-plugin.iml" filepath="$PROJECT_DIR$/phonegap-facebook-plugin/phonegap-facebook-plugin.iml" />
+    </modules>
+  </component>
+</project>

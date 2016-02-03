@@ -1,0 +1,38 @@
+<ion-view view-title="Erosify">
+  <ion-content class="login-container">
+    <div class="logo-container">
+      <img src="img/logo.png" width="100%">
+    </div>
+    <div class="text-center slogan">
+      <span>"DATE YOUR PERFECT MATCH"</span>
+    </div>
+    <div class="login-inputs-container">
+      <form>
+        <div class="group">
+          <input type="text" ng-model="user.username" required>
+          <span class="bar-input"></span>
+          <label>USERNAME</label>
+        </div>
+
+        <div class="group">
+          <input type="password" ng-model="user.password" required>
+          <span class="bar-input"></span>
+          <label>PASSWORD</label>
+        </div>
+
+        <div class="button-container">
+          <div class="button-login" ontouchstart="" ng-click="loginWithEmail()">
+            START DATING
+          </div>
+          <div class="button-login" ontouchstart="" ng-click="loginWithFacebook()">
+            <i class="icon ion-social-facebook-outline"></i>
+            <span>CONNECT WITH FACEBOOK</span>
+          </div>
+          <div class="text-center" style="font-size: 13px">
+            <span>DON'T HAVE AN ACCOUNT? <a href="" ng-click="goToPage('signup')">SIGN UP</a></span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,75 @@
+<ion-view view-title="Erosify">
+    <ion-content class="login-container">
+        <div class="logo-container" style="margin-bottom: 0">
+            <img src="img/logo.png" width="50%">
+        </div>
+        <div class="login-inputs-container">
+            <form class="signup-form">
+                <div class="group">
+                    <input type="text" ng-model="user.username" required>
+                    <span class="bar-input"></span>
+                    <label class="left-labels">Email</label>
+                </div>
+
+                <div class="group">
+                    <input type="password" ng-model="user.password" required>
+                    <span class="bar-input"></span>
+                    <label class="left-labels">Password</label>
+                </div>
+
+                <div class="group">
+                    <input type="text" ng-model="user.name" required>
+                    <span class="bar-input"></span>
+                    <label class="left-labels">Name</label>
+                </div>
+
+                <div class="combobox">
+                    <select>
+                        <option>Gender</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+
+                <div class="row" style="padding: 0;margin-bottom: 10px">
+                    <div class="col-45">
+                        <div class="combobox">
+                            <select>
+                                <option>Month</option>
+                                <option value="{{m.value}}" ng-repeat="m in months">{{m.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-25">
+                        <div class="combobox">
+                            <select>
+                                <option>Day</option>
+                                <option value="{{d}}" ng-repeat="d in days">{{d}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-30">
+                        <div class="combobox">
+                            <select>
+                                <option>Year</option>
+                                <option value="{{y}}" ng-repeat="y in years">{{y}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <div class="button-signup" ontouchstart="" ng-click="loginWithEmail()">
+                        SIGN UP
+                    </div>
+                    <div class="terms">
+                        <span>By continuing, you agree to our <br /><b><a>Terms of Service</a></b> and <b><a>Privacy Policy</a></b></span>
+                    </div>
+                    <div class="bottom-link">
+                        <span>ALREADY A MEMBER? <a href="" ng-click="goToPage('login')">SIGN IN</a></span>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ion-content>
+</ion-view>
