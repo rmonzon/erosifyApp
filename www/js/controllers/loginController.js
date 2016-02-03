@@ -11,7 +11,7 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
     $scope.loginWithEmail = function() {
         $scope.showMessageWithIcon("Verifying credentials...", 1500);
         $timeout(function() {
-            $scope.goToPage('app/playlists');
+            $scope.goToPage('app/browse');
         }, 1500);
     };
 

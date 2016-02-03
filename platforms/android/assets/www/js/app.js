@@ -35,6 +35,11 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'ngCordova'])
             templateUrl: 'templates/signup.html',
             controller: 'SignUpController'
         })
+        .state('privacy', {
+            url: '/privacy',
+            templateUrl: 'templates/privacy.html',
+            controller: 'PrivacyController'
+        })
 
         .state('app', {
             url: '/app',

@@ -225,7 +225,7 @@ ion-item i {
     width: 100%;
     height: 35px;
     border-bottom: 1px solid white;
-    margin-bottom: 35px;
+    margin-bottom: 25px;
 }
 
 .combobox:after {
@@ -276,4 +276,11 @@ ion-item i {
 
 .login-container .scroll {
     transform: none!important;
+}
+
+.verified-profile-icon {
+    position: absolute;
+    left: 45px;
+    bottom: 10px;
+    color: rgba(0,189,179,1)!important;
 }

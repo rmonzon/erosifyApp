@@ -65,18 +65,18 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'ngCordova'])
                 }
             }
         })
-        .state('app.playlists', {
-            url: '/playlists',
+        .state('app.messages', {
+            url: '/messages',
             views: {
                 'menuContent': {
                     templateUrl: 'templates/playlists.html',
-                    controller: 'PlaylistsCtrl'
+                    controller: 'MatchingController'
                 }
             }
         })
 
         .state('app.single', {
-            url: '/playlists/:playlistId',
+            url: '/messages/:playlistId',
             views: {
                 'menuContent': {
                     templateUrl: 'templates/playlist.html',
