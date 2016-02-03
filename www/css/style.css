@@ -277,3 +277,21 @@ ion-item i {
 .login-container .scroll {
     transform: none!important;
 }
+
+.facebook-button-container{
+    padding: 35px 35px 0 35px;
+}
+
+.button-positive {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.button-positive p {
+   font-family: Arial;
+    font-weight: 600;
+    font-size: 13px;
+
+}
