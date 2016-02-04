@@ -14,10 +14,14 @@
           <label>USERNAME</label>
         </div>
 
-        <div class="group">
-          <input type="password" ng-model="user.password" required>
-          <span class="bar-input"></span>
-          <label>PASSWORD</label>
+        <div class="group" style="margin-bottom: 0">
+            <input type="password" ng-model="user.password" required>
+            <span class="bar-input"></span>
+            <label>PASSWORD</label>
+        </div>
+
+        <div class="forgot-password-link">
+            <a href="" ng-click="goToPage('forgot_password')">Forgot password?</a>
         </div>
 
         <div class="button-container">

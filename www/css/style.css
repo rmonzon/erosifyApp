@@ -338,3 +338,14 @@ hr {
     color: #929292;
     font-size: 13px;
 }
+
+.forgot-password-link {
+    text-align: right;
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+
+.forgot-password-link a {
+    color: white;
+    text-decoration: none;
+}

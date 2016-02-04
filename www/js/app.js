@@ -40,6 +40,11 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'ngCordova'])
             templateUrl: 'templates/privacy.html',
             controller: 'PrivacyController'
         })
+        .state('forgot_password', {
+            url: '/forgot_password',
+            templateUrl: 'templates/forgot_password.html',
+            controller: 'ForgotPasswordController'
+        })
 
         .state('app', {
             url: '/app',
