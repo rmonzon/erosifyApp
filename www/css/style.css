@@ -282,5 +282,59 @@ ion-item i {
     position: absolute;
     left: 45px;
     bottom: 10px;
-    color: rgba(0,189,179,1)!important;
+    color: rgba(0, 189, 179, 1) !important;
+}
+
+.facebook-button-container{
+    padding: 35px 35px 0 35px;
+}
+
+.button-positive {
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+}
+
+.button-positive span {
+    font-family: Arial;
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 4px;
+    text-align: center;
+}
+
+.privacy-header {
+    padding: 25px 45px 5px 45px;
+    height: 70px;
+}
+
+.privacy-header img {
+    float: left;
+    margin-left: -10px;
+    margin-right: 5px;
+    position: relative;
+    bottom: 10px;
+}
+
+.privacy-header span {
+    font-size: 23px;
+    color: #929292;
+    margin-top: 10px;
+}
+
+hr {
+    margin-top: 20px;
+    margin-left: 45px;
+    margin-right: 45px;
+    border-bottom: 1px;
+    color: #929292;
+}
+
+.privacy-text {
+    padding: 10px 45px 0 45px;
+}
+
+.privacy-text span {
+    color: #929292;
+    font-size: 13px;
 }
