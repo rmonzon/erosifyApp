@@ -8,3 +8,9 @@ angular.module('controllers').controller('ForgotPasswordController', function ($
     }
 
 });
+
+
+$scope.sendEmail = function () {
+
+};
+
