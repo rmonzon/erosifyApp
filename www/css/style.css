@@ -199,6 +199,10 @@ ion-item i {
     padding-left: 45px;
 }
 
+.item-no-icon-left {
+    padding-left: 5px;
+}
+
 .col-30 {
     -webkit-box-flex: 0;
     -webkit-flex: 0 0 30%;

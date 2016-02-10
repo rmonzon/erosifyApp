@@ -4,9 +4,9 @@
             <img src="img/logo.png" width="50%">
         </div>
         <div class="login-inputs-container">
-            <form class="signup-form">
+            <form class="signup-form" ng-submit="loginWithEmail()">
                 <div class="group" style="margin-bottom: 0">
-                    <input type="text" ng-model="user.username" required>
+                    <input type="text" ng-model="user.email" required>
                     <span class="bar-input"></span>
                     <label class="left-labels">Email</label>
                 </div>
@@ -28,10 +28,10 @@
                 </div>
 
                 <div class="combobox">
-                    <select>
-                        <option>Gender</option>
-                        <option>Male</option>
-                        <option>Female</option>
+                    <select ng-model="user.gender" required>
+                        <option value="">Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
                     </select>
                 </div>
 
@@ -42,24 +42,24 @@
                 <div class="row" style="padding: 0;margin-bottom: 10px">
                     <div class="col-45">
                         <div class="combobox">
-                            <select>
-                                <option>Month</option>
+                            <select ng-model="user.month" required>
+                                <option value="">Month</option>
                                 <option value="{{m.value}}" ng-repeat="m in months">{{m.text}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-25">
                         <div class="combobox">
-                            <select>
-                                <option>Day</option>
+                            <select ng-model="user.day" required>
+                                <option value="">Day</option>
                                 <option value="{{d}}" ng-repeat="d in days">{{d}}</option>
                             </select>
                         </div>
                     </div>
                     <div class="col-30">
                         <div class="combobox">
-                            <select>
-                                <option>Year</option>
+                            <select ng-model="user.year" required>
+                                <option value="">Year</option>
                                 <option value="{{y}}" ng-repeat="y in years">{{y}}</option>
                             </select>
                         </div>
