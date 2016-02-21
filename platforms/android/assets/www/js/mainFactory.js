@@ -4,23 +4,31 @@
 
 
 angular.module('services', []).factory('mainFactory', function($http, $q, $window) {
-    var factory = { initFactory: false, connectionStr: "", url: "" };
+    var factory = { initFactory: false, connectionStr: "", apiUrl: "" };
     factory.initApp = function () {
         // create a promise
         var deferred = $q.defer();
         var promise = deferred.promise;
         if (!factory.initFactory) {
             factory.initFactory = true;
-            //factory.connectionStr = "http://192.168.1.127:5800/api/sql";
-            //factory.url = "http://192.168.1.127:5800/api";
-            factory.connectionStr = "http://intense-dawn-9976.herokuapp.com/api/sql";
-            factory.url = "http://intense-dawn-9976.herokuapp.com/api";
+            //factory.connectionStr = "http://localhost:5001/api/v1";
+            //factory.apiUrl = "http://localhost:5001/api/v1";
+            factory.connectionStr = "http://erosify-server.herokuapp.com/api/v1";
+            factory.apiUrl = "http://erosify-server.herokuapp.com/api/v1";
             deferred.resolve(factory.initFactory);
         }
         else {
             deferred.resolve(factory.initFactory);
         }
         return promise;
+    };
+
+    factory.createAccount = function (req) {
+        return $http.post(factory.connectionStr + "/create_account", req);
+    };
+
+    factory.authenticate = function (req) {
+        return $http.post(factory.connectionStr + "/authentication", req);
     };
 
     factory.getAppVersion = function () {

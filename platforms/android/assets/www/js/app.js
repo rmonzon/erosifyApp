@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'controllers', 'models', 'ngCordova'])
+angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCordova'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -28,24 +28,54 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'ngCordova'])
         .state('login', {
             url: '/login',
             templateUrl: 'templates/login.html',
-            controller: 'LoginController'
+            controller: 'LoginController',
+            resolve: {
+                factoryInitialized: function (mainFactory) {
+                    return mainFactory.initApp();
+                }
+            }
         })
         .state('signup', {
             url: '/signup',
             templateUrl: 'templates/signup.html',
-            controller: 'SignUpController'
+            controller: 'SignUpController',
+            resolve: {
+                factoryInitialized: function (mainFactory) {
+                    return mainFactory.initApp();
+                }
+            }
         })
         .state('privacy', {
             url: '/privacy',
             templateUrl: 'templates/privacy.html',
-            controller: 'PrivacyController'
+            controller: 'PrivacyController',
+            resolve: {
+                factoryInitialized: function (mainFactory) {
+                    return mainFactory.initApp();
+                }
+            }
+        })
+        .state('forgot_password', {
+            url: '/forgot_password',
+            templateUrl: 'templates/forgot_password.html',
+            controller: 'ForgotPasswordController',
+            resolve: {
+                factoryInitialized: function (mainFactory) {
+                    return mainFactory.initApp();
+                }
+            }
         })
 
         .state('app', {
             url: '/app',
             abstract: true,
             templateUrl: 'templates/menu.html',
-            controller: 'AppCtrl'
+            controller: 'AppCtrl',
+            resolve: {
+                factoryInitialized: function (mainFactory) {
+                    return mainFactory.initApp();
+                }
+            }
         })
 
         .state('app.search', {
@@ -65,18 +95,18 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'ngCordova'])
                 }
             }
         })
-        .state('app.playlists', {
-            url: '/playlists',
+        .state('app.messages', {
+            url: '/messages',
             views: {
                 'menuContent': {
                     templateUrl: 'templates/playlists.html',
-                    controller: 'PlaylistsCtrl'
+                    controller: 'MatchingController'
                 }
             }
         })
 
         .state('app.single', {
-            url: '/playlists/:playlistId',
+            url: '/messages/:playlistId',
             views: {
                 'menuContent': {
                     templateUrl: 'templates/playlist.html',

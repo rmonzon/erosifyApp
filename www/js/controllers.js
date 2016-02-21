@@ -11,6 +11,7 @@ angular.module('controllers', []).controller('AppCtrl', function($scope, $ionicM
     $scope.loginData = {};
     $scope.user = User.getUser();
     console.log($scope.user);
+    $scope.profile = {name: "Laura Ramos", age: 23, verified: true, online: true, location: "Miami, FL", languages: "English, Spanish", aboutMe: "Lorem ipsum dolor sit amet, conset cteur adisiping elit. Lorem ipsum dolor...", work_education: "Account Manager lorem ipsum dolor..."};
 
     // Create the login modal that we will use later
     $ionicModal.fromTemplateUrl('templates/login.html', {

@@ -49,7 +49,7 @@ html, body, h2 {
 .button-login {
     width: 100%;
     height: 45px;
-    background: #783643;
+    background: rgba(120, 54, 67, 0.78);
     padding: 15px;
     margin-bottom: 25px;
     text-align: center;
@@ -60,7 +60,7 @@ html, body, h2 {
 .button-signup {
     width: 100%;
     height: 45px;
-    background: #783643;
+    background: rgba(120, 54, 67, 0.78);
     padding: 15px;
     margin-bottom: 5px;
     text-align: center;
@@ -73,7 +73,7 @@ html, body, h2 {
 }
 
 .button-login:active {
-    background: green;
+    background: rgba(88, 178, 167, 0.77);
 }
 
 .button-login i {
@@ -199,6 +199,10 @@ ion-item i {
     padding-left: 45px;
 }
 
+.item-no-icon-left {
+    padding-left: 5px;
+}
+
 .col-30 {
     -webkit-box-flex: 0;
     -webkit-flex: 0 0 30%;
@@ -225,7 +229,7 @@ ion-item i {
     width: 100%;
     height: 35px;
     border-bottom: 1px solid white;
-    margin-bottom: 35px;
+    margin-bottom: 25px;
 }
 
 .combobox:after {
@@ -276,4 +280,76 @@ ion-item i {
 
 .login-container .scroll {
     transform: none!important;
+}
+
+.verified-profile-icon {
+    position: absolute;
+    left: 45px;
+    bottom: 10px;
+    color: rgba(0, 189, 179, 1) !important;
+}
+
+.facebook-button-container{
+    padding: 35px 35px 0 35px;
+}
+
+.button-positive {
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+}
+
+.button-positive span {
+    font-family: Arial;
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 4px;
+    text-align: center;
+}
+
+.privacy-header {
+    padding: 25px 45px 5px 45px;
+    height: 70px;
+}
+
+.privacy-header img {
+    float: left;
+    margin-left: -10px;
+    margin-right: 5px;
+    position: relative;
+    bottom: 10px;
+}
+
+.privacy-header span {
+    font-size: 23px;
+    color: #929292;
+    margin-top: 10px;
+}
+
+hr {
+    margin-top: 20px;
+    margin-left: 45px;
+    margin-right: 45px;
+    border-bottom: 1px;
+    color: #929292;
+}
+
+.privacy-text {
+    padding: 10px 45px 0 45px;
+}
+
+.privacy-text span {
+    color: #929292;
+    font-size: 13px;
+}
+
+.forgot-password-link {
+    text-align: right;
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+
+.forgot-password-link a {
+    color: white;
+    text-decoration: none;
 }

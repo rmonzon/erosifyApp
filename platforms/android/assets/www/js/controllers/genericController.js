@@ -24,7 +24,7 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
             $ionicLoading.show({
                 duration: time === 0 ? 1000000 : time,
                 noBackdrop: true,
-                template: '<p class="item-icon-left">' + message + '</p>'
+                template: '<p class="item-no-icon-left">' + message + '</p>'
             });
         };
 
