@@ -7,6 +7,7 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
 
     this.init = function (_$scope) {
         $scope = _$scope;
+        $scope.posRelative = {};
 
         $scope.goToPage = function (page) {
             $location.path('/' + page);
@@ -40,6 +41,14 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
                 }, function (error) {
                     $scope.showMessage(error, 2000);
                 });
+        };
+
+        $scope.removeAbsPosition = function () {
+            $scope.posRelative = {'position':'relative'};
+        };
+
+        $scope.addAbsPosition = function () {
+            $scope.posRelative = {};
         };
     };
 });

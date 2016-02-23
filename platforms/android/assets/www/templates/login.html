@@ -1,47 +1,47 @@
 <ion-view view-title="Erosify">
   <ion-content class="login-container">
-    <div class="logo-container">
-      <img src="img/logo.png" width="100%">
-    </div>
-    <div class="text-center slogan">
-      <span>"DATE YOUR PERFECT MATCH"</span>
-    </div>
-    <div class="login-inputs-container">
-      <form>
-        <div class="group">
-          <input type="text" ng-model="user.email" required>
-          <span class="bar-input"></span>
-          <label>USERNAME</label>
-        </div>
+      <div class="logo-container">
+          <img src="img/logo.png" width="100%">
+      </div>
+      <div class="text-center slogan">
+          <span>"DATE YOUR PERFECT MATCH"</span>
+      </div>
+      <div class="login-inputs-container">
+          <form>
+              <div class="group">
+                  <input type="text" ng-model="user.email" ng-focus="removeAbsPosition()" ng-blur="addAbsPosition()" required>
+                  <span class="bar-input"></span>
+                  <label>USERNAME</label>
+              </div>
 
-        <div class="group" style="margin-bottom: 0">
-            <input type="password" ng-model="user.password" required>
-            <span class="bar-input"></span>
-            <label>PASSWORD</label>
-        </div>
+              <div class="group" style="margin-bottom: 0">
+                  <input type="password" ng-model="user.password" ng-focus="removeAbsPosition()" ng-blur="addAbsPosition()" required>
+                  <span class="bar-input"></span>
+                  <label>PASSWORD</label>
+              </div>
 
-        <div class="forgot-password-link">
-            <a href="" ng-click="goToPage('forgot_password')">Forgot password?</a>
-        </div>
+              <div class="forgot-password-link">
+                  <a href="" ng-click="goToPage('forgot_password')">Forgot password?</a>
+              </div>
 
-        <div class="button-container">
-          <div class="button-login" ontouchstart="" ng-click="loginWithEmail()">
-            START DATING
-          </div>
-          <div class="button-login facebook-button" ontouchstart="" ng-click="loginWithFacebook()">
-            <i class="icon ion-social-facebook-outline"></i>
-            <span>CONNECT WITH FACEBOOK</span>
-          </div>
-            <div class="terms">
-                <span>By continuing, you agree to our <br />
-                    <b><a href="" ng-click="goToPage('terms')">Terms of Service</a></b> and <b><a href="" ng-click="goToPage('privacy')">Privacy Policy</a></b>
-                </span>
-            </div>
-          <div class="bottom-link" style="margin-left: -115px">
-            <span>DON'T HAVE AN ACCOUNT? <a href="" ng-click="goToPage('signup')">SIGN UP</a></span>
-          </div>
-        </div>
-      </form>
-    </div>
+              <div class="button-container">
+                  <div class="button-login" ontouchstart="" ng-click="loginWithEmail()">
+                      START DATING
+                  </div>
+                  <div class="button-login facebook-button" ontouchstart="" ng-click="loginWithFacebook()">
+                      <i class="icon ion-social-facebook-outline"></i>
+                      <span>CONNECT WITH FACEBOOK</span>
+                  </div>
+                    <div class="terms">
+                        <span>By continuing, you agree to our <br />
+                            <b><a href="" ng-click="goToPage('terms')">Terms of Service</a></b> and <b><a href="" ng-click="goToPage('privacy')">Privacy Policy</a></b>
+                        </span>
+                    </div>
+                  <div class="bottom-link" style="margin-left: -130px" ng-style="posRelative">
+                    <span>DON'T HAVE AN ACCOUNT? <a href="" ng-click="goToPage('signup')">SIGN UP</a></span>
+                  </div>
+              </div>
+          </form>
+      </div>
   </ion-content>
 </ion-view>

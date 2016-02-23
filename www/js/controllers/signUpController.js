@@ -23,8 +23,43 @@ angular.module('controllers').controller('SignUpController', function ($scope, G
         ];
         $scope.years = [];
         $scope.user = {};
+
+        //$scope.datepickerObject = {
+        //    titleLabel: 'Select your birthday',  //Optional
+        //    todayLabel: 'Today',  //Optional
+        //    closeLabel: 'Close',  //Optional
+        //    setLabel: 'Set',  //Optional
+        //    setButtonType : 'button-assertive',  //Optional
+        //    todayButtonType : 'button-assertive',  //Optional
+        //    closeButtonType : 'button-assertive',  //Optional
+        //    inputDate: new Date(),  //Optional
+        //    mondayFirst: true,  //Optional
+        //    //  disabledDates: disabledDates, //Optional
+        //    //weekDaysList: weekDaysList, //Optional
+        //    //monthList: monthList, //Optional
+        //    templateType: 'popup', //Optional
+        //    showTodayButton: 'true', //Optional
+        //    modalHeaderColor: 'bar-positive', //Optional
+        //    modalFooterColor: 'bar-positive', //Optional
+        //    from: new Date(1935, 1, 1), //Optional
+        //    to: new Date(1998, 1, 1),  //Optional
+        //    callback: function (val) {  //Mandatory
+        //        $scope.datePickerCallback(val);
+        //    },
+        //    dateFormat: 'MM-dd-yyyy', //Optional
+        //    closeOnSelect: false //Optional
+        //};
+
         initComboboxes();
     }
+
+    $scope.datePickerCallback = function (val) {
+        if (typeof(val) === 'undefined') {
+            console.log('No date selected');
+        } else {
+            console.log('Selected date is : ', val)
+        }
+    };
 
     function initComboboxes() {
         for (var i = 1; i <= 31; i++) {

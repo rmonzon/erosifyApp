@@ -8,52 +8,54 @@
 </ion-header-bar>
 <ion-content class="match-container">
     <div class="photo-section-container">
-
         <div class="top-name-container">
-            <a class="button button-icon icon ion-ios-star-outline"></a>
-            <span style="font-size: 28px;position: relative;top: 16px;margin: 10px 10px 0 0;">{{profile.name}}</span>
-            <span style="font-size: 28px;position: relative;top: 16px;"><b>{{profile.age}}</b></span>
-            <!--<div ng-show="profile.verified" class="verified-icon"></div>-->
-            <!--<div ng-show="profile.online" class="online-icon"></div>-->
+            <div class="col-20">
+                <a class="button button-icon icon ion-ios-star-outline" style="float: right"></a>
+            </div>
+            <div class="col-60">
+                <span style="font-size: 28px;position: relative;top: 16px;margin-right: 5px;">{{profile.name}}</span>
+                <span style="font-size: 28px;position: relative;top: 16px;"><b>{{profile.age}}</b></span>
+            </div>
+            <div class="col-20" style="display: flex">
+                <div ng-show="profile.verified" class="verified-icon"></div>
+                <div ng-show="profile.online" class="online-icon"></div>
+            </div>
         </div>
 
+        <div class="user-pic-container">
+            <div class="side-columns-match">
+                <a class="button button-icon" style="padding: 0; position: absolute; bottom: 50%; margin-bottom: 20px">
+                    <div class="btn-undo-action"></div>
+                </a>
+            </div>
 
+            <div class="circular-pic-container"></div>
 
+            <div class="side-columns-match">
+                <a class="button button-icon" style="padding: 0; position: absolute; bottom: 50%; margin-bottom: 20px;right: 10px;">
+                    <div class="btn-skip-profile"></div>
+                </a>
+            </div>
+        </div>
 
+        <div class="match-bottom-section">
+            <div class="side-columns-match"></div>
 
+            <div class="btn-likedis-container">
+                <div style="width: 50%; height: 100%">
+                    <div class="button-dislike" ontouchstart="" ng-click="loginWithFacebook()">
+                        <i class="icon ion-android-close"></i>
+                    </div>
+                </div>
+                <div style="width: 50%; height: 100%">
+                    <div class="button-like" ontouchstart="" ng-click="loginWithFacebook()">
+                        <i class="icon ion-android-favorite-outline"></i>
+                    </div>
+                </div>
+            </div>
 
-
-
-
-
-        <!--<div class="row">-->
-            <!--<div class="col-15">-->
-                <!--<div class="btn-undo-action"></div>-->
-            <!--</div>-->
-            <!--<div class="col-70">-->
-                <!--<div class="circular-pic-container">-->
-                    <!--<div class="circular-profile-pic">-->
-
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="col-15">-->
-                <!--<div class="btn-skip-profile"></div>-->
-            <!--</div>-->
-        <!--</div>-->
-
-        <!--<div class="row text-center">-->
-            <!--<div class="col-50">-->
-                <!--<div class="button-dislike" ontouchstart="" ng-click="loginWithFacebook()">-->
-                    <!--<i class="icon ion-android-close"></i>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<div class="col-50">-->
-                <!--<div class="button-like" ontouchstart="" ng-click="loginWithFacebook()">-->
-                    <!--<i class="icon ion-android-favorite-outline"></i>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
+            <div class="side-columns-match"></div>
+        </div>
     </div>
 
     <div class="info-section-container">

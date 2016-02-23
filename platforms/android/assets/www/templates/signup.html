@@ -6,7 +6,7 @@
         <div class="login-inputs-container">
             <form class="signup-form" ng-submit="loginWithEmail()">
                 <div class="group" style="margin-bottom: 0">
-                    <input type="text" ng-model="user.email" required>
+                    <input type="text" ng-model="user.email" ng-focus="removeAbsPosition()" ng-blur="addAbsPosition()" required>
                     <span class="bar-input"></span>
                     <label class="left-labels">Email</label>
                 </div>
@@ -16,24 +16,32 @@
                 </div>
 
                 <div class="group">
-                    <input type="password" ng-model="user.password" required>
+                    <input type="password" ng-model="user.password" ng-focus="removeAbsPosition()" ng-blur="addAbsPosition()" required>
                     <span class="bar-input"></span>
                     <label class="left-labels">Password</label>
                 </div>
 
                 <div class="group">
-                    <input type="text" ng-model="user.name" required>
+                    <input type="text" ng-model="user.name" ng-focus="removeAbsPosition()" ng-blur="addAbsPosition()" required>
                     <span class="bar-input"></span>
                     <label class="left-labels">Name</label>
                 </div>
 
                 <div class="combobox">
-                    <select ng-model="user.gender" required>
+                    <select ng-model="user.gender" ng-focus="removeAbsPosition()" ng-blur="addAbsPosition()" required>
                         <option value="">Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </select>
                 </div>
+
+                <!--<ionic-datepicker input-obj="datepickerObject">-->
+                    <!--<div class="group">-->
+                        <!--<input type="text" ng-model="user.birthday" ng-focus="removeAbsPosition()" ng-blur="addAbsPosition()" required>-->
+                        <!--<span class="bar-input"></span>-->
+                        <!--<label class="left-labels">Birthday</label>-->
+                    <!--</div>-->
+                <!--</ionic-datepicker>-->
 
                 <div class="text-center">
                     <span>Birthday</span>
@@ -75,7 +83,7 @@
                             <b><a href="" ng-click="goToPage('terms')">Terms of Service</a></b> and <b><a href="" ng-click="goToPage('privacy')">Privacy Policy</a></b>
                         </span>
                     </div>
-                    <div class="bottom-link">
+                    <div class="bottom-link" ng-style="posRelative">
                         <span>ALREADY A MEMBER? <a href="" ng-click="goToPage('login')">SIGN IN</a></span>
                     </div>
                 </div>
