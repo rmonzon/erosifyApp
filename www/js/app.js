@@ -78,6 +78,16 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
 
+        .state('app.matches', {
+            url: '/matches',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/mymatches.html',
+                    controller: 'MyMatchesController'
+                }
+            }
+        })
+
         .state('app.search', {
             url: '/search',
             views: {

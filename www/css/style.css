@@ -740,3 +740,12 @@ ion-header-bar .ion-android-search:before {
 .pointer_events_none {
     color: black!important;
 }
+
+.title-views {
+    position: absolute;
+    left: 50%;
+    margin-left: -55px;
+    font-size: 20px;
+    top: 12px;
+    font-weight: bold;
+}
