@@ -88,11 +88,12 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
 
-        .state('app.search', {
-            url: '/search',
+        .state('app.visitors', {
+            url: '/visitors',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/search.html'
+                    templateUrl: 'templates/visitors.html',
+                    controller: 'VisitorsController'
                 }
             }
         })

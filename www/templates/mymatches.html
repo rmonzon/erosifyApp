@@ -8,7 +8,7 @@
 </ion-header-bar>
 <ion-content class="gradient-bg">
     <div style="margin: 5% 0">
-        <div class="row matches-row" ontouchstart="" ng-repeat="row in matches" ng-click="goToPage('app/matches/:' + m.id)">
+        <div class="row matches-row" ontouchstart="" ng-repeat="row in matches">
             <div class="col-33 text-center" ng-repeat="m in row">
                 <a class="button button-icon" style="width: 100%" ng-click="goToProfile(m.name)">
                     <img class="prof-pic-match" src="{{m.pic}}">
@@ -25,26 +25,3 @@
         </div>
     </div>
 </ion-content>
-
-
-
-<!--<div class="row messages-row" ontouchstart="" ng-repeat="m in messages" ng-click="goToPage('app/messages/:' + m.id)">-->
-    <!--<div class="col-25">-->
-        <!--<img src="img/avatar.png">-->
-        <!--<div>-->
-            <!--<img src="img/verified-circle.svg" ng-show="m.verified" class="verified-profile-icon">-->
-        <!--</div>-->
-    <!--</div>-->
-    <!--<div class="col">-->
-        <!--<div class="row">-->
-            <!--<span class="msg-user">{{m.user}}</span>-->
-            <!--<div class="status-icon-sm" ng-class="m.online ? 'online' : 'offline'"></div>-->
-        <!--</div>-->
-        <!--<span class="msg-lastmsg" ng-class="m.unreadMsg ? 'unread-msg' : ''">{{m.lastMsg}}</span>-->
-    <!--</div>-->
-    <!--<div class="text-right">-->
-        <!--<i class="icon" ng-class="m.fav ? 'favorite-msg ion-android-star' : 'no-favorite-msg ion-android-star-outline'"></i>-->
-        <!--<br />-->
-        <!--<span class="msg-date">{{m.date}}</span>-->
-    <!--</div>-->
-<!--</div>-->
