@@ -101,7 +101,8 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             url: '/browse',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/browse.html'
+                    templateUrl: 'templates/browse.html',
+                    controller: 'MatchingController'
                 }
             }
         })

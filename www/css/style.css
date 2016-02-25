@@ -493,6 +493,11 @@ hr {
     text-align: center;
 }
 
+.button-like:active {
+    background: green;
+    color: gray;
+}
+
 .button-dislike {
     width: 120px;
     height: 46px;
