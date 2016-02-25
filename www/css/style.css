@@ -754,3 +754,38 @@ ion-header-bar .ion-android-search:before {
     top: 12px;
     font-weight: bold;
 }
+
+.match-user {
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: bold;
+    color: #382C2C;
+}
+
+.match-date {
+    font-size: 12px;
+    color: #382C2C;
+}
+
+.status-icon-md {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    margin: 3px 0 0 5px ;
+}
+
+.matches-row {
+    margin-bottom: 5%;
+}
+
+.verified-profile-icon-match {
+    width: 24px!important;
+    position: absolute;
+    right: 25px;
+    bottom: 15px;
+}
+
+.prof-pic-match {
+    width: 70%;
+    border-radius: 50%;
+}

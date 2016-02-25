@@ -8,7 +8,7 @@
     <a class="button button-icon icon ion-android-search"></a>
 </ion-header-bar>
 <ion-content class="gradient-bg">
-    <div class="row messages-row" ontouchstart="" ng-repeat="m in messages" ng-click="goToPage('app/messages/:' + m.id)">
+    <div class="row messages-row" ontouchstart="" ng-repeat="m in messages" ng-click="goToPage('app/messages/' + m.user)">
         <div class="col-25">
             <img src="img/avatar.png">
             <div>

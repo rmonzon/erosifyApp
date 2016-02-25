@@ -97,11 +97,11 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
 
-        .state('app.browse', {
-            url: '/browse',
+        .state('app.matching', {
+            url: '/matching',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/browse.html',
+                    templateUrl: 'templates/matching.html',
                     controller: 'MatchingController'
                 }
             }
@@ -110,18 +110,18 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             url: '/messages',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/playlists.html',
-                    controller: 'MatchingController'
+                    templateUrl: 'templates/messages.html',
+                    controller: 'MessagesController'
                 }
             }
         })
 
         .state('app.single', {
-            url: '/messages/:playlistId',
+            url: '/messages/:userId',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/playlist.html',
-                    controller: 'PlaylistCtrl'
+                    templateUrl: 'templates/chat_window.html',
+                    controller: 'ChatController'
                 }
             }
         });

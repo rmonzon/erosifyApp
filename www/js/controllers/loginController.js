@@ -21,7 +21,7 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
         $scope.showMessageWithIcon("Verifying credentials...");
         var credentials = { "email": $scope.user.email, "password": $scope.user.password };
         $scope.hideMessage();
-        $scope.goToPage('app/browse');
+        $scope.goToPage('app/matching');
         //mainFactory.authenticate(credentials).then(function successCallBack(response) {
         //    $scope.hideMessage();
         //    if (response.data.success) {
