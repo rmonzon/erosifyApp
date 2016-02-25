@@ -808,3 +808,17 @@ ion-header-bar .ion-android-search:before {
     position: relative;
     bottom: 10px;
 }
+
+.footer-text{
+    color: black;
+    font-size: 20px;
+}
+
+.bar-footer {
+    background: rgba(195, 140, 155, 0.89);
+}
+
+.footer-option {
+    font-weight: 500;
+    font-size: 20px;
+}
