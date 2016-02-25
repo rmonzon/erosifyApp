@@ -781,11 +781,26 @@ ion-header-bar .ion-android-search:before {
 .verified-profile-icon-match {
     width: 24px!important;
     position: absolute;
-    right: 25px;
-    bottom: 15px;
+    right: 20px;
 }
 
 .prof-pic-match {
     width: 70%;
     border-radius: 50%;
+}
+
+.new-visitor {
+    position: absolute;
+    background: #FD4741;
+    border-radius:13px;
+    color: whitesmoke;
+    font-size:10px;
+    width: 30px;
+    height: 17px;
+    text-align: center;
+    border: none;
+    font-family: LeituraSansBold;
+    margin-top: -25px;
+
+
 }
