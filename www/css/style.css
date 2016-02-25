@@ -781,7 +781,7 @@ ion-header-bar .ion-android-search:before {
 .verified-profile-icon-match {
     width: 24px!important;
     position: absolute;
-    right: 20px;
+    right: 25px;
 }
 
 .prof-pic-match {
@@ -790,19 +790,23 @@ ion-header-bar .ion-android-search:before {
 }
 
 .new-visitor {
-    position: absolute;
     background: #FD4741;
-    border-radius:13px;
+    border-radius: 13px;
     color: whitesmoke;
-    font-size:10px;
+    font-size: 10px;
     width: 30px;
     height: 17px;
     text-align: center;
-    border: none;
-    font-family: LeituraSansBold;
-    margin-top: -25px;
+    font-family: LeituraSansBold;
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    margin-left: -15px;
+}
 
-
+.new-visitor span {
+    position: relative;
+    bottom: 10px;
 }
 
 .footer-text{
