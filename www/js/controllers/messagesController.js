@@ -29,6 +29,13 @@ angular.module('controllers').controller('MessagesController', function ($scope,
 
     init();
 })
-.controller('ChatController', function($scope, $stateParams) {
-    $scope.chatTitle = "Chat with " + $stateParams.userId;
+.controller('ChatController', function($scope, $stateParams, GenericController) {
+
+    function init() {
+        $scope.chatTitle = $stateParams.userId;
+        $scope.userInfo = { pic: "img/user-pic.jpg", online: true };
+        GenericController.init($scope);
+    }
+
+    init();
 });

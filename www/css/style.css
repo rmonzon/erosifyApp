@@ -40,14 +40,12 @@ p {
 }
 
 .gradient-bg {
-    background: rgba(0,189,179,1);
-    background: -moz-linear-gradient(top, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,189,179,1)), color-stop(77%, rgba(255,98,129,1)), color-stop(100%, rgba(255,98,129,1)));
-    background: -webkit-linear-gradient(top, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    background: -o-linear-gradient(top, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    background: -ms-linear-gradient(top, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    background: linear-gradient(to bottom, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bdb3', endColorstr='#ff6281', GradientType=0 );
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#00bdb3+0,aca4a6+20,ff6281+80 */
+    background: #00bdb3; /* Old browsers */
+    background: -moz-linear-gradient(top,  #00bdb3 0%, #aca4a6 20%, #ff6281 80%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #00bdb3 0%,#aca4a6 20%,#ff6281 80%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #00bdb3 0%,#aca4a6 20%,#ff6281 80%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bdb3', endColorstr='#ff6281',GradientType=0 ); /* IE6-9 */
 }
 
 .slogan span {
@@ -809,9 +807,10 @@ ion-header-bar .ion-android-search:before {
     bottom: 10px;
 }
 
-.footer-text{
+.footer-text {
     color: black;
-    font-size: 20px;
+    font-size: 18px;
+    padding: 8px;
 }
 
 .bar-footer {
@@ -821,4 +820,107 @@ ion-header-bar .ion-android-search:before {
 .footer-option {
     font-weight: 500;
     font-size: 20px;
+}
+
+.div-divider {
+    height: 25px;
+    border: 1px solid white;
+    margin-top: 5px;
+}
+
+.ion-chevron-left {
+    color: white;
+}
+
+.ion-android-send {
+    width: 45px;
+    min-height: 45px;
+    margin-top: 1px;
+    padding-left: 11px;
+    /* border: 1px solid white; */
+    border-radius: 50%;
+    color: white!important;
+    background: #00bdb3;
+    position: fixed;
+    right: 10px;
+}
+
+.chat-inputbox-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    padding: 6px 6px 6px 10px;
+    display: flex;
+}
+
+.user-pic-sm {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid white;
+}
+
+.chat-title-top {
+    margin-left: 8px;
+    font-size: 18px;
+    margin-top: 3px;
+    font-weight: bold;
+}
+
+.chat-title-top .row {
+    padding: 0 0 0 2px;
+    font-size: 10px;
+    position: relative;
+    bottom: 3px;
+    color: #AFABAB;
+}
+
+.chat-inputbox {
+    width: 100%;
+    margin-top: 5px!important;
+    height: 37px!important;
+    border-radius: 7px 0 7px 7px;
+    padding: 7px 15px 7px 45px!important;
+    font-family: LeituraSansGrot;
+    font-weight: bold;
+}
+
+.test {
+    position: relative;
+    width: 82%;
+    height: 45px;
+    padding: 0px;
+    background: #FFFFFF;
+    -webkit-border-radius: 7px 0 7px 7px;
+    -moz-border-radius: 7px 0 7px 7px;
+    border-radius: 7px 0 7px 7px;
+}
+
+.test:after
+{
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 0 0 18px 16px;
+    border-color: transparent #FFFFFF;
+    display: block;
+    width: 0;
+    z-index: 1;
+    right: -15px;
+    top: 0;
+}
+
+.chat-inputbox-container .ion-android-happy {
+    color: gray;
+    position: absolute;
+    z-index: 2;
+    width: 45px;
+    height: 40px;
+    padding: 0;
+    margin-top: 1px;
+}
+
+.top-name-container .button-icon .icon:before, .button-icon.icon:before {
+    font-size: 28px;
 }

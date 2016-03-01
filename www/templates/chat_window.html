@@ -1,11 +1,23 @@
 <ion-header-bar align-title="left">
-    <div class="buttons">
-        <button class="button button-icon button-clear ion-chevron-left"></button>
-    </div>
-    <div class="title-views">
+    <a class="button button-icon icon ion-chevron-left" ng-click="goToPage('app/messages')"></a>
+    <div class="chat-title-top">
         <span>{{chatTitle}}</span>
+        <div class="row">
+            <span>{{userInfo.online ? "Online now" : "Offline"}}</span>
+            <div class="status-icon-sm" ng-class="userInfo.online ? 'online' : 'offline'"></div>
+        </div>
     </div>
+    <a class="button button-icon" ng-click="goToPage('app/messages')" style="position: absolute;right: 0;line-height: 20px;">
+        <img ng-src="{{userInfo.pic}}" class="user-pic-sm">
+    </a>
 </ion-header-bar>
 <ion-content class="gradient-bg">
 
+    <div class="chat-inputbox-container">
+        <a class="button button-icon icon ion-android-happy"></a>
+        <div class="test">
+            <input type="text" class="chat-inputbox" placeholder="Type a message" />
+        </div>
+        <a class="button button-icon icon ion-android-send"></a>
+    </div>
 </ion-content>
