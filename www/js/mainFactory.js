@@ -3,7 +3,7 @@
  */
 
 
-angular.module('services', []).factory('mainFactory', function($http, $q, $window) {
+angular.module('services', []).factory('mainFactory', function($http, $q, $window, socketFactory) {
     var factory = { initFactory: false, connectionStr: "", apiUrl: "" };
     factory.initApp = function () {
         // create a promise
@@ -75,4 +75,8 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
     };
 
     return factory;
+}).factory('socket', function(socketFactory) {
+    //var myIoSocket = io.connect('http://chat.socket.io');
+    var myIoSocket = io.connect('http://10.0.0.9:3000');
+    return socketFactory({ ioSocket: myIoSocket });
 });

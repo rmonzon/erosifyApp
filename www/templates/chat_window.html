@@ -11,13 +11,26 @@
         <img ng-src="{{userInfo.pic}}" class="user-pic-sm">
     </a>
 </ion-header-bar>
-<ion-content class="gradient-bg">
+<ion-content class="gradient-bg" has-bouncing="true">
+
+    <div ng-show="chat.connected">
+        <div class="log pad2">"Welcome to your chat with " {{chatTitle}}</div>
+        <div class="log"></div>
+    </div>
+
+    <div>
+        <ul>
+            <li ng-class="message.style ? 'message' : 'log'" ng-repeat="message in messages">
+                <span ng-style="{'color': message.color}">{{message.username}} : {{message.content}}</span>
+            </li>
+        </ul>
+    </div>
 
     <div class="chat-inputbox-container">
         <a class="button button-icon icon ion-android-happy"></a>
         <div class="test">
-            <input type="text" class="chat-inputbox" placeholder="Type a message" />
+            <input type="text" class="chat-inputbox" autocomplete="off" placeholder="Type a message" ng-change="updateTyping()" ng-enter="sendMessage()" ng-model="chat.message" />
         </div>
-        <a class="button button-icon icon ion-android-send"></a>
+        <a class="button button-icon icon ion-android-send" ng-click="sendMessage()"></a>
     </div>
 </ion-content>
