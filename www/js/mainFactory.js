@@ -3,7 +3,7 @@
  */
 
 
-angular.module('services', []).factory('mainFactory', function($http, $q, $window, socketFactory) {
+angular.module('services', []).factory('mainFactory', function($http, $q, $window) {
     var factory = { initFactory: false, connectionStr: "", apiUrl: "" };
     factory.initApp = function () {
         // create a promise

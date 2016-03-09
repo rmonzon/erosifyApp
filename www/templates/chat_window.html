@@ -11,21 +11,16 @@
         <img ng-src="{{userInfo.pic}}" class="user-pic-sm">
     </a>
 </ion-header-bar>
-<ion-content class="gradient-bg" has-bouncing="true">
-
-    <div ng-show="chat.connected">
-        <div class="log pad2">"Welcome to your chat with " {{chatTitle}}</div>
-        <div class="log"></div>
+<ion-content has-bouncing="true" class="gradient-bg" delegate-handle="userMessageScroll" style="bottom: 60px">
+    <div ng-repeat="message in messages" ng-class="{other: message.username == userInfo.username}" class="messages">
+        <img class="profile-pic-chat" ng-src="{{userInfo.pic}}" ng-show="message.username != userInfo.username">
+        <div ng-class="message.username != userInfo.username ? 'left-msg' : 'right-msg'" class="message">
+            <span class="msg">{{ message.content }}</span>
+        </div>
     </div>
+</ion-content>
 
-    <div>
-        <ul>
-            <li ng-class="message.style ? 'message' : 'log'" ng-repeat="message in messages">
-                <span ng-style="{'color': message.color}">{{message.username}} : {{message.content}}</span>
-            </li>
-        </ul>
-    </div>
-
+<ion-footer-bar class="footer-chat" keyboard-attach>
     <div class="chat-inputbox-container">
         <a class="button button-icon icon ion-android-happy"></a>
         <div class="test">
@@ -33,4 +28,4 @@
         </div>
         <a class="button button-icon icon ion-android-send" ng-click="sendMessage()"></a>
     </div>
-</ion-content>
+</ion-footer-bar>

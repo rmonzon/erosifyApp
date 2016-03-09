@@ -29,17 +29,20 @@ angular.module('controllers').controller('MessagesController', function ($scope,
 
     init();
 })
-.controller('ChatController', function($scope, $stateParams, $ionicScrollDelegate, $sanitize, $timeout, GenericController, socket) {
+.controller('ChatController', function($scope, $stateParams, $ionicScrollDelegate, $sanitize, $timeout, GenericController, socket, User) {
 
     function init() {
         $scope.chatTitle = $stateParams.userId;
         $scope.userInfo = { username: $stateParams.userId, pic: "img/user-pic.jpg", online: true };
+        $scope.user = User.getUser();
         $scope.chat = { connected: false };
         $scope.messages = [];
 
         $scope.typing = false;
         $scope.lastTypingTime = null;
         $scope.TYPING_TIMER_LENGTH = 400;
+
+        //var isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
         //Add colors
         $scope.COLORS = [
@@ -53,6 +56,7 @@ angular.module('controllers').controller('MessagesController', function ($scope,
     socket.on('connect',function() {
         //Add user called nickname
         $scope.chat.connected = true;
+        //socket.emit('add user', $scope.user.userID);
         socket.emit('add user', $stateParams.userId);
 
         socket.on('new message', function (data) {
@@ -142,11 +146,12 @@ angular.module('controllers').controller('MessagesController', function ($scope,
             content: $sanitize(message),
             style: style_type,
             username: username,
-            color: color
+            color: color,
+            date: new Date()
         });
 
         // Scroll to bottom to read the latest
-        $ionicScrollDelegate.scrollBottom();
+        $ionicScrollDelegate.scrollBottom(true);
     };
 
     $scope.updateTyping = function () {
@@ -161,4 +166,11 @@ angular.module('controllers').controller('MessagesController', function ($scope,
     };
 
     init();
-});
+}).filter('nl2br', ['$filter',
+    function($filter) {
+        return function(data) {
+            if (!data) return data;
+            return data.replace(/\n\r?/g, '<br />');
+        };
+    }
+]);
