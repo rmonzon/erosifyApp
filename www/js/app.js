@@ -77,7 +77,24 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
                 }
             }
         })
-
+        .state('app.myprofile', {
+            url: '/myprofile',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/my_profile.html',
+                    controller: 'MyProfileController'
+                }
+            }
+        })
+        .state('app.matching', {
+            url: '/matching',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/matching.html',
+                    controller: 'MatchingController'
+                }
+            }
+        })
         .state('app.matches', {
             url: '/matches',
             views: {
@@ -87,23 +104,12 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
                 }
             }
         })
-
         .state('app.visitors', {
             url: '/visitors',
             views: {
                 'menuContent': {
                     templateUrl: 'templates/visitors.html',
                     controller: 'VisitorsController'
-                }
-            }
-        })
-
-        .state('app.matching', {
-            url: '/matching',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/matching.html',
-                    controller: 'MatchingController'
                 }
             }
         })

@@ -70,7 +70,7 @@ angular.module('controllers').controller('SignUpController', function ($scope, G
         }
     }
 
-    $scope.loginWithEmail = function() {
+    $scope.signUp = function() {
         if (!$scope.user.email) {
             $scope.showMessage("Email cannot be empty!", 2500);
             return;
@@ -98,15 +98,29 @@ angular.module('controllers').controller('SignUpController', function ($scope, G
             "name": $scope.user.name,
             "lastname": "Rivero",
             "dob": $scope.user.month + "-" + $scope.user.day + "-" + $scope.user.year,
-            "gender": $scope.user.gender
+            "gender": $scope.user.gender,
+            "pictures": ["profile.png"],
+            "age": calculateAge()
         };
         $scope.showMessageWithIcon("Creating account...");
-        mainFactory.createAccount(userObj).then(function successCallBack(response) {
-            $scope.hideMessage();
-            console.log(response);
-            $scope.goToPage('app/browse');
-        }, errorCallBack);
+        mainFactory.createAccount(userObj).then(successCallBack, errorCallBack);
     };
+
+    function calculateAge() {
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //January is 0!
+        var yyyy = today.getFullYear();
+        var diffYears = yyyy - parseInt($scope.user.year);
+        var a = mm * 30 + dd, b = parseInt($scope.user.month) * 30 + parseInt($scope.user.day);
+        return a < b ? diffYears - 1 : diffYears;
+    }
+
+    function successCallBack(response) {
+        $scope.hideMessage();
+        console.log(response);
+        $scope.goToPage('app/matching');
+    }
 
     function errorCallBack(response) {
         $scope.hideMessage();

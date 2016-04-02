@@ -75,4 +75,8 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
     };
 
     return factory;
+}).factory('socket', function(socketFactory) {
+    //var myIoSocket = io.connect('http://10.0.0.9:3000');
+    var myIoSocket = io.connect('http://192.168.1.3:3000');
+    return socketFactory({ ioSocket: myIoSocket });
 });

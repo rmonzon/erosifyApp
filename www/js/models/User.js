@@ -19,8 +19,8 @@ angular.module('models', []).service('User', function () {
         window.localStorage.starter_facebook_user = JSON.stringify(user_data);
     };
 
-    var getUser = function(){
-        return JSON.parse(window.localStorage.starter_facebook_user || '{}');
+    var getUser = function() {
+        return JSON.parse(window.localStorage.starter_facebook_user || window.localStorage.userLogin || '{}');
     };
 
     var updateAttr = function (key, value) {

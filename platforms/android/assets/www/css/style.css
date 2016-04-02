@@ -40,14 +40,12 @@ p {
 }
 
 .gradient-bg {
-    background: rgba(0,189,179,1);
-    background: -moz-linear-gradient(top, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,189,179,1)), color-stop(77%, rgba(255,98,129,1)), color-stop(100%, rgba(255,98,129,1)));
-    background: -webkit-linear-gradient(top, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    background: -o-linear-gradient(top, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    background: -ms-linear-gradient(top, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    background: linear-gradient(to bottom, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bdb3', endColorstr='#ff6281', GradientType=0 );
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#00bdb3+0,aca4a6+20,ff6281+80 */
+    background: #00bdb3; /* Old browsers */
+    background: -moz-linear-gradient(top,  #00bdb3 0%, #aca4a6 20%, #ff6281 80%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #00bdb3 0%,#aca4a6 20%,#ff6281 80%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #00bdb3 0%,#aca4a6 20%,#ff6281 80%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bdb3', endColorstr='#ff6281',GradientType=0 ); /* IE6-9 */
 }
 
 .slogan span {
@@ -493,6 +491,11 @@ hr {
     text-align: center;
 }
 
+.button-like:active {
+    background: green;
+    color: gray;
+}
+
 .button-dislike {
     width: 120px;
     height: 46px;
@@ -734,9 +737,336 @@ ion-header-bar .ion-android-search:before {
 
 .top-name-container .button-icon .icon:before, .button-icon.icon:before {
     font-size: 25px;
-    margin-top: 1px!important;
 }
 
 .pointer_events_none {
     color: black!important;
+}
+
+.title-views {
+    position: absolute;
+    left: 50%;
+    margin-left: -55px;
+    font-size: 20px;
+    top: 12px;
+    font-weight: bold;
+}
+
+.match-user {
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: bold;
+    color: #382C2C;
+}
+
+.match-date {
+    font-size: 12px;
+    color: #382C2C;
+}
+
+.status-icon-md {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    margin: 3px 0 0 5px ;
+}
+
+.matches-row {
+    margin-bottom: 5%;
+}
+
+.verified-profile-icon-match {
+    width: 24px!important;
+    position: absolute;
+    right: 25px;
+}
+
+.prof-pic-match {
+    width: 70%;
+    border-radius: 50%;
+}
+
+.new-visitor {
+    background: #FD4741;
+    border-radius: 13px;
+    color: whitesmoke;
+    font-size: 10px;
+    width: 30px;
+    height: 17px;
+    text-align: center;
+    font-family: LeituraSansBold;
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    margin-left: -15px;
+}
+
+.new-visitor span {
+    position: relative;
+    bottom: 10px;
+}
+
+.footer-text {
+    color: black;
+    font-size: 18px;
+    padding: 8px;
+}
+
+.bar-footer {
+    background: rgba(195, 140, 155, 0.89);
+}
+
+.footer-option {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.div-divider {
+    height: 25px;
+    border: 1px solid white;
+    margin-top: 5px;
+}
+
+.ion-chevron-left {
+    color: white;
+}
+
+.ion-android-send {
+    width: 45px;
+    min-height: 45px!important;
+    margin-top: 1px;
+    padding-left: 11px;
+    /* border: 1px solid white; */
+    border-radius: 50%;
+    color: white!important;
+    background: #00bdb3;
+    position: fixed;
+    right: 10px;
+}
+
+.chat-inputbox-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    padding: 6px;
+    display: flex;
+}
+
+.user-pic-sm {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid white;
+}
+
+.chat-title-top {
+    margin-left: 8px;
+    font-size: 18px;
+    margin-top: 3px;
+    font-weight: bold;
+}
+
+.chat-title-top .row {
+    padding: 0 0 0 2px;
+    font-size: 10px;
+    position: relative;
+    bottom: 3px;
+    color: #AFABAB;
+}
+
+.chat-inputbox {
+    width: 100%;
+    margin-top: 5px!important;
+    height: 37px!important;
+    border-radius: 7px 0 7px 7px;
+    padding: 7px 15px 7px 45px!important;
+    font-family: LeituraSansGrot;
+    font-weight: bold;
+}
+
+.test {
+    position: relative;
+    width: 82%;
+    height: 45px;
+    padding: 0px;
+    background: #FFFFFF;
+    -webkit-border-radius: 7px 0 7px 7px;
+    -moz-border-radius: 7px 0 7px 7px;
+    border-radius: 7px 0 7px 7px;
+}
+
+.test:after
+{
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 0 0 18px 16px;
+    border-color: transparent #FFFFFF;
+    display: block;
+    width: 0;
+    z-index: 1;
+    right: -15px;
+    top: 0;
+}
+
+.chat-inputbox-container .ion-android-happy {
+    color: gray;
+    position: absolute;
+    z-index: 2;
+    width: 45px;
+    height: 40px;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.top-name-container .button-icon .icon:before, .button-icon.icon:before {
+    font-size: 28px;
+}
+
+.chat-bubble-left {
+    max-width: 75%;
+    text-align: left;
+    background: lightgray;
+    color: black;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.chat-bubble-left::before {
+    width: 0;
+    height: 0;
+    border-top: 20px solid red;
+    border-left: 20px solid transparent;
+}
+
+.chat-bubble-right {
+    max-width: 80%;
+    text-align: right;
+    background: #1889B6;
+    margin-left: 20%;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.footer-chat {
+    background: #FF6281!important;
+    height: 60px;
+}
+
+a.ion-android-send:before {
+    margin-top: 5px!important;
+}
+
+.profile-pic-chat {
+    width: 35px;
+    height: 35px;
+    border-radius: 20px;
+    margin: 5px 0 5px 10px;
+}
+
+.left-msg {
+    padding: 0 10px 5px !important;
+    margin-top: 5px;
+}
+
+.right-msg {
+    padding: 5px 15px !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Chat styles */
+
+.messages {
+    display: -webkit-box !important;
+    display: -moz-box !important;
+    display: -ms-flexbox !important;
+    display: -webkit-flex !important;
+    display: flex !important;
+    -webkit-align-content: center !important;
+    -ms-flex-line-pack: center !important;
+    align-content: center !important;
+    -webkit-box-align: center !important;
+    -moz-box-align: center !important;
+    -ms-flex-align: center !important;
+}
+.messages .message {
+    -webkit-box-flex: 1 !important;
+    -moz-box-flex: 1 !important;
+    -webkit-flex: 1 1 auto !important;
+    -ms-flex: 1 1 auto !important;
+    flex: 1 1 auto !important;
+    -webkit-transition: all 250ms ease-in-out !important;
+    transition: all 250ms ease-in-out !important;
+    overflow: hidden !important;
+    text-align: left !important;
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    -moz-transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
+}
+
+.messages.other .message {
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    -moz-transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
+    text-align: right !important;
+}
+.messages.other .message.slide-right {
+    -webkit-transform: translate3d(120px, 0, 0) !important;
+    -moz-transform: translate3d(120px, 0, 0) !important;
+    transform: translate3d(120px, 0, 0) !important;
+}
+.messages.other span {
+    color: black !important;
+    background-color: lightgray !important;
+}
+
+span.msg {
+    background: #1889B6 !important;
+    display: inline-block !important;
+    color: white !important;
+    padding: 5px 10px !important;
+    border-radius: 5px !important;
+    text-align: left !important;
+    max-width: 240px !important;
+}
+
+.left-msg span:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 0 18px 16px 0;
+    border-color: transparent #1889B6;
+    display: block;
+    width: 0;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+.right-msg span:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 0 0 18px 16px;
+    border-color: transparent lightgray;
+    display: block;
+    width: 0;
+    z-index: 1;
+    right: 8px!important;
+    top: 5px;
 }

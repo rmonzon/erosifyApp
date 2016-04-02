@@ -1,0 +1,36 @@
+<ion-header-bar align-title="left">
+    <div class="buttons">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+    </div>
+    <div class="title-views">
+        <span>My Profile</span>
+    </div>
+</ion-header-bar>
+<ion-content>
+    <div class="myprofile-pics-bg">
+        <button class="button button-icon button-clear ion-chevron-left" ng-click="previousPic()"></button>
+        <button class="button button-icon button-clear ion-chevron-right" ng-click="nextPic()"></button>
+
+        <ion-slide-box on-slide-changed="slideChanged($index)">
+            <!--<ion-slide ng-repeat="imageUrl in user.pictures">-->
+                <!--<img ng-src="{{imageUrl}}" style="width:300px;height:300px;margin:auto;display:block">-->
+            <!--</ion-slide>-->
+            <ion-slide>
+                <img src="img/raul.jpg">
+            </ion-slide>
+            <ion-slide>
+                <img src="img/profile.png">
+            </ion-slide>
+        </ion-slide-box>
+    </div>
+
+    <div class="myprofile-info-bg">
+        <div class="row">
+            <div class="col">
+                <span>{{user.name}}, {{user.age}}</span>
+            </div>
+        </div>
+    </div>
+</ion-content>
+
+
