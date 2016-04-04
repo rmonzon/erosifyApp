@@ -104,6 +104,15 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
                 }
             }
         })
+        .state('app.peoplenearby', {
+            url: '/peoplenearby',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/peoplenearby.html',
+                    controller: 'PeopleNearbyController'
+                }
+            }
+        })
         .state('app.matches', {
             url: '/matches',
             views: {

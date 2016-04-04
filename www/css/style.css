@@ -1206,3 +1206,28 @@ span.msg {
     color: gray;
     font-family: LeituraSansGrot3;
 }
+
+.people-nearby-icon {
+    font-size: 20px;
+    position: relative;
+    top: 3px;
+    right: 5px;
+}
+
+.ion-android-options:before {
+    font-size: 25px!important;
+    line-height: 30px!important;
+    color: whitesmoke;
+}
+
+.loading-nearby svg {
+    width: 60px;
+    height: 60px;
+    stroke: #444;
+    fill: #444;
+    margin-top: 130px;
+}
+
+.label-searching-gps {
+    font-family: LeituraSansGrot2;
+}
