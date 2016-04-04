@@ -33,7 +33,7 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
             $ionicLoading.hide();
         };
 
-        $scope.logout = function() {
+        $scope.logoutFacebook = function() {
             User.setData({});
             $cordovaFacebook.logout()
                 .then(function(success) {
@@ -49,6 +49,13 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
 
         $scope.addAbsPosition = function () {
             $scope.posRelative = {};
+        };
+
+        $scope.removeHideClass = function (id) {
+            $timeout(function () {
+                var classList = document.querySelector(id).className;
+                document.querySelector(id).className = classList.replace('hide', '');
+            }, 100);
         };
     };
 });

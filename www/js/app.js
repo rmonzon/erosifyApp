@@ -77,6 +77,15 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
                 }
             }
         })
+        .state('app.settings', {
+            url: '/settings',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/settings.html',
+                    controller: 'SettingsController'
+                }
+            }
+        })
         .state('app.myprofile', {
             url: '/myprofile',
             views: {

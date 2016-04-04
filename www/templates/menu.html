@@ -13,12 +13,12 @@
     <ion-side-menu side="left">
         <ion-content>
             <ion-list>
-                <a menu-close class="item item-avatar" href="#/app/myprofile">
+                <a menu-close class="item item-avatar" ng-click="goToPage('app/myprofile')">
                     <img ng-src="{{user.pictures[0]}}">
                     <h2>{{user.name}}</h2>
                     <i class="icon ion-android-favorite-outline"> <b>123</b></i>
                     <i class="icon ion-ios-chatbubble-outline"> <b>45</b></i>
-                    <i class="icon ion-gear-a"></i>
+                    <button class="button button-icon icon ion-gear-a" menu-close ng-click="goToSettings($event)"></button>
                 </a>
                 <ion-item menu-close href="#/app/matching">
                     <i class="icon ion-images"></i>

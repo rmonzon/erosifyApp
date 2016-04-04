@@ -2,7 +2,7 @@
  * Created by raul on 4/1/16.
  */
 
-angular.module('controllers').controller('MyProfileController', function ($scope, $timeout, $ionicSlideBoxDelegate, GenericController, User, mainFactory) {
+angular.module('controllers').controller('MyProfileController', function ($scope, $http, $timeout, $ionicSlideBoxDelegate, GenericController, User, mainFactory) {
 
     function init() {
         GenericController.init($scope);
@@ -10,7 +10,6 @@ angular.module('controllers').controller('MyProfileController', function ($scope
         $scope.slideIndex = 0;
         $scope.user = {};
         $scope.getUserInfo();
-        $scope.removeHideClass('#profile-menu-icon');
     }
 
     $scope.getUserInfo = function () {
