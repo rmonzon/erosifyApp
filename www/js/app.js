@@ -113,6 +113,15 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
                 }
             }
         })
+        .state('app.visitors', {
+            url: '/visitors',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/visitors.html',
+                    controller: 'VisitorsController'
+                }
+            }
+        })
         .state('app.matches', {
             url: '/matches',
             views: {
@@ -122,12 +131,21 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
                 }
             }
         })
-        .state('app.visitors', {
-            url: '/visitors',
+        .state('app.likes', {
+            url: '/likes',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/visitors.html',
-                    controller: 'VisitorsController'
+                    templateUrl: 'templates/likes.html',
+                    controller: 'LikesController'
+                }
+            }
+        })
+        .state('app.favorites', {
+            url: '/favorites',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/favorites.html',
+                    controller: 'FavoritesController'
                 }
             }
         })

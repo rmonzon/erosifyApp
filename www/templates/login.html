@@ -7,7 +7,7 @@
           <span>"DATE YOUR PERFECT MATCH"</span>
       </div>
       <div class="login-inputs-container">
-          <form>
+          <form ng-submit="loginWithEmail()">
               <div class="group">
                   <input type="text" ng-model="user.email" ng-focus="removeAbsPosition()" ng-blur="addAbsPosition()" required>
                   <span class="bar-input"></span>
@@ -41,6 +41,7 @@
                     <span>DON'T HAVE AN ACCOUNT? <a href="" ng-click="goToPage('signup')">SIGN UP</a></span>
                   </div>
               </div>
+              <button hidden>Fake submit</button>
           </form>
       </div>
   </ion-content>

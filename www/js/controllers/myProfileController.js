@@ -14,8 +14,7 @@ angular.module('controllers').controller('MyProfileController', function ($scope
     }
 
     $scope.getUserInfo = function () {
-        //mainFactory.getUserInfo({ "email": User.getUser().email }).then(successCallback, errorCallback);
-        mainFactory.getUserInfo({ "email": "raul@inceptures.com" }).then(successCallback, errorCallback);
+        mainFactory.getUserInfo({ "email": $scope.getUserFromLS() }).then(successCallback, errorCallback);
     };
 
     function successCallback(response) {
@@ -27,9 +26,8 @@ angular.module('controllers').controller('MyProfileController', function ($scope
     }
 
     function errorCallback(response) {
-        $scope.hideMessage();
-        console.log(response);
-        //$scope.showMessage(response.data.error, 2500);
+        $scope.showMessage(response.data.error, 2500);
+        $scope.logout();
     }
 
     $scope.nextPic = function() {

@@ -3,7 +3,7 @@
  */
 
 
-angular.module('services', []).factory('mainFactory', function($http, $q, $window) {
+angular.module('services', []).factory('mainFactory', function($http, $q, $window, User) {
     var factory = { initFactory: false, connectionStr: "", apiUrl: "" };
     factory.initApp = function () {
         // create a promise
@@ -34,7 +34,15 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
     };
 
     factory.getUserInfo = function (req) {
-        return $http.post(factory.connectionStr + "/me", req);
+        return $http.post(factory.connectionStr + "/me", req, { headers: { token: User.getToken() }});
+    };
+
+    factory.doLogOut = function (req) {
+        return $http.post(factory.connectionStr + "/logout", req);
+    };
+
+    factory.checkEmailAvailability = function (req) {
+        return $http.post(factory.connectionStr + "/check_email", req);
     };
 
 
