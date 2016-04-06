@@ -2,7 +2,7 @@
  * Created by raul on 1/7/16.
  */
 
-angular.module('controllers').service('GenericController', function($ionicLoading, $location, $timeout, $window, $cordovaFacebook, User) {
+angular.module('controllers').service('GenericController', function($ionicLoading, $location, $timeout, $window, $cordovaFacebook, User, mainFactory) {
     var $scope = null;
 
     this.init = function (_$scope) {

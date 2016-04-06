@@ -31,7 +31,6 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
         if (response.data.success) {
             $scope.setUserToLS($scope.user.email);
             User.setToken(response.data.token);
-            console.log(response.data.user);
             User.setUser(response.data.user);
             $scope.user.email = "";
             $scope.user.password = "";
@@ -45,7 +44,12 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
 
     function errorCallBack (response) {
         $scope.hideMessage();
-        $scope.showMessage(response.data.error, 2500);
+        if (response.data) {
+            $scope.showMessage(response.data.error, 2500);
+        }
+        else {
+            $scope.showMessage("Something went wrong with the request!", 2500);
+        }
     }
 
     //This method is executed when the user press the "Login with facebook" button

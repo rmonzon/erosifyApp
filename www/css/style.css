@@ -328,8 +328,8 @@ ion-item i {
 
 .verified-profile-icon {
     position: relative;
-    left: 40px;
-    top: 55px;
+    left: 45px;
+    top: 72px;
     width: 18px!important;
 }
 
@@ -606,14 +606,14 @@ i.ion-ios-chatbubble-outline {
 }
 
 .messages-row {
-    height: 77px;
-    border-bottom: 1px solid lightgray;
-    padding: 10px;
+    height: 95px;
+    border-bottom: 1px solid rgba(211,211,211,0.3);
+    padding: 15px;
 }
 
 .messages-row img {
-    width: 56px;
-    border-radius: 28px;
+    width: 65px;
+    border-radius: 50%;
 }
 
 .row + .row {
@@ -766,7 +766,7 @@ ion-header-bar .ion-android-search:before {
 }
 
 .match-user {
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-size: 18px;
     font-weight: bold;
     color: #382C2C;
@@ -1269,7 +1269,7 @@ span.msg {
 }
 
 .male {
-    border: 3px solid #019557;
+    border: 3px solid #00BDB3;
 }
 .female {
     border: 3px solid #ff6281;

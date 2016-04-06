@@ -11,7 +11,7 @@ angular.module('controllers').controller('SettingsController', function ($scope,
     }
 
     $scope.logOut = function () {
-        $scope.logOut();
+        $scope.logout();
     };
 
     $scope.deleteAccount = function () {
