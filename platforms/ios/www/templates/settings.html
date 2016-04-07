@@ -1,0 +1,71 @@
+<ion-header-bar align-title="left">
+    <div class="buttons">
+        <button id="settings-menu-icon" class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+    </div>
+    <div class="title-views">
+        <span>Settings</span>
+    </div>
+</ion-header-bar>
+<ion-content>
+    <div class="settings-bg">
+        <ul class="list">
+            <div class="item item-divider">
+                Notifications
+            </div>
+            <li class="item item-toggle">
+                New Matches
+                <label class="toggle toggle-normal">
+                    <input type="checkbox">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+            <li class="item item-toggle">
+                Messages
+                <label class="toggle toggle-normal">
+                    <input type="checkbox">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+            <li class="item item-toggle">
+                Events
+                <label class="toggle toggle-normal">
+                    <input type="checkbox">
+                    <div class="track">
+                        <div class="handle"></div>
+                    </div>
+                </label>
+            </li>
+        </ul>
+
+        <div class="list">
+            <div class="item item-divider">
+                Legal
+            </div>
+            <a class="item" href="#">
+                Privacy Policy
+            </a>
+            <a class="item" href="#">
+                Terms of Service
+            </a>
+        </div>
+
+        <div class="button-logout" ng-click="logOut()">Sign Out</div>
+
+        <div class=" row text-center">
+            <div class="col">
+                <img src="img/logo-green.png">
+                <br />
+                <span>&copy; 2016. Made in Miami, FL.</span><br />
+                <span>Version 1.0.0</span>
+            </div>
+        </div>
+
+        <div class="button-delete-account" ng-click="deleteAccount()">Delete Account</div>
+    </div>
+</ion-content>
+
+

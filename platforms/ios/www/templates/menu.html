@@ -1,46 +1,63 @@
 <ion-side-menus enable-menu-with-back-views="false">
-  <ion-side-menu-content>
-    <ion-nav-bar class="bar-stable">
-      <ion-nav-back-button>
-      </ion-nav-back-button>
+    <ion-side-menu-content>
+        <!--<ion-nav-bar class="bar-stable">-->
+              <!--<ion-nav-back-button></ion-nav-back-button>-->
 
-      <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
-        </button>
-      </ion-nav-buttons>
-    </ion-nav-bar>
-    <ion-nav-view name="menuContent"></ion-nav-view>
-  </ion-side-menu-content>
+              <!--<ion-nav-buttons side="left">-->
+                    <!--<button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>-->
+              <!--</ion-nav-buttons>-->
+        <!--</ion-nav-bar>-->
+        <ion-nav-view name="menuContent"></ion-nav-view>
+    </ion-side-menu-content>
 
-  <ion-side-menu side="left">
-    <ion-content>
-      <ion-list>
-        <a class="item item-avatar" href="#">
-          <img ng-src="{{user.picture}}">
-          <h2>{{user.name}}</h2>
-          <p>Back off, man. I'm a scientist.</p>
-        </a>
-        <ion-item menu-close href="#/app/search">
-          <i class="icon ion-heart"></i>
-          Find My Match!
-        </ion-item>
-        <ion-item menu-close href="#/app/search">
-          <i class="icon ion-ios-people"></i>
-          Visitors
-        </ion-item>
-        <ion-item menu-close href="#/app/browse">
-          <i class="icon ion-chatbubbles"></i>
-          Messages
-        </ion-item>
-        <ion-item menu-close href="#/app/playlists">
-          <i class="icon ion-ios-star"></i>
-          Erosify Premium
-        </ion-item>
-        <ion-item menu-close href="#/app/browse">
-          <i class="icon ion-help-circled"></i>
-          Help & FAQs
-        </ion-item>
-      </ion-list>
-    </ion-content>
-  </ion-side-menu>
+    <ion-side-menu side="left">
+        <ion-content>
+            <ion-list>
+                <a menu-close class="item item-avatar" ng-click="goToPage('app/myprofile')">
+                    <img class="left-menu-pic" ng-class="user.gender == 'Male' ? 'male' : 'female'" ng-src="{{'../img/' + user.pictures[0]}}">
+                    <h2>{{user.name}}</h2>
+                    <i class="icon ion-android-favorite-outline"> <b>123</b></i>
+                    <i class="icon ion-ios-chatbubble-outline"> <b>45</b></i>
+                    <button class="button button-icon icon ion-gear-a" menu-close ng-click="goToSettings($event)"></button>
+                </a>
+                <ion-item menu-close href="#/app/matching">
+                    <i class="icon ion-images"></i>
+                    Find My Match!
+                </ion-item>
+                <ion-item menu-close href="#/app/peoplenearby">
+                    <i class="icon ion-android-locate"></i>
+                    People Nearby
+                </ion-item>
+                <ion-item menu-close href="#/app/visitors">
+                    <i class="icon ion-eye"></i>
+                    Visitors
+                </ion-item>
+                <ion-item menu-close href="#/app/matches">
+                    <i class="icon ion-ios-people"></i>
+                    My Matches
+                </ion-item>
+                <ion-item menu-close href="#/app/likes">
+                    <i class="icon ion-heart"></i>
+                    Who Liked Me
+                </ion-item>
+                <ion-item menu-close href="#/app/favorites">
+                    <i class="icon ion-star"></i>
+                    My Favorites
+                </ion-item>
+                <ion-item menu-close href="#/app/messages">
+                    <i class="icon ion-chatbubbles"></i>
+                    Messages
+                    <span class="badge badge-assertive">3</span>
+                </ion-item>
+                <ion-item menu-close href="#/app/messages">
+                    <i class="icon ion-card"></i>
+                    Erosify Premium
+                </ion-item>
+                <ion-item menu-close href="#/app/browse">
+                    <i class="icon ion-help-circled"></i>
+                    Help & FAQs
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
 </ion-side-menus>

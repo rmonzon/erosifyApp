@@ -31,6 +31,9 @@
     <access origin="https://api.facebook.com" />
     <access origin="https://*.fbcdn.net" />
     <access origin="https://*.akamaihd.net" />
+    <feature name="Geolocation">
+        <param name="android-package" value="org.apache.cordova.geolocation.Geolocation" />
+    </feature>
     <icon density="ldpi" src="resources/android/icon/icon-app.png" />
     <icon density="mdpi" src="resources/android/icon/icon-app.png" />
     <icon density="hdpi" src="resources/android/icon/icon-app.png" />

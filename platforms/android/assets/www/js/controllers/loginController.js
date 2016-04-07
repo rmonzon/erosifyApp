@@ -10,44 +10,44 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
     }
 
     $scope.loginWithEmail = function() {
-        // if (!$scope.user.email) {
-        //    $scope.showMessage("Email cannot be empty!", 2500);
-        //    return;
-        // }
-        // if (!$scope.user.password) {
-        //    $scope.showMessage("Password cannot be empty!", 2500);
-        //    return;
-        // }
-        // $scope.showMessageWithIcon("Verifying credentials...");
-        // var credentials = { "email": $scope.user.email, "password": $scope.user.password };
-        //
-        // mainFactory.authenticate(credentials).then(successCallBack, errorCallBack);
+        if (!$scope.user.email) {
+           $scope.showMessage("Email cannot be empty!", 2500);
+           return;
+        }
+        if (!$scope.user.password) {
+           $scope.showMessage("Password cannot be empty!", 2500);
+           return;
+        }
+        $scope.showMessageWithIcon("Verifying credentials...");
+        var credentials = { "email": $scope.user.email, "password": $scope.user.password };
 
-        //$scope.hideMessage();
-        $scope.goToPage('app/matching');
+        mainFactory.authenticate(credentials).then(successCallBack, errorCallBack);
+        //$scope.goToPage('app/matching');
     };
 
     function successCallBack(response) {
         $scope.hideMessage();
         if (response.data.success) {
-            // User.setUser({
-            //     authResponse: null,
-            //     userID: response.data.data.id,
-            //     name: response.data.data.name,
-            //     email: response.data.data.email,
-            //     picture : "img/profile.png"
-            // });
+            $scope.setUserToLS($scope.user.email);
+            User.setToken(response.data.token);
+            User.setUser(response.data.user);
+            $scope.user.email = "";
+            $scope.user.password = "";
             $scope.goToPage('app/matching');
         }
         else {
             $scope.showMessage(response.data.info, 2500);
         }
-        console.log(response);
     }
 
     function errorCallBack (response) {
         $scope.hideMessage();
-        $scope.showMessage(response.data.error, 2500);
+        if (response.data) {
+            $scope.showMessage(response.data.error, 2500);
+        }
+        else {
+            $scope.showMessage("Something went wrong with the request!", 2500);
+        }
     }
 
     //This method is executed when the user press the "Login with facebook" button

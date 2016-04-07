@@ -13,18 +13,18 @@
     <ion-side-menu side="left">
         <ion-content>
             <ion-list>
-                <a menu-close class="item item-avatar" href="#/app/myprofile">
-                    <img ng-src="{{user.pictures[0]}}">
+                <a menu-close class="item item-avatar" ng-click="goToPage('app/myprofile')">
+                    <img class="left-menu-pic" ng-class="user.gender == 'Male' ? 'male' : 'female'" ng-src="{{'../img/' + user.pictures[0]}}">
                     <h2>{{user.name}}</h2>
                     <i class="icon ion-android-favorite-outline"> <b>123</b></i>
                     <i class="icon ion-ios-chatbubble-outline"> <b>45</b></i>
-                    <i class="icon ion-gear-a"></i>
+                    <button class="button button-icon icon ion-gear-a" menu-close ng-click="goToSettings($event)"></button>
                 </a>
                 <ion-item menu-close href="#/app/matching">
                     <i class="icon ion-images"></i>
                     Find My Match!
                 </ion-item>
-                <ion-item menu-close href="#/app/search">
+                <ion-item menu-close href="#/app/peoplenearby">
                     <i class="icon ion-android-locate"></i>
                     People Nearby
                 </ion-item>
@@ -36,11 +36,11 @@
                     <i class="icon ion-ios-people"></i>
                     My Matches
                 </ion-item>
-                <ion-item menu-close href="#/app/search">
+                <ion-item menu-close href="#/app/likes">
                     <i class="icon ion-heart"></i>
                     Who Liked Me
                 </ion-item>
-                <ion-item menu-close href="#/app/search">
+                <ion-item menu-close href="#/app/favorites">
                     <i class="icon ion-star"></i>
                     My Favorites
                 </ion-item>

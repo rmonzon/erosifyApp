@@ -216,11 +216,12 @@ ion-item i {
 }
 
 .loading-container .loading {
-    padding: 12px 20px 10px 15px;
+    padding: 10px 20px 10px 15px;
 }
 
 .item-icon-left {
     padding-left: 45px;
+    margin-top: 10px;
 }
 
 .item-no-icon-left {

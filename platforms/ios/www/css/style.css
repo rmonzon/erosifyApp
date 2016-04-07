@@ -4,6 +4,16 @@
 }
 
 @font-face {
+    font-family: LeituraSansGrot2;
+    src: url("../fonts/LeituraSans-Grot%202.otf") format("opentype");
+}
+
+@font-face {
+    font-family: LeituraSansGrot3;
+    src: url("../fonts/LeituraSans-Grot%203.otf") format("opentype");
+}
+
+@font-face {
     font-family: LeituraSansBold;
     src: url("../fonts/LeituraSans-Grot%204.otf") format("opentype");
 }
@@ -12,7 +22,10 @@ html, body, h2 {
     font-family: LeituraSansGrot;
 }
 
-
+p {
+    text-align: justify;
+    margin: 0;
+}
 
 .login-container {
     font-family: LeituraSansGrot;
@@ -36,28 +49,55 @@ html, body, h2 {
     */
 }
 
+.gradient-bg {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#00bdb3+0,aca4a6+20,ff6281+80 */
+    background: #00bdb3; /* Old browsers */
+    background: -moz-linear-gradient(top,  #00bdb3 0%, #aca4a6 20%, #ff6281 80%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #00bdb3 0%,#aca4a6 20%,#ff6281 80%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #00bdb3 0%,#aca4a6 20%,#ff6281 80%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bdb3', endColorstr='#ff6281',GradientType=0 ); /* IE6-9 */
+}
+
 .slogan span {
     font-size: 30px;
     line-height: 30px;
 }
 
 .logo-container, .slogan {
-    margin-bottom: 30px;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 .button-login {
     width: 100%;
     height: 45px;
-    background: #783643;
+    background: rgba(120, 54, 67, 0.78);
     padding: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     text-align: center;
     font-size: 16px;
     opacity: 0.92;
+    transition: background-color 0.2s linear;
 }
 
-.button-login:active {
-    background: green;
+.button-login:active, .button-signup:active {
+    background: rgba(102, 51, 51, 0.78);
+}
+
+.button-signup {
+    width: 100%;
+    height: 45px;
+    background: rgba(120, 54, 67, 0.78);
+    padding: 15px;
+    margin-bottom: 5px;
+    text-align: center;
+    font-size: 18px;
+    opacity: 0.92;
+    transition: background-color 0.2s linear;
+}
+
+.facebook-button {
+    margin-bottom: 5px;
 }
 
 .button-login i {
@@ -90,7 +130,7 @@ html, body, h2 {
 /* form starting stylings ------------------------------- */
 .group 			  {
     position:relative;
-    margin-bottom:45px;
+    margin-bottom: 40px;
 }
 .group input {
     font-size: 18px;
@@ -104,26 +144,30 @@ html, body, h2 {
 }
 .group input:focus 		{ outline:none; }
 
-/* LABEL ======================================= */
-label 				 {
+.group label {
     color: white;
-    font-size:18px;
-    font-weight:normal;
-    position:absolute;
-    pointer-events:none;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
     margin-left: -50px;
-    left:50%;
-    top:0px;
-    transition:0.2s ease all;
-    -moz-transition:0.2s ease all;
-    -webkit-transition:0.2s ease all;
+    left: 50%;
+    top: 0;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+label.left-labels {
+    left: 5px;
+    margin-left: 0;
 }
 
 /* active state */
 .group input:focus ~ label, .group input:valid ~ label {
     top:-20px;
     font-size:14px;
-    margin-left: -40px;
+    /*margin-left: -40px;*/
 }
 
 /* BOTTOM BARS ================================= */
@@ -150,6 +194,10 @@ label 				 {
     width:50%;
 }
 
+.signup-form .group {
+    margin-bottom: 30px;
+}
+
 ion-item i {
     margin-right: 10px;
 }
@@ -168,9 +216,1062 @@ ion-item i {
 }
 
 .loading-container .loading {
-    padding: 20px 20px 10px 15px;
+    padding: 10px 20px 10px 15px;
 }
 
 .item-icon-left {
     padding-left: 45px;
+    margin-top: 10px;
+}
+
+.item-no-icon-left {
+    padding-left: 5px;
+}
+
+.col-15 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 15%;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 15%;
+    -ms-flex: 0 0 15%;
+    flex: 0 0 15%;
+    max-width: 15%;
+}
+
+.col-30 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 30%;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 30%;
+    -ms-flex: 0 0 30%;
+    flex: 0 0 30%;
+    max-width: 30%;
+    padding-left: 10px;
+}
+
+.col-45 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 45%;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 45%;
+    -ms-flex: 0 0 45%;
+    flex: 0 0 45%;
+    max-width: 45%;
+    padding-right: 10px;
+}
+
+.col-70 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 70%;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 70%;
+    -ms-flex: 0 0 70%;
+    flex: 0 0 70%;
+    max-width: 70%;
+}
+
+.combobox {
+    width: 100%;
+    height: 35px;
+    border-bottom: 1px solid white;
+    margin-bottom: 25px;
+}
+
+.combobox:after {
+    position: relative;
+    top: 15px;
+    right: 5px;
+    float: right;
+    margin-top: -3px;
+    width: 0;
+    height: 0;
+    border-top: 5px solid;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    color: white;
+    content: "";
+    pointer-events: none;
+}
+
+.combobox select {
+    font-family: LeituraSansGrot;
+    color: white;
+    font-size: 18px;
+    padding: 5px;
+    width: 100%;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    position: absolute;
+}
+
+.terms {
+    text-align: center;
+    font-size: 11px;
+    margin-bottom: 20px;
+}
+
+.bottom-link {
+    font-size: 16px;
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    margin-left: -107px;
+}
+
+.login-container .scroll {
+    transform: none!important;
+}
+
+.verified-profile-icon {
+    position: relative;
+    left: 45px;
+    top: 72px;
+    width: 18px!important;
+}
+
+.facebook-button-container{
+    padding: 35px 35px 0 35px;
+}
+
+.button-positive {
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+}
+
+.button-positive span {
+    font-family: Arial;
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 4px;
+    text-align: center;
+}
+
+.privacy-header {
+    padding: 25px 45px 5px 45px;
+    height: 70px;
+}
+
+.privacy-header img {
+    float: left;
+    margin-left: -10px;
+    margin-right: 5px;
+    position: relative;
+    bottom: 10px;
+}
+
+.privacy-header span {
+    font-size: 23px;
+    color: #929292;
+    margin-top: 10px;
+}
+
+hr {
+    margin-top: 20px;
+    margin-left: 45px;
+    margin-right: 45px;
+    border-bottom: 1px;
+    color: #929292;
+}
+
+.privacy-text {
+    padding: 10px 45px 0 45px;
+}
+
+.privacy-text span {
+    color: #929292;
+    font-size: 13px;
+}
+
+.forgot-password-link {
+    text-align: right;
+    margin-bottom: 15px;
+    margin-top: 5px;
+}
+
+.forgot-password-link a {
+    color: white;
+    text-decoration: none;
+}
+
+.match-container {
+    font-family: LeituraSansGrot;
+    color: white;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: url("../img/bg-match.jpg") no-repeat 50%;
+    background-size: cover;
+}
+
+.info-section-container {
+    width: 100%;
+    height: 50%;
+    background: url("../img/image_profile.png") no-repeat 50%;
+    position: absolute;
+    bottom: 0;
+}
+
+.photo-section-container {
+    width: 100%;
+    height: 55%;
+}
+
+.top-name-container {
+    height: 15%;
+    text-align: center;
+    display: flex;
+}
+
+.btn-profile {
+    background: url("../img/profile.svg") no-repeat;
+    float: left;
+    width: 41px;
+    height: 41px;
+}
+
+.btn-more-pics {
+    background: url("../img/images.svg") no-repeat;
+    float: right;
+    width: 41px;
+    height: 41px;
+}
+
+.top-name-container .button {
+    color: white;
+}
+
+.online-icon {
+    width: 10px;
+    height: 10px;
+    background: green;
+    border-radius: 5px;
+    margin-top: 18px;
+}
+
+.verified-icon {
+    width: 16px;
+    height: 12px;
+    background: url("../img/verified.svg") no-repeat;
+    margin: 17px 5px 0 5px;
+}
+
+.circular-pic-container {
+    width: 70%;
+    height: 100%;
+    border-radius: 50%;
+    background: url("../img/user-pic.jpg") center;
+    background-size: cover;
+    box-shadow: 0 0 15px #000;
+}
+
+.scroll {
+    transform: translate3d(0px, 0px, 0px) scale(1)!important;
+    height: 100%;
+}
+
+.info-section-container .row {
+    padding: 15px 15px 0;
+    margin-top: 15%;
+}
+
+@media only screen and (min-height: 568px) {
+    .info-section-container .row {
+        margin-top: 12%;
+    }
+}
+
+@media only screen and (min-height: 736px) {
+    .info-section-container .row {
+        margin-top: 15%;
+    }
+}
+
+.button-like {
+    width: 120px;
+    height: 46px;
+    font-size: 35px;
+    padding: 5px;
+    border-radius: 23px;
+    float: left;
+    margin-left: 5px;
+    background: #00BF61;
+    text-align: center;
+}
+
+.button-like:active {
+    background: green;
+    color: gray;
+}
+
+.button-dislike {
+    width: 120px;
+    height: 46px;
+    font-size: 37px;
+    padding: 5px;
+    border-radius: 23px;
+    float: right;
+    margin-right: 5px;
+    background: #FF4842;
+    text-align: center;
+}
+
+.button-like i, .button-dislike {
+    color: white;
+}
+
+.btn-skip-profile {
+    background: url("../img/skip.svg") no-repeat;
+    background-size: contain;
+    width: 45px;
+    height: 45px;
+}
+
+.btn-undo-action {
+    background: url("../img/back.svg") no-repeat;
+    background-size: contain;
+    width: 45px;
+    height: 45px;
+    position: relative;
+    left: 10px;
+}
+
+.user-pic-container {
+    height: 70%;
+    display: flex;
+}
+
+.btn-likedis-container {
+    width: 70%; height: 100%; display: flex;margin-top: 6px;
+}
+
+.match-bottom-section {
+    height: 15%;
+    display: flex;
+}
+
+.side-columns-match {
+    width: 15%;
+    height: 100%;
+}
+
+ion-side-menu .item, ion-side-menu .item-content, ion-side-menu .menu, ion-side-menu {
+    background-color: #161616 !important;
+    border-color: black !important;
+    color: white !important;
+}
+
+.item h2 {
+    color: white;
+}
+
+.item b {
+    font-size: 13px;
+    position: relative;
+    bottom: 2px;
+}
+
+.item .ion-android-favorite-outline:before {
+    color: #E6423C;
+    font-weight: bold;
+}
+
+.item .ion-ios-chatbubble-outline:before {
+    color: #019557;
+    font-weight: bold;
+}
+
+i.ion-ios-chatbubble-outline {
+    margin-left: 25px;
+}
+
+.item .ion-gear-a {
+    font-size: 30px;
+    position: absolute;
+    right: 10px;
+    top: 15px;
+}
+
+.ion-navicon, .bar.bar-stable .title {
+    color: white!important;
+}
+
+.bar.bar-stable, ion-header-bar {
+    background: #161616 none!important;
+    color: white!important;
+}
+
+.messages-row {
+    height: 95px;
+    border-bottom: 1px solid rgba(211,211,211,0.3);
+    padding: 15px;
+}
+
+.messages-row img {
+    width: 65px;
+    border-radius: 50%;
+}
+
+.row + .row {
+    margin-top: 0;
+    padding-top: 10px;
+}
+
+.msg-date {
+    font-size: 10px;
+    position: relative;
+    top: 15px;
+}
+
+.no-favorite-msg {
+    font-size: 23px;
+    color: white;
+}
+
+.favorite-msg {
+    font-size: 23px;
+    color: #FFB932;
+}
+
+.msg-user {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.status-icon-sm {
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    margin: 6px 0 0 5px;
+}
+
+.online {
+    background: limegreen;
+}
+
+.offline {
+    background: lightgray;
+}
+
+.msg-lastmsg {
+    color: white;
+    font-size: 16px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    width: 180px;
+    display: block;
+    overflow: hidden;
+}
+
+@media only screen and (min-width: 320px) {
+    .msg-lastmsg {
+        width: 160px;
+    }
+}
+
+@media only screen and (min-width: 375px) {
+    .msg-lastmsg {
+        width: 185px;
+    }
+}
+
+@media only screen and (min-width: 414px) {
+    .msg-lastmsg {
+        width: 210px;
+    }
+}
+
+.messages-row .row {
+    padding-left: 0;
+}
+
+.unread-msg {
+    font-family: LeituraSansBold;
+}
+
+.messages-row:active {
+    background: rgb(10, 189, 160);
+}
+
+.messages-row .col-25 {
+    max-width: 70px;
+}
+
+.messages-row .text-right {
+    margin-right: 5px;
+}
+
+.top-bar-logo {
+    position: absolute;
+    left: 50%;
+    margin-left: -55px;
+}
+
+.bar-header a.ion-android-search {
+    position: absolute;
+    right: 3px;
+    bottom: 5px;
+    color: white;
+}
+
+.tabs .tab-item .badge.badge-assertive, .badge.badge-assertive {
+    padding: 5px 10px;
+    top: 13px;
+    right: 25px;
+    font-size: 15px;
+}
+
+ion-header-bar .ion-android-search:before {
+    font-size: 27px!important;
+}
+
+.ion-navicon:before {
+    font-size: 38px!important;
+}
+
+.location-row {
+    padding: 0 20px!important;
+    margin-top: 0!important;
+}
+
+.location-row .ion-location {
+    font-size: 25px;
+}
+
+.location-row span {
+    font-size: 18px;
+    margin: 5px 0 0 8px;
+}
+
+.top-name-container .button-icon .icon:before, .button-icon.icon:before {
+    font-size: 25px;
+}
+
+.pointer_events_none {
+    color: black!important;
+}
+
+.title-views {
+    width: 100%;
+    margin-right: 39px;
+    margin-top: 8px;
+    text-align: center;
+    font-size: 20px;
+    top: 12px;
+    font-weight: bold;
+}
+
+.match-user {
+    text-transform: capitalize;
+    font-size: 18px;
+    font-weight: bold;
+    color: #382C2C;
+}
+
+.match-date {
+    font-size: 12px;
+    color: #382C2C;
+}
+
+.status-icon-md {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    margin: 3px 0 0 5px ;
+}
+
+.matches-row {
+    margin-bottom: 5%;
+}
+
+.verified-profile-icon-match {
+    width: 24px!important;
+    position: absolute;
+    right: 25px;
+}
+
+.prof-pic-match {
+    width: 70%;
+    border-radius: 50%;
+}
+
+.new-visitor {
+    background: #FD4741;
+    border-radius: 13px;
+    color: whitesmoke;
+    font-size: 10px;
+    width: 30px;
+    height: 17px;
+    text-align: center;
+    font-family: LeituraSansBold;
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    margin-left: -15px;
+}
+
+.new-visitor span {
+    position: relative;
+    bottom: 10px;
+}
+
+.footer-text {
+    color: black;
+    font-size: 18px;
+    padding: 8px;
+}
+
+.bar-footer {
+    background: rgba(195, 140, 155, 0.89);
+}
+
+.footer-option {
+    font-weight: 500;
+    font-size: 20px;
+}
+
+.div-divider {
+    height: 25px;
+    border: 1px solid white;
+    margin-top: 5px;
+}
+
+.ion-chevron-left {
+    color: white;
+}
+
+.ion-android-send {
+    width: 45px;
+    min-height: 45px!important;
+    margin-top: 1px;
+    padding-left: 11px;
+    /* border: 1px solid white; */
+    border-radius: 50%;
+    color: white!important;
+    background: #00bdb3;
+    position: fixed;
+    right: 10px;
+}
+
+.chat-inputbox-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    padding: 6px;
+    display: flex;
+}
+
+.user-pic-sm {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid white;
+}
+
+.chat-title-top {
+    margin-left: 8px;
+    font-size: 18px;
+    margin-top: 3px;
+    font-weight: bold;
+}
+
+.chat-title-top .row {
+    padding: 0 0 0 2px;
+    font-size: 10px;
+    position: relative;
+    bottom: 3px;
+    color: #AFABAB;
+}
+
+.chat-inputbox {
+    width: 100%;
+    margin-top: 5px!important;
+    height: 37px!important;
+    border-radius: 7px 0 7px 7px;
+    padding: 7px 15px 7px 45px!important;
+    font-family: LeituraSansGrot;
+    font-weight: bold;
+}
+
+.test {
+    position: relative;
+    width: 82%;
+    height: 45px;
+    padding: 0px;
+    background: #FFFFFF;
+    -webkit-border-radius: 7px 0 7px 7px;
+    -moz-border-radius: 7px 0 7px 7px;
+    border-radius: 7px 0 7px 7px;
+}
+
+.test:after
+{
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 0 0 18px 16px;
+    border-color: transparent #FFFFFF;
+    display: block;
+    width: 0;
+    z-index: 1;
+    right: -15px;
+    top: 0;
+}
+
+.chat-inputbox-container .ion-android-happy {
+    color: gray;
+    position: absolute;
+    z-index: 2;
+    width: 45px;
+    height: 40px;
+    padding: 0;
+    margin-top: 5px;
+}
+
+.top-name-container .button-icon .icon:before, .button-icon.icon:before {
+    font-size: 28px;
+}
+
+.chat-bubble-left {
+    max-width: 75%;
+    text-align: left;
+    background: lightgray;
+    color: black;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.chat-bubble-left::before {
+    width: 0;
+    height: 0;
+    border-top: 20px solid red;
+    border-left: 20px solid transparent;
+}
+
+.chat-bubble-right {
+    max-width: 80%;
+    text-align: right;
+    background: #1889B6;
+    margin-left: 20%;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.footer-chat {
+    background: #FF6281!important;
+    height: 60px;
+}
+
+a.ion-android-send:before {
+    margin-top: 5px!important;
+}
+
+.profile-pic-chat {
+    width: 35px;
+    height: 35px;
+    border-radius: 20px;
+    margin: 5px 0 5px 10px;
+}
+
+.left-msg {
+    padding: 0 10px 5px !important;
+    margin-top: 5px;
+}
+
+.right-msg {
+    padding: 5px 15px !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Chat styles */
+
+.messages {
+    display: -webkit-box !important;
+    display: -moz-box !important;
+    display: -ms-flexbox !important;
+    display: -webkit-flex !important;
+    display: flex !important;
+    -webkit-align-content: center !important;
+    -ms-flex-line-pack: center !important;
+    align-content: center !important;
+    -webkit-box-align: center !important;
+    -moz-box-align: center !important;
+    -ms-flex-align: center !important;
+}
+.messages .message {
+    -webkit-box-flex: 1 !important;
+    -moz-box-flex: 1 !important;
+    -webkit-flex: 1 1 auto !important;
+    -ms-flex: 1 1 auto !important;
+    flex: 1 1 auto !important;
+    -webkit-transition: all 250ms ease-in-out !important;
+    transition: all 250ms ease-in-out !important;
+    overflow: hidden !important;
+    text-align: left !important;
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    -moz-transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
+}
+
+.messages.other .message {
+    -webkit-transform: translate3d(0, 0, 0) !important;
+    -moz-transform: translate3d(0, 0, 0) !important;
+    transform: translate3d(0, 0, 0) !important;
+    text-align: right !important;
+}
+.messages.other .message.slide-right {
+    -webkit-transform: translate3d(120px, 0, 0) !important;
+    -moz-transform: translate3d(120px, 0, 0) !important;
+    transform: translate3d(120px, 0, 0) !important;
+}
+.messages.other span {
+    color: black !important;
+    background-color: lightgray !important;
+}
+
+span.msg {
+    background: #1889B6 !important;
+    display: inline-block !important;
+    color: white !important;
+    padding: 5px 10px !important;
+    border-radius: 5px !important;
+    text-align: left !important;
+    max-width: 240px !important;
+}
+
+.left-msg span:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 0 18px 16px 0;
+    border-color: transparent #1889B6;
+    display: block;
+    width: 0;
+    z-index: 1;
+    top: 0;
+    left: 0;
+}
+
+.right-msg span:after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+    border-width: 0 0 18px 16px;
+    border-color: transparent lightgray;
+    display: block;
+    width: 0;
+    z-index: 1;
+    right: 8px!important;
+    top: 5px;
+}
+
+.myprofile-info-bg {
+    width: 100%;
+    background: #D4D4D4;
+    color: #3E3E3E;
+    padding: 5px;
+}
+
+.myprofile-pics-bg {
+    width: 100%;
+    height: 60%;
+    color: white;
+    background: #D4D4D4;
+}
+
+.myprofile-pics-bg button {
+    color: black;
+    font-size: 30px;
+    position: absolute;
+    top: 25%;
+    z-index: 4;
+}
+
+.myprofile-pics-bg button.ion-chevron-left {
+    left: 10px;
+}
+
+.myprofile-pics-bg button.ion-chevron-right {
+    right: 10px;
+}
+
+.myprofile-pics-bg img {
+    width: 101%;
+}
+
+.profile-name {
+    font-size: 18px;
+}
+
+.pic-container {
+    height: 100%;
+    background: white;
+}
+
+.verified-icon-profile {
+    width: 16px;
+    height: 12px;
+    background: url("../img/verified.svg") no-repeat;
+    margin-left: 10px;
+    margin-top: 2px;
+}
+
+.online-icon-profile {
+    width: 10px;
+    height: 10px;
+    background: green;
+    border-radius: 5px;
+    margin-left: 10px;
+    margin-top: 3px;
+}
+
+.myprofile-info-bg i {
+    font-size: 22px;
+    margin-right: 5px;
+    position: relative;
+    top: 3px;
+}
+.myprofile-info-bg p {
+    margin-top: 5px;
+}
+
+.ion-edit:before {
+    font-size: 25px!important;
+    line-height: 30px!important;
+}
+
+.settings-bg {
+    background: #D4D4D4;
+    padding: 15px;
+}
+
+.button-logout {
+    width: 100%;
+    height: 45px;
+    background: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+    color: gray;
+    font-family: LeituraSansGrot3;
+    transition: background-color 0.2s linear;
+}
+
+.button-delete-account {
+    width: 100%;
+    height: 45px;
+    background: rgba(120, 54, 67, 0.78);
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+    color: whitesmoke;
+    font-family: LeituraSansGrot3;
+    transition: background-color 0.2s linear;
+}
+
+.button-delete-account:active {
+    background: rgba(97, 48, 48, 0.78);
+}
+
+.button-logout:active {
+    background: #e4e4e4;
+    -webkit-tap-highlight-color: #e4e4e4;
+}
+.settings-bg .list {
+    color: gray;
+}
+
+.item-divider {
+    color: gray;
+    font-family: LeituraSansGrot3;
+}
+
+.people-nearby-icon {
+    font-size: 20px;
+    position: relative;
+    top: 3px;
+    right: 5px;
+}
+
+.ion-android-options:before {
+    font-size: 25px!important;
+    line-height: 30px!important;
+    color: whitesmoke;
+}
+
+.loading-nearby svg {
+    width: 60px;
+    height: 60px;
+    stroke: #444;
+    fill: #444;
+    margin-top: 130px;
+}
+
+.label-searching-gps {
+    font-family: LeituraSansGrot2;
+}
+
+.send-msg-button {
+    font-size: 30px;
+    color: whitesmoke;
+    margin-top: 8px;
+}
+
+.user-fav-pic {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border: 3px solid lightgray;
+}
+
+.fav-online {
+    font-size: 11px;
+    font-family: LeituraSansGrot2;
+}
+
+.online-txt {
+    color: green;
+}
+
+.offline-txt {
+    color: lightgray;
+}
+
+.verified-user-fav {
+    width: 20px;
+    position: absolute;
+    right: 5px;
+    top: 42px;
+}
+
+.left-menu-pic {
+    max-width: 47px!important;
+    max-height: 47px!important;
+}
+
+.male {
+    border: 3px solid #00BDB3;
+}
+.female {
+    border: 3px solid #ff6281;
 }

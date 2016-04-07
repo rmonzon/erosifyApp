@@ -2,8 +2,8 @@
  * Created by raul on 1/8/16.
  */
 
-angular.module('models', []).service('User', function () {
-    var user = {};
+angular.module('models', []).service('User', function ($window) {
+    var user = {}, token = "";
     // user object definition:
     //{
     //    "status": "connected",
@@ -15,12 +15,23 @@ angular.module('models', []).service('User', function () {
     //    },
     //}
 
-    var setUser = function(user_data) {
-        window.localStorage.starter_facebook_user = JSON.stringify(user_data);
+    var setToken = function (t) {
+        token = t;
     };
 
-    var getUser = function(){
-        return JSON.parse(window.localStorage.starter_facebook_user || '{}');
+    var getToken = function () {
+        return token;
+    };
+
+    var setUser = function(user_data) {
+        user = user_data;
+        //$window.localStorage.starter_facebook_user = JSON.stringify(user_data);
+    };
+
+    var getUser = function() {
+        return user;
+        //return $window.localStorage && $window.localStorage.getItem('userId');
+        //return JSON.parse($window.localStorage.starter_facebook_user || window.localStorage.userLogin || '{}');
     };
 
     var updateAttr = function (key, value) {
@@ -30,6 +41,8 @@ angular.module('models', []).service('User', function () {
     return {
         getUser: getUser,
         setUser: setUser,
-        updateAttr: updateAttr
+        updateAttr: updateAttr,
+        getToken: getToken,
+        setToken: setToken
     };
 });

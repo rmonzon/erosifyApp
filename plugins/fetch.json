@@ -67,5 +67,13 @@
             "APP_ID": "1544924485832128",
             "APP_NAME": "Erosify"
         }
+    },
+    "cordova-plugin-geolocation": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-geolocation"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

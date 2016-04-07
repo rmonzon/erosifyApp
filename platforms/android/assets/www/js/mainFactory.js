@@ -3,7 +3,7 @@
  */
 
 
-angular.module('services', []).factory('mainFactory', function($http, $q, $window) {
+angular.module('services', []).factory('mainFactory', function($http, $q, $window, User) {
     var factory = { initFactory: false, connectionStr: "", apiUrl: "" };
     factory.initApp = function () {
         // create a promise
@@ -11,10 +11,10 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         var promise = deferred.promise;
         if (!factory.initFactory) {
             factory.initFactory = true;
-            factory.connectionStr = "http://10.0.0.9:5001/api/v1";
-            factory.apiUrl = "http://10.0.0.9:5001/api/v1";
-            //factory.connectionStr = "http://localhost:5001/api/v1";
-            //factory.apiUrl = "http://localhost:5001/api/v1";
+            // factory.connectionStr = "http://10.0.0.9:5001/api/v1";
+            // factory.apiUrl = "http://10.0.0.9:5001/api/v1";
+            factory.connectionStr = "http://192.168.1.5:5001/api/v1";
+            factory.apiUrl = "http://192.168.1.5:5001/api/v1";
             //factory.connectionStr = "http://erosify-server.herokuapp.com/api/v1";
             //factory.apiUrl = "http://erosify-server.herokuapp.com/api/v1";
             deferred.resolve(factory.initFactory);
@@ -34,7 +34,15 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
     };
 
     factory.getUserInfo = function (req) {
-        return $http.post(factory.connectionStr + "/me", req);
+        return $http.post(factory.connectionStr + "/me", req, { headers: { token: User.getToken() }});
+    };
+
+    factory.doLogOut = function (req) {
+        return $http.post(factory.connectionStr + "/logout", req);
+    };
+
+    factory.checkEmailAvailability = function (req) {
+        return $http.post(factory.connectionStr + "/check_email", req);
     };
 
 
@@ -86,6 +94,6 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
     return factory;
 }).factory('socket', function(socketFactory) {
     var myIoSocket = io.connect('http://10.0.0.9:3000');
-    //var myIoSocket = io.connect('http://192.168.1.3:3000');
+    //var myIoSocket = io.connect('http://192.168.1.5:3000');
     return socketFactory({ ioSocket: myIoSocket });
 });

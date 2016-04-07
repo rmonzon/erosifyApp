@@ -2,18 +2,53 @@
  * Created by raul on 1/5/16.
  */
 
-angular.module('controllers').controller('LoginController', function ($scope, $q, $http, $cordovaFacebook, $timeout, GenericController, User) {
+angular.module('controllers').controller('LoginController', function ($scope, $q, $http, $cordovaFacebook, $timeout, GenericController, User, mainFactory) {
 
     function init() {
         GenericController.init($scope);
+        $scope.user = {};
     }
 
     $scope.loginWithEmail = function() {
-        $scope.showMessageWithIcon("Verifying credentials...", 1500);
-        $timeout(function() {
-            $scope.goToPage('app/playlists');
-        }, 1500);
+        if (!$scope.user.email) {
+           $scope.showMessage("Email cannot be empty!", 2500);
+           return;
+        }
+        if (!$scope.user.password) {
+           $scope.showMessage("Password cannot be empty!", 2500);
+           return;
+        }
+        $scope.showMessageWithIcon("Verifying credentials...");
+        var credentials = { "email": $scope.user.email, "password": $scope.user.password };
+
+        mainFactory.authenticate(credentials).then(successCallBack, errorCallBack);
+        //$scope.goToPage('app/matching');
     };
+
+    function successCallBack(response) {
+        $scope.hideMessage();
+        if (response.data.success) {
+            $scope.setUserToLS($scope.user.email);
+            User.setToken(response.data.token);
+            User.setUser(response.data.user);
+            $scope.user.email = "";
+            $scope.user.password = "";
+            $scope.goToPage('app/matching');
+        }
+        else {
+            $scope.showMessage(response.data.info, 2500);
+        }
+    }
+
+    function errorCallBack (response) {
+        $scope.hideMessage();
+        if (response.data) {
+            $scope.showMessage(response.data.error, 2500);
+        }
+        else {
+            $scope.showMessage("Something went wrong with the request!", 2500);
+        }
+    }
 
     //This method is executed when the user press the "Login with facebook" button
     $scope.loginWithFacebook = function() {

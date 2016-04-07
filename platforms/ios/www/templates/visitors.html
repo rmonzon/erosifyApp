@@ -1,0 +1,36 @@
+<ion-header-bar align-title="left">
+  <div class="buttons">
+    <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+  </div>
+  <div class="title-views">
+    <span>Profile Visitors</span>
+  </div>
+</ion-header-bar>
+<ion-content class="gradient-bg">
+    <div style="margin: 5% 0">
+        <div class="row matches-row" ontouchstart="" ng-repeat="row in matches">
+            <div class="col-33 text-center" ng-repeat="m in row">
+                <a class="button button-icon" style="width: 100%; position: relative" ng-click="goToProfile(m.name)">
+                    <img class="prof-pic-match" src="{{m.pic}}">
+                    <img src="img/verified-circle.svg" ng-show="m.verified" class="verified-profile-icon-match">
+                    <div ng-show="m.new" class="new-visitor"><span>NEW</span></div>
+                </a>
+                <br>
+                <div style="display: inline-flex; text-align: center">
+                    <span class="match-user">{{m.name}}</span>
+                  <!--<div class="status-icon-md online" ng-show="m.online"></div>-->
+                </div>
+                <br>
+                <span class="match-date">{{m.date}}</span>
+            </div>
+        </div>
+    </div>
+</ion-content>
+<div class="bar bar-footer row">
+    <div class="text-left footer-text col-33">Show users:</div>
+    <button class=" button button-clear col-33" style="color: white; font-weight: bold; font-size: 18px">Online</button>
+    <div class="div-divider"></div>
+    <button class=" button button-clear col-33" style="color: whitesmoke;font-size: 18px;">All</button>
+</div>
+
+

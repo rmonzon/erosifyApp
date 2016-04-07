@@ -4,6 +4,16 @@
 }
 
 @font-face {
+    font-family: LeituraSansGrot2;
+    src: url("../fonts/LeituraSans-Grot%202.otf") format("opentype");
+}
+
+@font-face {
+    font-family: LeituraSansGrot3;
+    src: url("../fonts/LeituraSans-Grot%203.otf") format("opentype");
+}
+
+@font-face {
     font-family: LeituraSansBold;
     src: url("../fonts/LeituraSans-Grot%204.otf") format("opentype");
 }
@@ -67,6 +77,11 @@ p {
     text-align: center;
     font-size: 16px;
     opacity: 0.92;
+    transition: background-color 0.2s linear;
+}
+
+.button-login:active, .button-signup:active {
+    background: rgba(102, 51, 51, 0.78);
 }
 
 .button-signup {
@@ -78,14 +93,11 @@ p {
     text-align: center;
     font-size: 18px;
     opacity: 0.92;
+    transition: background-color 0.2s linear;
 }
 
 .facebook-button {
     margin-bottom: 5px;
-}
-
-.button-login:active {
-    background: rgba(88, 178, 167, 0.77);
 }
 
 .button-login i {
@@ -204,11 +216,12 @@ ion-item i {
 }
 
 .loading-container .loading {
-    padding: 20px 20px 10px 15px;
+    padding: 10px 20px 10px 15px;
 }
 
 .item-icon-left {
     padding-left: 45px;
+    margin-top: 10px;
 }
 
 .item-no-icon-left {
@@ -316,8 +329,8 @@ ion-item i {
 
 .verified-profile-icon {
     position: relative;
-    left: 40px;
-    top: 55px;
+    left: 45px;
+    top: 72px;
     width: 18px!important;
 }
 
@@ -580,8 +593,8 @@ i.ion-ios-chatbubble-outline {
 .item .ion-gear-a {
     font-size: 30px;
     position: absolute;
-    right: 20px;
-    top: 20px;
+    right: 10px;
+    top: 15px;
 }
 
 .ion-navicon, .bar.bar-stable .title {
@@ -594,14 +607,14 @@ i.ion-ios-chatbubble-outline {
 }
 
 .messages-row {
-    height: 77px;
-    border-bottom: 1px solid lightgray;
-    padding: 10px;
+    height: 95px;
+    border-bottom: 1px solid rgba(211,211,211,0.3);
+    padding: 15px;
 }
 
 .messages-row img {
-    width: 56px;
-    border-radius: 28px;
+    width: 65px;
+    border-radius: 50%;
 }
 
 .row + .row {
@@ -754,7 +767,7 @@ ion-header-bar .ion-android-search:before {
 }
 
 .match-user {
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-size: 18px;
     font-weight: bold;
     color: #382C2C;
@@ -1074,7 +1087,6 @@ span.msg {
 
 .myprofile-info-bg {
     width: 100%;
-    /*background: #529F99;*/
     background: #D4D4D4;
     color: #3E3E3E;
     padding: 5px;
@@ -1146,4 +1158,120 @@ span.msg {
 .ion-edit:before {
     font-size: 25px!important;
     line-height: 30px!important;
+}
+
+.settings-bg {
+    background: #D4D4D4;
+    padding: 15px;
+}
+
+.button-logout {
+    width: 100%;
+    height: 45px;
+    background: white;
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+    color: gray;
+    font-family: LeituraSansGrot3;
+    transition: background-color 0.2s linear;
+}
+
+.button-delete-account {
+    width: 100%;
+    height: 45px;
+    background: rgba(120, 54, 67, 0.78);
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+    color: whitesmoke;
+    font-family: LeituraSansGrot3;
+    transition: background-color 0.2s linear;
+}
+
+.button-delete-account:active {
+    background: rgba(97, 48, 48, 0.78);
+}
+
+.button-logout:active {
+    background: #e4e4e4;
+    -webkit-tap-highlight-color: #e4e4e4;
+}
+.settings-bg .list {
+    color: gray;
+}
+
+.item-divider {
+    color: gray;
+    font-family: LeituraSansGrot3;
+}
+
+.people-nearby-icon {
+    font-size: 20px;
+    position: relative;
+    top: 3px;
+    right: 5px;
+}
+
+.ion-android-options:before {
+    font-size: 25px!important;
+    line-height: 30px!important;
+    color: whitesmoke;
+}
+
+.loading-nearby svg {
+    width: 60px;
+    height: 60px;
+    stroke: #444;
+    fill: #444;
+    margin-top: 130px;
+}
+
+.label-searching-gps {
+    font-family: LeituraSansGrot2;
+}
+
+.send-msg-button {
+    font-size: 30px;
+    color: whitesmoke;
+    margin-top: 8px;
+}
+
+.user-fav-pic {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    border: 3px solid lightgray;
+}
+
+.fav-online {
+    font-size: 11px;
+    font-family: LeituraSansGrot2;
+}
+
+.online-txt {
+    color: green;
+}
+
+.offline-txt {
+    color: lightgray;
+}
+
+.verified-user-fav {
+    width: 20px;
+    position: absolute;
+    right: 5px;
+    top: 42px;
+}
+
+.left-menu-pic {
+    max-width: 47px!important;
+    max-height: 47px!important;
+}
+
+.male {
+    border: 3px solid #00BDB3;
+}
+.female {
+    border: 3px solid #ff6281;
 }

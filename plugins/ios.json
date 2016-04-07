@@ -32,6 +32,9 @@
             "APP_ID": "1544924485832128",
             "APP_NAME": "Erosify",
             "PACKAGE_NAME": "com.ionicframework.erosify780476"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.ionicframework.erosify"
         }
     },
     "dependent_plugins": {}

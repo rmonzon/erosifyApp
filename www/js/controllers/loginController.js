@@ -22,7 +22,6 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
         var credentials = { "email": $scope.user.email, "password": $scope.user.password };
 
         mainFactory.authenticate(credentials).then(successCallBack, errorCallBack);
-        $scope.hideMessage();
         //$scope.goToPage('app/matching');
     };
 
@@ -39,7 +38,6 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
         else {
             $scope.showMessage(response.data.info, 2500);
         }
-        console.log(response);
     }
 
     function errorCallBack (response) {

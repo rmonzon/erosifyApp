@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'controllers', 'models', 'ngCordova'])
+angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCordova', 'ngSanitize', 'btford.socket-io'])
 
 .run(function($ionicPlatform) {
     $ionicPlatform.ready(function () {
@@ -28,54 +28,143 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'ngCordova'])
         .state('login', {
             url: '/login',
             templateUrl: 'templates/login.html',
-            controller: 'LoginController'
+            controller: 'LoginController',
+            resolve: {
+                factoryInitialized: function (mainFactory) {
+                    return mainFactory.initApp();
+                }
+            }
         })
         .state('signup', {
             url: '/signup',
             templateUrl: 'templates/signup.html',
-            controller: 'SignUpController'
+            controller: 'SignUpController',
+            resolve: {
+                factoryInitialized: function (mainFactory) {
+                    return mainFactory.initApp();
+                }
+            }
+        })
+        .state('privacy', {
+            url: '/privacy',
+            templateUrl: 'templates/privacy.html',
+            controller: 'PrivacyController',
+            resolve: {
+                factoryInitialized: function (mainFactory) {
+                    return mainFactory.initApp();
+                }
+            }
+        })
+        .state('forgot_password', {
+            url: '/forgot_password',
+            templateUrl: 'templates/forgot_password.html',
+            controller: 'ForgotPasswordController',
+            resolve: {
+                factoryInitialized: function (mainFactory) {
+                    return mainFactory.initApp();
+                }
+            }
         })
 
         .state('app', {
             url: '/app',
             abstract: true,
             templateUrl: 'templates/menu.html',
-            controller: 'AppCtrl'
-        })
-
-        .state('app.search', {
-            url: '/search',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/search.html'
+            controller: 'AppCtrl',
+            resolve: {
+                factoryInitialized: function (mainFactory) {
+                    return mainFactory.initApp();
                 }
             }
         })
-
-        .state('app.browse', {
-            url: '/browse',
+        .state('app.settings', {
+            url: '/settings',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/browse.html'
+                    templateUrl: 'templates/settings.html',
+                    controller: 'SettingsController'
                 }
             }
         })
-        .state('app.playlists', {
-            url: '/playlists',
+        .state('app.myprofile', {
+            url: '/myprofile',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/playlists.html',
-                    controller: 'PlaylistsCtrl'
+                    templateUrl: 'templates/my_profile.html',
+                    controller: 'MyProfileController'
+                }
+            }
+        })
+        .state('app.matching', {
+            url: '/matching',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/matching.html',
+                    controller: 'MatchingController'
+                }
+            }
+        })
+        .state('app.peoplenearby', {
+            url: '/peoplenearby',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/peoplenearby.html',
+                    controller: 'PeopleNearbyController'
+                }
+            }
+        })
+        .state('app.visitors', {
+            url: '/visitors',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/visitors.html',
+                    controller: 'VisitorsController'
+                }
+            }
+        })
+        .state('app.matches', {
+            url: '/matches',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/mymatches.html',
+                    controller: 'MyMatchesController'
+                }
+            }
+        })
+        .state('app.likes', {
+            url: '/likes',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/likes.html',
+                    controller: 'LikesController'
+                }
+            }
+        })
+        .state('app.favorites', {
+            url: '/favorites',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/favorites.html',
+                    controller: 'FavoritesController'
+                }
+            }
+        })
+        .state('app.messages', {
+            url: '/messages',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/messages.html',
+                    controller: 'MessagesController'
                 }
             }
         })
 
         .state('app.single', {
-            url: '/playlists/:playlistId',
+            url: '/messages/:userId',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/playlist.html',
-                    controller: 'PlaylistCtrl'
+                    templateUrl: 'templates/chat_window.html',
+                    controller: 'ChatController'
                 }
             }
         });

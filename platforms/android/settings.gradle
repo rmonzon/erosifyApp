@@ -1,4 +1,4 @@
 // GENERATED FILE - DO NOT EDIT
 include ":"
-include ":CordovaLib"
 include ":phonegap-facebook-plugin:erosify780476-FacebookLib"
+include ":CordovaLib"

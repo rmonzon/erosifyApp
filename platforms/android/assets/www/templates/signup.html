@@ -6,7 +6,7 @@
         <div class="login-inputs-container">
             <form class="signup-form" ng-submit="loginWithEmail()">
                 <div class="group" style="margin-bottom: 0">
-                    <input type="text" ng-model="user.email" ng-focus="removeAbsPosition()" ng-blur="addAbsPosition()" required>
+                    <input type="text" ng-model="user.email" ng-focus="removeAbsPosition()" ng-blur="checkAccountAvailability()" required>
                     <span class="bar-input"></span>
                     <label class="left-labels">Email</label>
                 </div>

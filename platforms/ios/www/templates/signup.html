@@ -1,37 +1,85 @@
 <ion-view view-title="Erosify">
-  <ion-content class="login-container">
-    <div class="logo-container">
-      <img src="img/logo.png" width="100%">
-    </div>
-    <div class="login-inputs-container">
-      <form>
-        <div class="group">
-          <input type="text" ng-model="user.username" required>
-          <span class="bar-input"></span>
-          <label>USERNAME</label>
+    <ion-content class="login-container">
+        <div class="logo-container" style="margin-bottom: 0">
+            <img src="img/logo.png" width="50%">
         </div>
+        <div class="login-inputs-container">
+            <form class="signup-form" ng-submit="loginWithEmail()">
+                <div class="group" style="margin-bottom: 0">
+                    <input type="text" ng-model="user.email" ng-focus="removeAbsPosition()" ng-blur="checkAccountAvailability()" required>
+                    <span class="bar-input"></span>
+                    <label class="left-labels">Email</label>
+                </div>
 
-        <div class="group">
-          <input type="password" ng-model="user.password" required>
-          <span class="bar-input"></span>
-          <label>PASSWORD</label>
-        </div>
+                <div style="margin-bottom: 20px;font-size: 12px">
+                    <span>This is going to be your username</span>
+                </div>
 
-        <div class="group">
-          <input type="text" ng-model="user.name" required>
-          <span class="bar-input"></span>
-          <label>NAME</label>
-        </div>
+                <div class="group">
+                    <input type="password" ng-model="user.password" ng-focus="removeAbsPosition()" ng-blur="addAbsPosition()" required>
+                    <span class="bar-input"></span>
+                    <label class="left-labels">Password</label>
+                </div>
 
-        <div class="button-container">
-          <div class="button-login" ontouchstart="" ng-click="loginWithEmail()">
-            START DATING
-          </div>
-          <div class="text-center" style="font-size: 13px">
-            <span>ALREADY A MEMBER? <a href="" ng-click="goToPage('login')">SIGN IN</a></span>
-          </div>
+                <div class="group">
+                    <input type="text" ng-model="user.name" ng-focus="removeAbsPosition()" ng-blur="addAbsPosition()" required>
+                    <span class="bar-input"></span>
+                    <label class="left-labels">Name</label>
+                </div>
+
+                <div class="combobox">
+                    <select ng-model="user.gender" ng-focus="removeAbsPosition()" ng-blur="addAbsPosition()" required>
+                        <option value="">Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+
+                <div class="text-center">
+                    <span>Birthday</span>
+                </div>
+
+                <div class="row" style="padding: 0;margin-bottom: 10px">
+                    <div class="col-45">
+                        <div class="combobox">
+                            <select ng-model="user.month" required>
+                                <option value="">Month</option>
+                                <option value="{{m.value}}" ng-repeat="m in months">{{m.text}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-25">
+                        <div class="combobox">
+                            <select ng-model="user.day" required>
+                                <option value="">Day</option>
+                                <option value="{{d}}" ng-repeat="d in days">{{d}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-30">
+                        <div class="combobox">
+                            <select ng-model="user.year" required>
+                                <option value="">Year</option>
+                                <option value="{{y}}" ng-repeat="y in years">{{y}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-container">
+                    <div class="button-signup" ontouchstart="" ng-click="signUp()">
+                        SIGN UP
+                    </div>
+                    <div class="terms">
+                        <span>By continuing, you agree to our <br />
+                            <b><a href="" ng-click="goToPage('terms')">Terms of Service</a></b> and <b><a href="" ng-click="goToPage('privacy')">Privacy Policy</a></b>
+                        </span>
+                    </div>
+                    <div class="bottom-link" ng-style="posRelative">
+                        <span>ALREADY A MEMBER? <a href="" ng-click="goToPage('login')">SIGN IN</a></span>
+                    </div>
+                </div>
+            </form>
         </div>
-      </form>
-    </div>
-  </ion-content>
+    </ion-content>
 </ion-view>

@@ -1,0 +1,31 @@
+<ion-header-bar align-title="left">
+    <a class="button button-icon icon ion-chevron-left" ng-click="goToPage('app/messages')"></a>
+    <div class="chat-title-top">
+        <span>{{chatTitle}}</span>
+        <div class="row">
+            <span>{{userInfo.online ? "Online now" : "Offline"}}</span>
+            <div class="status-icon-sm" ng-class="userInfo.online ? 'online' : 'offline'"></div>
+        </div>
+    </div>
+    <a class="button button-icon" ng-click="goToPage('app/messages')" style="position: absolute;right: 0;line-height: 20px;">
+        <img ng-src="{{userInfo.pic}}" class="user-pic-sm">
+    </a>
+</ion-header-bar>
+<ion-content has-bouncing="true" class="gradient-bg" delegate-handle="userMessageScroll" style="bottom: 60px">
+    <div ng-repeat="message in messages" ng-class="{other: message.username == userInfo.username}" class="messages">
+        <img class="profile-pic-chat" ng-src="{{userInfo.pic}}" ng-show="message.username != userInfo.username">
+        <div ng-class="message.username != userInfo.username ? 'left-msg' : 'right-msg'" class="message">
+            <span class="msg">{{ message.content }}</span>
+        </div>
+    </div>
+</ion-content>
+
+<ion-footer-bar class="footer-chat" keyboard-attach>
+    <div class="chat-inputbox-container">
+        <a class="button button-icon icon ion-android-happy"></a>
+        <div class="test">
+            <input type="text" class="chat-inputbox" autocomplete="off" placeholder="Type a message" ng-change="updateTyping()" ng-enter="sendMessage()" ng-model="chat.message" />
+        </div>
+        <a class="button button-icon icon ion-android-send" ng-click="sendMessage()"></a>
+    </div>
+</ion-footer-bar>

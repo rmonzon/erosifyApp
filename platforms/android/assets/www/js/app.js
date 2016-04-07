@@ -77,6 +77,15 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
                 }
             }
         })
+        .state('app.settings', {
+            url: '/settings',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/settings.html',
+                    controller: 'SettingsController'
+                }
+            }
+        })
         .state('app.myprofile', {
             url: '/myprofile',
             views: {
@@ -95,12 +104,12 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
                 }
             }
         })
-        .state('app.matches', {
-            url: '/matches',
+        .state('app.peoplenearby', {
+            url: '/peoplenearby',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/mymatches.html',
-                    controller: 'MyMatchesController'
+                    templateUrl: 'templates/peoplenearby.html',
+                    controller: 'PeopleNearbyController'
                 }
             }
         })
@@ -110,6 +119,33 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
                 'menuContent': {
                     templateUrl: 'templates/visitors.html',
                     controller: 'VisitorsController'
+                }
+            }
+        })
+        .state('app.matches', {
+            url: '/matches',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/mymatches.html',
+                    controller: 'MyMatchesController'
+                }
+            }
+        })
+        .state('app.likes', {
+            url: '/likes',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/likes.html',
+                    controller: 'LikesController'
+                }
+            }
+        })
+        .state('app.favorites', {
+            url: '/favorites',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/favorites.html',
+                    controller: 'FavoritesController'
                 }
             }
         })
