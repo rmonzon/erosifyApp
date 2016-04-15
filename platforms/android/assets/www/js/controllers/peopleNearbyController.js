@@ -37,9 +37,6 @@ angular.module('controllers').controller('PeopleNearbyController', function ($sc
     $scope.findPeopleNearby = function () {
         var posOptions = {timeout: 10000, enableHighAccuracy: false};
         $cordovaGeolocation.getCurrentPosition(posOptions).then(successGetLocation, errorGetLocation);
-        // $timeout(function () {
-        //     $scope.searching = false;
-        // }, 3000);
     };
 
     function successGetLocation(position) {

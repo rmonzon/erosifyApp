@@ -15,7 +15,8 @@
         <ion-slide-box style="height: 100%;" on-slide-changed="slideChanged($index)" show-pager="true">
             <ion-slide ng-repeat="imageUrl in user.pictures">
                 <div class="pic-container">
-                    <img ng-src="{{imageUrl}}">
+                    <!--<img ng-src="{{imageUrl}}">-->
+                    <img id="img" src="">
                 </div>
             </ion-slide>
         </ion-slide-box>

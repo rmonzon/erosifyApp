@@ -1275,3 +1275,74 @@ span.msg {
 .female {
     border: 3px solid #ff6281;
 }
+
+.add-pics-link {
+    color: white!important;
+    font-size: 15px;
+}
+
+.add-pic-info {
+    position: absolute;
+    bottom: 0;
+    color: white;
+    text-align: center;
+}
+
+.profile-empty-container {
+    position: absolute;
+    left: 50%;
+    margin-left: -97px;
+    top: 50%;
+    margin-top: -85px;
+}
+
+.row-pictures {
+    width: 100%;
+    padding: 0 5px!important;
+    margin-top: -5px!important;
+}
+
+.row-pictures .col-33 {
+    padding: 10px;
+    text-align: center;
+}
+
+.plus-btn {
+    border: 3px double rgba(128, 0, 0, 0.13);
+    position: absolute;
+    margin-left: -14px;
+    margin-top: -14px;
+}
+
+.minus-btn {
+    border: 3px double white;
+    position: absolute;
+    margin-left: -14px;
+    margin-top: -14px;
+}
+
+.row-pictures .button-icon {
+    font-size: 18px;
+    background: salmon;
+    color: white;
+    min-height: 28px;
+    height: 28px;
+    width: 28px;
+    border-radius: 50%;
+    line-height: 0;
+    padding-left: 4px;
+}
+
+.preview-pic-container span {
+    position: absolute;
+    margin-left: 15px;
+    font-size: 23px;
+    margin-top: 13px;
+    font-family: LeituraSansBold;
+    color: whitesmoke;
+}
+
+.action-sheet-title {
+    font-size: 18px;
+    font-weight: bolder;
+}

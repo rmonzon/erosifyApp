@@ -1,0 +1,58 @@
+<ion-view view-title="Erosify">
+    <ion-content class="gradient-bg" style="padding: 25px 10px">
+        <div class="logo-container">
+            <img src="img/logo.png" width="50%">
+        </div>
+
+        <div class="text-center profile-empty-container" ng-hide="loadedPics">
+            <img src="img/profile_emptypic.png" width="100">
+            <br />
+            <button class="button button-clear add-pics-link" ng-click="showActionSheet()">Add pictures to your profile</button>
+        </div>
+
+        <div class="add-pic-info" ng-hide="loadedPics">
+            <span>The first picture you select will be your profile picture. You can change this later if you want to.</span>
+        </div>
+
+        <div class="row row-pictures" ng-show="loadedPics">
+            <div class="col-66" style="padding: 5px">
+                <div class="col preview-pic-container">
+                    <button ng-click="pics[0] ? removePic(0) : addPic()" ng-class="pics[0] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
+                    <span>1</span>
+                    <img ng-src="{{pics[0] ? 'img/' + pics[0] : 'img/profile.png'}}" width="100%">
+                </div>
+            </div>
+            <div class="col-34" style="padding: 5px">
+                <div class="col preview-pic-container">
+                    <button ng-click="pics[1] ? removePic(1) : addPic()" ng-class="pics[1] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
+                    <span>2</span>
+                    <img ng-src="{{pics[1] ? 'img/' + pics[1] : 'img/profile.png'}}" width="100%">
+                </div>
+                <div class="col preview-pic-container">
+                    <button ng-click="pics[2] ? removePic(2) : addPic()" ng-class="pics[2] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
+                    <span>3</span>
+                    <img ng-src="{{pics[2] ? 'img/' + pics[2] : 'img/profile.png'}}" width="100%">
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-pictures" ng-show="loadedPics">
+            <div class="col-33 preview-pic-container">
+                <button ng-click="pics[3] ? removePic(3) : addPic()" ng-class="pics[3] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
+                <span>4</span>
+                <img ng-src="{{pics[3] ? 'img/' + pics[3] : 'img/profile.png'}}" width="100%">
+            </div>
+            <div class="col-33 preview-pic-container">
+                <button ng-click="pics[4] ? removePic(4) : addPic()" ng-class="pics[4] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
+                <span>5</span>
+                <img ng-src="{{pics[4] ? 'img/' + pics[4] : 'img/profile.png'}}" width="100%">
+            </div>
+            <div class="col-33 preview-pic-container">
+                <button ng-click="pics[5] ? removePic(5) : addPic()" ng-class="pics[5] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
+                <span>6</span>
+                <img ng-src="{{pics[5] ? 'img/' + pics[5] : 'img/profile.png'}}" width="100%">
+            </div>
+        </div>
+
+    </ion-content>
+</ion-view>

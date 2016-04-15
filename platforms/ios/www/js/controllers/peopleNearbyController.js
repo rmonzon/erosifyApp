@@ -2,7 +2,7 @@
  * Created by raul on 2/24/16.
  */
 
-angular.module('controllers').controller('PeopleNearbyController', function ($scope, $timeout, GenericController) {
+angular.module('controllers').controller('PeopleNearbyController', function ($scope, $timeout, $cordovaGeolocation, GenericController) {
 
     function init() {
         GenericController.init($scope);
@@ -30,14 +30,51 @@ angular.module('controllers').controller('PeopleNearbyController', function ($sc
         ];
         $scope.totalFound = $scope.matches.length;
         $scope.searching = true;
+        $scope.humanAddress = "";
         $scope.findPeopleNearby();
     }
 
     $scope.findPeopleNearby = function () {
-        $timeout(function () {
-            $scope.searching = false;
-        }, 3000);
+        var posOptions = {timeout: 10000, enableHighAccuracy: false};
+        $cordovaGeolocation.getCurrentPosition(posOptions).then(successGetLocation, errorGetLocation);
     };
+
+    function successGetLocation(position) {
+        geocodeLatLng(position.coords.latitude, position.coords.longitude);
+    }
+
+    function errorGetLocation(err) {
+        $scope.searching = false;
+        console.log(err);
+        $scope.showMessage(err, 3000);
+    }
+
+    function geocodeLatLng(lat, long) {
+        var geocoder = new google.maps.Geocoder;
+        var latlng = {lat: parseFloat(lat), lng: parseFloat(long)};
+        geocoder.geocode({'location': latlng}, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+                    //results[0] = Full street address
+                    //results[1] = locality address
+                    //results[2] = postal code address
+                    //results[3] = county address
+                    //results[4] = state address
+                    //results[5] = country address
+
+
+                    $scope.searching = false;
+                    $scope.humanAddress = results[1].formatted_address;
+                    console.log(results);
+                    $scope.$apply();
+                } else {
+                    $scope.showMessage('No results found', 2500);
+                }
+            } else {
+                $scope.showMessage('Geocoder failed due to: ' + status, 2500);
+            }
+        });
+    }
 
     $scope.goToProfile = function (name) {
         console.log("go to profile " + name);

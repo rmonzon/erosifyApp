@@ -34,6 +34,16 @@
     <feature name="Geolocation">
         <param name="android-package" value="org.apache.cordova.geolocation.Geolocation" />
     </feature>
+    <feature name="Camera">
+        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+    </feature>
+    <feature name="File">
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="FileTransfer">
+        <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
+    </feature>
     <icon density="ldpi" src="resources/android/icon/icon-app.png" />
     <icon density="mdpi" src="resources/android/icon/icon-app.png" />
     <icon density="hdpi" src="resources/android/icon/icon-app.png" />

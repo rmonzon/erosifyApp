@@ -65,6 +65,16 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
                 }
             }
         })
+        .state('add_photos', {
+            url: '/add_photos',
+            templateUrl: 'templates/add_photos.html',
+            controller: 'AddPhotosController',
+            resolve: {
+                factoryInitialized: function (mainFactory) {
+                    return mainFactory.initApp();
+                }
+            }
+        })
 
         .state('app', {
             url: '/app',
@@ -169,5 +179,5 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         });
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/add_photos');
 });
