@@ -11,10 +11,10 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         var promise = deferred.promise;
         if (!factory.initFactory) {
             factory.initFactory = true;
-            factory.connectionStr = "http://10.0.0.9:5001/api/v1";
-            factory.apiUrl = "http://10.0.0.9:5001/api/v1";
-            // factory.connectionStr = "http://192.168.1.5:5001/api/v1";
-            // factory.apiUrl = "http://192.168.1.5:5001/api/v1";
+            // factory.connectionStr = "http://10.0.0.9:5001/api/v1";
+            // factory.apiUrl = "http://10.0.0.9:5001/api/v1";
+            factory.connectionStr = "http://192.168.1.5:5001/api/v1";
+            factory.apiUrl = "http://192.168.1.5:5001/api/v1";
             //factory.connectionStr = "http://erosify-server.herokuapp.com/api/v1";
             //factory.apiUrl = "http://erosify-server.herokuapp.com/api/v1";
             deferred.resolve(factory.initFactory);

@@ -45,10 +45,6 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.post(factory.connectionStr + "/check_email", req);
     };
 
-    factory.getUserProfilePics = function (uid) {
-        return $http.get(factory.connectionStr + "/photos/user/" + uid);
-    };
-
 
 
 

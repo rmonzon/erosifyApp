@@ -2,12 +2,12 @@
  * Created by raul on 4/11/16.
  */
 
-angular.module('controllers').controller('AddPhotosController', function ($scope, $ionicActionSheet, $cordovaCamera, $ionicLoading, GenericController, mainFactory) {
+angular.module('controllers').controller('AddPhotosController', function ($scope, $ionicActionSheet, $cordovaCamera, $cordovaFileTransfer, $ionicLoading, GenericController, mainFactory) {
     function init() {
         GenericController.init($scope);
 
         $scope.loadedPics = false;
-        $scope.pics = ['raul.jpg'];
+        $scope.pics = ['img/raul.jpg'];
     }
 
     // Triggered on a button click, or some other target
@@ -46,56 +46,57 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
 
 
 
-    $scope.data = { "ImageURI" :  "Select Image" };
+
+
     $scope.takePicture = function() {
         var options = {
             quality: 50,
             destinationType: Camera.DestinationType.FILE_URL,
-            sourceType: Camera.PictureSourceType.CAMERA
+            sourceType: Camera.PictureSourceType.CAMERA,
+            targetWidth: 500,
+            targetHeight: 800
         };
-        $cordovaCamera.getPicture(options).then(
-            function (imageData) {
-                $scope.loadedPics = true;
-                $scope.picData = imageData;
-                $scope.pics.push(imageData);
-                $scope.ftLoad = true;
-                localStorage.setItem('fotoUp', imageData);
-                $ionicLoading.show({template: 'Picture acquired...', duration: 500});
-            },
-            function (err) {
-                $ionicLoading.show({template: 'Loading error...', duration: 2500});
-            });
+        $cordovaCamera.getPicture(options).then(takePictureSuccess, takePictureError);
     };
 
     $scope.selectPicture = function() {
         var options = {
             quality: 50,
             destinationType: Camera.DestinationType.FILE_URI,
-            sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+            sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
+            targetWidth: 500,
+            targetHeight: 800
         };
+        $cordovaCamera.getPicture(options).then(getPictureSuccess, getPictureError);
+    };
 
-        $cordovaCamera.getPicture(options).then(
-            function (imageURI) {
-                window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
-                    $scope.loadedPics = true;
-                    $scope.picData = fileEntry.nativeURL;
-                    console.log(fileEntry);
-                    $scope.pics.push(fileEntry.nativeURL);
-                    $scope.ftLoad = true;
-                });
-                $ionicLoading.show({template: 'Picture acquired...', duration: 500});
-            },
-            function (err) {
-                $ionicLoading.show({template: 'Loading error...', duration: 500});
+    $scope.uploadImages = function () {
+        var server = "http://192.168.1.5:5001/api/v1/upload";
+        var options = {
+            fileKey: "file",
+            fileName: "avatar",
+            chunkedMode: false,
+            mimeType: "image/jpg"
+        };
+        $cordovaFileTransfer.upload(encodeURI(server), $scope.picData, options)
+            .then(function(result) {
+                console.log(result);
+                // Success!
+            }, function(err) {
+                console.log(err);
+                // Error
+            }, function (progress) {
+                // constant progress updates
+                console.log("constant progress updates");
             });
     };
 
     $scope.uploadPicture = function() {
-        $ionicLoading.show({template: 'Sto inviando la foto...'});
+        $ionicLoading.show({template: 'Sending pictures...'});
         var fileURL = $scope.picData;
         var options = new FileUploadOptions();
         options.fileKey = "file";
-        options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
+        options.fileName = 'avatar.jpg';
         options.mimeType = "image/jpeg";
         options.chunkedMode = true;
 
@@ -106,55 +107,56 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
         options.params = params;
 
         var ft = new FileTransfer();
-        ft.upload(fileURL, encodeURI("http://www.yourdomain.com/upload.php"), viewUploadedPictures, function(error) {
-            $ionicLoading.show({template: 'Errore di connessione...'});
-            $ionicLoading.hide();
-        }, options);
+
+        ft.onprogress = function(progressEvent) {
+            if (progressEvent.lengthComputable) {
+                console.log(progressEvent.loaded / progressEvent.total);
+                //loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
+            } else {
+                //loadingStatus.increment();
+            }
+        };
+
+        ft.upload(fileURL, encodeURI("http://192.168.1.5:5001/api/v1/upload"), uploadPicsSuccess, uploadPicsError, options);
     };
 
-    var viewUploadedPictures = function() {
-        $ionicLoading.show({template: 'Sto cercando le tue foto...'});
-        var server = "http://www.yourdomain.com/upload.php";
-        if (server) {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
-                if (xmlhttp.readyState === 4) {
-                    if (xmlhttp.status === 200) {
-                        document.getElementById('server_images').innerHTML = xmlhttp.responseText;
-                    }
-                    else {
-                        $ionicLoading.show({template: 'Errore durante il caricamento...', duration: 1000});
-                        return false;
-                    }
-                }
-            };
-            xmlhttp.open("GET", server, true);
-            xmlhttp.send();
-        }
+    var uploadPicsSuccess = function (r) {
+        console.log("Code = " + r.responseCode);
+        console.log("Response = " + r.response);
+        console.log("Sent = " + r.bytesSent);
+    };
+
+    var uploadPicsError = function (error) {
+        $ionicLoading.show({template: 'Connection error...'});
         $ionicLoading.hide();
     };
 
-    $scope.viewPictures = function() {
-        $ionicLoading.show({template: 'Sto cercando le tue foto...'});
-        var server = "http://www.yourdomain.com/upload.php";
-        if (server) {
-            var xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
-                if (xmlhttp.readyState === 4) {
-                    if (xmlhttp.status === 200) {
-                        document.getElementById('server_images').innerHTML = xmlhttp.responseText;
-                    }
-                    else {
-                        $ionicLoading.show({template: 'Errore durante il caricamento...', duration: 1000});
-                        return false;
-                    }
-                }
-            };
-            xmlhttp.open("GET", server, true);
-            xmlhttp.send();
-        }
-        $ionicLoading.hide();
-    };
+    function takePictureSuccess(imageData) {
+        $scope.loadedPics = true;
+        $scope.picData = imageData;
+        $scope.pics.push(imageData);
+        localStorage.setItem('fotoUp', imageData);
+        $ionicLoading.show({template: 'Picture acquired...', duration: 500});
+    }
+
+    function takePictureError(err) {
+        $ionicLoading.show({template: 'Loading error...', duration: 2500});
+    }
+
+    function getPictureSuccess(imageURI) {
+        window.resolveLocalFileSystemURL(imageURI, function (fileEntry) {
+            $scope.loadedPics = true;
+            $scope.picData = fileEntry.nativeURL;
+            $scope.pics.push(fileEntry.nativeURL);
+            $scope.uploadImages();
+            //$scope.uploadPicture();
+        });
+        $ionicLoading.show({template: 'Picture acquired...', duration: 500});
+    }
+
+    function getPictureError() {
+        $ionicLoading.show({template: 'Loading error...', duration: 500});
+    }
 
 
 
