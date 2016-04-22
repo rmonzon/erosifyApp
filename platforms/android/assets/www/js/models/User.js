@@ -24,6 +24,7 @@ angular.module('models', []).service('User', function ($window) {
     };
 
     var setUser = function(user_data) {
+        user_data.pictures = cleanImagesUrls(user_data);
         user = user_data;
         //$window.localStorage.starter_facebook_user = JSON.stringify(user_data);
     };
@@ -37,6 +38,12 @@ angular.module('models', []).service('User', function ($window) {
     var updateAttr = function (key, value) {
         user[key] = value;
     };
+
+    function cleanImagesUrls(user) {
+        return user.pictures.map(function (u) {
+            return ENV.SERVICE_URL + "/profiles/user_" + user.id + "/" + u;
+        });
+    }
 
     return {
         getUser: getUser,

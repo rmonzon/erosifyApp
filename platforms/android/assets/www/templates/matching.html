@@ -5,35 +5,40 @@
     <div class="top-bar-logo">
         <img src="img/logo-green.png" width="110">
     </div>
+    <a class="button button-icon icon ion-funnel" ng-click="openFilterOptions()"></a>
 </ion-header-bar>
 <ion-content class="match-container">
-    <div class="photo-section-container">
+    <div class="photo-section-container" ng-hide="loadingMatches">
         <div class="top-name-container">
             <div class="col-20">
                 <a class="button button-icon icon ion-ios-star-outline" style="float: right"></a>
             </div>
             <div class="col-60">
-                <span style="font-size: 28px;position: relative;top: 16px;margin-right: 5px;">{{profile.name}}</span>
-                <span style="font-size: 28px;position: relative;top: 16px;"><b>{{profile.age}}</b></span>
+                <span style="font-size: 28px;position: relative;top: 16px;margin-right: 5px;">{{currentProfile.name}}</span>
+                <span style="font-size: 28px;position: relative;top: 16px;"><b>{{currentProfile.age}}</b></span>
             </div>
             <div class="col-20" style="display: flex">
-                <div ng-show="profile.verified" class="verified-icon"></div>
-                <div ng-show="profile.online" class="online-icon"></div>
+                <div ng-show="currentProfile.verified == 1" class="verified-icon"></div>
+                <div ng-show="currentProfile.status == 1" class="online-icon"></div>
             </div>
         </div>
 
         <div class="user-pic-container">
             <div class="side-columns-match">
                 <a class="button button-icon" style="padding: 0; position: absolute; bottom: 50%; margin-bottom: 20px">
-                    <div class="btn-undo-action"></div>
+                    <div class="btn-undo-action" ng-click="goPreviousProfile()"></div>
                 </a>
             </div>
 
-            <div class="circular-pic-container"></div>
+            <div class="circular-pic-container">
+                <div class="matching-pic-container">
+                    <img ng-src="{{currentProfile.pictures[0]}}" width="100%">
+                </div>
+            </div>
 
             <div class="side-columns-match">
                 <a class="button button-icon" style="padding: 0; position: absolute; bottom: 50%; margin-bottom: 20px;right: 10px;">
-                    <div class="btn-skip-profile"></div>
+                    <div class="btn-skip-profile" ng-click="skipProfile()"></div>
                 </a>
             </div>
         </div>
@@ -43,14 +48,10 @@
 
             <div class="btn-likedis-container">
                 <div style="width: 50%; height: 100%">
-                    <div class="button-dislike" ontouchstart="" ng-click="dislikeProfile()">
-                        <i class="icon ion-android-close"></i>
-                    </div>
+                    <button class="button button-icon icon ion-close-round button-dislike" ng-click="dislikeProfile()"></button>
                 </div>
                 <div style="width: 50%; height: 100%">
-                    <div class="button-like" ontouchstart="" ng-click="likeProfile()">
-                        <i class="icon ion-android-favorite-outline"></i>
-                    </div>
+                    <button class="button button-icon icon ion-android-favorite-outline button-like" ng-click="likeProfile()"></button>
                 </div>
             </div>
 
@@ -58,41 +59,43 @@
         </div>
     </div>
 
-    <div class="info-section-container">
+    <div class="info-section-container" ng-hide="loadingMatches">
         <div class="row">
             <a class="button button-icon" style="padding: 0">
-                <div class="btn-profile"></div>
+                <div class="btn-profile" ng-click="goToProfile()"></div>
             </a>
 
             <div class="col" style="margin-top: 25px">
                 <div class="row location-row">
                     <i class="icon ion-location"></i>
-                    <span>{{profile.location}}</span>
+                    <span>{{currentProfile.location}}</span>
                 </div>
                 <div class="row location-row">
                     <img src="img/language.svg" width="17">
-                    <span>{{profile.languages}}</span>
+                    <span>{{currentProfile.languages}}</span>
                 </div>
             </div>
             <a class="button button-icon" style="padding: 0">
-                <div class="btn-more-pics"></div>
+                <div class="btn-more-pics" ng-click="seeMorePics()"></div>
             </a>
         </div>
         <div class="row" style="padding-top: 0">
             <div class="col">
                 <span style="font-family: LeituraSansBold">About Me</span>
                 <p class="about-me-desc">
-                    {{profile.aboutMe}}
+                    {{currentProfile.aboutme}}
                 </p>
             </div>
         </div>
-        <div class="row" style="padding-top: 0">
-            <div class="col">
-                <span style="font-family: LeituraSansBold">Work & Education</span>
-                <p class="about-me-desc">
-                    {{profile.work_education}}
-                </p>
-            </div>
-        </div>
+    </div>
+
+    <div class="" ng-show="loadingMatches">
+        <ion-slide-box style="height: 100%;" on-slide-changed="slideChanged($index)" show-pager="true">
+            <ion-slide ng-repeat="imageUrl in currentProfile.pictures">
+                <div class="pic-container">
+                    <img ng-src="{{imageUrl}}">
+                </div>
+            </ion-slide>
+        </ion-slide-box>
     </div>
 </ion-content>

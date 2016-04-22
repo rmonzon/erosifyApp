@@ -465,7 +465,7 @@ hr {
     width: 70%;
     height: 100%;
     border-radius: 50%;
-    background: url("../img/user-pic.jpg") center;
+    background: url("../img/profile.png") center;
     background-size: cover;
     box-shadow: 0 0 15px #000;
 }
@@ -493,36 +493,33 @@ hr {
 }
 
 .button-like {
-    width: 120px;
-    height: 46px;
-    font-size: 35px;
-    padding: 5px;
-    border-radius: 23px;
+    width: 100px;
+    height: 50px;
+    border-radius: 30px;
     float: left;
-    margin-left: 5px;
     background: #00BF61;
     text-align: center;
-}
-
-.button-like:active {
-    background: green;
-    color: gray;
+    /*position: absolute;*/
+    /*right: 50%;*/
+    /*margin-right: -90px;*/
+    margin-left: 10px;
+    z-index: 10;
+    color: whitesmoke;
 }
 
 .button-dislike {
-    width: 120px;
-    height: 46px;
-    font-size: 37px;
-    padding: 5px;
-    border-radius: 23px;
+    width: 100px;
+    height: 50px;
+    border-radius: 30px;
     float: right;
-    margin-right: 5px;
     background: #FF4842;
     text-align: center;
-}
-
-.button-like i, .button-dislike {
-    color: white;
+    margin-right: 10px;
+    /*position: absolute;*/
+    /*left: 50%;*/
+    /*margin-left: -90px;*/
+    z-index: 10;
+    color: whitesmoke;
 }
 
 .btn-skip-profile {
@@ -1125,7 +1122,12 @@ span.msg {
 
 .pic-container {
     height: 100%;
-    background: white;
+}
+
+.matching-pic-container {
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 .verified-icon-profile {
@@ -1345,4 +1347,20 @@ span.msg {
 .action-sheet-title {
     font-size: 18px;
     font-weight: bolder;
+}
+
+.ion-funnel {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+}
+
+.button.button-icon.icon.ion-funnel:before {
+    font-size: 25px;
+    color: gray;
+}
+
+.button.button-icon.icon.ion-android-favorite-outline.button-like:before {
+    font-size: 37px;
+    margin-top: 4px;
 }

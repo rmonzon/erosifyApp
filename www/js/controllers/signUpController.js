@@ -2,7 +2,7 @@
  * Created by raul on 1/5/16.
  */
 
-angular.module('controllers').controller('SignUpController', function ($scope, GenericController, mainFactory) {
+angular.module('controllers').controller('SignUpController', function ($scope, GenericController, mainFactory, User) {
 
     function init() {
         GenericController.init($scope);
@@ -105,7 +105,8 @@ angular.module('controllers').controller('SignUpController', function ($scope, G
             "dob": $scope.user.month + "-" + $scope.user.day + "-" + $scope.user.year,
             "gender": $scope.user.gender,
             "age": calculateAge(),
-            "location": getLocation()
+            "location": getLocation(),
+            "pictures": "'{1.jpg}'" //temporary solution until the picture upload feature is done
         };
         $scope.showMessageWithIcon("Creating account...");
         mainFactory.createAccount(userObj).then(successCallBack, errorCallBack);
@@ -113,7 +114,7 @@ angular.module('controllers').controller('SignUpController', function ($scope, G
 
     function getLocation() {
         //we'll get this later from Geolocation APIs
-        return "Miami, FL";
+        return 'Miami, FL';
     }
 
     function calculateAge() {
@@ -128,7 +129,11 @@ angular.module('controllers').controller('SignUpController', function ($scope, G
 
     function successCallBack(response) {
         $scope.hideMessage();
-        $scope.goToPage('add_photos');
+        $scope.setUserToLS($scope.user.email);
+        User.setToken(response.data.token);
+        User.setUser(response.data.user);
+        //$scope.goToPage('add_photos');
+        $scope.goToPage('app/matching');
     }
 
     function errorCallBack(response) {

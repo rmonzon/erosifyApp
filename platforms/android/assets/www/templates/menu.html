@@ -14,7 +14,7 @@
         <ion-content>
             <ion-list>
                 <a menu-close class="item item-avatar" ng-click="goToPage('app/myprofile')">
-                    <img class="left-menu-pic" ng-class="user.gender == 'Male' ? 'male' : 'female'" ng-src="{{'../img/' + user.pictures[0]}}">
+                    <img class="left-menu-pic" ng-class="user.gender == 'Male' ? 'male' : 'female'" ng-src="{{user.pictures[0]}}">
                     <h2>{{user.name}}</h2>
                     <i class="icon ion-android-favorite-outline"> <b>123</b></i>
                     <i class="icon ion-ios-chatbubble-outline"> <b>45</b></i>

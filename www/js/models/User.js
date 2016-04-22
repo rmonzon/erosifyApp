@@ -41,7 +41,7 @@ angular.module('models', []).service('User', function ($window) {
 
     function cleanImagesUrls(user) {
         return user.pictures.map(function (u) {
-            return "http://10.0.0.9:5001/profiles/user_" + user.id + "/" + u;
+            return ENV.SERVICE_URL + "/profiles/user_" + user.id + "/" + u;
         });
     }
 

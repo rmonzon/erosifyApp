@@ -90,5 +90,26 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
         $scope.removeUserFromLS = function () {
             $window.localStorage.removeItem('userId');
         };
+
+        $scope.parseDataFromDB = function (users) {
+            if (Array.isArray(users)) {
+                for (var i = 0, len = users.length; i < len; ++i) {
+                    users[i].pictures = cleanImagesUrls(users[i]);
+                    users[i].languages = users[i].languages.join(', ');
+                }
+            }
+            else {
+                users.pictures = cleanImagesUrls(users);
+                users.languages = users.languages.join(', ');
+                //we might need to parse more data in the future
+            }
+            return users;
+        };
+
+        function cleanImagesUrls(user) {
+            return user.pictures.map(function (u) {
+                return ENV.SERVICE_URL + "/profiles/user_" + user.id + "/" + u;
+            });
+        }
     };
 });

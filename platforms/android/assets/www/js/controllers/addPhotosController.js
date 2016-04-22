@@ -54,7 +54,11 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
             destinationType: Camera.DestinationType.FILE_URL,
             sourceType: Camera.PictureSourceType.CAMERA,
             targetWidth: 500,
-            targetHeight: 800
+            targetHeight: 800,
+            allowEdit: true,
+            encodingType: Camera.EncodingType.JPEG,
+            popoverOptions: CameraPopoverOptions,
+            saveToPhotoAlbum: false
         };
         $cordovaCamera.getPicture(options).then(takePictureSuccess, takePictureError);
     };
@@ -65,7 +69,11 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
             destinationType: Camera.DestinationType.FILE_URI,
             sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
             targetWidth: 500,
-            targetHeight: 800
+            targetHeight: 800,
+            allowEdit: true,
+            encodingType: Camera.EncodingType.JPEG,
+            popoverOptions: CameraPopoverOptions,
+            saveToPhotoAlbum: false
         };
         $cordovaCamera.getPicture(options).then(getPictureSuccess, getPictureError);
     };

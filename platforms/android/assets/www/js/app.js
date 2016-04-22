@@ -179,5 +179,5 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         });
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/add_photos');
+    $urlRouterProvider.otherwise('/login');
 });

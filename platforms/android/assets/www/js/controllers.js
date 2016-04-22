@@ -10,16 +10,6 @@ angular.module('controllers', []).controller('AppCtrl', function($scope, $timeou
     function init() {
         GenericController.init($scope);
         $scope.user = User.getUser();
-        $scope.profile = {
-            name: "Laura Ramos",
-            age: 23,
-            verified: true,
-            online: true,
-            location: "Miami, FL",
-            languages: "English, Spanish",
-            aboutMe: "Lorem ipsum dolor sit amet, conset cteur adisiping elit. Lorem ipsum dolor...",
-            work_education: "Account Manager lorem ipsum dolor..."
-        };
     }
 
     $scope.goToSettings = function (ev) {
