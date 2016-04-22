@@ -45,6 +45,14 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.post(factory.connectionStr + "/matches", req);
     };
 
+    factory.makeUserFavorite = function (req) {
+        return $http.post(factory.connectionStr + "/favorite", req);
+    };
+
+    factory.getFavoritesByUser = function (req) {
+        return $http.post(factory.connectionStr + "/favorites", req);
+    };
+
 
 
 

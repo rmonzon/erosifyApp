@@ -70,9 +70,9 @@ p {
 
 .button-login {
     width: 100%;
-    height: 45px;
+    height: 50px;
     background: rgba(120, 54, 67, 0.78);
-    padding: 15px;
+    padding-top: 17px;
     margin-bottom: 25px;
     text-align: center;
     font-size: 16px;
@@ -409,12 +409,37 @@ hr {
     background-size: cover;
 }
 
+/* iPhone 6 Plus */
+@media only screen and (min-height: 736px) {
+    .info-section-container {
+        height: 40%!important;
+    }
+}
+
+/* iPhone 6 */
+@media only screen and (min-height: 667px) {
+
+}
+
+/* iPhone 5 */
+@media only screen and (max-height: 568px) {
+    .info-section-container {
+        padding: 35px 15px!important;
+    }
+    .btn-likedis-container {
+        margin-top: 10px!important;
+    }
+}
+
 .info-section-container {
-    width: 100%;
-    height: 50%;
+    padding: 50px 15px;
+    height: 45%;
     background: url("../img/image_profile.png") no-repeat 50%;
-    position: absolute;
-    bottom: 0;
+}
+
+.match-container .scroll {
+    height: 100%;
+    transform: none!important;
 }
 
 .photo-section-container {
@@ -455,10 +480,14 @@ hr {
 }
 
 .verified-icon {
-    width: 16px;
-    height: 12px;
-    background: url("../img/verified.svg") no-repeat;
-    margin: 17px 5px 0 5px;
+    font-size: 22px;
+    color: #00BF61;
+    margin-top: 13px;
+    margin-right: 10px;
+    /*width: 16px;*/
+    /*height: 12px;*/
+    /*background: url("../img/verified.svg") no-repeat;*/
+    /*margin: 17px 5px 0 5px;*/
 }
 
 .circular-pic-container {
@@ -470,27 +499,10 @@ hr {
     box-shadow: 0 0 15px #000;
 }
 
-.scroll {
-    transform: translate3d(0px, 0px, 0px) scale(1)!important;
-    height: 100%;
-}
-
-.info-section-container .row {
-    padding: 15px 15px 0;
-    margin-top: 15%;
-}
-
-@media only screen and (min-height: 568px) {
-    .info-section-container .row {
-        margin-top: 12%;
-    }
-}
-
-@media only screen and (min-height: 736px) {
-    .info-section-container .row {
-        margin-top: 15%;
-    }
-}
+/*.scroll {*/
+    /*transform: translate3d(0px, 0px, 0px) scale(1)!important;*/
+    /*height: 100%;*/
+/*}*/
 
 .button-like {
     width: 100px;
@@ -532,8 +544,8 @@ hr {
 .btn-undo-action {
     background: url("../img/back.svg") no-repeat;
     background-size: contain;
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 49px;
     position: relative;
     left: 10px;
 }
@@ -544,7 +556,10 @@ hr {
 }
 
 .btn-likedis-container {
-    width: 70%; height: 100%; display: flex;margin-top: 6px;
+    width: 70%;
+    height: 100%;
+    display: flex;
+    margin-top: 20px;
 }
 
 .match-bottom-section {
@@ -1363,4 +1378,64 @@ span.msg {
 .button.button-icon.icon.ion-android-favorite-outline.button-like:before {
     font-size: 37px;
     margin-top: 4px;
+}
+
+.button.button-icon.button-clear.ion-close-round:before, .button.button-icon.button-clear.ion-checkmark-round:before {
+    font-size: 25px;
+}
+
+
+
+
+
+
+
+
+
+/* Styles for multi-range input (double slider) */
+
+ui-multi-range {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    position: relative;
+    height: 50px;
+}
+ui-multi-range input[type=range] {
+    position: absolute;
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0 2px;
+    overflow: hidden;
+    border: 0;
+    border-radius: 1px;
+    outline: none;
+    pointer-events: none;
+}
+ui-multi-range input[type=range]:active, ui-multi-range input[type=range]:focus {
+    outline: none;
+}
+ui-multi-range input[type=range]::-webkit-slider-thumb {
+    position: relative;
+    cursor: pointer;
+    pointer-events: all;
+}
+ui-multi-range input[type=range]::-webkit-slider-thumb::before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: 13px;
+    left: 100%;
+    width: 2000px;
+    height: 2px;
+}
+ui-multi-range input[type=range]:nth-child(2) {
+    background: none;
+}
+ui-multi-range input[type=range]:nth-child(2)::-webkit-slider-thumb::before {
+    background-color: #ccc;
 }

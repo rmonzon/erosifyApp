@@ -23,7 +23,10 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
     });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $compileProvider, $animateProvider, $ionicConfigProvider) {
+    $compileProvider.debugInfoEnabled(false);
+    $animateProvider.classNameFilter( /\banimated\b/ );
+    $ionicConfigProvider.scrolling.jsScrolling(false);
     $stateProvider
         .state('login', {
             url: '/login',

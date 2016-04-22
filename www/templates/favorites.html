@@ -7,20 +7,33 @@
     </div>
 </ion-header-bar>
 <ion-content class="gradient-bg">
-    <div class="row" ng-repeat="m in matches" style="border-bottom: 1px solid rgba(211,211,211,0.3);padding-top: 5px">
+    <div class="row" ng-repeat="fav in listFavorites" style="border-bottom: 1px solid rgba(211,211,211,0.3);padding-top: 5px" ng-hide="loadingFavs">
         <div class="col-20 text-center">
-            <a class="button button-icon" style="line-height: 0; margin: 5px 0;" ng-click="goToProfile(m.name)">
-                <img class="user-fav-pic" src="{{m.pic}}">
-                <img src="img/verified-circle.svg" ng-show="m.verified" class="verified-user-fav">
+            <a class="button button-icon" style="line-height: 0; margin: 5px 0;" ng-click="goToProfile(fav.name)">
+                <img class="user-fav-pic" src="{{fav.pictures[0]}}">
+                <img src="img/verified-circle.svg" ng-show="fav.verified == 1" class="verified-user-fav">
             </a>
         </div>
         <div class="col-60" style="padding-top: 15px">
-            <span><b>{{m.name}}, {{m.age}}</b></span>
+            <span><b>{{fav.name}}, {{fav.age}}</b></span>
             <br />
-            <span class="fav-online" ng-class="m.online ? 'online-txt' : 'offline-txt'">{{m.online ? 'Online' : 'Offline'}}</span>
+            <span class="fav-online" ng-class="fav.status == 1 ? 'online-txt' : 'offline-txt'">{{fav.status == 1 ? 'Online' : 'Offline'}}</span>
         </div>
         <div class="col-20 text-center">
             <button class="button button-icon send-msg-button ion-ios-chatboxes-outline"></button>
         </div>
+    </div>
+
+    <div class="row no-data-container" ng-show="noResults">
+        <div class="col">
+            <i class="icon ion-sad" style="font-size: 50px"></i>
+            <p class="text-center">No one around here yet.</p>
+            <p class="text-center"> Start adding your favorite ones now!</p>
+        </div>
+    </div>
+
+    <div class="text-center def-spinner-container" ng-show="loadingFavs">
+        <ion-spinner class="default-spinner"></ion-spinner>
+        <!--<p class="text-center">Loading your favorites...</p>-->
     </div>
 </ion-content>

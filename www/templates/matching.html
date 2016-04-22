@@ -11,7 +11,7 @@
     <div class="photo-section-container" ng-hide="loadingMatches">
         <div class="top-name-container">
             <div class="col-25">
-                <a class="button button-icon icon ion-ios-star-outline" style="float: right"></a>
+                <a class="button button-icon icon" ng-class="currentProfile.favorite ? 'match-favorite ion-ios-star' : 'match-no-favorite ion-ios-star-outline'" style="float: right" ng-click="markUserAsFavorite()"></a>
             </div>
             <div class="col-50">
                 <span style="font-size: 28px;position: relative;top: 16px;margin-right: 5px;">{{currentProfile.name}}</span>
@@ -26,7 +26,7 @@
 
         <div class="user-pic-container">
             <div class="side-columns-match">
-                <a class="button button-icon" style="padding: 0; position: absolute; bottom: 50%; margin-bottom: 15px" ng-disabled="posProfile == 0" ng-click="goPreviousProfile()">
+                <a class="button button-icon" style="position: absolute; bottom: 50%; margin-bottom: 12px" ng-disabled="posProfile == 0" ng-click="goPreviousProfile()">
                     <div class="btn-undo-action"></div>
                 </a>
             </div>
@@ -38,7 +38,7 @@
             </div>
 
             <div class="side-columns-match">
-                <a class="button button-icon" style="padding: 0; position: absolute; bottom: 50%; margin-bottom: 20px;right: 10px;" ng-disabled="posProfile == listMatches.length - 1" ng-click="skipProfile()">
+                <a class="button button-icon" style="position: absolute; bottom: 50%; margin-bottom: 15px;right: 11px;" ng-disabled="posProfile == listMatches.length - 1" ng-click="skipProfile()">
                     <div class="btn-skip-profile"></div>
                 </a>
             </div>
@@ -60,7 +60,8 @@
         </div>
     </div>
 
-    <div class="info-section-container" ng-hide="loadingMatches">
+
+    <div class="info-section-container">
         <div class="row">
             <a class="button button-icon" style="padding: 0">
                 <div class="btn-profile" ng-click="goToProfile()"></div>
@@ -80,7 +81,7 @@
                 <div class="btn-more-pics" ng-click="seeMorePics()"></div>
             </a>
         </div>
-        <div class="row" style="padding-top: 0">
+        <div class="row" style="padding-top: 0!important;">
             <div class="col">
                 <span style="font-family: LeituraSansBold">About Me</span>
                 <p class="about-me-desc">
@@ -90,12 +91,44 @@
         </div>
     </div>
 
+    <!--<div class="info-section-container" ng-hide="loadingMatches">-->
+        <!--<div class="row">-->
+            <!--<a class="button button-icon" style="padding: 0">-->
+                <!--<div class="btn-profile" ng-click="goToProfile()"></div>-->
+            <!--</a>-->
+
+            <!--<div class="col" style="margin-top: 25px">-->
+                <!--<div class="row location-row">-->
+                    <!--<i class="icon ion-location"></i>-->
+                    <!--<span>{{currentProfile.location}}</span>-->
+                <!--</div>-->
+                <!--<div class="row location-row">-->
+                    <!--<img src="img/language.svg" width="17">-->
+                    <!--<span>{{currentProfile.languages}}</span>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<a class="button button-icon" style="padding: 0">-->
+                <!--<div class="btn-more-pics" ng-click="seeMorePics()"></div>-->
+            <!--</a>-->
+        <!--</div>-->
+        <!--<div class="row" style="padding-top: 0">-->
+            <!--<div class="col">-->
+                <!--<span style="font-family: LeituraSansBold">About Me</span>-->
+                <!--<p class="about-me-desc">-->
+                    <!--{{currentProfile.aboutme}}-->
+                <!--</p>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
     <div class="" ng-show="loadingMatches">
 
     </div>
 
 
 
+
+    <!-- Filter's modal view -->
     <script id="templates/modal.html" type="text/ng-template">
         <ion-modal-view>
             <ion-header-bar align-title="left" class="bar bar-header">

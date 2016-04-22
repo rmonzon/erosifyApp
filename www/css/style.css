@@ -70,9 +70,9 @@ p {
 
 .button-login {
     width: 100%;
-    height: 45px;
+    height: 50px;
     background: rgba(120, 54, 67, 0.78);
-    padding: 15px;
+    padding-top: 17px;
     margin-bottom: 25px;
     text-align: center;
     font-size: 16px;
@@ -409,12 +409,37 @@ hr {
     background-size: cover;
 }
 
+/* iPhone 6 Plus */
+@media only screen and (min-height: 736px) {
+    .info-section-container {
+        height: 40%!important;
+    }
+}
+
+/* iPhone 6 */
+@media only screen and (min-height: 667px) {
+
+}
+
+/* iPhone 5 */
+@media only screen and (max-height: 568px) {
+    .info-section-container {
+        padding: 35px 15px!important;
+    }
+    .btn-likedis-container {
+        margin-top: 10px!important;
+    }
+}
+
 .info-section-container {
-    width: 100%;
-    height: 50%;
+    padding: 45px 15px;
+    height: 45%;
     background: url("../img/image_profile.png") no-repeat 50%;
-    position: absolute;
-    bottom: 0;
+}
+
+.match-container .scroll {
+    height: 100%;
+    transform: none!important;
 }
 
 .photo-section-container {
@@ -442,8 +467,12 @@ hr {
     height: 41px;
 }
 
-.top-name-container .button {
-    color: white;
+.match-no-favorite {
+    color: white!important;
+}
+
+.match-favorite {
+    color: #FFB932!important;
 }
 
 .online-icon {
@@ -474,27 +503,10 @@ hr {
     box-shadow: 0 0 15px #000;
 }
 
-.scroll {
-    transform: translate3d(0px, 0px, 0px) scale(1)!important;
-    height: 100%;
-}
-
-.info-section-container .row {
-    padding: 15px 15px 0;
-    margin-top: 15%;
-}
-
-@media only screen and (min-height: 568px) {
-    .info-section-container .row {
-        margin-top: 12%;
-    }
-}
-
-@media only screen and (min-height: 736px) {
-    .info-section-container .row {
-        margin-top: 15%;
-    }
-}
+/*.scroll {*/
+    /*transform: translate3d(0px, 0px, 0px) scale(1)!important;*/
+    /*height: 100%;*/
+/*}*/
 
 .button-like {
     width: 100px;
@@ -548,7 +560,10 @@ hr {
 }
 
 .btn-likedis-container {
-    width: 70%; height: 100%; display: flex;margin-top: 6px;
+    width: 70%;
+    height: 100%;
+    display: flex;
+    margin-top: 20px;
 }
 
 .match-bottom-section {
@@ -1369,15 +1384,39 @@ span.msg {
     margin-top: 4px;
 }
 
+.button.button-icon.button-clear.ion-close-round:before, .button.button-icon.button-clear.ion-checkmark-round:before {
+    font-size: 25px;
+}
+
+.def-spinner-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -20px;
+    margin-top: -32px;
+}
+
+.default-spinner.spinner svg {
+    width: 40px;
+    height: 40px;
+    stroke: whitesmoke;
+    fill: whitesmoke;
+}
+
+.no-data-container {
+    padding: 30px;
+    font-size: 16px;
+    color: whitesmoke;
+    margin-top: 30%;
+    text-align: center;
+}
 
 
 
 
 
 
-
-
-
+/* Styles for multi-range input (double slider) */
 
 ui-multi-range {
     -webkit-box-flex: 1;

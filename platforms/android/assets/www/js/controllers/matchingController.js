@@ -2,13 +2,14 @@
  * Created by raul on 2/3/16.
  */
 
-angular.module('controllers').controller('MatchingController', function ($scope, $ionicSlideBoxDelegate, GenericController, mainFactory) {
+angular.module('controllers').controller('MatchingController', function ($scope, $timeout, $ionicSlideBoxDelegate, $ionicModal, GenericController, mainFactory) {
 
     function init() {
         GenericController.init($scope);
         $scope.listMatches = [];
         $scope.loadingMatches = true;
         $scope.posProfile = 0;
+        $scope.filters = { miles: 30, ageMin: 18, ageMax: 55, from: 18, to: 40, gender: 'Women', interest: "Date" };
         $scope.getListOfMatches();
     }
 
@@ -48,11 +49,18 @@ angular.module('controllers').controller('MatchingController', function ($scope,
     };
 
     $scope.skipProfile = function () {
-
+        if ($scope.posProfile < $scope.listMatches.length - 1) {
+            $scope.posProfile++;
+            $scope.currentProfile = $scope.listMatches[$scope.posProfile];   
+        }
     };
 
     $scope.goPreviousProfile = function () {
-
+        if ($scope.posProfile > 0) {
+            $scope.posProfile--;
+            $scope.currentProfile = $scope.listMatches[$scope.posProfile];
+            //make sure to undo the LIKE or DISLIKE for this user
+        }
     };
 
     $scope.goToProfile = function () {
@@ -63,18 +71,23 @@ angular.module('controllers').controller('MatchingController', function ($scope,
         //open up the gallery with all user's photos
     };
 
-
-    $scope.nextPic = function() {
-        $ionicSlideBoxDelegate.next();
+    $scope.openFilterOptions = function () {
+        $scope.modal.show();
     };
 
-    $scope.previousPic = function() {
-        $ionicSlideBoxDelegate.previous();
+    $ionicModal.fromTemplateUrl('templates/modal.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.modal = modal;
+    });
+
+    $scope.applyFilters = function () {
+        
+        $scope.modal.hide();
     };
 
-    // Called each time the slide changes
-    $scope.slideChanged = function(index) {
-        $scope.slideIndex = index;
+    $scope.closeModal = function() {
+        $scope.modal.hide();
     };
 
     init();
