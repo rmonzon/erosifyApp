@@ -97,12 +97,20 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
                     users[i].pictures = cleanImagesUrls(users[i]);
                     if (users[i].languages)
                         users[i].languages = users[i].languages.join(', ');
+                    if (users[i].date) {
+                        var d = users[i].date.split('T')[0].split('-');
+                        users[i].date = d[1] + "/" + d[2] + "/" + d[0];
+                    }
                 }
             }
             else {
                 users.pictures = cleanImagesUrls(users);
                 if (users.languages)
                     users.languages = users.languages.join(', ');
+                if (users.date) {
+                    d = users.date.split('T')[0].split('-');
+                    users.date = d[1] + "/" + d[2] + "/" + d[0];
+                }
                 //we might need to parse more data in the future
             }
             return users;

@@ -27,8 +27,9 @@
                 <span class="profile-name">
                     <span style="font-family: LeituraSansBold">{{user.name}}</span>, {{user.age}}
                 </span>
-                <div class="verified-icon-profile"></div>
-                <div class="online-icon-profile"></div>
+                <!--<div class="verified-icon-profile"></div>-->
+                <i class="icon ion-checkmark-circled verified-icon" style="margin-top: -6px;margin-left: 8px;" ng-show="user.verified == 1"></i>
+                <div class="online-icon-profile" ng-show="user.status == 1"></div>
             </div>
         </div>
 
@@ -40,7 +41,7 @@
                 </p>
             </div>
         </div>
-        <div class="row">
+        <div class="row" ng-show="user.work">
             <div class="col">
                 <i class="icon ion-briefcase"></i>
                 <b>Work</b>
@@ -49,7 +50,7 @@
                 </p>
             </div>
         </div>
-        <div class="row">
+        <div class="row" ng-show="user.education">
             <div class="col">
                 <i class="icon ion-university"></i>
                 <b>Education</b>
@@ -58,7 +59,7 @@
                 </p>
             </div>
         </div>
-        <div class="row">
+        <div class="row" ng-show="user.aboutme">
             <div class="col">
                 <i class="icon ion-person" style="margin-right: 8px;"></i>
                 <b>About Me</b>
@@ -72,7 +73,7 @@
                 <i class="icon ion-earth"></i>
                 <b>Languages</b>
                 <p class="about-me-desc">
-                    English, Spanish
+                    {{user.languages}}
                 </p>
             </div>
         </div>

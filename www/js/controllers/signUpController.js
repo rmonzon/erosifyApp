@@ -131,6 +131,7 @@ angular.module('controllers').controller('SignUpController', function ($scope, G
         $scope.hideMessage();
         $scope.setUserToLS($scope.user.email);
         User.setToken(response.data.token);
+        response.data.user = $scope.parseDataFromDB(response.data.user);
         User.setUser(response.data.user);
         //$scope.goToPage('add_photos');
         $scope.goToPage('app/matching');

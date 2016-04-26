@@ -53,6 +53,18 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.post(factory.connectionStr + "/favorites", req);
     };
 
+    factory.saveLikeOrDislike = function (req) {
+        return $http.post(factory.connectionStr + "/like", req);
+    };
+
+    factory.getWhoLikedMe = function (req) {
+        return $http.post(factory.connectionStr + "/wholikedme", req);
+    };
+
+    factory.getMyMatches = function (req) {
+        return $http.post(factory.connectionStr + "/mymatches", req);
+    };
+
 
 
 

@@ -30,6 +30,7 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
         if (response.data.success) {
             $scope.setUserToLS($scope.user.email);
             User.setToken(response.data.token);
+            response.data.user = $scope.parseDataFromDB(response.data.user);
             User.setUser(response.data.user);
             $scope.user.email = "";
             $scope.user.password = "";

@@ -18,6 +18,7 @@ angular.module('controllers').controller('MyProfileController', function ($scope
     };
 
     function successCallback(response) {
+        response.data.data = $scope.parseDataFromDB(response.data.data);
         User.setUser(response.data.data);
         $scope.user = User.getUser();
         $ionicSlideBoxDelegate.update();
