@@ -73,6 +73,14 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.get(factory.connectionStr + "/user/" + uid, { headers: { token: User.getToken(), my_id: User.getUser().id }});
     };
 
+    factory.markProfileVisited = function (req) {
+        return $http.post(factory.connectionStr + "/visited_profile", req);
+    };
+
+    factory.getMyVisitors = function (req) {
+        return $http.post(factory.connectionStr + "/myvisitors", req);
+    };
+
 
 
 

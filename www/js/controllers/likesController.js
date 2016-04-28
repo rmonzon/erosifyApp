@@ -10,10 +10,10 @@ angular.module('controllers').controller('LikesController', function ($scope, Ge
         $scope.myLikes = [];
         $scope.loadingLikes = true;
         $scope.noResults = false;
-        $scope.getListOfFavorites();
+        $scope.getListOfLikes();
     }
 
-    $scope.getListOfFavorites = function () {
+    $scope.getListOfLikes = function () {
         mainFactory.getWhoLikedMe({ my_id: User.getUser().id }).then(getMyLikesSuccess, getMyLikesError);
     };
 

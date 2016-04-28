@@ -27,12 +27,25 @@ angular.module('controllers').controller('UserProfileController', function ($sco
             $scope.profileLiked = $scope.user.liked == 1;
             $scope.profileDisLiked = $scope.user.liked == 0;
         }
+        $scope.markProfileAsVisited();
         $ionicSlideBoxDelegate.update();
     }
 
     function errorCallback(response) {
         $scope.showMessage(response.data.error, 2500);
         $scope.logout();
+    }
+
+    $scope.markProfileAsVisited = function () {
+        mainFactory.markProfileVisited({ my_id: User.getUser().id, profile_id: $scope.user.id }).then(markProfileVisitedSuccess, markProfileVisitedError);
+    };
+
+    function markProfileVisitedSuccess(response) {
+        console.log(response.data);
+    }
+
+    function markProfileVisitedError() {
+        $scope.showMessage(response.data.error, 2500);
     }
 
     $scope.likeUserProfile = function (event) {
