@@ -10,14 +10,14 @@
 <ion-content class="match-container">
     <div class="photo-section-container" ng-hide="loadingMatches">
         <div class="top-name-container">
-            <div class="col-25">
+            <div class="col-27">
                 <a class="button button-icon icon" ng-class="currentProfile.favorite ? 'match-favorite ion-ios-star' : 'match-no-favorite ion-ios-star-outline'" style="float: right" ng-click="markUserAsFavorite()"></a>
             </div>
-            <div class="col-50">
+            <div class="col-45">
                 <span style="font-size: 28px;position: relative;top: 16px;margin-right: 5px;">{{currentProfile.name}}</span>
                 <span style="font-size: 28px;position: relative;top: 16px;"><b>{{currentProfile.age}}</b></span>
             </div>
-            <div class="col-25" style="display: flex">
+            <div class="col-27" style="display: flex">
                 <!--<div ng-show="currentProfile.verified == 1" class="verified-icon"></div>-->
                 <i class="icon ion-checkmark-circled verified-icon" ng-show="currentProfile.verified == 1"></i>
                 <div ng-show="currentProfile.status == 1" class="online-icon"></div>
@@ -52,7 +52,7 @@
                     <button class="button button-icon icon ion-close-round button-dislike" ng-click="dislikeProfile()"></button>
                 </div>
                 <div style="width: 50%; height: 100%">
-                    <button class="button button-icon icon ion-android-favorite-outline button-like" ng-click="likeProfile($event)"></button>
+                    <button class="button button-icon icon ion-android-favorite-outline button-like" ng-click="likeProfile()"></button>
                 </div>
             </div>
 
@@ -63,8 +63,8 @@
 
     <div class="info-section-container">
         <div class="row">
-            <a class="button button-icon" style="padding: 0">
-                <div class="btn-profile" ng-click="goToProfile()"></div>
+            <a class="button button-icon" style="padding: 0" ng-click="goToUserProfile()">
+                <div class="btn-profile"></div>
             </a>
 
             <div class="col" style="margin-top: 25px">
@@ -77,8 +77,8 @@
                     <span>{{currentProfile.languages}}</span>
                 </div>
             </div>
-            <a class="button button-icon" style="padding: 0">
-                <div class="btn-more-pics" ng-click="seeMorePics()"></div>
+            <a class="button button-icon" style="padding: 0" ng-click="seeMorePics()">
+                <div class="btn-more-pics"></div>
             </a>
         </div>
         <div class="row" style="padding-top: 0!important;">
@@ -91,93 +91,7 @@
         </div>
     </div>
 
-    <!--<div class="info-section-container" ng-hide="loadingMatches">-->
-        <!--<div class="row">-->
-            <!--<a class="button button-icon" style="padding: 0">-->
-                <!--<div class="btn-profile" ng-click="goToProfile()"></div>-->
-            <!--</a>-->
-
-            <!--<div class="col" style="margin-top: 25px">-->
-                <!--<div class="row location-row">-->
-                    <!--<i class="icon ion-location"></i>-->
-                    <!--<span>{{currentProfile.location}}</span>-->
-                <!--</div>-->
-                <!--<div class="row location-row">-->
-                    <!--<img src="img/language.svg" width="17">-->
-                    <!--<span>{{currentProfile.languages}}</span>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!--<a class="button button-icon" style="padding: 0">-->
-                <!--<div class="btn-more-pics" ng-click="seeMorePics()"></div>-->
-            <!--</a>-->
-        <!--</div>-->
-        <!--<div class="row" style="padding-top: 0">-->
-            <!--<div class="col">-->
-                <!--<span style="font-family: LeituraSansBold">About Me</span>-->
-                <!--<p class="about-me-desc">-->
-                    <!--{{currentProfile.aboutme}}-->
-                <!--</p>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-
     <div class="" ng-show="loadingMatches">
 
     </div>
-
-
-
-
-    <!-- Filter's modal view -->
-    <script id="templates/modal.html" type="text/ng-template">
-        <ion-modal-view>
-            <ion-header-bar align-title="left" class="bar bar-header">
-                <div class="buttons">
-                    <button class="button button-icon button-clear ion-close-round" ng-click="closeModal()"></button>
-                </div>
-                <div class="title-views" style="margin-right: 0">
-                    <span>Filters</span>
-                </div>
-                <div class="buttons">
-                    <button class="button button-icon button-clear ion-checkmark-round" ng-click="applyFilters()"></button>
-                </div>
-            </ion-header-bar>
-            <ion-content class="padding">
-                <div class="list">
-                    <div class="item item-divider">Show Me:</span></div>
-                    <ion-list>
-                        <ion-radio ng-model="filters.gender" ng-value="'Man'">Men</ion-radio>
-                        <ion-radio ng-model="filters.gender" ng-value="'Women'">Women</ion-radio>
-                        <ion-radio ng-model="filters.gender" ng-value="'Everyone'">Everyone</ion-radio>
-                    </ion-list>
-                </div>
-
-                <div class="list">
-                    <div class="item item-divider">Who are:</span></div>
-                    <label class="item item-input item-select">
-                        <div class="input-label">Looking to</div>
-                        <select ng-model="filters.interest">
-                            <option value="Date" selected>Date</option>
-                            <option value="Chat">Chat</option>
-                            <option value="Friends">Make new friends</option>
-                        </select>
-                    </label>
-                </div>
-
-                <div class="list">
-                    <div class="item item-divider">Search Distance: <span style="float: right">{{filters.miles}}mi.</span></div>
-                    <div class="item range range-energized">
-                        <input type="range" name="distance" min="0" max="100" ng-model="filters.miles">
-                    </div>
-                </div>
-
-                <div class="list">
-                    <div class="item item-divider">Show Ages: <span style="float: right">{{filters.from}} - {{filters.to}}</span></div>
-                    <div class="item range range-energized">
-                        <ui-multi-range ng-step="1" ng-min="filters.ageMin" ng-max="filters.ageMax" ng-model-min="filters.from" ng-model-max="filters.to"></ui-multi-range>
-                    </div>
-                </div>
-            </ion-content>
-        </ion-modal-view>
-    </script>
 </ion-content>

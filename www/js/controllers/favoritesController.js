@@ -29,8 +29,8 @@ angular.module('controllers').controller('FavoritesController', function ($scope
         $scope.loadingFavs = false;
     }
 
-    $scope.goToProfile = function (name) {
-        console.log("go to profile " + name);
+    $scope.goToProfile = function (id) {
+        $scope.goToPage('app/profile/' + id);
     };
 
     init();

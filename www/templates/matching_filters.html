@@ -1,0 +1,49 @@
+<ion-modal-view>
+    <ion-header-bar align-title="left" class="bar bar-header">
+        <div class="buttons">
+            <button class="button button-icon button-clear ion-close-round" ng-click="closeModal()"></button>
+        </div>
+        <div class="title-views" style="margin-right: 0">
+            <span>Filters</span>
+        </div>
+        <div class="buttons">
+            <button class="button button-icon button-clear ion-checkmark-round" ng-click="applyFilters()"></button>
+        </div>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div class="list">
+            <div class="item item-divider">Show Me:</span></div>
+            <ion-list>
+                <ion-radio ng-model="filters.gender" ng-value="'Man'">Men</ion-radio>
+                <ion-radio ng-model="filters.gender" ng-value="'Women'">Women</ion-radio>
+                <ion-radio ng-model="filters.gender" ng-value="'Everyone'">Everyone</ion-radio>
+            </ion-list>
+        </div>
+
+        <div class="list">
+            <div class="item item-divider">Who are:</span></div>
+            <label class="item item-input item-select">
+                <div class="input-label">Looking to</div>
+                <select ng-model="filters.interest">
+                    <option value="Date" selected>Date</option>
+                    <option value="Chat">Chat</option>
+                    <option value="Friends">Make new friends</option>
+                </select>
+            </label>
+        </div>
+
+        <div class="list">
+            <div class="item item-divider">Search Distance: <span style="float: right">{{filters.miles}}mi.</span></div>
+            <div class="item range range-energized">
+                <input type="range" name="distance" min="0" max="100" ng-model="filters.miles">
+            </div>
+        </div>
+
+        <div class="list">
+            <div class="item item-divider">Show Ages: <span style="float: right">{{filters.from}} - {{filters.to}}</span></div>
+            <div class="item range range-energized">
+                <ui-multi-range ng-step="1" ng-min="filters.ageMin" ng-max="filters.ageMax" ng-model-min="filters.from" ng-model-max="filters.to"></ui-multi-range>
+            </div>
+        </div>
+    </ion-content>
+</ion-modal-view>

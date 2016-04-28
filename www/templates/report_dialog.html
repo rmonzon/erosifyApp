@@ -1,0 +1,27 @@
+<div class="text-center">
+    <i class="ion ion-android-hand report-dialog-icon"></i>
+
+    <p class="report-popup-headline">Report User</p>
+
+    <p class="text-center">Let us know the reason why you want to report this user.</p>
+    
+    <button class="button icon-left ion-android-camera button-block button-outline button-royal" ng-click="sendMessage()">
+        Inappropriate Photos
+    </button>
+
+    <button class="button icon-left ion-person-stalker button-block button-outline button-positive" ng-click="closePopup()">
+        Fake Profile
+    </button>
+
+    <button class="button icon-left ion-ios-people-outline button-block button-outline button-calm" ng-click="closePopup()">
+        Spam or Scam
+    </button>
+
+    <button class="button icon-left ion-alert-circled button-block button-outline button-assertive" ng-click="closePopup()">
+        Other Reason
+    </button>
+
+    <button class="button button-block button-outline button-stable" ng-click="closeReportPopup()">
+        Cancel
+    </button>
+</div>

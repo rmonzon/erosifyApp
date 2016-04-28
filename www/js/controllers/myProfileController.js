@@ -9,12 +9,12 @@ angular.module('controllers').controller('MyProfileController', function ($scope
         $scope.images = [];
         $scope.slideIndex = 0;
         $scope.user = {};
-        $scope.getUserInfo();
+        $scope.getMyInfo();
         $scope.removeHideClass('#profile-menu-icon');
     }
 
-    $scope.getUserInfo = function () {
-        mainFactory.getUserInfo({ "email": $scope.getUserFromLS() }).then(successCallback, errorCallback);
+    $scope.getMyInfo = function () {
+        mainFactory.me({ "email": $scope.getUserFromLS() }).then(successCallback, errorCallback);
     };
 
     function successCallback(response) {

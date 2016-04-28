@@ -29,7 +29,7 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.post(factory.connectionStr + "/authentication", req);
     };
 
-    factory.getUserInfo = function (req) {
+    factory.me = function (req) {
         return $http.post(factory.connectionStr + "/me", req, { headers: { token: User.getToken() }});
     };
 
@@ -46,7 +46,11 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
     };
 
     factory.makeUserFavorite = function (req) {
-        return $http.post(factory.connectionStr + "/favorite", req);
+        return $http.post(factory.connectionStr + "/add_favorite", req);
+    };
+
+    factory.removeUserFromFavorite = function (req) {
+        return $http.post(factory.connectionStr + "/remove_favorite", req);
     };
 
     factory.getFavoritesByUser = function (req) {
@@ -65,6 +69,9 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.post(factory.connectionStr + "/mymatches", req);
     };
 
+    factory.getUserInfo = function (uid) {
+        return $http.get(factory.connectionStr + "/user/" + uid, { headers: { token: User.getToken(), my_id: User.getUser().id }});
+    };
 
 
 

@@ -15,7 +15,7 @@ angular.module('controllers').controller('MatchingController', function ($scope,
     }
 
     $scope.getListOfMatches = function () {
-        mainFactory.getMatchesByUser({ "email": $scope.getUserFromLS() }).then(getMatchesSuccess, getMatchesError);
+        mainFactory.getMatchesByUser({ "id": $scope.userProfile.id, "email": $scope.getUserFromLS() }).then(getMatchesSuccess, getMatchesError);
     };
 
     function getMatchesSuccess(response) {
@@ -35,8 +35,8 @@ angular.module('controllers').controller('MatchingController', function ($scope,
         $scope.loadingMatches = false;
     }
 
-    $scope.likeProfile = function (event) {
-        setLikeOrDislike(1, event);
+    $scope.likeProfile = function () {
+        setLikeOrDislike(1);
     };
 
     $scope.dislikeProfile = function () {
@@ -58,8 +58,9 @@ angular.module('controllers').controller('MatchingController', function ($scope,
         }
     };
 
-    $scope.goToProfile = function () {
+    $scope.goToUserProfile = function () {
         //count current user as a visitor
+        $scope.goToPage('app/profile/' + $scope.currentProfile.id);
     };
 
     $scope.seeMorePics = function () {
@@ -102,7 +103,7 @@ angular.module('controllers').controller('MatchingController', function ($scope,
         $scope.modal.show();
     };
 
-    $ionicModal.fromTemplateUrl('templates/modal.html', {
+    $ionicModal.fromTemplateUrl('templates/matching_filters.html', {
         scope: $scope
     }).then(function(modal) {
         $scope.modal = modal;
@@ -118,7 +119,6 @@ angular.module('controllers').controller('MatchingController', function ($scope,
     };
 
     $scope.showMutualMatchMsg = function() {
-        $scope.data = {};
         $scope.mutualMatchPopup = $ionicPopup.show({
             templateUrl: 'templates/mutual_match.html',
             cssClass: 'is-match-popup',

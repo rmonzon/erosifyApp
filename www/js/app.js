@@ -108,6 +108,15 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
                 }
             }
         })
+        .state('app.userprofile', {
+            url: '/profile/:userId',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/user_profile.html',
+                    controller: 'UserProfileController'
+                }
+            }
+        })
         .state('app.matching', {
             url: '/matching',
             views: {
@@ -136,6 +145,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.matches', {
+            cache: false,
             url: '/matches',
             views: {
                 'menuContent': {
@@ -145,6 +155,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.likes', {
+            cache: false,
             url: '/likes',
             views: {
                 'menuContent': {
@@ -164,6 +175,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.messages', {
+            cache: false,
             url: '/messages',
             views: {
                 'menuContent': {

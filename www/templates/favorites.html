@@ -9,7 +9,7 @@
 <ion-content class="gradient-bg">
     <div class="row" ng-repeat="fav in listFavorites" style="border-bottom: 1px solid rgba(211,211,211,0.3);padding-top: 5px" ng-hide="loadingFavs">
         <div class="col-20 text-center">
-            <a class="button button-icon" style="line-height: 0; margin: 5px 0;" ng-click="goToProfile(fav.name)">
+            <a class="button button-icon" style="line-height: 0; margin: 5px 0;" ng-click="goToProfile(fav.id)">
                 <img class="user-fav-pic" src="{{fav.pictures[0]}}">
                 <img src="img/verified-circle.svg" ng-show="fav.verified == 1" class="verified-user-fav">
             </a>
