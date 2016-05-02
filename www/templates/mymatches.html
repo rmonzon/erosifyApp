@@ -10,7 +10,7 @@
     <div style="margin: 5% 0">
         <div class="row matches-row" ng-repeat="row in myMatches">
             <div class="col-33 text-center" ng-repeat="m in row">
-                <a class="button button-icon" style="width: 100%" ng-click="goToProfile(m.name)">
+                <a class="button button-icon" style="width: 100%" ng-click="goToProfile(m.id)">
                     <img class="prof-pic-match" src="{{m.pictures[0]}}">
                     <img src="img/verified-circle.svg" ng-show="m.verified == 1" class="verified-profile-icon-match">
                 </a>
@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="text-center def-spinner-container" ng-show="loadingFavs">
+        <div class="text-center def-spinner-container" ng-show="loadingMatches">
             <ion-spinner class="default-spinner"></ion-spinner>
             <!--<p class="text-center">Loading your favorites...</p>-->
         </div>

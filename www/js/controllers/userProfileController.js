@@ -44,7 +44,7 @@ angular.module('controllers').controller('UserProfileController', function ($sco
         console.log(response.data);
     }
 
-    function markProfileVisitedError() {
+    function markProfileVisitedError(response) {
         $scope.showMessage(response.data.error, 2500);
     }
 

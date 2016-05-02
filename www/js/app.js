@@ -109,6 +109,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.userprofile', {
+            cache: false,
             url: '/profile/:userId',
             views: {
                 'menuContent': {
@@ -127,6 +128,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.peoplenearby', {
+            cache: false,
             url: '/peoplenearby',
             views: {
                 'menuContent': {
@@ -135,7 +137,18 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
                 }
             }
         })
+        .state('app.search', {
+            cache: false,
+            url: '/search',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/search.html',
+                    controller: 'SearchController'
+                }
+            }
+        })
         .state('app.visitors', {
+            cache: false,
             url: '/visitors',
             views: {
                 'menuContent': {

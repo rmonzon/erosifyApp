@@ -37,8 +37,8 @@ angular.module('controllers').controller('MyMatchesController', function ($scope
         }
     }
 
-    $scope.goToProfile = function (name) {
-        console.log("go to profile " + name);
+    $scope.goToProfile = function (id) {
+        $scope.goToPage('app/profile/' + id);
     };
 
     init();

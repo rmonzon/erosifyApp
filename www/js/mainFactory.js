@@ -81,6 +81,10 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.post(factory.connectionStr + "/myvisitors", req);
     };
 
+    factory.searchProfiles = function (req) {
+        return $http.post(factory.connectionStr + "/search", req);
+    };
+
 
 
 

@@ -72,6 +72,41 @@ angular.module('controllers').controller('MatchingController', function ($scope,
         mainFactory.makeUserFavorite({ my_id: User.getUser().id, profile_id: $scope.currentProfile.id }).then(makeUserFavoriteSuccess, makeUserFavoriteError);
     };
 
+
+    $scope.addRemoveFavorite = function () {
+        $scope.currentProfile.favorite = !$scope.currentProfile.favorite;
+        if ($scope.currentProfile.favorite) {
+            addUserToFavs();
+        }
+        else {
+            removeUserFromFavs();
+        }
+    };
+
+    function addUserToFavs() {
+        mainFactory.makeUserFavorite({ my_id: User.getUser().id, profile_id: $scope.currentProfile.id }).then(makeUserFavoriteSuccess, makeUserFavoriteError);
+    }
+
+    function removeUserFromFavs() {
+        mainFactory.removeUserFromFavorite({ my_id: User.getUser().id, profile_id: $scope.currentProfile.id }).then(removeUserFavoriteSuccess, removeUserFavoriteError);
+    }
+
+    function makeUserFavoriteSuccess(response) {
+        $scope.showMessage("User added to favorites", 1000);
+    }
+
+    function makeUserFavoriteError(response) {
+        $scope.showMessage(response.data.error, 2500);
+    }
+
+    function removeUserFavoriteSuccess(response) {
+        $scope.showMessage("User removed from favorites", 1000);
+    }
+
+    function removeUserFavoriteError(response) {
+        $scope.showMessage(response.data.error, 2500);
+    }
+
     function setLikeOrDislike(liked) {
         mainFactory.saveLikeOrDislike({ my_id: User.getUser().id, other_id: $scope.currentProfile.id, liked: liked }).then(saveLikeOrDislikeSuccess, saveLikeOrDislikeError);
     }
@@ -88,14 +123,6 @@ angular.module('controllers').controller('MatchingController', function ($scope,
     }
 
     function saveLikeOrDislikeError(response) {
-        $scope.showMessage(response.data.error, 2500);
-    }
-
-    function makeUserFavoriteSuccess(response) {
-        $scope.showMessage("User added to favorites", 1000);
-    }
-
-    function makeUserFavoriteError(response) {
         $scope.showMessage(response.data.error, 2500);
     }
 

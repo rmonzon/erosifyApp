@@ -662,10 +662,10 @@ i.ion-ios-chatbubble-outline {
 }
 
 .status-icon-sm {
-    width: 6px;
-    height: 6px;
-    border-radius: 3px;
-    margin: 6px 0 0 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    margin: 5px 0 0 5px;
 }
 
 .online {
@@ -1228,8 +1228,8 @@ span.msg {
 }
 
 .loading-nearby svg {
-    width: 60px;
-    height: 60px;
+    width: 120px;
+    height: 120px;
     stroke: #444;
     fill: #444;
     margin-top: 130px;
@@ -1380,7 +1380,7 @@ span.msg {
     top: 50%;
     left: 50%;
     margin-left: -20px;
-    margin-top: -32px;
+    margin-top: -65px;
 }
 
 .default-spinner.spinner svg {
@@ -1554,6 +1554,47 @@ span.msg {
     padding-left: 0;
     margin-right: 10px;
 }
+
+.search-divider {
+    width: 100%;
+    height: 1px;
+    margin-top: 12px;
+    background: rgba(211,211,211,0.3);
+}
+
+.search-container {
+    margin: 10px;
+    background: transparent;
+}
+
+.search-container.list-inset .item.item-input input {
+    padding-right: 10px;
+}
+
+.search-container input {
+    padding-left: 15px;
+    color: white;
+    padding-bottom: 5px;
+}
+
+.search-container input::-webkit-input-placeholder {
+    color: white;
+}
+
+.search-container input:-moz-placeholder { /* Firefox 18- */
+    color: white;
+}
+
+.search-container input::-moz-placeholder {  /* Firefox 19+ */
+    color: white;
+}
+
+.search-container input:-ms-input-placeholder {
+    color: white;
+}
+
+
+
 
 
 
