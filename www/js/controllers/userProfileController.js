@@ -23,12 +23,22 @@ angular.module('controllers').controller('UserProfileController', function ($sco
 
     function successCallback(response) {
         $scope.user = $scope.parseDataFromDB(response.data.data);
+        calculateDistance();
         if ($scope.user.liked != undefined) {
             $scope.profileLiked = $scope.user.liked == 1;
             $scope.profileDisLiked = $scope.user.liked == 0;
         }
         $scope.markProfileAsVisited();
         $ionicSlideBoxDelegate.update();
+    }
+
+    function calculateDistance() {
+        var coordsA = JSON.parse($scope.user.coordinates), coordsB = JSON.parse(User.getUser().coordinates);
+        var userACoords = new google.maps.LatLng(coordsA.lat, coordsA.lng);
+        var userBCoords = new google.maps.LatLng(coordsB.lat, coordsB.lng);
+        var distance = google.maps.geometry.spherical.computeDistanceBetween(userACoords, userBCoords);
+        distance = $scope.convertFromMetersToMiles(distance);
+        $scope.user.distance = Math.round(distance * 10) / 10;
     }
 
     function errorCallback(response) {

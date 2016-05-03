@@ -87,6 +87,10 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
             //return JSON.parse($window.localStorage.starter_facebook_user || window.localStorage.userLogin || '{}');
         };
 
+        $scope.convertFromMetersToMiles = function (i) {
+            return i * 0.000621371192;
+        };
+
         $scope.removeUserFromLS = function () {
             $window.localStorage.removeItem('userId');
         };
