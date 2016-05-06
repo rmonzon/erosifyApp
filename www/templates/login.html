@@ -1,15 +1,13 @@
 <ion-view view-title="Erosify">
-  <ion-content class="login-container">
+  <ion-content class="login-container gradient-bg">
+      <button class="button button-icon ion-ios-arrow-back btn-back" ng-click="$ionicGoBack()" style="padding-top: 10px"> Back</button>
       <div class="logo-container">
-          <img src="img/logo.png" width="100%">
-      </div>
-      <div class="text-center slogan">
-          <span>"DATE YOUR PERFECT MATCH"</span>
+          <img src="img/logo.png" width="80%">
       </div>
       <div class="login-inputs-container">
           <form ng-submit="loginWithEmail()">
               <div class="group">
-                  <input type="text" ng-model="user.email" ng-focus="removeAbsPosition()" ng-blur="addAbsPosition()" autocapitalize="off" required>
+                  <input type="email" ng-model="user.email" ng-focus="removeAbsPosition()" ng-blur="addAbsPosition()" autocapitalize="off" required>
                   <span class="bar-input"></span>
                   <label>USERNAME</label>
               </div>
@@ -24,24 +22,10 @@
                   <a href="" ng-click="goToPage('forgot_password')">Forgot password?</a>
               </div>
 
-              <div class="button-container">
-                  <div class="button-login" ontouchstart="" ng-click="loginWithEmail()">
-                      START DATING
-                  </div>
-                  <div class="button-login facebook-button" ontouchstart="" ng-click="loginWithFacebook()">
-                      <i class="icon ion-social-facebook-outline"></i>
-                      <span>CONNECT WITH FACEBOOK</span>
-                  </div>
-                    <div class="terms">
-                        <span>By continuing, you agree to our <br />
-                            <b><a href="" ng-click="goToPage('terms')">Terms of Service</a></b> and <b><a href="" ng-click="goToPage('privacy')">Privacy Policy</a></b>
-                        </span>
-                    </div>
-                  <div class="bottom-link" style="margin-left: -130px" ng-style="posRelative">
-                    <span>DON'T HAVE AN ACCOUNT? <a href="" ng-click="goToPage('signup')">SIGN UP</a></span>
-                  </div>
+              <div class="button-container text-center">
+                  <button class="button button-login" ng-click="loginWithEmail()">Get Started</button>
+                  <a class="button button-clear btn-link-fb" ng-click="loginWithFacebook()">Sign In with <b>Facebook</b></a>
               </div>
-              <button hidden>Fake submit</button>
           </form>
       </div>
   </ion-content>

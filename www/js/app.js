@@ -28,6 +28,16 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
     $animateProvider.classNameFilter( /\banimated\b/ );
     $ionicConfigProvider.scrolling.jsScrolling(false);
     $stateProvider
+        .state('home', {
+            url: '/home',
+            templateUrl: 'templates/home.html',
+            controller: 'HomeController',
+            resolve: {
+                factoryInitialized: function (mainFactory) {
+                    return mainFactory.initApp();
+                }
+            }
+        })
         .state('login', {
             url: '/login',
             templateUrl: 'templates/login.html',
@@ -208,5 +218,5 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         });
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/home');
 });

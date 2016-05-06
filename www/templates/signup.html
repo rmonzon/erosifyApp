@@ -1,9 +1,8 @@
 <ion-view view-title="Erosify">
-    <ion-content class="login-container">
-        <div class="logo-container" style="margin-bottom: 0">
-            <img src="img/logo.png" width="50%">
-        </div>
+    <ion-content class="login-container gradient-bg">
         <div class="login-inputs-container">
+            <button class="button button-icon ion-ios-arrow-back btn-back" ng-click="$ionicGoBack()"> Back</button>
+
             <form class="signup-form" ng-submit="loginWithEmail()">
                 <div class="group" style="margin-bottom: 0">
                     <input type="text" ng-model="user.email" ng-focus="removeAbsPosition()" ng-blur="checkAccountAvailability()" autocapitalize="off" required>
@@ -74,9 +73,6 @@
                         <span>By continuing, you agree to our <br />
                             <b><a href="" ng-click="goToPage('terms')">Terms of Service</a></b> and <b><a href="" ng-click="goToPage('privacy')">Privacy Policy</a></b>
                         </span>
-                    </div>
-                    <div class="bottom-link" ng-style="posRelative">
-                        <span>ALREADY A MEMBER? <a href="" ng-click="goToPage('login')">SIGN IN</a></span>
                     </div>
                 </div>
             </form>

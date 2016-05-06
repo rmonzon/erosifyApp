@@ -2,7 +2,7 @@
  * Created by raul on 1/5/16.
  */
 
-angular.module('controllers').controller('SignUpController', function ($scope, GenericController, mainFactory, User) {
+angular.module('controllers').controller('SignUpController', function ($scope, $cordovaGeolocation, GenericController, mainFactory, User) {
 
     function init() {
         GenericController.init($scope);
@@ -96,25 +96,60 @@ angular.module('controllers').controller('SignUpController', function ($scope, G
             $scope.showMessage("Birthday cannot be empty!", 2500);
             return;
         }
-
-        var userObj = {
-            "email": $scope.user.email,
-            "password": $scope.user.password,
-            "name": $scope.user.name,
-            "lastname": "Rivero",
-            "dob": $scope.user.month + "-" + $scope.user.day + "-" + $scope.user.year,
-            "gender": $scope.user.gender,
-            "age": calculateAge(),
-            "location": getLocation(),
-            "pictures": "'{1.jpg}'" //temporary solution until the picture upload feature is done
-        };
         $scope.showMessageWithIcon("Creating account...");
-        mainFactory.createAccount(userObj).then(successCallBack, errorCallBack);
+        $scope.getCurrentLocation();
+
     };
 
-    function getLocation() {
-        //we'll get this later from Geolocation APIs
-        return 'Miami, FL';
+    $scope.getCurrentLocation = function () {
+        var posOptions = {timeout: 10000, enableHighAccuracy: false};
+        $cordovaGeolocation.getCurrentPosition(posOptions).then(successGetLocation, errorGetLocation);
+    };
+
+    function successGetLocation(position) {
+        geocodeLatLng(position.coords.latitude, position.coords.longitude);
+    }
+
+    function errorGetLocation(err) {
+        $scope.hideMessage();
+        console.log(err);
+        if (err.code == 1) {
+            $scope.showMessage("Please enable GPS service to continue.", 3000);
+        }
+    }
+
+    function geocodeLatLng(lat, long) {
+        var geocoder = new google.maps.Geocoder;
+        var latlng = {lat: parseFloat(lat), lng: parseFloat(long)};
+        geocoder.geocode({'location': latlng}, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+                    //results[0] = Full street address
+                    //results[1] = locality address
+                    //results[2] = postal code address
+                    //results[3] = county address
+                    //results[4] = state address
+                    //results[5] = country address
+                    var userObj = {
+                        "email": $scope.user.email,
+                        "password": $scope.user.password,
+                        "name": $scope.user.name,
+                        "lastname": "Rivero",
+                        "dob": $scope.user.month + "-" + $scope.user.day + "-" + $scope.user.year,
+                        "gender": $scope.user.gender,
+                        "age": calculateAge(),
+                        "location": results[2].formatted_address,
+                        "pictures": "'{1.jpg}'", //temporary solution until the picture upload feature is done
+                        "coords": latlng
+                    };
+                    mainFactory.createAccount(userObj).then(successCallBack, errorCallBack);
+                } else {
+                    $scope.showMessage('No results found', 2500);
+                }
+            } else {
+                $scope.showMessage('Geocoder failed due to: ' + status, 2500);
+            }
+        });
     }
 
     function calculateAge() {

@@ -1,0 +1,30 @@
+<ion-view view-title="Erosify">
+  <ion-content class="home-container">
+      <div class="logo-container">
+          <img src="img/logo.png" width="100%">
+
+          <div class="divider-home"></div>
+
+          <span>Let Eros, the Greek god of love, find your perfect match.</span>
+      </div>
+
+      <button class="button get-started-btn" ng-click="goToPage('signup')">Get Started</button>
+
+      <div class="row text-center" style="position: absolute; bottom: 90px;">
+          <div class="col">
+            <div style="width: 20%;background: rgba(211, 211, 211, 0.5);height: 1px;position: absolute;top: 18px;left: 23%"></div>
+              OR
+            <div style="width: 20%;background: rgba(211, 211, 211, 0.5);height: 1px;position: absolute;top: 18px;right: 24%;"></div>
+          </div>
+      </div>
+
+      <button class="button get-started-btn-fb" ng-click="sigUpWithFacebook()">
+          <i class="icon ion-social-facebook-outline"></i>
+          Sign Up with Facebook
+      </button>
+
+      <div class="bottom-link-home">
+          <span>ALREADY A MEMBER? <a href="" ng-click="goToPage('login')">SIGN IN</a></span>
+      </div>
+  </ion-content>
+</ion-view>
