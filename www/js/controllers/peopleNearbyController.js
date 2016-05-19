@@ -75,9 +75,5 @@ angular.module('controllers').controller('PeopleNearbyController', function ($sc
         });
     }
 
-    $scope.goToProfile = function (name) {
-        console.log("go to profile " + name);
-    };
-
     init();
 });

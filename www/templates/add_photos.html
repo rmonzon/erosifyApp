@@ -14,6 +14,12 @@
             <span>We can't show you off until you add at least one picture of you.</span>
         </div>
 
+        <div class="row addpics-title" ng-show="loadedPics">
+            <div class="col">
+                <span>Upload up to <b>6</b> of your best pictures</span>
+            </div>
+        </div>
+
         <div class="row row-pictures" ng-show="loadedPics">
             <div class="col-66" style="padding: 5px">
                 <div class="col preview-pic-container">
@@ -51,6 +57,12 @@
                 <button ng-click="pics[5] ? removePic(5) : addPic()" ng-class="pics[5] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
                 <span>6</span>
                 <img ng-src="{{pics[5] ? pics[5] : 'img/profile.png'}}" width="100%">
+            </div>
+        </div>
+
+        <div class="row bottom-btn" ng-show="loadedPics">
+            <div class="col">
+                <button class="button button-login" ng-click="continueToMatching()">Start Dating</button>
             </div>
         </div>
 

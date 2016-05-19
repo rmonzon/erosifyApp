@@ -22,7 +22,19 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
             { value: 12, text: "December" }
         ];
         $scope.years = [];
-        $scope.user = {};
+        //$scope.user = {};
+        $scope.user = {
+            email: "lucas@gmail.com",
+            password: "123123123",
+            name: "Lucas",
+            lastname: "Rivero",
+            dob: "04-10-1983",
+            gender: "Male",
+            age: 33,
+            month: "4",
+            day: "10",
+            year: "1983"
+        };
         $scope.wrongCredentials = false;
 
         initComboboxes();
@@ -42,7 +54,6 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
             $scope.showMessage("Please enter a valid email address!", 2500);
             return;
         }
-        $scope.addAbsPosition();
         mainFactory.checkEmailAvailability({"email": $scope.user.email}).then(successCheckEmail, errorCheckEmail);
     };
 
@@ -64,7 +75,7 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
 
     function errorCheckEmail(response) {
         $scope.wrongCredentials = true;
-        $scope.showMessage(response.data.error, 3000);
+        $scope.showMessage(response.data ? response.data.error : "Server error connection", 3000);
     }
 
     $scope.signUp = function() {
@@ -116,6 +127,9 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
         if (err.code == 1) {
             $scope.showMessage("Please enable GPS service to continue.", 3000);
         }
+        else {
+            $scope.showMessage("Error getting your current location.", 3000);
+        }
     }
 
     function geocodeLatLng(lat, long) {
@@ -139,7 +153,8 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
                         "gender": $scope.user.gender,
                         "age": calculateAge(),
                         "location": results[2].formatted_address,
-                        "pictures": "'{1.jpg}'", //temporary solution until the picture upload feature is done
+                        "pictures": "'{1.jpg}'",
+                        "languages": "'{English}'",
                         "coords": latlng
                     };
                     mainFactory.createAccount(userObj).then(successCallBack, errorCallBack);
@@ -152,6 +167,21 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
         });
     }
 
+    function successCallBack(response) {
+        $scope.hideMessage();
+        $scope.setUserToLS($scope.user.email);
+        User.setToken(response.data.token);
+        response.data.user = $scope.parseDataFromDB(response.data.user);
+        User.setUser(response.data.user);
+        $scope.goToPage('add_photos');
+    }
+
+    function errorCallBack(response) {
+        $scope.hideMessage();
+        console.log(response);
+        $scope.showMessage(response.data.error, 3000);
+    }
+
     function calculateAge() {
         var today = new Date();
         var dd = today.getDate();
@@ -160,21 +190,6 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
         var diffYears = yyyy - parseInt($scope.user.year);
         var a = mm * 30 + dd, b = parseInt($scope.user.month) * 30 + parseInt($scope.user.day);
         return a < b ? diffYears - 1 : diffYears;
-    }
-
-    function successCallBack(response) {
-        $scope.hideMessage();
-        $scope.setUserToLS($scope.user.email);
-        User.setToken(response.data.token);
-        response.data.user = $scope.parseDataFromDB(response.data.user);
-        User.setUser(response.data.user);
-        //$scope.goToPage('add_photos');
-        $scope.goToPage('app/matching');
-    }
-
-    function errorCallBack(response) {
-        $scope.hideMessage();
-        $scope.showMessage(response.data.error, 3000);
     }
 
     init();

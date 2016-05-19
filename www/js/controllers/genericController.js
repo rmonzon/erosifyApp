@@ -8,9 +8,14 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
     this.init = function (_$scope) {
         $scope = _$scope;
         $scope.posRelative = {};
+        $scope.inputType = 'password';
 
         $scope.goToPage = function (page) {
             $location.path('/' + page);
+        };
+
+        $scope.goToProfile = function (id) {
+            $scope.goToPage('app/profile/' + id);
         };
 
         $scope.showMessageWithIcon = function(message, time) {
@@ -39,7 +44,7 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
         };
 
         function successLogout(response) {
-            $scope.goToPage('login');
+            $scope.goToPage('home');
         }
 
         function errorLogout (response) {
@@ -55,14 +60,6 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
                 }, function (error) {
                     $scope.showMessage(error, 2000);
                 });
-        };
-
-        $scope.removeAbsPosition = function () {
-            $scope.posRelative = {'position':'relative'};
-        };
-
-        $scope.addAbsPosition = function () {
-            $scope.posRelative = {};
         };
 
         $scope.validateEmail = function (email) {
@@ -95,6 +92,14 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
             $window.localStorage.removeItem('userId');
         };
 
+        $scope.showPassword = function () {
+            $scope.inputType = 'text';
+        };
+
+        $scope.hidePassword = function () {
+            $scope.inputType = 'password';
+        };
+
         $scope.parseDataFromDB = function (users) {
             if (Array.isArray(users)) {
                 for (var i = 0, len = users.length; i < len; ++i) {
@@ -104,6 +109,9 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
                     if (users[i].date) {
                         var d = users[i].date.split('T')[0].split('-');
                         users[i].date = d[1] + "/" + d[2] + "/" + d[0];
+                    }
+                    if (users[i].location) {
+                        users[i].location = parseAddress(users[i].location);
                     }
                 }
             }
@@ -115,15 +123,43 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
                     d = users.date.split('T')[0].split('-');
                     users.date = d[1] + "/" + d[2] + "/" + d[0];
                 }
+                if (users.location) {
+                    users.location = parseAddress(users.location);
+                }
                 //we might need to parse more data in the future
             }
             return users;
         };
 
+        function parseAddress(address) {
+            address = address.split(',');
+            var l = address.length;
+            address = address[l-3] + "," + address[l-2] + "," + address[l-1];
+            if (address[0] == " ") {
+                address = spliceSlice(address, 0, 1);
+            }
+            address = address.replace(/\d+/g, '');
+            var fIndex = address.indexOf(','), lIndex = address.lastIndexOf(',');
+            if (address[fIndex - 1] == " ") {
+                address = spliceSlice(address, fIndex - 1, 1);
+            }
+            if (address[lIndex - 1] == " ") {
+                address = spliceSlice(address, lIndex - 1, 1);
+            }
+            return address;
+        }
+
+        function spliceSlice(str, index, count, add) {
+            return str.slice(0, index) + (add || "") + str.slice(index + count);
+        }
+
         function cleanImagesUrls(user) {
-            return user.pictures.map(function (u) {
-                return ENV.SERVICE_URL + "/profiles/user_" + user.id + "/" + u;
-            });
+            if (user.pictures) {
+                return user.pictures.map(function (u) {
+                    return ENV.AMAZON_S3 + "/profiles/user_" + user.id + "/" + u;
+                });
+            }
+            return [];
         }
     };
 });

@@ -28,6 +28,16 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
     $animateProvider.classNameFilter( /\banimated\b/ );
     $ionicConfigProvider.scrolling.jsScrolling(false);
     $stateProvider
+        .state('home', {
+            url: '/home',
+            templateUrl: 'templates/home.html',
+            controller: 'HomeController',
+            resolve: {
+                factoryInitialized: function (mainFactory) {
+                    return mainFactory.initApp();
+                }
+            }
+        })
         .state('login', {
             url: '/login',
             templateUrl: 'templates/login.html',
@@ -108,6 +118,16 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
                 }
             }
         })
+        .state('app.userprofile', {
+            cache: false,
+            url: '/profile/:userId',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/user_profile.html',
+                    controller: 'UserProfileController'
+                }
+            }
+        })
         .state('app.matching', {
             url: '/matching',
             views: {
@@ -118,6 +138,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.peoplenearby', {
+            cache: false,
             url: '/peoplenearby',
             views: {
                 'menuContent': {
@@ -126,7 +147,18 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
                 }
             }
         })
+        .state('app.search', {
+            cache: false,
+            url: '/search',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/search.html',
+                    controller: 'SearchController'
+                }
+            }
+        })
         .state('app.visitors', {
+            cache: false,
             url: '/visitors',
             views: {
                 'menuContent': {
@@ -136,6 +168,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.matches', {
+            cache: false,
             url: '/matches',
             views: {
                 'menuContent': {
@@ -145,6 +178,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.likes', {
+            cache: false,
             url: '/likes',
             views: {
                 'menuContent': {
@@ -154,6 +188,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.favorites', {
+            cache: false,
             url: '/favorites',
             views: {
                 'menuContent': {
@@ -163,6 +198,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.messages', {
+            cache: false,
             url: '/messages',
             views: {
                 'menuContent': {
@@ -182,5 +218,5 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         });
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/home');
 });

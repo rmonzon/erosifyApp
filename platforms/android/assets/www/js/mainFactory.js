@@ -29,7 +29,7 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.post(factory.connectionStr + "/authentication", req);
     };
 
-    factory.getUserInfo = function (req) {
+    factory.me = function (req) {
         return $http.post(factory.connectionStr + "/me", req, { headers: { token: User.getToken() }});
     };
 
@@ -45,29 +45,63 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.post(factory.connectionStr + "/matches", req);
     };
 
-
-
-
-
-
-    factory.getAppVersion = function () {
-        var request = {query: "SELECT info_mathgame_version FROM info" };
-        return $http.post(factory.connectionStr, request);
+    factory.makeUserFavorite = function (req) {
+        return $http.post(factory.connectionStr + "/add_favorite", req);
     };
 
-    factory.getUserDataFromFacebook = function (token) {
-        return $http.get("https://graph.facebook.com/v2.2/me", { params: { access_token: token, fields: "id,name,gender,location,website,picture", format: "json" }});
+    factory.removeUserFromFavorite = function (req) {
+        return $http.post(factory.connectionStr + "/remove_favorite", req);
     };
 
-    factory.getUsers = function () {
-        var request = {query: "SELECT * FROM user_bricksgame ORDER BY user_bricksgame.user_bricksgame_id"};
-        return $http.post(factory.connectionStr, request);
+    factory.getFavoritesByUser = function (req) {
+        return $http.post(factory.connectionStr + "/favorites", req);
     };
 
-    factory.registerUser = function (user) {
-        var request = {query: "INSERT INTO user_bricksgame (user_bricksgame_playerid, user_bricksgame_pin, user_bricksgame_maxscore, user_bricksgame_realname, user_bricksgame_age, user_bricksgame_settings, user_bricksgame_badges) VALUES ('" + user.username + "', " + user.pin + ", 0, '" + user.name + "', " + user.age + ", '" + user.settings + "', '')"};
-        return $http.post(factory.connectionStr, request);
+    factory.saveLikeOrDislike = function (req) {
+        return $http.post(factory.connectionStr + "/like", req);
     };
+
+    factory.getWhoLikedMe = function (req) {
+        return $http.post(factory.connectionStr + "/wholikedme", req);
+    };
+
+    factory.getMyMatches = function (req) {
+        return $http.post(factory.connectionStr + "/mymatches", req);
+    };
+
+    factory.getUserInfo = function (uid) {
+        return $http.get(factory.connectionStr + "/user/" + uid, { headers: { token: User.getToken(), my_id: User.getUser().id }});
+    };
+
+    factory.markProfileVisited = function (req) {
+        return $http.post(factory.connectionStr + "/visited_profile", req);
+    };
+
+    factory.getMyVisitors = function (req) {
+        return $http.post(factory.connectionStr + "/myvisitors", req);
+    };
+
+    factory.searchProfiles = function (req) {
+        return $http.post(factory.connectionStr + "/search", req);
+    };
+
+    factory.getSignS3 = function (file) {
+        return $http.get(factory.connectionStr + "/sign_s3", { headers: file });
+    };
+
+    factory.removeImageFromS3 = function (file) {
+        return $http.get(factory.connectionStr + "/remove_froms3", { headers: file });
+    };
+
+    factory.updateNewUserPics = function (req) {
+        return $http.post(factory.connectionStr + "/update_pics", req);
+    };
+    
+    
+
+
+
+    
 
     /*** Store user's info in session store, it'll be removed when log out ***/
 

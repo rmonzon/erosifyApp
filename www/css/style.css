@@ -50,30 +50,26 @@ p {
 }
 
 .gradient-bg {
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#00bdb3+0,aca4a6+20,ff6281+80 */
-    background: #00bdb3; /* Old browsers */
-    background: -moz-linear-gradient(top,  #00bdb3 0%, #aca4a6 20%, #ff6281 80%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  #00bdb3 0%,#aca4a6 20%,#ff6281 80%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  #00bdb3 0%,#aca4a6 20%,#ff6281 80%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bdb3', endColorstr='#ff6281',GradientType=0 ); /* IE6-9 */
-}
-
-.slogan span {
-    font-size: 25px;
-    line-height: 30px;
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#65beb3+0,f75f7c+100 */
+    background: #65beb3; /* Old browsers */
+    background: -moz-linear-gradient(top,  #65beb3 0%, #f75f7c 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #65beb3 0%,#f75f7c 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #65beb3 0%,#f75f7c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#65beb3', endColorstr='#f75f7c',GradientType=0 ); /* IE6-9 */
 }
 
 .home-container .logo-container {
     padding: 10px 25px 0;
     position: absolute;
-    top: 20%;
+    top: 10%;
+    font-size: 17px;
 }
 
 .login-container .logo-container {
     margin-top: 10px;
 }
 
-.logo-container, .slogan {
+.logo-container {
     margin-bottom: 35px;
     text-align: center;
 }
@@ -88,12 +84,12 @@ p {
     color: whitesmoke;
     border-radius: 0;
     position: absolute;
-    bottom: 130px;
+    bottom: 140px;
     padding-top: 3px;
     text-transform: uppercase;
     font-family: LeituraSansGrot;
     width: 100%;
-    height: 50px;
+    height: 55px;
     font-size: 17px;
     opacity: 0.92;
     transition: background-color 0.2s linear;
@@ -109,7 +105,7 @@ p {
     text-transform: uppercase;
     font-family: LeituraSansGrot;
     width: 100%;
-    height: 50px;
+    height: 55px;
     font-size: 17px;
     opacity: 0.92;
     transition: background-color 0.2s linear;
@@ -122,7 +118,7 @@ p {
     left: 10px;
 }
 
-.get-started-btn:hover, .get-started-btn-fb:hover {
+.get-started-btn:hover, .get-started-btn-fb:hover, .button-login:hover {
     color: white;
 }
 
@@ -170,7 +166,7 @@ p {
     text-transform: uppercase;
     font-family: LeituraSansGrot;
     width: 100%;
-    height: 50px;
+    height: 55px;
     font-size: 17px;
     opacity: 0.92;
 }
@@ -418,6 +414,7 @@ ion-item i {
     text-align: center;
     font-size: 11px;
     margin-bottom: 20px;
+    margin-top: 10px;
 }
 
 .bottom-link {
@@ -586,17 +583,47 @@ hr {
     background: green;
     border-radius: 5px;
     margin-top: 18px;
+    margin-left: 8px;
+    position: absolute;
+    top: 0;
+    right: 10px;
+}
+
+.online-icon-hidden {
+    width: 10px;
+    height: 10px;
+    background: rgba(128, 128, 128, 0.71);
+    border-radius: 5px;
+    margin-top: 18px;
+    margin-left: 8px;
+    position: absolute;
+    top: 0;
+    right: 10px;
 }
 
 .verified-icon {
     font-size: 22px;
     color: #00BF61;
     margin-top: 13px;
-    margin-right: 10px;
     /*width: 16px;*/
     /*height: 12px;*/
     /*background: url("../img/verified.svg") no-repeat;*/
     /*margin: 17px 5px 0 5px;*/
+}
+
+.verified-icon-matching {
+    font-size: 22px;
+    color: #00BF61;
+    margin-left: 7px;
+    position: absolute;
+    top: 12px;
+}
+
+.name-age-matching {
+    font-size: 28px;
+    position: relative;
+    top: 16px;
+    margin-right: 5px;
 }
 
 .circular-pic-container {
@@ -1479,6 +1506,14 @@ span.msg {
     margin-top: -65px;
 }
 
+.matching-spinner-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -96px;
+    margin-top: -75px;
+}
+
 .default-spinner.spinner svg {
     width: 40px;
     height: 40px;
@@ -1542,7 +1577,7 @@ span.msg {
     width: 100%;
     background: #F3F3F3;
     color: #3E3E3E;
-    padding: 5px;
+    padding: 5px 5px 90px 5px;
 }
 
 .view-more-btn {
@@ -1687,6 +1722,26 @@ span.msg {
 
 .search-container input:-ms-input-placeholder {
     color: white;
+}
+
+.login-inputs-container .ion-eye {
+    position: absolute;
+    right: 0;
+    bottom: -5px;
+    color: white;
+}
+
+.bottom-btn {
+    padding: 10px;
+    position: absolute;
+    bottom: -10px;
+}
+
+.addpics-title {
+    padding-bottom: 15px;
+    color: white;
+    font-size: 17px;
+    text-align: center;
 }
 
 

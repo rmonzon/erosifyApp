@@ -27,61 +27,148 @@ p {
     margin: 0;
 }
 
+.home-container {
+    font-family: LeituraSansGrot;
+    color: white;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: url("../img/bg-img-couple.png") no-repeat 50%;
+    background-size: cover;
+    letter-spacing: 1px;
+    padding: 25px 25px 15px;
+}
+
 .login-container {
     font-family: LeituraSansGrot;
     color: white;
     width: 100%;
     height: 100%;
     margin: 0;
-    padding: 25px 40px;
-    background: url("../img/bg-img-couple.png") no-repeat 50%;
-    background-size: cover;
+    padding: 0 40px 25px;
     letter-spacing: 1px;
-    /*
-    background: rgba(0,189,179,1);
-    background: -moz-linear-gradient(top, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,189,179,1)), color-stop(77%, rgba(255,98,129,1)), color-stop(100%, rgba(255,98,129,1)));
-    background: -webkit-linear-gradient(top, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    background: -o-linear-gradient(top, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    background: -ms-linear-gradient(top, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    background: linear-gradient(to bottom, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bdb3', endColorstr='#ff6281', GradientType=0 );
-    */
 }
 
 .gradient-bg {
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#00bdb3+0,aca4a6+20,ff6281+80 */
-    background: #00bdb3; /* Old browsers */
-    background: -moz-linear-gradient(top,  #00bdb3 0%, #aca4a6 20%, #ff6281 80%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  #00bdb3 0%,#aca4a6 20%,#ff6281 80%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  #00bdb3 0%,#aca4a6 20%,#ff6281 80%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bdb3', endColorstr='#ff6281',GradientType=0 ); /* IE6-9 */
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#65beb3+0,f75f7c+100 */
+    background: #65beb3; /* Old browsers */
+    background: -moz-linear-gradient(top,  #65beb3 0%, #f75f7c 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #65beb3 0%,#f75f7c 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #65beb3 0%,#f75f7c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#65beb3', endColorstr='#f75f7c',GradientType=0 ); /* IE6-9 */
 }
 
-.slogan span {
-    font-size: 30px;
-    line-height: 30px;
+.home-container .logo-container {
+    padding: 10px 25px 0;
+    position: absolute;
+    top: 10%;
+    font-size: 17px;
 }
 
-.logo-container, .slogan {
-    margin-bottom: 15px;
+.login-container .logo-container {
+    margin-top: 10px;
+}
+
+.logo-container {
+    margin-bottom: 35px;
     text-align: center;
 }
 
-.button-login {
-    width: 100%;
-    height: 50px;
+.btn-link-fb {
+    color: white!important;
+    font-family: LeituraSansGrot!important;
+}
+
+.get-started-btn {
     background: rgba(120, 54, 67, 0.78);
-    padding-top: 17px;
-    margin-bottom: 25px;
-    text-align: center;
-    font-size: 16px;
+    color: whitesmoke;
+    border-radius: 0;
+    position: absolute;
+    bottom: 140px;
+    padding-top: 3px;
+    text-transform: uppercase;
+    font-family: LeituraSansGrot;
+    width: 100%;
+    height: 55px;
+    font-size: 17px;
     opacity: 0.92;
     transition: background-color 0.2s linear;
 }
 
-.button-login:active, .button-signup:active {
-    background: rgba(102, 51, 51, 0.78);
+.get-started-btn-fb {
+    background: rgba(120, 54, 67, 0.78);
+    color: whitesmoke;
+    border-radius: 0;
+    position: absolute;
+    bottom: 40px;
+    padding-top: 3px;
+    text-transform: uppercase;
+    font-family: LeituraSansGrot;
+    width: 100%;
+    height: 55px;
+    font-size: 17px;
+    opacity: 0.92;
+    transition: background-color 0.2s linear;
+}
+
+.get-started-btn-fb i {
+    float: left;
+    position: relative;
+    bottom: 1px;
+    left: 10px;
+}
+
+.get-started-btn:hover, .get-started-btn-fb:hover, .button-login:hover {
+    color: white;
+}
+
+.get-started-btn.activated, .button-login.activated, .button-signup.activated, .get-started-btn-fb.activated {
+    background: rgba(82, 38, 38, 0.78);
+}
+
+.bottom-link-home {
+    font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -95px;
+}
+
+.bottom-link-home a {
+    text-decoration: none;
+    color: white;
+    font-family: LeituraSansBold;
+}
+
+.divider-home {
+    width: 100%;
+    height: 1px;
+    background: rgba(211, 211, 211, 0.5);
+    margin-bottom: 15px;
+}
+
+.btn-back {
+    color: white;
+    font-family: LeituraSansGrot;
+    padding-left: 2px;
+    padding-bottom: 25px;
+}
+
+.btn-back:hover {
+    color: white;
+}
+
+.button-login {
+    background: rgba(120, 54, 67, 0.78);
+    color: whitesmoke;
+    border-radius: 0;
+    padding-top: 3px;
+    text-transform: uppercase;
+    font-family: LeituraSansGrot;
+    width: 100%;
+    height: 55px;
+    font-size: 17px;
+    opacity: 0.92;
 }
 
 .button-signup {
@@ -116,6 +203,10 @@ p {
     text-decoration: none;
     color: white;
     font-family: LeituraSansBold;
+}
+
+.button-container {
+    margin-top: 20%;
 }
 
 
@@ -238,6 +329,16 @@ ion-item i {
     max-width: 15%;
 }
 
+.col-27 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 27%;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 27%;
+    -ms-flex: 0 0 27%;
+    flex: 0 0 27%;
+    max-width: 27%;
+}
+
 .col-30 {
     -webkit-box-flex: 0;
     -webkit-flex: 0 0 30%;
@@ -313,6 +414,7 @@ ion-item i {
     text-align: center;
     font-size: 11px;
     margin-bottom: 20px;
+    margin-top: 10px;
 }
 
 .bottom-link {
@@ -432,7 +534,7 @@ hr {
 }
 
 .info-section-container {
-    padding: 50px 15px;
+    padding: 45px 15px;
     height: 45%;
     background: url("../img/image_profile.png") no-repeat 50%;
 }
@@ -467,8 +569,12 @@ hr {
     height: 41px;
 }
 
-.top-name-container .button {
-    color: white;
+.match-no-favorite {
+    color: white!important;
+}
+
+.match-favorite {
+    color: #FFB932!important;
 }
 
 .online-icon {
@@ -499,11 +605,6 @@ hr {
     box-shadow: 0 0 15px #000;
 }
 
-/*.scroll {*/
-    /*transform: translate3d(0px, 0px, 0px) scale(1)!important;*/
-    /*height: 100%;*/
-/*}*/
-
 .button-like {
     width: 100px;
     height: 50px;
@@ -511,9 +612,6 @@ hr {
     float: left;
     background: #00BF61;
     text-align: center;
-    /*position: absolute;*/
-    /*right: 50%;*/
-    /*margin-right: -90px;*/
     margin-left: 10px;
     z-index: 10;
     color: whitesmoke;
@@ -656,14 +754,14 @@ i.ion-ios-chatbubble-outline {
 }
 
 .status-icon-sm {
-    width: 6px;
-    height: 6px;
-    border-radius: 3px;
-    margin: 6px 0 0 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    margin: 5px 0 0 5px;
 }
 
 .online {
-    background: limegreen;
+    background: green;
 }
 
 .offline {
@@ -805,6 +903,7 @@ ion-header-bar .ion-android-search:before {
     width: 24px!important;
     position: absolute;
     right: 25px;
+    top: 57px;
 }
 
 .prof-pic-match {
@@ -1132,7 +1231,7 @@ span.msg {
 }
 
 .profile-name {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .pic-container {
@@ -1156,10 +1255,10 @@ span.msg {
 .online-icon-profile {
     width: 10px;
     height: 10px;
-    background: green;
+    background: #0EB50E;
     border-radius: 5px;
-    margin-left: 10px;
-    margin-top: 3px;
+    margin-left: 8px;
+    margin-top: 4px;
 }
 
 .myprofile-info-bg i {
@@ -1194,22 +1293,6 @@ span.msg {
     transition: background-color 0.2s linear;
 }
 
-.button-delete-account {
-    width: 100%;
-    height: 45px;
-    background: rgba(120, 54, 67, 0.78);
-    padding: 15px;
-    text-align: center;
-    font-size: 16px;
-    color: whitesmoke;
-    font-family: LeituraSansGrot3;
-    transition: background-color 0.2s linear;
-}
-
-.button-delete-account:active {
-    background: rgba(97, 48, 48, 0.78);
-}
-
 .button-logout:active {
     background: #e4e4e4;
     -webkit-tap-highlight-color: #e4e4e4;
@@ -1237,8 +1320,8 @@ span.msg {
 }
 
 .loading-nearby svg {
-    width: 60px;
-    height: 60px;
+    width: 120px;
+    height: 120px;
     stroke: #444;
     fill: #444;
     margin-top: 130px;
@@ -1284,6 +1367,7 @@ span.msg {
 .left-menu-pic {
     max-width: 47px!important;
     max-height: 47px!important;
+
 }
 
 .male {
@@ -1383,6 +1467,277 @@ span.msg {
 .button.button-icon.button-clear.ion-close-round:before, .button.button-icon.button-clear.ion-checkmark-round:before {
     font-size: 25px;
 }
+
+.def-spinner-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -20px;
+    margin-top: -65px;
+}
+
+.default-spinner.spinner svg {
+    width: 40px;
+    height: 40px;
+    stroke: whitesmoke;
+    fill: whitesmoke;
+}
+
+.no-data-container {
+    padding: 30px;
+    font-size: 16px;
+    color: whitesmoke;
+    margin-top: 30%;
+    text-align: center;
+}
+
+.is-match-popup {
+    text-align: center;
+}
+
+.is-match-popup .popup-head {
+    display: none;
+}
+
+.is-match-popup .popup {
+    width: 80%;
+    padding: 10px;
+    border-radius: 15px;
+    background: rgba(47, 47, 47, 0.95);
+    color: lightgray;
+}
+
+.match-popup-headline {
+    text-align: center;
+    font-family: LeituraSansGrot3;
+    font-size: 17px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding: 0 10px;
+}
+
+.popup-body .button.button-balanced.button-outline {
+    border-color: #00BDB3;
+    background: transparent;
+    color: #00BDB3;
+}
+
+.popup-body .button.button-balanced.button-outline.active, .popup-body .button.button-balanced.button-outline.activated {
+    background-color: #00BDB3;
+    color: white;
+}
+
+.match-popup-pic {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.profile-info-bg {
+    width: 100%;
+    background: #F3F3F3;
+    color: #3E3E3E;
+    padding: 5px;
+}
+
+.view-more-btn {
+    position: absolute;
+    right: 10px;
+    font-size: 30px;
+    top: 60%;
+    color: #6F6D6D;
+}
+
+.btns-likedislike-cont {
+    position: fixed;
+    bottom: 0;
+    padding-bottom: 15px;
+    -webkit-box-shadow: inset 0px -30px 45px -17px rgba(128,128,128,1);
+    -moz-box-shadow: inset 0px -30px 45px -17px rgba(128,128,128,1);
+    box-shadow: inset 0px -30px 45px -17px rgba(128,128,128,1);
+}
+
+.button-like-profile {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    float: right;
+    background: #00BF61;
+    text-align: center;
+    z-index: 10;
+    color: whitesmoke;
+    padding-top: 4px;
+}
+
+.button-dislike-profile {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    float: left;
+    background: #FF4842;
+    text-align: center;
+    z-index: 10;
+    color: whitesmoke;
+}
+
+.button-msg-profile {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #00BDB3;
+    /*background: #ff6281;*/
+    text-align: center;
+    z-index: 10;
+    color: whitesmoke;
+    margin-top: 7px;
+}
+
+.button-like-profile.icon:before {
+    font-size: 32px;
+}
+
+.row-divider {
+    border-bottom: 1px solid #B9B9B9
+}
+
+.row-divider .slider {
+    padding-top: 25px;
+}
+
+.row-divider .slider-pager {
+    position: absolute;
+    top: -2px;
+    right: 0;
+    width: auto;
+}
+
+.popover {
+    height: 55px;
+}
+
+.button-full {
+    margin-top: 0!important;
+}
+
+.platform-ios .popover .scroll-content {
+    margin: 2px 0;
+}
+
+.report-dialog-icon {
+    font-size: 40px;
+}
+.report-popup-headline {
+    text-align: center;
+    font-family: LeituraSansGrot3;
+    font-size: 20px;
+    margin-bottom: 15px;
+    margin-top: 5px;
+    padding: 0 5px;
+}
+
+.profile-info-bg .button.icon:before {
+    line-height: 10px;
+}
+
+.profile-info-bg a.button {
+    line-height: 10px;
+    min-height: 30px;
+    padding-left: 0;
+    margin-right: 10px;
+}
+
+.search-divider {
+    width: 100%;
+    height: 1px;
+    margin-top: 12px;
+    background: rgba(211,211,211,0.3);
+}
+
+.search-container {
+    margin: 10px;
+    background: transparent;
+}
+
+.search-container.list-inset .item.item-input input {
+    padding-right: 10px;
+}
+
+.search-container input {
+    padding-left: 15px;
+    color: white;
+    padding-bottom: 5px;
+}
+
+.search-container input::-webkit-input-placeholder {
+    color: white;
+}
+
+.search-container input:-moz-placeholder { /* Firefox 18- */
+    color: white;
+}
+
+.search-container input::-moz-placeholder {  /* Firefox 19+ */
+    color: white;
+}
+
+.search-container input:-ms-input-placeholder {
+    color: white;
+}
+
+.login-inputs-container .ion-eye {
+    position: absolute;
+    right: 0;
+    bottom: -5px;
+    color: white;
+}
+
+.bottom-btn {
+    padding: 10px;
+    position: absolute;
+    bottom: -10px;
+}
+
+.addpics-title {
+    padding-bottom: 15px;
+    color: white;
+    font-size: 17px;
+    text-align: center;
+}
+
+
+
+/* CSS to create the pink bg on matching view */
+/*
+div{
+    width:50%;
+    height:300px;
+    position:relative;
+    overflow:hidden;
+}
+div:before{
+    content:'';
+    position:absolute;
+    bottom:80%;
+    width:100%;
+    height: 60%;
+    border-radius:60%;
+    box-shadow: 0px 300px 0px 300px #448CCB;
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -62,9 +62,8 @@ angular.module('controllers').controller('PeopleNearbyController', function ($sc
                     //results[4] = state address
                     //results[5] = country address
 
-
                     $scope.searching = false;
-                    $scope.humanAddress = results[1].formatted_address;
+                    $scope.humanAddress = results[2].formatted_address;
                     console.log(results);
                     $scope.$apply();
                 } else {

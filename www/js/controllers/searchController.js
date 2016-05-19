@@ -13,15 +13,12 @@ angular.module('controllers').controller('SearchController', function ($scope, G
     }
 
     $scope.getSearchResults = function () {
-        console.log($scope.uiData.searchTerms);
         mainFactory.searchProfiles({ criteria: $scope.uiData.searchTerms, my_id: User.getUser().id }).then(getSearchResultsSuccess, getSearchResultsError);
     };
 
     function getSearchResultsSuccess(response) {
         $scope.listResults = $scope.parseDataFromDB(response.data.results);
-        if ($scope.listResults.length == 0) {
-            $scope.noResults = true;
-        }
+        $scope.noResults = $scope.listResults.length == 0;
         $scope.loadingResults = false;
     }
 
@@ -29,10 +26,6 @@ angular.module('controllers').controller('SearchController', function ($scope, G
         $scope.showMessage(response.data.error, 2500);
         $scope.loadingResults = false;
     }
-
-    $scope.goToProfile = function (id) {
-        $scope.goToPage('app/profile/' + id);
-    };
 
     init();
 });

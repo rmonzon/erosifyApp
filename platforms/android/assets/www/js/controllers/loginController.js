@@ -2,7 +2,7 @@
  * Created by raul on 1/5/16.
  */
 
-angular.module('controllers').controller('LoginController', function ($scope, $q, $http, $cordovaFacebook, $timeout, GenericController, User, mainFactory) {
+angular.module('controllers').controller('LoginController', function ($scope, $q, $cordovaFacebook, $cordovaGeolocation, GenericController, User, mainFactory) {
 
     function init() {
         GenericController.init($scope);
@@ -19,17 +19,56 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
            return;
         }
         $scope.showMessageWithIcon("Verifying credentials...");
-        var credentials = { "email": $scope.user.email, "password": $scope.user.password };
-
-        mainFactory.authenticate(credentials).then(successCallBack, errorCallBack);
-        //$scope.goToPage('app/matching');
+        $scope.getCurrentLocation();
     };
 
-    function successCallBack(response) {
+    $scope.getCurrentLocation = function () {
+        var posOptions = {timeout: 10000, enableHighAccuracy: false};
+        $cordovaGeolocation.getCurrentPosition(posOptions).then(successGetLocation, errorGetLocation);
+    };
+
+    function successGetLocation(position) {
+        geocodeLatLng(position.coords.latitude, position.coords.longitude);
+    }
+
+    function errorGetLocation(err) {
+        $scope.hideMessage();
+        console.log(err);
+        if (err.code == 1) {
+            $scope.showMessage("Please enable GPS service to continue.", 3000);
+        }
+    }
+
+    function geocodeLatLng(lat, long) {
+        var geocoder = new google.maps.Geocoder;
+        var latlng = {lat: parseFloat(lat), lng: parseFloat(long)};
+        geocoder.geocode({'location': latlng}, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+                    //results[0] = Full street address
+                    //results[1] = locality address
+                    //results[2] = postal code address
+                    //results[3] = county address
+                    //results[4] = state address
+                    //results[5] = country address
+                    var credentials = { "email": $scope.user.email, "password": $scope.user.password, "location": results[2].formatted_address, "coords": latlng };
+                    mainFactory.authenticate(credentials).then(authenticateSuccess, authenticateError);
+                    //$scope.$apply();
+                } else {
+                    $scope.showMessage('No results found', 2500);
+                }
+            } else {
+                $scope.showMessage('Geocoder failed due to: ' + status, 2500);
+            }
+        });
+    }
+
+    function authenticateSuccess(response) {
         $scope.hideMessage();
         if (response.data.success) {
             $scope.setUserToLS($scope.user.email);
             User.setToken(response.data.token);
+            response.data.user = $scope.parseDataFromDB(response.data.user);
             User.setUser(response.data.user);
             $scope.user.email = "";
             $scope.user.password = "";
@@ -40,7 +79,7 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
         }
     }
 
-    function errorCallBack (response) {
+    function authenticateError (response) {
         $scope.hideMessage();
         if (response.data) {
             $scope.showMessage(response.data.error, 2500);

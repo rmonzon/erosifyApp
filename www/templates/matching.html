@@ -7,20 +7,24 @@
     </div>
     <a class="button button-icon icon ion-funnel" ng-click="openFilterOptions()"></a>
 </ion-header-bar>
-<ion-content class="match-container">
+
+<ion-content class="login-container gradient-bg" ng-show="loadingMatches">
+    <div class="text-center matching-spinner-container">
+        <ion-spinner class="default-spinner"></ion-spinner>
+        <p class="text-center">Finding potential matches...</p>
+    </div>
+</ion-content>
+
+<ion-content class="match-container" ng-hide="loadingMatches">
     <div class="photo-section-container" ng-hide="loadingMatches">
         <div class="top-name-container">
-            <div class="col-27">
-                <a class="button button-icon icon" ng-class="currentProfile.favorite ? 'match-favorite ion-ios-star' : 'match-no-favorite ion-ios-star-outline'" style="float: right" ng-click="addRemoveFavorite()"></a>
-            </div>
-            <div class="col-45">
-                <span style="font-size: 28px;position: relative;top: 16px;margin-right: 5px;">{{currentProfile.name}}</span>
-                <span style="font-size: 28px;position: relative;top: 16px;"><b>{{currentProfile.age}}</b></span>
-            </div>
-            <div class="col-27" style="display: flex">
-                <!--<div ng-show="currentProfile.verified == 1" class="verified-icon"></div>-->
-                <i class="icon ion-checkmark-circled verified-icon" ng-show="currentProfile.verified == 1"></i>
-                <div ng-show="currentProfile.status == 1" class="online-icon"></div>
+            <a class="button button-icon icon" ng-class="currentProfile.favorite ? 'match-favorite ion-ios-star' : 'match-no-favorite ion-ios-star-outline'" style="float: left;margin-left: 15px" ng-click="addRemoveFavorite()"></a>
+            <div class="text-center" style="position: absolute;left: 50%;margin-left: -120px;width: 240px;height: 45px">
+                <span class="name-age-matching">
+                    {{currentProfile.name}}, <b>{{currentProfile.age}}</b>
+                </span>
+                <i class="icon ion-checkmark-circled verified-icon-matching" ng-show="currentProfile.verified == 1"></i>
+                <!--<div ng-class="currentProfile.status == 1 ? 'online-icon' : 'online-icon-hidden'"></div>-->
             </div>
         </div>
 
@@ -67,7 +71,7 @@
                 <div class="btn-profile"></div>
             </a>
 
-            <div class="col" style="margin-top: 25px">
+            <div class="col" style="margin-top: 10px">
                 <div class="row location-row">
                     <i class="icon ion-location"></i>
                     <span>{{currentProfile.location}}</span>

@@ -8,20 +8,33 @@
 </ion-header-bar>
 <ion-content class="gradient-bg">
     <div style="margin: 5% 0">
-        <div class="row matches-row" ontouchstart="" ng-repeat="row in matches">
+        <div class="row matches-row" ng-repeat="row in myMatches">
             <div class="col-33 text-center" ng-repeat="m in row">
-                <a class="button button-icon" style="width: 100%" ng-click="goToProfile(m.name)">
-                    <img class="prof-pic-match" src="{{m.pic}}">
-                    <img src="img/verified-circle.svg" ng-show="m.verified" class="verified-profile-icon-match">
+                <a class="button button-icon" style="width: 100%" ng-click="goToProfile(m.id)">
+                    <img class="prof-pic-match" src="{{m.pictures[0]}}">
+                    <img src="img/verified-circle.svg" ng-show="m.verified == 1" class="verified-profile-icon-match">
                 </a>
                 <br>
-               <div style="display: inline-flex; text-align: center">
+                <div style="display: inline-flex; text-align: center">
                    <span class="match-user">{{m.name}}</span>
-                   <div class="status-icon-md online" ng-show="m.online"></div>
-               </div>
+                   <div class="status-icon-md online" ng-show="m.status == 1"></div>
+                </div>
                 <br>
                 <span class="match-date">{{m.date}}</span>
             </div>
+        </div>
+
+        <div class="row no-data-container" ng-show="noResults">
+            <div class="col">
+                <i class="icon ion-sad" style="font-size: 50px"></i>
+                <p class="text-center">No one around here yet.</p>
+                <p class="text-center">Start liking some profile until you find your best match!</p>
+            </div>
+        </div>
+
+        <div class="text-center def-spinner-container" ng-show="loadingMatches">
+            <ion-spinner class="default-spinner"></ion-spinner>
+            <!--<p class="text-center">Loading your favorites...</p>-->
         </div>
     </div>
 </ion-content>

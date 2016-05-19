@@ -2,7 +2,7 @@
  * Created by raul on 1/5/16.
  */
 
-angular.module('controllers').controller('SignUpController', function ($scope, GenericController, mainFactory, User) {
+angular.module('controllers').controller('SignUpController', function ($scope, $cordovaGeolocation, GenericController, mainFactory, User) {
 
     function init() {
         GenericController.init($scope);
@@ -22,7 +22,19 @@ angular.module('controllers').controller('SignUpController', function ($scope, G
             { value: 12, text: "December" }
         ];
         $scope.years = [];
-        $scope.user = {};
+        //$scope.user = {};
+        $scope.user = {
+            email: "lucas@gmail.com",
+            password: "123123123",
+            name: "Lucas",
+            lastname: "Rivero",
+            dob: "04-10-1983",
+            gender: "Male",
+            age: 33,
+            month: "4",
+            day: "10",
+            year: "1983"
+        };
         $scope.wrongCredentials = false;
 
         initComboboxes();
@@ -42,7 +54,6 @@ angular.module('controllers').controller('SignUpController', function ($scope, G
             $scope.showMessage("Please enter a valid email address!", 2500);
             return;
         }
-        $scope.addAbsPosition();
         mainFactory.checkEmailAvailability({"email": $scope.user.email}).then(successCheckEmail, errorCheckEmail);
     };
 
@@ -64,7 +75,7 @@ angular.module('controllers').controller('SignUpController', function ($scope, G
 
     function errorCheckEmail(response) {
         $scope.wrongCredentials = true;
-        $scope.showMessage(response.data.error, 3000);
+        $scope.showMessage(response.data ? response.data.error : "Server error connection", 3000);
     }
 
     $scope.signUp = function() {
@@ -96,25 +107,78 @@ angular.module('controllers').controller('SignUpController', function ($scope, G
             $scope.showMessage("Birthday cannot be empty!", 2500);
             return;
         }
-
-        var userObj = {
-            "email": $scope.user.email,
-            "password": $scope.user.password,
-            "name": $scope.user.name,
-            "lastname": "Rivero",
-            "dob": $scope.user.month + "-" + $scope.user.day + "-" + $scope.user.year,
-            "gender": $scope.user.gender,
-            "age": calculateAge(),
-            "location": getLocation(),
-            "pictures": "'{1.jpg}'" //temporary solution until the picture upload feature is done
-        };
         $scope.showMessageWithIcon("Creating account...");
-        mainFactory.createAccount(userObj).then(successCallBack, errorCallBack);
+        $scope.getCurrentLocation();
+
     };
 
-    function getLocation() {
-        //we'll get this later from Geolocation APIs
-        return 'Miami, FL';
+    $scope.getCurrentLocation = function () {
+        var posOptions = {timeout: 10000, enableHighAccuracy: false};
+        $cordovaGeolocation.getCurrentPosition(posOptions).then(successGetLocation, errorGetLocation);
+    };
+
+    function successGetLocation(position) {
+        geocodeLatLng(position.coords.latitude, position.coords.longitude);
+    }
+
+    function errorGetLocation(err) {
+        $scope.hideMessage();
+        console.log(err);
+        if (err.code == 1) {
+            $scope.showMessage("Please enable GPS service to continue.", 3000);
+        }
+        else {
+            $scope.showMessage("Error getting your current location.", 3000);
+        }
+    }
+
+    function geocodeLatLng(lat, long) {
+        var geocoder = new google.maps.Geocoder;
+        var latlng = {lat: parseFloat(lat), lng: parseFloat(long)};
+        geocoder.geocode({'location': latlng}, function (results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                if (results[1]) {
+                    //results[0] = Full street address
+                    //results[1] = locality address
+                    //results[2] = postal code address
+                    //results[3] = county address
+                    //results[4] = state address
+                    //results[5] = country address
+                    var userObj = {
+                        "email": $scope.user.email,
+                        "password": $scope.user.password,
+                        "name": $scope.user.name,
+                        "lastname": "Rivero",
+                        "dob": $scope.user.month + "-" + $scope.user.day + "-" + $scope.user.year,
+                        "gender": $scope.user.gender,
+                        "age": calculateAge(),
+                        "location": results[2].formatted_address,
+                        "pictures": "'{1.jpg}'",
+                        "coords": latlng
+                    };
+                    mainFactory.createAccount(userObj).then(successCallBack, errorCallBack);
+                } else {
+                    $scope.showMessage('No results found', 2500);
+                }
+            } else {
+                $scope.showMessage('Geocoder failed due to: ' + status, 2500);
+            }
+        });
+    }
+
+    function successCallBack(response) {
+        $scope.hideMessage();
+        $scope.setUserToLS($scope.user.email);
+        User.setToken(response.data.token);
+        response.data.user = $scope.parseDataFromDB(response.data.user);
+        User.setUser(response.data.user);
+        $scope.goToPage('add_photos');
+    }
+
+    function errorCallBack(response) {
+        $scope.hideMessage();
+        console.log(response);
+        $scope.showMessage(response.data.error, 3000);
     }
 
     function calculateAge() {
@@ -125,20 +189,6 @@ angular.module('controllers').controller('SignUpController', function ($scope, G
         var diffYears = yyyy - parseInt($scope.user.year);
         var a = mm * 30 + dd, b = parseInt($scope.user.month) * 30 + parseInt($scope.user.day);
         return a < b ? diffYears - 1 : diffYears;
-    }
-
-    function successCallBack(response) {
-        $scope.hideMessage();
-        $scope.setUserToLS($scope.user.email);
-        User.setToken(response.data.token);
-        User.setUser(response.data.user);
-        //$scope.goToPage('add_photos');
-        $scope.goToPage('app/matching');
-    }
-
-    function errorCallBack(response) {
-        $scope.hideMessage();
-        $scope.showMessage(response.data.error, 3000);
     }
 
     init();

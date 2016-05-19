@@ -32,6 +32,11 @@ angular.module('controllers').controller('UserProfileController', function ($sco
         $ionicSlideBoxDelegate.update();
     }
 
+    function errorCallback(response) {
+        $scope.showMessage(response.data.error, 2500);
+        $scope.logout();
+    }
+
     function calculateDistance() {
         var coordsA = JSON.parse($scope.user.coordinates), coordsB = JSON.parse(User.getUser().coordinates);
         var userACoords = new google.maps.LatLng(coordsA.lat, coordsA.lng);
@@ -39,11 +44,6 @@ angular.module('controllers').controller('UserProfileController', function ($sco
         var distance = google.maps.geometry.spherical.computeDistanceBetween(userACoords, userBCoords);
         distance = $scope.convertFromMetersToMiles(distance);
         $scope.user.distance = Math.round(distance * 10) / 10;
-    }
-
-    function errorCallback(response) {
-        $scope.showMessage(response.data.error, 2500);
-        $scope.logout();
     }
 
     $scope.markProfileAsVisited = function () {
@@ -130,6 +130,7 @@ angular.module('controllers').controller('UserProfileController', function ($sco
 
     $scope.sendMessageToUser = function () {
         //open chat window with that user
+        $scope.goToPage('app/messages/' + $scope.user.id);
     };
 
     $scope.sendMessage = function () {
@@ -176,21 +177,21 @@ angular.module('controllers').controller('UserProfileController', function ($sco
         $scope.commonFriends = [
             [
                 [
-                    { name: "Samantha", pic: ENV.SERVICE_URL + "/profiles/user_20/1.jpg" },
-                    { name: "Emily", pic: ENV.SERVICE_URL + "/profiles/user_21/1.jpg" },
-                    { name: "Jessica", pic: ENV.SERVICE_URL + "/profiles/user_23/1.jpg" }
+                    { name: "Samantha", pic: ENV.AMAZON_S3 + "/profiles/user_20/1.jpg" },
+                    { name: "Emily", pic: ENV.AMAZON_S3 + "/profiles/user_21/1.jpg" },
+                    { name: "Jessica", pic: ENV.AMAZON_S3 + "/profiles/user_23/1.jpg" }
                 ],
                 [
-                    { name: "Bethany", pic: ENV.SERVICE_URL + "/profiles/user_27/1.jpg" },
-                    { name: "Nathan", pic: ENV.SERVICE_URL + "/profiles/user_28/1.jpg" },
-                    { name: "Keith", pic: ENV.SERVICE_URL + "/profiles/user_30/1.jpg" }
+                    { name: "Bethany", pic: ENV.AMAZON_S3 + "/profiles/user_27/1.jpg" },
+                    { name: "Nathan", pic: ENV.AMAZON_S3 + "/profiles/user_28/1.jpg" },
+                    { name: "Keith", pic: ENV.AMAZON_S3 + "/profiles/user_30/1.jpg" }
                 ]
             ],
             [
                 [
-                    { name: "Lola", pic: ENV.SERVICE_URL + "/profiles/user_26/1.jpg" },
-                    { name: "Emily", pic: ENV.SERVICE_URL + "/profiles/user_21/1.jpg" },
-                    { name: "Jessica", pic: ENV.SERVICE_URL + "/profiles/user_23/1.jpg" }
+                    { name: "Lola", pic: ENV.AMAZON_S3 + "/profiles/user_26/1.jpg" },
+                    { name: "Emily", pic: ENV.AMAZON_S3 + "/profiles/user_21/1.jpg" },
+                    { name: "Jessica", pic: ENV.AMAZON_S3 + "/profiles/user_23/1.jpg" }
                 ]
             ]
         ];

@@ -2,23 +2,24 @@
  * Created by raul on 2/3/16.
  */
 
-angular.module('controllers').controller('MatchingController', function ($scope, $timeout, $ionicSlideBoxDelegate, $ionicModal, GenericController, mainFactory) {
+angular.module('controllers').controller('MatchingController', function ($scope, $ionicSlideBoxDelegate, $ionicModal, $ionicPopup, GenericController, User, mainFactory) {
 
     function init() {
         GenericController.init($scope);
         $scope.listMatches = [];
         $scope.loadingMatches = true;
         $scope.posProfile = 0;
+        $scope.userProfile = User.getUser();
         $scope.filters = { miles: 30, ageMin: 18, ageMax: 55, from: 18, to: 40, gender: 'Women', interest: "Date" };
         $scope.getListOfMatches();
     }
 
     $scope.getListOfMatches = function () {
-        mainFactory.getMatchesByUser({ "email": $scope.getUserFromLS() }).then(getMatchesSuccess, getMatchesError);
+        mainFactory.getMatchesByUser({ "id": $scope.userProfile.id, "email": $scope.getUserFromLS() }).then(getMatchesSuccess, getMatchesError);
     };
 
     function getMatchesSuccess(response) {
-        console.log(response.data.matches);
+        //console.log(response.data.matches);
         $scope.listMatches = $scope.parseDataFromDB(response.data.matches);
         if ($scope.listMatches[0]) {
             $scope.currentProfile = $scope.listMatches[0];
@@ -35,23 +36,17 @@ angular.module('controllers').controller('MatchingController', function ($scope,
     }
 
     $scope.likeProfile = function () {
-        console.log("You liked her!");
-        $scope.posProfile++;
-        $scope.currentProfile = $scope.listMatches[$scope.posProfile];
-        //store LIKE in the BD
+        setLikeOrDislike(1);
     };
 
     $scope.dislikeProfile = function () {
-        console.log("You didn't like her!");
-        $scope.posProfile++;
-        $scope.currentProfile = $scope.listMatches[$scope.posProfile];
-        //store DISLIKE in the BD
+        setLikeOrDislike(0);
     };
 
     $scope.skipProfile = function () {
         if ($scope.posProfile < $scope.listMatches.length - 1) {
             $scope.posProfile++;
-            $scope.currentProfile = $scope.listMatches[$scope.posProfile];   
+            $scope.currentProfile = $scope.listMatches[$scope.posProfile];
         }
     };
 
@@ -63,19 +58,79 @@ angular.module('controllers').controller('MatchingController', function ($scope,
         }
     };
 
-    $scope.goToProfile = function () {
+    $scope.goToUserProfile = function () {
         //count current user as a visitor
+        $scope.goToPage('app/profile/' + $scope.currentProfile.id);
     };
 
     $scope.seeMorePics = function () {
         //open up the gallery with all user's photos
     };
 
+    $scope.markUserAsFavorite = function () {
+        $scope.currentProfile.favorite = !$scope.currentProfile.favorite;
+        mainFactory.makeUserFavorite({ my_id: User.getUser().id, profile_id: $scope.currentProfile.id }).then(makeUserFavoriteSuccess, makeUserFavoriteError);
+    };
+
+
+    $scope.addRemoveFavorite = function () {
+        $scope.currentProfile.favorite = !$scope.currentProfile.favorite;
+        if ($scope.currentProfile.favorite) {
+            addUserToFavs();
+        }
+        else {
+            removeUserFromFavs();
+        }
+    };
+
+    function addUserToFavs() {
+        mainFactory.makeUserFavorite({ my_id: User.getUser().id, profile_id: $scope.currentProfile.id }).then(makeUserFavoriteSuccess, makeUserFavoriteError);
+    }
+
+    function removeUserFromFavs() {
+        mainFactory.removeUserFromFavorite({ my_id: User.getUser().id, profile_id: $scope.currentProfile.id }).then(removeUserFavoriteSuccess, removeUserFavoriteError);
+    }
+
+    function makeUserFavoriteSuccess(response) {
+        $scope.showMessage("User added to favorites", 1000);
+    }
+
+    function makeUserFavoriteError(response) {
+        $scope.showMessage(response.data.error, 2500);
+    }
+
+    function removeUserFavoriteSuccess(response) {
+        $scope.showMessage("User removed from favorites", 1000);
+    }
+
+    function removeUserFavoriteError(response) {
+        $scope.showMessage(response.data.error, 2500);
+    }
+
+    function setLikeOrDislike(liked) {
+        mainFactory.saveLikeOrDislike({ my_id: User.getUser().id, other_id: $scope.currentProfile.id, liked: liked }).then(saveLikeOrDislikeSuccess, saveLikeOrDislikeError);
+    }
+
+    function saveLikeOrDislikeSuccess(response) {
+        if (response.data.isMatch) {
+            console.log("It's a match!");
+            $scope.showMutualMatchMsg();
+        }
+        else {
+            $scope.posProfile++;
+            $scope.currentProfile = $scope.listMatches[$scope.posProfile];
+        }
+    }
+
+    function saveLikeOrDislikeError(response) {
+        $scope.showMessage(response.data.error, 2500);
+    }
+
     $scope.openFilterOptions = function () {
         $scope.modal.show();
     };
 
-    $ionicModal.fromTemplateUrl('templates/modal.html', {
+    $ionicModal.fromTemplateUrl('templates/matching_filters.html', {
         scope: $scope
     }).then(function(modal) {
         $scope.modal = modal;
@@ -89,6 +144,26 @@ angular.module('controllers').controller('MatchingController', function ($scope,
     $scope.closeModal = function() {
         $scope.modal.hide();
     };
+
+    $scope.showMutualMatchMsg = function() {
+        $scope.mutualMatchPopup = $ionicPopup.show({
+            templateUrl: 'templates/mutual_match.html',
+            cssClass: 'is-match-popup',
+            scope: $scope
+        });
+    };
+
+    $scope.sendMessage = function () {
+        //open chat window with that user
+    };
+
+    $scope.closePopup = function () {
+        $scope.mutualMatchPopup.close();
+        $scope.posProfile++;
+        $scope.currentProfile = $scope.listMatches[$scope.posProfile];
+    };
+
+
 
     init();
 });
