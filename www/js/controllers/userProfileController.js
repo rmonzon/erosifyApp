@@ -9,6 +9,7 @@ angular.module('controllers').controller('UserProfileController', function ($sco
         $scope.images = [];
         $scope.slideIndex = 0;
         $scope.user = {};
+        $scope.report = { reason: "", comment: "", loading: false };
         $scope.commonFriends = [];
         $scope.profileLiked = false;
         $scope.profileDisLiked = false;
@@ -23,7 +24,7 @@ angular.module('controllers').controller('UserProfileController', function ($sco
 
     function successCallback(response) {
         $scope.user = $scope.parseDataFromDB(response.data.data);
-        calculateDistance();
+        $scope.user.distance = $scope.calculateDistanceToUser($scope.user);
         if ($scope.user.liked != undefined) {
             $scope.profileLiked = $scope.user.liked == 1;
             $scope.profileDisLiked = $scope.user.liked == 0;
@@ -35,15 +36,6 @@ angular.module('controllers').controller('UserProfileController', function ($sco
     function errorCallback(response) {
         $scope.showMessage(response.data.error, 2500);
         $scope.logout();
-    }
-
-    function calculateDistance() {
-        var coordsA = JSON.parse($scope.user.coordinates), coordsB = JSON.parse(User.getUser().coordinates);
-        var userACoords = new google.maps.LatLng(coordsA.lat, coordsA.lng);
-        var userBCoords = new google.maps.LatLng(coordsB.lat, coordsB.lng);
-        var distance = google.maps.geometry.spherical.computeDistanceBetween(userACoords, userBCoords);
-        distance = $scope.convertFromMetersToMiles(distance);
-        $scope.user.distance = Math.round(distance * 10) / 10;
     }
 
     $scope.markProfileAsVisited = function () {
@@ -141,11 +133,6 @@ angular.module('controllers').controller('UserProfileController', function ($sco
         $scope.mutualMatchPopup.close();
     };
 
-    $scope.closeReportPopup = function () {
-        $scope.reportPopup.close();
-        $scope.popover.hide();
-    };
-
     $scope.nextPic = function() {
         $ionicSlideBoxDelegate.next();
     };
@@ -165,6 +152,33 @@ angular.module('controllers').controller('UserProfileController', function ($sco
             cssClass: 'is-match-popup',
             scope: $scope
         });
+    };
+
+    $scope.closeReportPopup = function () {
+        $scope.reportPopup.close();
+        $scope.popover.hide();
+    };
+
+    $scope.reportUser = function () {
+        $scope.report.loading = true;
+        var r = { my_id: User.getUser().id, profile_id: $scope.user.id, reason: $scope.report.reason, comments: $scope.report.comment };
+        mainFactory.reportUserProfile(r).then(reportUserSucess, reportUserError);
+    };
+
+    function reportUserSucess(response) {
+        $scope.report = { reason: "", comment: "", loading: false };
+        $scope.closeReportPopup();
+        $scope.showMessage("User reported successfully!", 1500);
+    }
+
+    function reportUserError(response) {
+        $scope.report = { reason: "", comment: "", loading: false };
+        $scope.closeReportPopup();
+        $scope.showMessage(response.data.error, 2500);
+    }
+
+    $scope.onSelectionChange = function () {
+        $scope.report.showHiddenText = $scope.report.reason == "Other Reason";
     };
 
     $ionicPopover.fromTemplateUrl('templates/popover.html', {

@@ -4,24 +4,24 @@
     <p class="report-popup-headline">Report User</p>
 
     <p class="text-center">Let us know the reason why you want to report this user.</p>
-    
-    <button class="button icon-left ion-android-camera button-block button-outline button-royal" ng-click="sendMessage()">
-        Inappropriate Photos
-    </button>
 
-    <button class="button icon-left ion-person-stalker button-block button-outline button-positive" ng-click="closePopup()">
-        Fake Profile
-    </button>
+    <div class="combobox" style="margin-top: 20px;">
+        <select ng-model="report.reason" required style="left: 15px;" ng-change="onSelectionChange()">
+            <option value="">Select a reason</option>
+            <option value="Inappropriate Photos">Inappropriate Photos</option>
+            <option value="Fake Profile">Fake Profile</option>
+            <option value="Spam or Scam">Spam or Scam</option>
+            <option value="Other Reason">Other Reason</option>
+        </select>
+    </div>
 
-    <button class="button icon-left ion-ios-people-outline button-block button-outline button-calm" ng-click="closePopup()">
-        Spam or Scam
-    </button>
+    <div class="group" ng-show="report.showHiddenText">
+        <input type="text" ng-model="report.comment" required>
+        <span class="bar-input"></span>
+        <label class="left-labels">Comments</label>
+    </div>
 
-    <button class="button icon-left ion-alert-circled button-block button-outline button-assertive" ng-click="closePopup()">
-        Other Reason
-    </button>
+    <button class="button button-block button-outline button-assertive" ng-click="reportUser()" ng-disabled="report.loading">Report User</button>
 
-    <button class="button button-block button-outline button-stable" ng-click="closeReportPopup()">
-        Cancel
-    </button>
+    <button class="button button-block button-outline button-stable" ng-click="closeReportPopup()">Cancel</button>
 </div>

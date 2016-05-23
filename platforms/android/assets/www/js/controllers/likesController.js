@@ -40,9 +40,5 @@ angular.module('controllers').controller('LikesController', function ($scope, Ge
         }
     }
 
-    $scope.goToProfile = function (id) {
-        $scope.goToPage('app/profile/' + id);
-    };
-
     init();
 });

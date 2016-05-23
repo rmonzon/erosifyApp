@@ -14,6 +14,10 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
             $location.path('/' + page);
         };
 
+        $scope.goToProfile = function (id) {
+            $scope.goToPage('app/profile/' + id);
+        };
+
         $scope.showMessageWithIcon = function(message, time) {
             $ionicLoading.show({
                 duration: time,
@@ -80,10 +84,6 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
             //return JSON.parse($window.localStorage.starter_facebook_user || window.localStorage.userLogin || '{}');
         };
 
-        $scope.convertFromMetersToMiles = function (i) {
-            return i * 0.000621371192;
-        };
-
         $scope.removeUserFromLS = function () {
             $window.localStorage.removeItem('userId');
         };
@@ -96,6 +96,19 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
             $scope.inputType = 'password';
         };
 
+        $scope.calculateDistanceToUser = function (user) {
+            var coordsA = JSON.parse(user.coordinates), coordsB = JSON.parse(User.getUser().coordinates);
+            var userACoords = new google.maps.LatLng(coordsA.lat, coordsA.lng);
+            var userBCoords = new google.maps.LatLng(coordsB.lat, coordsB.lng);
+            var distance = google.maps.geometry.spherical.computeDistanceBetween(userACoords, userBCoords);
+            distance = $scope.convertFromMetersToMiles(distance);
+            return Math.round(distance * 10) / 10;
+        };
+
+        $scope.convertFromMetersToMiles = function (i) {
+            return i * 0.000621371192;
+        };
+
         $scope.parseDataFromDB = function (users) {
             if (Array.isArray(users)) {
                 for (var i = 0, len = users.length; i < len; ++i) {
@@ -105,6 +118,9 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
                     if (users[i].date) {
                         var d = users[i].date.split('T')[0].split('-');
                         users[i].date = d[1] + "/" + d[2] + "/" + d[0];
+                    }
+                    if (users[i].location) {
+                        users[i].location = parseAddress(users[i].location);
                     }
                 }
             }
@@ -116,10 +132,39 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
                     d = users.date.split('T')[0].split('-');
                     users.date = d[1] + "/" + d[2] + "/" + d[0];
                 }
+                if (users.location) {
+                    users.location = parseAddress(users.location);
+                }
                 //we might need to parse more data in the future
             }
             return users;
         };
+
+        function parseAddress(address) {
+            address = address.split(',');
+            var l = address.length;
+            address = address[l-3] + "," + address[l-2] + "," + address[l-1];
+            if (address[0] == " ") {
+                address = spliceSlice(address, 0, 1);
+            }
+            address = address.replace(/\d+/g, '');
+            var fIndex = address.indexOf(','), lIndex = address.lastIndexOf(',');
+            if (address[fIndex - 1] == " ") {
+                address = spliceSlice(address, fIndex - 1, 1);
+            }
+            if (address[lIndex - 1] == " ") {
+                address = spliceSlice(address, lIndex - 1, 1);
+            }
+            if (address.includes('USA') || address.includes('EE. UU.')) {
+                address = address.replace(', USA', '');
+                address = address.replace(', EE. UU.', '');
+            }
+            return address;
+        }
+
+        function spliceSlice(str, index, count, add) {
+            return str.slice(0, index) + (add || "") + str.slice(index + count);
+        }
 
         function cleanImagesUrls(user) {
             if (user.pictures) {

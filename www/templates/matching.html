@@ -15,7 +15,13 @@
     </div>
 </ion-content>
 
-<ion-content class="match-container" ng-hide="loadingMatches">
+<ion-content class="login-container gradient-bg" ng-show="!loadingMatches && listMatches.length == 0">
+    <div class="text-center" style="margin-top: 100%;">
+        <p class="text-center">No users were found. We're very sorry for this.</p>
+    </div>
+</ion-content>
+
+<ion-content class="match-container" ng-hide="loadingMatches"> <!--  || listMatches.length == 0 !-->
     <div class="photo-section-container" ng-hide="loadingMatches">
         <div class="top-name-container">
             <a class="button button-icon icon" ng-class="currentProfile.favorite ? 'match-favorite ion-ios-star' : 'match-no-favorite ion-ios-star-outline'" style="float: left;margin-left: 15px" ng-click="addRemoveFavorite()"></a>
@@ -37,7 +43,8 @@
 
             <div class="circular-pic-container">
                 <div class="matching-pic-container">
-                    <img ng-src="{{currentProfile.pictures[0]}}" width="100%">
+                    <ion-spinner class="default-spinner" ng-show="loadingProfileImg"></ion-spinner>
+                    <img ng-src="{{currentProfile.pictures[0]}}" ng-load-image="imageLoaded()" ng-hide="loadingProfileImg" width="100%" height="100%">
                 </div>
             </div>
 
@@ -95,7 +102,4 @@
         </div>
     </div>
 
-    <div class="" ng-show="loadingMatches">
-
-    </div>
 </ion-content>

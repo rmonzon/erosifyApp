@@ -1,14 +1,14 @@
 <ion-header-bar align-title="left">
     <a class="button button-icon icon ion-chevron-left" ng-click="goToPage('app/messages')"></a>
     <div class="chat-title-top">
-        <span>{{chatTitle}}</span>
+        <span>{{userInfo.name}}</span>
         <div class="row">
-            <span>{{userInfo.online ? "Online now" : "Offline"}}</span>
-            <div class="status-icon-sm" ng-class="userInfo.online ? 'online' : 'offline'"></div>
+            <span>{{userInfo.status == 1 ? "Online now" : "Offline"}}</span>
+            <div class="status-icon-sm" ng-class="userInfo.status ? 'online' : 'offline'"></div>
         </div>
     </div>
-    <a class="button button-icon" ng-click="goToPage('app/messages')" style="position: absolute;right: 0;line-height: 20px;">
-        <img ng-src="{{userInfo.pic}}" class="user-pic-sm">
+    <a class="button button-icon" ng-click="goToProfile(userInfo.id)" style="position: absolute;right: 0;line-height: 20px;">
+        <img ng-src="{{userInfo.pictures[0]}}" class="user-pic-sm">
     </a>
 </ion-header-bar>
 <ion-content has-bouncing="true" class="gradient-bg" delegate-handle="userMessageScroll" style="bottom: 60px">

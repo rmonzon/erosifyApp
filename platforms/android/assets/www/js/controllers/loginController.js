@@ -44,14 +44,14 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
         var latlng = {lat: parseFloat(lat), lng: parseFloat(long)};
         geocoder.geocode({'location': latlng}, function (results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
-                if (results[1]) {
+                if (results[0]) {
                     //results[0] = Full street address
                     //results[1] = locality address
                     //results[2] = postal code address
                     //results[3] = county address
                     //results[4] = state address
                     //results[5] = country address
-                    var credentials = { "email": $scope.user.email, "password": $scope.user.password, "location": results[2].formatted_address, "coords": latlng };
+                    var credentials = { "email": $scope.user.email, "password": $scope.user.password, "location": results[0].formatted_address, "coords": latlng };
                     mainFactory.authenticate(credentials).then(authenticateSuccess, authenticateError);
                     //$scope.$apply();
                 } else {

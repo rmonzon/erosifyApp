@@ -96,6 +96,14 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
     factory.updateNewUserPics = function (req) {
         return $http.post(factory.connectionStr + "/update_pics", req);
     };
+
+    factory.reportUserProfile = function (req) {
+        return $http.post(factory.connectionStr + "/report_user", req);
+    };
+
+    factory.updateUserInfo = function (req) {
+        return $http.post(factory.connectionStr + "/update_profile", req);
+    };
     
     
 

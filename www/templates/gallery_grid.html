@@ -1,0 +1,18 @@
+<ion-modal-view class="pics-grid-container">
+    <ion-header-bar align-title="left" class="bar bar-header">
+        <div class="buttons">
+            <button class="button button-icon button-clear"></button>
+        </div>
+        <div class="title-views" style="margin-left: 60px">
+            <span>Pictures Gallery</span>
+        </div>
+        <div class="buttons">
+            <button class="button button-icon button-clear ion-close-round" ng-click="closeGallery()"></button>
+        </div>
+    </ion-header-bar>
+
+    <ion-content>
+        <div class="square-thumbnail" ng-repeat="thumb in currentProfile.pictures" ng-style="{background:'url(' + thumb + ')'}" ng-click="openPicFullScreen($index)">
+        </div>
+    </ion-content>
+</ion-modal-view>

@@ -15,6 +15,16 @@ angular.module('services').directive('ngEnter', function() {
     };
 });
 
+angular.module('services').directive('ngLoadImage', function() {
+    return function(scope, element, attrs) {
+        element.bind("load", function(event) {
+            scope.$apply(function() {
+                scope.$eval(attrs.ngLoadImage);
+            });
+        });
+    };
+});
+
 angular.module('services').directive('uiMultiRange', function ($compile) {
     return {
         restrict: 'E',

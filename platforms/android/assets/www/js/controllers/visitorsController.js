@@ -36,9 +36,5 @@ angular.module('controllers').controller('VisitorsController', function ($scope,
         }
     }
 
-    $scope.goToProfile = function (id) {
-        $scope.goToPage('app/profile/' + id);
-    };
-
     init();
 });

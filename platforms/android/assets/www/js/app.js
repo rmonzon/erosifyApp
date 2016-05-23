@@ -39,6 +39,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('login', {
+            cache: false,
             url: '/login',
             templateUrl: 'templates/login.html',
             controller: 'LoginController',
@@ -49,6 +50,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('signup', {
+            cache: false,
             url: '/signup',
             templateUrl: 'templates/signup.html',
             controller: 'SignUpController',
@@ -208,7 +210,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
 
-        .state('app.single', {
+        .state('app.chat', {
             url: '/messages/:userId',
             views: {
                 'menuContent': {

@@ -24,16 +24,17 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
         $scope.years = [];
         //$scope.user = {};
         $scope.user = {
-            email: "lucas@gmail.com",
+            email: "heidi@gmail.com",
             password: "123123123",
-            name: "Lucas",
-            lastname: "Rivero",
-            dob: "04-10-1983",
-            gender: "Male",
-            age: 33,
-            month: "4",
-            day: "10",
-            year: "1983"
+            name: "Heidi",
+            lastname: "Smith",
+            dob: "11-27-1991",
+            gender: "Female",
+            looking_to: "Date",
+            age: 24,
+            month: "11",
+            day: "27",
+            year: "1991"
         };
         $scope.wrongCredentials = false;
 
@@ -138,12 +139,6 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
         geocoder.geocode({'location': latlng}, function (results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
                 if (results[1]) {
-                    //results[0] = Full street address
-                    //results[1] = locality address
-                    //results[2] = postal code address
-                    //results[3] = county address
-                    //results[4] = state address
-                    //results[5] = country address
                     var userObj = {
                         "email": $scope.user.email,
                         "password": $scope.user.password,
@@ -154,7 +149,9 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
                         "age": calculateAge(),
                         "location": results[2].formatted_address,
                         "pictures": "'{1.jpg}'",
-                        "coords": latlng
+                        "languages": "'{English}'",
+                        "coords": latlng,
+                        "looking_to": $scope.user.looking_to
                     };
                     mainFactory.createAccount(userObj).then(successCallBack, errorCallBack);
                 } else {

@@ -84,10 +84,6 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
             //return JSON.parse($window.localStorage.starter_facebook_user || window.localStorage.userLogin || '{}');
         };
 
-        $scope.convertFromMetersToMiles = function (i) {
-            return i * 0.000621371192;
-        };
-
         $scope.removeUserFromLS = function () {
             $window.localStorage.removeItem('userId');
         };
@@ -98,6 +94,19 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
 
         $scope.hidePassword = function () {
             $scope.inputType = 'password';
+        };
+
+        $scope.calculateDistanceToUser = function (user) {
+            var coordsA = JSON.parse(user.coordinates), coordsB = JSON.parse(User.getUser().coordinates);
+            var userACoords = new google.maps.LatLng(coordsA.lat, coordsA.lng);
+            var userBCoords = new google.maps.LatLng(coordsB.lat, coordsB.lng);
+            var distance = google.maps.geometry.spherical.computeDistanceBetween(userACoords, userBCoords);
+            distance = $scope.convertFromMetersToMiles(distance);
+            return Math.round(distance * 10) / 10;
+        };
+
+        $scope.convertFromMetersToMiles = function (i) {
+            return i * 0.000621371192;
         };
 
         $scope.parseDataFromDB = function (users) {
@@ -145,6 +154,10 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
             }
             if (address[lIndex - 1] == " ") {
                 address = spliceSlice(address, lIndex - 1, 1);
+            }
+            if (address.includes('USA') || address.includes('EE. UU.')) {
+                address = address.replace(', USA', '');
+                address = address.replace(', EE. UU.', '');
             }
             return address;
         }

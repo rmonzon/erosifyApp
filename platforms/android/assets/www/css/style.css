@@ -206,7 +206,7 @@ p {
 }
 
 .button-container {
-    margin-top: 20%;
+    margin-top: 15%;
 }
 
 
@@ -583,24 +583,55 @@ hr {
     background: green;
     border-radius: 5px;
     margin-top: 18px;
+    margin-left: 8px;
+    position: absolute;
+    top: 0;
+    right: 10px;
+}
+
+.online-icon-hidden {
+    width: 10px;
+    height: 10px;
+    background: rgba(128, 128, 128, 0.71);
+    border-radius: 5px;
+    margin-top: 18px;
+    margin-left: 8px;
+    position: absolute;
+    top: 0;
+    right: 10px;
 }
 
 .verified-icon {
     font-size: 22px;
     color: #00BF61;
     margin-top: 13px;
-    margin-right: 10px;
     /*width: 16px;*/
     /*height: 12px;*/
     /*background: url("../img/verified.svg") no-repeat;*/
     /*margin: 17px 5px 0 5px;*/
 }
 
+.verified-icon-matching {
+    font-size: 22px;
+    color: #00BF61;
+    margin-left: 7px;
+    position: absolute;
+    top: 12px;
+}
+
+.name-age-matching {
+    font-size: 28px;
+    position: relative;
+    top: 16px;
+    margin-right: 5px;
+}
+
 .circular-pic-container {
     width: 70%;
     height: 100%;
     border-radius: 50%;
-    background: url("../img/profile.png") center;
+    /*background: url("../img/profile.png") center;*/
+    background: rgba(165, 165, 165, 0.70);
     background-size: cover;
     box-shadow: 0 0 15px #000;
 }
@@ -1476,6 +1507,14 @@ span.msg {
     margin-top: -65px;
 }
 
+.matching-spinner-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -96px;
+    margin-top: -75px;
+}
+
 .default-spinner.spinner svg {
     width: 40px;
     height: 40px;
@@ -1539,7 +1578,7 @@ span.msg {
     width: 100%;
     background: #F3F3F3;
     color: #3E3E3E;
-    padding: 5px;
+    padding: 5px 5px 90px 5px;
 }
 
 .view-more-btn {
@@ -1706,7 +1745,62 @@ span.msg {
     text-align: center;
 }
 
+.matching-pic-container .default-spinner {
+    position: absolute;
+    top: 25%;
+    left: 45%;
+}
 
+.profile-desc-icon .icon {
+    font-size: 20px;
+    margin-right: 5px;
+    position: relative;
+    top: 2px;
+}
+
+.about-me-desc {
+    margin-top: 5px;
+}
+
+.pics-grid-container {
+    background: #2A363C;
+}
+
+.square-thumbnail {
+    width:25%;
+    height:25vw;
+    /*margin:1%;*/
+    float:left;
+    border: 1px solid rgba(0, 0, 0, 0.30);
+    font-size: 25px;
+    text-align: center;
+}
+
+.square-thumbnail i {
+    position: relative;
+    top: 31%;
+}
+
+.grid-fullscreen-container {
+    background: black;
+}
+
+.grid-fullscreen-container .ion-close-round {
+    position: absolute;
+    right: 5px;
+    z-index: 5;
+}
+
+.thumbnail-container {
+    padding: 5px;
+}
+
+.fullscreen-img {
+    background-repeat: no-repeat!important;
+    background-size: contain!important;
+    background-position-y: 50%!important;
+    height: 100%;
+}
 
 /* CSS to create the pink bg on matching view */
 /*

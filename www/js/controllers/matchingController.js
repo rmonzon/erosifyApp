@@ -8,24 +8,40 @@ angular.module('controllers').controller('MatchingController', function ($scope,
         GenericController.init($scope);
         $scope.listMatches = [];
         $scope.loadingMatches = true;
+        $scope.loadingProfileImg = true;
+        $scope.pictures = [{id: 1, url: "img/girl1.jpg"}, {id: 2, url: "img/girl2.jpg"}, {id: 3, url: "img/girl3.jpg"}, {id: 4, url: "img/girl4.jpg"}];
         $scope.posProfile = 0;
         $scope.userProfile = User.getUser();
-        $scope.filters = { miles: 30, ageMin: 18, ageMax: 55, from: 18, to: 40, gender: 'Women', interest: "Date" };
-        $scope.getListOfMatches();
+        $scope.filters = {
+            miles: 30,
+            ageMin: 18,
+            ageMax: 55,
+            ageFrom: 18,
+            ageTo: 35,
+            gender: $scope.userProfile.gender == 'Male' ? 'Female' : 'Male',
+            interest: $scope.userProfile.looking_to
+        };
+        var pageLoad = {
+            "id": $scope.userProfile.id,
+            "email": $scope.getUserFromLS(),
+            "gender": $scope.filters.gender,
+            "looking_to": $scope.filters.interest,
+            "ages": { ageFrom: $scope.filters.ageFrom, ageTo: $scope.filters.ageTo }
+        };
+        $scope.getListOfMatches(pageLoad);
     }
 
-    $scope.getListOfMatches = function () {
-        mainFactory.getMatchesByUser({ "id": $scope.userProfile.id, "email": $scope.getUserFromLS() }).then(getMatchesSuccess, getMatchesError);
+    $scope.getListOfMatches = function (filters) {
+        $scope.loadingMatches = true;
+        mainFactory.getMatchesByUser(filters).then(getMatchesSuccess, getMatchesError);
     };
 
     function getMatchesSuccess(response) {
-        //console.log(response.data.matches);
         $scope.listMatches = $scope.parseDataFromDB(response.data.matches);
+        $scope.listMatches = filterMatchesByDistance();
+        console.log($scope.listMatches);
         if ($scope.listMatches[0]) {
             $scope.currentProfile = $scope.listMatches[0];
-        }
-        else {
-            //handle error when there are no results to show
         }
         $scope.loadingMatches = false;
     }
@@ -33,6 +49,12 @@ angular.module('controllers').controller('MatchingController', function ($scope,
     function getMatchesError(response) {
         $scope.showMessage(response.data.error, 2500);
         $scope.loadingMatches = false;
+    }
+
+    function filterMatchesByDistance() {
+        return $scope.listMatches.filter(function (elem) {
+            return $scope.filters.miles >= $scope.calculateDistanceToUser(elem);
+        });
     }
 
     $scope.likeProfile = function () {
@@ -59,19 +81,43 @@ angular.module('controllers').controller('MatchingController', function ($scope,
     };
 
     $scope.goToUserProfile = function () {
-        //count current user as a visitor
         $scope.goToPage('app/profile/' + $scope.currentProfile.id);
     };
 
     $scope.seeMorePics = function () {
         //open up the gallery with all user's photos
+        $scope.modalGallery.show();
+    };
+
+    $ionicModal.fromTemplateUrl('templates/gallery_grid.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.modalGallery = modal;
+    });
+
+    $scope.closeGallery = function () {
+        $scope.modalGallery.hide();
+    };
+
+    $ionicModal.fromTemplateUrl('templates/gallery_fullscreen.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.modalGalleryFullScreen = modal;
+    });
+
+    $scope.closeGalleryFullScreen = function () {
+        $scope.modalGalleryFullScreen.hide();
+    };
+
+    $scope.openPicFullScreen = function (index) {
+        $ionicSlideBoxDelegate.slide(index);
+        $scope.modalGalleryFullScreen.show();
     };
 
     $scope.markUserAsFavorite = function () {
         $scope.currentProfile.favorite = !$scope.currentProfile.favorite;
         mainFactory.makeUserFavorite({ my_id: User.getUser().id, profile_id: $scope.currentProfile.id }).then(makeUserFavoriteSuccess, makeUserFavoriteError);
     };
-
 
     $scope.addRemoveFavorite = function () {
         $scope.currentProfile.favorite = !$scope.currentProfile.favorite;
@@ -127,22 +173,31 @@ angular.module('controllers').controller('MatchingController', function ($scope,
     }
 
     $scope.openFilterOptions = function () {
-        $scope.modal.show();
+        $scope.modalFilters.show();
     };
 
     $ionicModal.fromTemplateUrl('templates/matching_filters.html', {
         scope: $scope
     }).then(function(modal) {
-        $scope.modal = modal;
+        $scope.modalFilters = modal;
     });
 
     $scope.applyFilters = function () {
-        
-        $scope.modal.hide();
+        var filters = {
+            "id": $scope.userProfile.id,
+            "email": $scope.getUserFromLS(),
+            "looking_to": $scope.filters.interest,
+            "ages": { ageFrom: $scope.filters.ageFrom, ageTo: $scope.filters.ageTo }
+        };
+        if ($scope.filters.gender != "Everyone") {
+            filters.gender = $scope.filters.gender;
+        }
+        $scope.getListOfMatches(filters);
+        $scope.closeModal();
     };
 
     $scope.closeModal = function() {
-        $scope.modal.hide();
+        $scope.modalFilters.hide();
     };
 
     $scope.showMutualMatchMsg = function() {
@@ -153,17 +208,15 @@ angular.module('controllers').controller('MatchingController', function ($scope,
         });
     };
 
-    $scope.sendMessage = function () {
-        //open chat window with that user
-    };
-
     $scope.closePopup = function () {
         $scope.mutualMatchPopup.close();
         $scope.posProfile++;
         $scope.currentProfile = $scope.listMatches[$scope.posProfile];
     };
 
-
+    $scope.imageLoaded = function () {
+        $scope.loadingProfileImg = false;
+    };
 
     init();
 });

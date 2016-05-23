@@ -14,8 +14,8 @@
         <div class="list">
             <div class="item item-divider">Show Me:</span></div>
             <ion-list>
-                <ion-radio ng-model="filters.gender" ng-value="'Man'">Men</ion-radio>
-                <ion-radio ng-model="filters.gender" ng-value="'Women'">Women</ion-radio>
+                <ion-radio ng-model="filters.gender" ng-value="'Male'">Men</ion-radio>
+                <ion-radio ng-model="filters.gender" ng-value="'Female'">Women</ion-radio>
                 <ion-radio ng-model="filters.gender" ng-value="'Everyone'">Everyone</ion-radio>
             </ion-list>
         </div>
@@ -40,9 +40,9 @@
         </div>
 
         <div class="list">
-            <div class="item item-divider">Show Ages: <span style="float: right">{{filters.from}} - {{filters.to}}</span></div>
+            <div class="item item-divider">Show Ages: <span style="float: right">{{filters.ageFrom}} - {{filters.ageTo == 55 ? '55+' : filters.ageTo}}</span></div>
             <div class="item range range-energized">
-                <ui-multi-range ng-step="1" ng-min="filters.ageMin" ng-max="filters.ageMax" ng-model-min="filters.from" ng-model-max="filters.to"></ui-multi-range>
+                <ui-multi-range ng-step="1" ng-min="filters.ageMin" ng-max="filters.ageMax" ng-model-min="filters.ageFrom" ng-model-max="filters.ageTo"></ui-multi-range>
             </div>
         </div>
     </ion-content>
