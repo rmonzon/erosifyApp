@@ -92,6 +92,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
         })
 
         .state('app', {
+            cache: false,
             url: '/app',
             abstract: true,
             templateUrl: 'templates/menu.html',

@@ -51,7 +51,7 @@
                 <ion-item menu-close href="#/app/messages">
                     <i class="icon ion-chatbubbles"></i>
                     Messages
-                    <span class="badge badge-assertive">3</span>
+                    <span class="badge badge-assertive" ng-show="notifications.unreadMessages > 0">{{notifications.unreadMessages}}</span>
                 </ion-item>
                 <!--<ion-item menu-close href="#/app/messages">-->
                     <!--<i class="icon ion-card"></i>-->

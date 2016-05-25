@@ -9,7 +9,6 @@ angular.module('controllers').controller('MatchingController', function ($scope,
         $scope.listMatches = [];
         $scope.loadingMatches = true;
         $scope.loadingProfileImg = true;
-        $scope.pictures = [{id: 1, url: "img/girl1.jpg"}, {id: 2, url: "img/girl2.jpg"}, {id: 3, url: "img/girl3.jpg"}, {id: 4, url: "img/girl4.jpg"}];
         $scope.posProfile = 0;
         $scope.userProfile = User.getUser();
         $scope.filters = {
@@ -39,7 +38,6 @@ angular.module('controllers').controller('MatchingController', function ($scope,
     function getMatchesSuccess(response) {
         $scope.listMatches = $scope.parseDataFromDB(response.data.matches);
         $scope.listMatches = filterMatchesByDistance();
-        console.log($scope.listMatches);
         if ($scope.listMatches[0]) {
             $scope.currentProfile = $scope.listMatches[0];
         }
@@ -58,10 +56,14 @@ angular.module('controllers').controller('MatchingController', function ($scope,
     }
 
     $scope.likeProfile = function () {
+        $scope.listMatches[$scope.posProfile].profileLiked = true;
+        $scope.listMatches[$scope.posProfile].profileDisLiked = false;
         setLikeOrDislike(1);
     };
 
     $scope.dislikeProfile = function () {
+        $scope.listMatches[$scope.posProfile].profileLiked = false;
+        $scope.listMatches[$scope.posProfile].profileDisLiked = true;
         setLikeOrDislike(0);
     };
 
