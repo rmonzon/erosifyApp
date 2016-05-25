@@ -25,7 +25,6 @@ angular.module('controllers', []).controller('AppCtrl', function($scope, User, G
     };
 
     function getNewNotificationsSuccess(response) {
-        console.log(response.data.notifications);
         $scope.notifications.unreadMessages = response.data.notifications;
     }
 

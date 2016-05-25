@@ -11,11 +11,15 @@
         <img ng-src="{{userInfo.pictures[0]}}" class="user-pic-sm">
     </a>
 </ion-header-bar>
-<ion-content has-bouncing="true" class="gradient-bg" delegate-handle="userMessageScroll" style="bottom: 60px">
-    <div ng-repeat="message in messages" ng-class="{other: message.username == userInfo.username}" class="messages">
-        <img class="profile-pic-chat" ng-src="{{userInfo.pic}}" ng-show="message.username != userInfo.username">
-        <div ng-class="message.username != userInfo.username ? 'left-msg' : 'right-msg'" class="message">
-            <span class="msg">{{ message.content }}</span>
+<ion-content has-bouncing="true" class="gradient-bg" delegate-handle="userMessageScroll" style="bottom: 60px" id="chat-window">
+    <div ng-repeat="msg in messages" ng-class="{other: msg.name != userInfo.name}" class="messages">
+        <img class="profile-pic-chat" ng-src="{{userInfo.pictures[0]}}" ng-show="msg.name == userInfo.name">
+        <div ng-class="msg.name == userInfo.name ? 'left-msg' : 'right-msg'" class="message">
+            <span class="msg">
+                {{ msg.content }}
+                <br />
+                <span class="sm-time-chat">{{ msg.time }}</span>
+            </span>
         </div>
     </div>
 </ion-content>

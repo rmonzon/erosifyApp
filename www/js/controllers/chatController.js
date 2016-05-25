@@ -39,14 +39,13 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
     }
 
     socket.on('connect',function() {
-        //Add user called nickname
+        //Add name of the connected user
         $scope.chat.connected = true;
-        //socket.emit('add user', $scope.user.userID);
-        socket.emit('add user', $stateParams.userId);
+        socket.emit('add user', $scope.user.name);
 
         socket.on('new message', function (data) {
-            if (data.message && data.username) {
-                $scope.addMessageToList(data.username, true, data.message);
+            if (data.message && data.name) {
+                $scope.addMessageToList(data.name, true, data.message);
             }
         });
 
@@ -57,18 +56,18 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
 
         // Whenever the server emits 'stop typing', kill the typing message
         socket.on('stop typing', function (data) {
-            removeChatTyping(data.username);
+            removeChatTyping(data.name);
         });
 
         // Whenever the server emits 'user joined', log it in the chat body
         socket.on('user joined', function (data) {
-            $scope.addMessageToList("", false, data.username + " joined");
+            $scope.addMessageToList("", false, data.name + " joined");
             $scope.addMessageToList("", false, message_string(data.numUsers));
         });
 
         // Whenever the server emits 'user left', log it in the chat body
         socket.on('user left', function (data) {
-            $scope.addMessageToList("", false, data.username + " left");
+            $scope.addMessageToList("", false, data.name + " left");
             $scope.addMessageToList("", false, message_string(data.numUsers));
         });
     });
@@ -80,22 +79,22 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
 
     // Adds the visual chat typing message
     function addChatTyping (data) {
-        $scope.addMessageToList(data.username, true, " is typing");
+        $scope.addMessageToList(data.name, true, " is typing");
     }
 
     // Removes the visual chat typing message
-    function removeChatTyping (username) {
+    function removeChatTyping (name) {
         $scope.messages = $scope.messages.filter(function(element) {
-            var typingContent = username + " is typing";
-            return element.username != username || element.content != typingContent;
+            var typingContent = name + " is typing";
+            return element.name != name || element.content != typingContent;
         });
     }
 
-    function getUsernameColor(username) {
+    function getUserColor(name) {
         // Compute hash code
         var hash = 7;
-        for (var i = 0; i < username.length; i++) {
-            hash = username.charCodeAt(i) + (hash << 5) - hash;
+        for (var i = 0; i < name.length; i++) {
+            hash = name.charCodeAt(i) + (hash << 5) - hash;
         }
         // Calculate color
         var index = Math.abs(hash % $scope.COLORS.length);
@@ -120,20 +119,21 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
         }, $scope.TYPING_TIMER_LENGTH);
     };
 
-    $scope.addMessageToList = function (username, style_type, message) {
+    $scope.addMessageToList = function (name, style_type, message) {
         //The input is sanitized For more info read this link
-        username = $sanitize(username);
+        name = $sanitize(name);
 
         //Get color for user
-        var color = style_type ? getUsernameColor(username) : null;
+        var color = style_type ? getUserColor(name) : null;
 
         // Push the messages to the messages list.
         $scope.messages.push({
-            content: message == " is typing" ? username + $sanitize(message) : $sanitize(message),
+            content: message == " is typing" ? name + $sanitize(message) : $sanitize(message),
             style: style_type,
-            username: username,
+            name: name,
             color: color,
-            date: new Date()
+            date: new Date(),
+            time: $scope.formatDateToTime(new Date())
         });
 
         // Scroll to bottom to read the latest
@@ -145,11 +145,26 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
     };
 
     $scope.sendMessage = function () {
+        var req = {
+            sender_id: $scope.user.id,
+            receiver_id: $scope.userInfo.id,
+            msg: $scope.chat.message,
+            unread: 1
+        };
+        mainFactory.saveMessage(req).then(saveMessageSuccess, saveMessageError);
+    };
+
+    function saveMessageSuccess(response) {
         socket.emit('new message', $scope.chat.message);
-        $scope.addMessageToList($stateParams.userId, true, $scope.chat.message);
+        $scope.addMessageToList($scope.user.name, true, $scope.chat.message);
         socket.emit('stop typing');
         $scope.chat.message = "";
-    };
+    }
+
+    function saveMessageError(response) {
+        socket.emit('stop typing');
+        $scope.showMessage(response.data.error, 2500);
+    }
 
     init();
 }).filter('nl2br', ['$filter',

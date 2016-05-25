@@ -1189,7 +1189,8 @@ a.ion-android-send:before {
 }
 .messages.other span {
     color: black !important;
-    background-color: lightgray !important;
+    background-color: rgb(226, 226, 226) !important;
+    font-weight: bold;
 }
 
 span.msg {
@@ -1200,6 +1201,7 @@ span.msg {
     border-radius: 5px !important;
     text-align: left !important;
     max-width: 240px !important;
+    font-weight: bold!important;
 }
 
 .left-msg span:after {
@@ -1220,12 +1222,18 @@ span.msg {
     position: absolute;
     border-style: solid;
     border-width: 0 0 18px 16px;
-    border-color: transparent lightgray;
+    border-color: transparent rgb(226, 226, 226);
     display: block;
     width: 0;
     z-index: 1;
     right: 8px!important;
     top: 5px;
+}
+
+.sm-time-chat {
+    font-size: 10px;
+    float: right;
+    font-weight: 100!important;
 }
 
 .myprofile-info-bg {
@@ -1837,6 +1845,9 @@ span.msg {
     font-family: LeituraSansBold;
 }
 
+#chat-window div:nth-of-type(1) {
+    margin-top: 5px;
+}
 
 
 

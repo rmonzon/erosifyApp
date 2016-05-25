@@ -113,6 +113,10 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.get(factory.connectionStr + "/notifications", { headers: { token: User.getToken(), my_id: User.getUser().id }});
     };
 
+    factory.saveMessage = function (req) {
+        return $http.post(factory.connectionStr + "/save_message", req);
+    };
+
 
     
 

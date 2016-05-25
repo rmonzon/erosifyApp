@@ -96,6 +96,14 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
             $scope.inputType = 'password';
         };
 
+        $scope.formatDateToTime = function (date) {
+            var hours = date.getHours(), minutes = date.getMinutes(), ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            return hours + ':' + minutes + ' ' + ampm;
+        };
+
         $scope.calculateDistanceToUser = function (user) {
             var coordsA = JSON.parse(user.coordinates), coordsB = JSON.parse(User.getUser().coordinates);
             var userACoords = new google.maps.LatLng(coordsA.lat, coordsA.lng);
