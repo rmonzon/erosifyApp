@@ -96,12 +96,39 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
             $scope.inputType = 'password';
         };
 
+        $scope.getDateFormatted = function(today) {
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var yyyy = today.getFullYear();
+            if (dd < 10) {
+                dd = '0' + dd
+            }
+            if (mm < 10) {
+                mm = '0' + mm
+            }
+            return mm + '-' + dd + '-' + yyyy;
+        };
+
+        $scope.getDateTimeFormatted = function (date) {
+            var hours = date.getHours(), minutes = date.getMinutes(), secs = date.getSeconds();
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            secs = secs < 10 ? '0' + secs : secs;
+            var time = hours + ':' + minutes + ':' + secs;
+            return $scope.getDateFormatted(date) + " " + time;
+        };
+
         $scope.formatDateToTime = function (date) {
             var hours = date.getHours(), minutes = date.getMinutes(), ampm = hours >= 12 ? 'PM' : 'AM';
             hours = hours % 12;
             hours = hours ? hours : 12; // the hour '0' should be '12'
             minutes = minutes < 10 ? '0' + minutes : minutes;
             return hours + ':' + minutes + ' ' + ampm;
+        };
+
+        $scope.convertFromUTCtoLocalTime = function (date) {
+            date = new Date(date).toString();
+            return $scope.getDateTimeFormatted(new Date(date));
         };
 
         $scope.calculateDistanceToUser = function (user) {
@@ -118,13 +145,14 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
         };
 
         $scope.parseDataFromDB = function (users) {
-            var d = [];
+            var d = [], t = "", a = {};
             if (Array.isArray(users)) {
                 for (var i = 0, len = users.length; i < len; ++i) {
                     users[i].pictures = cleanImagesUrls(users[i]);
                     if (users[i].languages)
                         users[i].languages = users[i].languages.join(', ');
                     if (users[i].date) {
+                        //users[i].date = $scope.convertFromUTCtoLocalTime(users[i].date);
                         d = users[i].date.split('T')[0].split('-');
                         users[i].date = d[1] + "/" + d[2] + "/" + d[0];
                     }
@@ -132,8 +160,14 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
                         users[i].location = parseAddress(users[i].location);
                     }
                     if (users[i].sent_date) {
-                        d = users[i].sent_date.split('T')[0].split('-');
-                        users[i].sent_date = d[1] + "/" + d[2] + "/" + d[0];
+                        //review date time coming from DB, check if it's UTC or not
+                        users[i].full_date = $scope.convertFromUTCtoLocalTime(users[i].sent_date);
+                        t = $scope.formatDateToTime(new Date(users[i].full_date));
+                        d = users[i].full_date.split(' ')[0].split('-');
+                        users[i].sent_date = d[0] + "/" + d[1] + "/" + d[2];
+                        users[i].time = t;
+                        a = new Date(users[i].full_date).toString().split(' ');
+                        users[i].full_date = a[1] + " " + a[2] + ", " + a[3];
                     }
                 }
             }
@@ -142,6 +176,7 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
                 if (users.languages)
                     users.languages = users.languages.join(', ');
                 if (users.date) {
+                    //users.date = $scope.convertFromUTCtoLocalTime(users.date);
                     d = users.date.split('T')[0].split('-');
                     users.date = d[1] + "/" + d[2] + "/" + d[0];
                 }
@@ -149,8 +184,13 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
                     users.location = parseAddress(users.location);
                 }
                 if (users.sent_date) {
-                    d = users.sent_date.split('T')[0].split('-');
-                    users.sent_date = d[1] + "/" + d[2] + "/" + d[0];
+                    users.full_date = $scope.convertFromUTCtoLocalTime(users.sent_date);
+                    t = $scope.formatDateToTime(new Date(users.full_date));
+                    d = users.full_date.split(' ')[0].split('-');
+                    users.sent_date = d[0] + "/" + d[1] + "/" + d[2];
+                    users.time = t;
+                    a = new Date(users.full_date).toString().split(' ');
+                    users.full_date = a[1] + " " + a[2] + ", " + a[3];
                 }
                 //we might need to parse more data in the future
             }

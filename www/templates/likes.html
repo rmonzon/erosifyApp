@@ -11,6 +11,7 @@
         <div class="row matches-row" ontouchstart="" ng-repeat="row in myLikes">
             <div class="col-33 text-center" ng-repeat="m in row">
                 <a class="button button-icon" style="width: 100%" ng-click="goToProfile(m.id)">
+                    <!--<div class="sm-profile-pic" ng-style="{background:'url(' + m.pictures[0] + ')'}"></div>-->
                     <img class="prof-pic-match" src="{{m.pictures[0]}}">
                     <img src="img/verified-circle.svg" ng-show="m.verified == 1" class="verified-profile-icon-match">
                 </a>

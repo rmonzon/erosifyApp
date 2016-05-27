@@ -96,6 +96,14 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
             $scope.inputType = 'password';
         };
 
+        $scope.formatDateToTime = function (date) {
+            var hours = date.getHours(), minutes = date.getMinutes(), ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12; // the hour '0' should be '12'
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            return hours + ':' + minutes + ' ' + ampm;
+        };
+
         $scope.calculateDistanceToUser = function (user) {
             var coordsA = JSON.parse(user.coordinates), coordsB = JSON.parse(User.getUser().coordinates);
             var userACoords = new google.maps.LatLng(coordsA.lat, coordsA.lng);
@@ -110,17 +118,22 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
         };
 
         $scope.parseDataFromDB = function (users) {
+            var d = [];
             if (Array.isArray(users)) {
                 for (var i = 0, len = users.length; i < len; ++i) {
                     users[i].pictures = cleanImagesUrls(users[i]);
                     if (users[i].languages)
                         users[i].languages = users[i].languages.join(', ');
                     if (users[i].date) {
-                        var d = users[i].date.split('T')[0].split('-');
+                        d = users[i].date.split('T')[0].split('-');
                         users[i].date = d[1] + "/" + d[2] + "/" + d[0];
                     }
                     if (users[i].location) {
                         users[i].location = parseAddress(users[i].location);
+                    }
+                    if (users[i].sent_date) {
+                        d = users[i].sent_date.split('T')[0].split('-');
+                        users[i].sent_date = d[1] + "/" + d[2] + "/" + d[0];
                     }
                 }
             }
@@ -134,6 +147,10 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
                 }
                 if (users.location) {
                     users.location = parseAddress(users.location);
+                }
+                if (users.sent_date) {
+                    d = users.sent_date.split('T')[0].split('-');
+                    users.sent_date = d[1] + "/" + d[2] + "/" + d[0];
                 }
                 //we might need to parse more data in the future
             }

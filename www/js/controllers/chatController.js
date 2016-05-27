@@ -31,12 +31,51 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
 
     function successCallback(response) {
         $scope.userInfo = $scope.parseDataFromDB(response.data.data);
-        console.log($scope.userInfo);
+        mainFactory.getConversation($scope.userInfo.id).then(function (response) {
+            buildMessageHistory(response.data.conversation);
+        }, getConversationError);
     }
 
     function errorCallback(response) {
         $scope.showMessage(response.data.error, 2500);
     }
+
+    function getConversationError(response) {
+        $scope.showMessage(response.data.error, 2500);
+    }
+
+    function buildMessageHistory(conv) {
+        var conversation = $scope.parseDataFromDB(conv);
+        var name = "", date = "";
+        for (var i = 0, len = conversation.length; i < len; ++i) {
+            if (date != conversation[i].full_date) {
+                date = conversation[i].full_date;
+                name = "Date Divider";
+                $scope.addMessageToListFromDB(name, true, conversation[i].full_date, conversation[i].sent_date, conversation[i].time);
+            }
+            name = conversation[i].sender_id == $scope.user.id ? $scope.user.name : $scope.userInfo.name;
+            $scope.addMessageToListFromDB(name, true, conversation[i].message, conversation[i].sent_date, conversation[i].time);
+        }
+        console.log($scope.messages);
+    }
+
+    $scope.addMessageToListFromDB = function (name, style_type, message, sent_date, time) {
+        //Get color for user
+        var color = style_type ? getUserColor(name) : null;
+
+        // Push the messages to the messages list.
+        $scope.messages.push({
+            content: message,
+            style: style_type,
+            name: name,
+            color: color,
+            date: sent_date,
+            time: time
+        });
+
+        // Scroll to bottom to read the latest
+        $ionicScrollDelegate.scrollBottom(true);
+    };
 
     socket.on('connect',function() {
         //Add name of the connected user
@@ -149,6 +188,7 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
             sender_id: $scope.user.id,
             receiver_id: $scope.userInfo.id,
             msg: $scope.chat.message,
+            sent_date: $scope.getDateTimeFormatted(new Date()),
             unread: 1
         };
         mainFactory.saveMessage(req).then(saveMessageSuccess, saveMessageError);

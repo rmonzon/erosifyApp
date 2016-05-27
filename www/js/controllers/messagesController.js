@@ -22,7 +22,13 @@ angular.module('controllers').controller('MessagesController', function ($scope,
     }
 
     function getUserMessagesError(response) {
-        $scope.showMessage(response.data.error, 2500);
+        if (response.data) {
+            $scope.showMessage(response.data.error, 2500);
+        }
+        else {
+            $scope.showMessage("Something went wrong with the request!", 2500);
+        }
+        $scope.loadingMessages = false;
     }
 
     $scope.clearSearch = function () {

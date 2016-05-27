@@ -22,20 +22,20 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
             { value: 12, text: "December" }
         ];
         $scope.years = [];
-        //$scope.user = {};
-        $scope.user = {
-            email: "heidi@gmail.com",
-            password: "123123123",
-            name: "Heidi",
-            lastname: "Smith",
-            dob: "11-27-1991",
-            gender: "Female",
-            looking_to: "Date",
-            age: 24,
-            month: "11",
-            day: "27",
-            year: "1991"
-        };
+        $scope.user = {};
+        // $scope.user = {
+        //     email: "heidi@gmail.com",
+        //     password: "123123123",
+        //     name: "Heidi",
+        //     lastname: "Smith",
+        //     dob: "11-27-1991",
+        //     gender: "Female",
+        //     looking_to: "Date",
+        //     age: 24,
+        //     month: "11",
+        //     day: "27",
+        //     year: "1991"
+        // };
         $scope.wrongCredentials = false;
 
         initComboboxes();
@@ -110,7 +110,6 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
         }
         $scope.showMessageWithIcon("Creating account...");
         $scope.getCurrentLocation();
-
     };
 
     $scope.getCurrentLocation = function () {
@@ -147,12 +146,13 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
                         "dob": $scope.user.month + "-" + $scope.user.day + "-" + $scope.user.year,
                         "gender": $scope.user.gender,
                         "age": calculateAge(),
-                        "location": results[2].formatted_address,
+                        "location": results[0].formatted_address,
                         "pictures": "'{1.jpg}'",
                         "languages": "'{English}'",
                         "coords": latlng,
                         "looking_to": $scope.user.looking_to
                     };
+                    console.log(userObj);
                     mainFactory.createAccount(userObj).then(successCallBack, errorCallBack);
                 } else {
                     $scope.showMessage('No results found', 2500);

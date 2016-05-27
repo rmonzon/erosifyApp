@@ -100,9 +100,22 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
     factory.reportUserProfile = function (req) {
         return $http.post(factory.connectionStr + "/report_user", req);
     };
-    
-    
 
+    factory.updateUserInfo = function (req) {
+        return $http.post(factory.connectionStr + "/update_profile", req);
+    };
+
+    factory.getUserMessages = function () {
+        return $http.get(factory.connectionStr + "/messages", { headers: { token: User.getToken(), my_id: User.getUser().id }});
+    };
+
+    factory.getNewNotifications = function () {
+        return $http.get(factory.connectionStr + "/notifications", { headers: { token: User.getToken(), my_id: User.getUser().id }});
+    };
+
+    factory.saveMessage = function (req) {
+        return $http.post(factory.connectionStr + "/save_message", req);
+    };
 
 
     
@@ -131,7 +144,6 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
 
     return factory;
 }).factory('socket', function(socketFactory) {
-    var myIoSocket = io.connect('http://10.0.0.9:3000');
-    //var myIoSocket = io.connect('http://192.168.1.5:3000');
+    var myIoSocket = io.connect(ENV.CHAT_SERVER_URL);
     return socketFactory({ ioSocket: myIoSocket });
 });

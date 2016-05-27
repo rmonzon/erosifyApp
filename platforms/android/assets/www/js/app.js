@@ -92,6 +92,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
         })
 
         .state('app', {
+            cache: false,
             url: '/app',
             abstract: true,
             templateUrl: 'templates/menu.html',
@@ -112,6 +113,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.myprofile', {
+            cache: false,
             url: '/myprofile',
             views: {
                 'menuContent': {

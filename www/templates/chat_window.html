@@ -1,5 +1,5 @@
 <ion-header-bar align-title="left">
-    <a class="button button-icon icon ion-chevron-left" ng-click="goToPage('app/messages')"></a>
+    <a class="button button-icon icon ion-chevron-left" ng-click="$ionicGoBack()"></a>
     <div class="chat-title-top">
         <span>{{userInfo.name}}</span>
         <div class="row">
@@ -14,11 +14,16 @@
 <ion-content has-bouncing="true" class="gradient-bg" delegate-handle="userMessageScroll" style="bottom: 60px" id="chat-window">
     <div ng-repeat="msg in messages" ng-class="{other: msg.name != userInfo.name}" class="messages">
         <img class="profile-pic-chat" ng-src="{{userInfo.pictures[0]}}" ng-show="msg.name == userInfo.name">
-        <div ng-class="msg.name == userInfo.name ? 'left-msg' : 'right-msg'" class="message">
+        <div ng-class="msg.name == userInfo.name ? 'left-msg' : 'right-msg'" class="message" ng-hide="msg.name == 'Date Divider'">
             <span class="msg">
                 {{ msg.content }}
                 <br />
                 <span class="sm-time-chat">{{ msg.time }}</span>
+            </span>
+        </div>
+        <div ng-show="msg.name == 'Date Divider'" class="message">
+            <span class="msg date-divider" style="color: white!important;padding: 2px 5px 0!important;background: rgba(0, 150, 136, 0.58)!important;">
+                {{ msg.content }}
             </span>
         </div>
     </div>
@@ -30,6 +35,6 @@
         <div class="test">
             <input type="text" class="chat-inputbox" autocomplete="off" placeholder="Type a message" ng-change="updateTyping()" ng-enter="sendMessage()" ng-model="chat.message" />
         </div>
-        <a class="button button-icon icon ion-android-send" ng-click="sendMessage()"></a>
+        <a class="button button-icon icon ion-paper-airplane" ng-click="sendMessage()" ng-disabled="!chat.message"></a>
     </div>
 </ion-footer-bar>
