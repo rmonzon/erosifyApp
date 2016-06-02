@@ -4,31 +4,31 @@
             <button class="button button-icon ion-ios-arrow-back btn-back" ng-click="$ionicGoBack()"> Back</button>
 
             <form class="signup-form" ng-submit="signUp()">
-                <div class="group" style="margin-bottom: 5px">
-                    <input type="email" ng-model="user.email" ng-blur="checkAccountAvailability()" autocapitalize="off" required>
+                <div class="group">
+                    <input type="email" ng-model="user.email" ng-blur="checkAccountAvailability()" autocapitalize="off">
                     <span class="bar-input"></span>
                     <label class="left-labels">Email</label>
                 </div>
 
-                <div style="margin-bottom: 20px;font-size: 12px;margin-left: 5px">
-                    <span>This is going to be your username</span>
-                </div>
+                <!--<div style="margin-bottom: 20px;font-size: 12px;margin-left: 5px">-->
+                    <!--<span>This is going to be your username</span>-->
+                <!--</div>-->
 
                 <div class="group">
-                    <input type="{{inputType}}" ng-model="user.password" autocapitalize="off" required>
+                    <input type="{{inputType}}" ng-model="user.password" autocapitalize="off">
                     <span class="bar-input"></span>
                     <label class="left-labels">Password</label>
-                    <a class="button button-icon icon ion-eye" on-hold="showPassword()" on-release="hidePassword()"></a>
+                    <a class="button button-icon icon" ng-click="showHidePassword()" ng-class="inputType == 'password' ? 'ion-eye' : 'ion-eye-disabled'"></a>
                 </div>
 
                 <div class="group">
-                    <input type="text" ng-model="user.name" required>
+                    <input type="text" ng-model="user.name">
                     <span class="bar-input"></span>
                     <label class="left-labels">Name</label>
                 </div>
 
                 <div class="combobox">
-                    <select ng-model="user.gender" required>
+                    <select ng-model="user.gender">
                         <option value="">Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="combobox">
-                    <select ng-model="user.looking_to" required>
+                    <select ng-model="user.looking_to">
                         <option value="">Looking to</option>
                         <option value="Date">Date</option>
                         <option value="Chat">Chat</option>
@@ -51,7 +51,7 @@
                 <div class="row" style="padding: 0;margin-bottom: 10px">
                     <div class="col-45">
                         <div class="combobox">
-                            <select ng-model="user.month" required>
+                            <select ng-model="user.month">
                                 <option value="">Month</option>
                                 <option value="{{m.value}}" ng-repeat="m in months">{{m.text}}</option>
                             </select>
@@ -59,7 +59,7 @@
                     </div>
                     <div class="col-25">
                         <div class="combobox">
-                            <select ng-model="user.day" required>
+                            <select ng-model="user.day">
                                 <option value="">Day</option>
                                 <option value="{{d}}" ng-repeat="d in days">{{d}}</option>
                             </select>
@@ -67,7 +67,7 @@
                     </div>
                     <div class="col-30">
                         <div class="combobox">
-                            <select ng-model="user.year" required>
+                            <select ng-model="user.year">
                                 <option value="">Year</option>
                                 <option value="{{y}}" ng-repeat="y in years">{{y}}</option>
                             </select>
@@ -76,7 +76,7 @@
                 </div>
 
                 <div class="button-container">
-                    <button class="button button-login">SIGN UP</button>
+                    <button class="button button-login" type="submit">SIGN UP</button>
                     <div class="terms">
                         <span>By continuing, you agree to our <br />
                             <b><a href="" ng-click="goToPage('terms')">Terms of Service</a></b> and <b><a href="" ng-click="goToPage('privacy')">Privacy Policy</a></b>

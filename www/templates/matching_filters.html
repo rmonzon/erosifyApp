@@ -33,7 +33,7 @@
         </div>
 
         <div class="list">
-            <div class="item item-divider">Search Distance: <span style="float: right">{{filters.miles}}mi.</span></div>
+            <div class="item item-divider">Search Distance: <span style="float: right">{{filters.miles == 100 ? filters.miles + '+' : filters.miles}}mi.</span></div>
             <div class="item range range-energized">
                 <input type="range" name="distance" min="0" max="100" ng-model="filters.miles">
             </div>

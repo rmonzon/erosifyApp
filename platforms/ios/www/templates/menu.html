@@ -14,7 +14,7 @@
         <ion-content>
             <ion-list>
                 <a menu-close class="item item-avatar" ng-click="goToPage('app/myprofile')">
-                    <img class="left-menu-pic" ng-class="user.gender == 'Male' ? 'male' : 'female'" ng-src="{{'../img/' + user.pictures[0]}}">
+                    <img class="left-menu-pic" ng-class="user.gender == 'Male' ? 'male' : 'female'" ng-src="{{user.pictures[0]}}">
                     <h2>{{user.name}}</h2>
                     <i class="icon ion-android-favorite-outline"> <b>123</b></i>
                     <i class="icon ion-ios-chatbubble-outline"> <b>45</b></i>
@@ -27,6 +27,10 @@
                 <ion-item menu-close href="#/app/peoplenearby">
                     <i class="icon ion-android-locate"></i>
                     People Nearby
+                </ion-item>
+                <ion-item menu-close href="#/app/search">
+                    <i class="icon ion-search"></i>
+                    Search
                 </ion-item>
                 <ion-item menu-close href="#/app/visitors">
                     <i class="icon ion-eye"></i>
@@ -47,13 +51,13 @@
                 <ion-item menu-close href="#/app/messages">
                     <i class="icon ion-chatbubbles"></i>
                     Messages
-                    <span class="badge badge-assertive">3</span>
+                    <span class="badge badge-assertive" ng-show="notifications.unreadMessages > 0">{{notifications.unreadMessages}}</span>
                 </ion-item>
-                <ion-item menu-close href="#/app/messages">
-                    <i class="icon ion-card"></i>
-                    Erosify Premium
-                </ion-item>
-                <ion-item menu-close href="#/app/browse">
+                <!--<ion-item menu-close href="#/app/messages">-->
+                    <!--<i class="icon ion-card"></i>-->
+                    <!--Erosify Premium-->
+                <!--</ion-item>-->
+                <ion-item menu-close href="http://www.erosify.com">
                     <i class="icon ion-help-circled"></i>
                     Help & FAQs
                 </ion-item>

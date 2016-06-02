@@ -31,5 +31,10 @@
             <div class="new-msg-badge" ng-show="m.numUnreadMsg">{{m.numUnreadMsg}}</div>
         </div>
     </div>
+
+    <div class="no-messages-container" ng-show="messages.length == 0 && !loadingMessages">
+        <img src="img/empty-chat.png" width="60%">
+        <p>You haven't started a conversation yet</p>
+    </div>
 </ion-content>
 

@@ -11,12 +11,8 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         var promise = deferred.promise;
         if (!factory.initFactory) {
             factory.initFactory = true;
-            factory.connectionStr = "http://10.0.0.9:5001/api/v1";
-            factory.apiUrl = "http://10.0.0.9:5001/api/v1";
-            // factory.connectionStr = "http://192.168.1.5:5001/api/v1";
-            // factory.apiUrl = "http://192.168.1.5:5001/api/v1";
-            //factory.connectionStr = "http://erosify-server.herokuapp.com/api/v1";
-            //factory.apiUrl = "http://erosify-server.herokuapp.com/api/v1";
+            factory.connectionStr = ENV.SERVICE_URL + "/api/v1";
+            factory.apiUrl = ENV.SERVICE_URL + "/api/v1";
             deferred.resolve(factory.initFactory);
         }
         else {
@@ -33,7 +29,7 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.post(factory.connectionStr + "/authentication", req);
     };
 
-    factory.getUserInfo = function (req) {
+    factory.me = function (req) {
         return $http.post(factory.connectionStr + "/me", req, { headers: { token: User.getToken() }});
     };
 
@@ -45,33 +41,88 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.post(factory.connectionStr + "/check_email", req);
     };
 
-    factory.getUserProfilePics = function (uid) {
-        return $http.get(factory.connectionStr + "/photos/user/" + uid);
+    factory.getMatchesByUser = function (req) {
+        return $http.post(factory.connectionStr + "/matches", req);
+    };
+
+    factory.makeUserFavorite = function (req) {
+        return $http.post(factory.connectionStr + "/add_favorite", req);
+    };
+
+    factory.removeUserFromFavorite = function (req) {
+        return $http.post(factory.connectionStr + "/remove_favorite", req);
+    };
+
+    factory.getFavoritesByUser = function (req) {
+        return $http.post(factory.connectionStr + "/favorites", req);
+    };
+
+    factory.saveLikeOrDislike = function (req) {
+        return $http.post(factory.connectionStr + "/like", req);
+    };
+
+    factory.getWhoLikedMe = function (req) {
+        return $http.post(factory.connectionStr + "/wholikedme", req);
+    };
+
+    factory.getMyMatches = function (req) {
+        return $http.post(factory.connectionStr + "/mymatches", req);
+    };
+
+    factory.getUserInfo = function (uid) {
+        return $http.get(factory.connectionStr + "/user/" + uid, { headers: { token: User.getToken(), my_id: User.getUser().id }});
+    };
+
+    factory.markProfileVisited = function (req) {
+        return $http.post(factory.connectionStr + "/visited_profile", req);
+    };
+
+    factory.getMyVisitors = function (req) {
+        return $http.post(factory.connectionStr + "/myvisitors", req);
+    };
+
+    factory.searchProfiles = function (req) {
+        return $http.post(factory.connectionStr + "/search", req);
+    };
+
+    factory.getSignS3 = function (file) {
+        return $http.get(factory.connectionStr + "/sign_s3", { headers: file });
+    };
+
+    factory.removeImageFromS3 = function (file) {
+        return $http.get(factory.connectionStr + "/remove_froms3", { headers: file });
+    };
+
+    factory.updateNewUserPics = function (req) {
+        return $http.post(factory.connectionStr + "/update_pics", req);
+    };
+
+    factory.reportUserProfile = function (req) {
+        return $http.post(factory.connectionStr + "/report_user", req);
+    };
+
+    factory.updateUserInfo = function (req) {
+        return $http.post(factory.connectionStr + "/update_profile", req);
+    };
+
+    factory.getUserMessages = function () {
+        return $http.get(factory.connectionStr + "/messages", { headers: { token: User.getToken(), my_id: User.getUser().id }});
+    };
+
+    factory.getNewNotifications = function () {
+        return $http.get(factory.connectionStr + "/notifications", { headers: { token: User.getToken(), my_id: User.getUser().id }});
+    };
+
+    factory.saveMessage = function (req) {
+        return $http.post(factory.connectionStr + "/save_message", req);
+    };
+
+    factory.getConversation = function (id) {
+        return $http.get(factory.connectionStr + "/conversation", { headers: { token: User.getToken(), my_id: User.getUser().id, user_id: id }});
     };
 
 
-
-
-
-
-    factory.getAppVersion = function () {
-        var request = {query: "SELECT info_mathgame_version FROM info" };
-        return $http.post(factory.connectionStr, request);
-    };
-
-    factory.getUserDataFromFacebook = function (token) {
-        return $http.get("https://graph.facebook.com/v2.2/me", { params: { access_token: token, fields: "id,name,gender,location,website,picture", format: "json" }});
-    };
-
-    factory.getUsers = function () {
-        var request = {query: "SELECT * FROM user_bricksgame ORDER BY user_bricksgame.user_bricksgame_id"};
-        return $http.post(factory.connectionStr, request);
-    };
-
-    factory.registerUser = function (user) {
-        var request = {query: "INSERT INTO user_bricksgame (user_bricksgame_playerid, user_bricksgame_pin, user_bricksgame_maxscore, user_bricksgame_realname, user_bricksgame_age, user_bricksgame_settings, user_bricksgame_badges) VALUES ('" + user.username + "', " + user.pin + ", 0, '" + user.name + "', " + user.age + ", '" + user.settings + "', '')"};
-        return $http.post(factory.connectionStr, request);
-    };
+    
 
     /*** Store user's info in session store, it'll be removed when log out ***/
 
@@ -97,7 +148,6 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
 
     return factory;
 }).factory('socket', function(socketFactory) {
-    var myIoSocket = io.connect('http://10.0.0.9:3000');
-    //var myIoSocket = io.connect('http://192.168.1.5:3000');
+    var myIoSocket = io.connect(ENV.CHAT_SERVER_URL);
     return socketFactory({ ioSocket: myIoSocket });
 });

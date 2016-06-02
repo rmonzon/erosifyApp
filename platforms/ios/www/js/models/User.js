@@ -4,16 +4,6 @@
 
 angular.module('models', []).service('User', function ($window) {
     var user = {}, token = "";
-    // user object definition:
-    //{
-    //    "status": "connected",
-    //    "authResponse": {
-    //        "accessToken": "CSKJASLSDD232323",
-    //        "expiresIn": "1234693737",
-    //        "session_key": "true",
-    //        "userID": "1212098239872498523"
-    //    },
-    //}
 
     var setToken = function (t) {
         token = t;
@@ -23,15 +13,20 @@ angular.module('models', []).service('User', function ($window) {
         return token;
     };
 
+    var setUserFb = function(user_data) {
+        $window.localStorage.facebook_user = JSON.stringify(user_data);
+    };
+
+    var getUserFb = function() {
+        return JSON.parse($window.localStorage.facebook_user || '{}');
+    };
+
     var setUser = function(user_data) {
         user = user_data;
-        //$window.localStorage.starter_facebook_user = JSON.stringify(user_data);
     };
 
     var getUser = function() {
         return user;
-        //return $window.localStorage && $window.localStorage.getItem('userId');
-        //return JSON.parse($window.localStorage.starter_facebook_user || window.localStorage.userLogin || '{}');
     };
 
     var updateAttr = function (key, value) {
@@ -43,6 +38,8 @@ angular.module('models', []).service('User', function ($window) {
         setUser: setUser,
         updateAttr: updateAttr,
         getToken: getToken,
-        setToken: setToken
+        setToken: setToken,
+        setUserFb: setUserFb,
+        getUserFb: getUserFb
     };
 });

@@ -21,6 +21,16 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             StatusBar.styleDefault();
         }
     });
+
+    //handle Cordova resume (enter foreground) and pause (enter background events)
+    $ionicPlatform.on('resume', function() {
+        console.log("App is active again!");
+    });
+
+    $ionicPlatform.on('pause', function() {
+        //Do something here on entering background
+        console.log("App is in background mode");
+    });
 })
 
 .config(function($stateProvider, $urlRouterProvider, $compileProvider, $animateProvider, $ionicConfigProvider) {

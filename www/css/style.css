@@ -206,7 +206,7 @@ p {
 }
 
 .button-container {
-    margin-top: 15%;
+    margin-top: 7%;
 }
 
 
@@ -255,7 +255,7 @@ label.left-labels {
 }
 
 /* active state */
-.group input:focus ~ label, .group input:valid ~ label {
+.group input:focus ~ label, .group input:not(.ng-empty) ~ label {
     top:-20px;
     font-size:14px;
     /*margin-left: -40px;*/
@@ -286,17 +286,18 @@ label.left-labels {
 }
 
 .signup-form .group {
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 ion-item i {
     margin-right: 10px;
+    font-size: 20px;
 }
 
 .item-icon-left ion-spinner {
     float: left;
     margin-left: -2.7em;
-    margin-top: -0.2em;
+    margin-top: -5px;
 }
 
 .spinner svg {
@@ -312,7 +313,7 @@ ion-item i {
 
 .item-icon-left {
     padding-left: 45px;
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
 .item-no-icon-left {
@@ -413,7 +414,7 @@ ion-item i {
 .terms {
     text-align: center;
     font-size: 11px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     margin-top: 10px;
 }
 
@@ -709,6 +710,9 @@ ion-side-menu .item, ion-side-menu .item-content, ion-side-menu .menu, ion-side-
 
 .item h2 {
     color: white;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
 .item b {
@@ -1757,7 +1761,7 @@ span.msg {
     color: white;
 }
 
-.login-inputs-container .ion-eye {
+.login-inputs-container .ion-eye, .login-inputs-container .ion-eye-disabled {
     position: absolute;
     right: 0;
     bottom: -5px;
@@ -1867,7 +1871,24 @@ span.msg {
     background: red;
 }
 
+.no-messages-container {
+    position: absolute;
+    left: 50%;
+    margin-left: -128px;
+    top: 50%;
+    margin-top: -120px;
+    text-align: center;
+}
 
+.no-messages-container p {
+    text-align: center;
+    color: white;
+}
+
+#chat-window {
+    bottom: 60px;
+    overflow: scroll!important;
+}
 
 
 

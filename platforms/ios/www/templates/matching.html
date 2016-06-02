@@ -5,34 +5,51 @@
     <div class="top-bar-logo">
         <img src="img/logo-green.png" width="110">
     </div>
+    <a class="button button-icon icon ion-funnel" ng-click="openFilterOptions()"></a>
 </ion-header-bar>
-<ion-content class="match-container">
-    <div class="photo-section-container">
+
+<ion-content class="login-container gradient-bg" ng-show="loadingMatches">
+    <div class="text-center matching-spinner-container">
+        <ion-spinner class="default-spinner"></ion-spinner>
+        <p class="text-center">Finding potential matches...</p>
+    </div>
+</ion-content>
+
+<ion-content class="login-container gradient-bg" ng-show="!loadingMatches && listMatches.length == 0">
+    <div class="text-center" style="margin-top: 100%;">
+        <p class="text-center">No users were found. Please try to specify other filters.</p>
+    </div>
+</ion-content>
+
+<ion-content class="match-container" ng-hide="loadingMatches || listMatches.length == 0"> <!--  || listMatches.length == 0 !-->
+    <div class="photo-section-container" ng-hide="loadingMatches">
         <div class="top-name-container">
-            <div class="col-20">
-                <a class="button button-icon icon ion-ios-star-outline" style="float: right"></a>
-            </div>
-            <div class="col-60">
-                <span style="font-size: 28px;position: relative;top: 16px;margin-right: 5px;">{{profile.name}}</span>
-                <span style="font-size: 28px;position: relative;top: 16px;"><b>{{profile.age}}</b></span>
-            </div>
-            <div class="col-20" style="display: flex">
-                <div ng-show="profile.verified" class="verified-icon"></div>
-                <div ng-show="profile.online" class="online-icon"></div>
+            <a class="button button-icon icon" ng-class="currentProfile.favorite ? 'match-favorite ion-ios-star' : 'match-no-favorite ion-ios-star-outline'" style="float: left;margin-left: 15px" ng-click="addRemoveFavorite()"></a>
+            <div class="text-center" style="position: absolute;left: 50%;margin-left: -120px;width: 240px;height: 45px">
+                <span class="name-age-matching">
+                    {{currentProfile.name}}, <b>{{currentProfile.age}}</b>
+                </span>
+                <i class="icon ion-checkmark-circled verified-icon-matching" ng-show="currentProfile.verified == 1"></i>
+                <!--<div ng-class="currentProfile.status == 1 ? 'online-icon' : 'online-icon-hidden'"></div>-->
             </div>
         </div>
 
         <div class="user-pic-container">
             <div class="side-columns-match">
-                <a class="button button-icon" style="padding: 0; position: absolute; bottom: 50%; margin-bottom: 20px">
+                <a class="button button-icon" style="position: absolute; bottom: 50%; margin-bottom: 12px" ng-disabled="posProfile == 0" ng-click="goPreviousProfile()">
                     <div class="btn-undo-action"></div>
                 </a>
             </div>
 
-            <div class="circular-pic-container"></div>
+            <div class="circular-pic-container">
+                <div class="matching-pic-container">
+                    <ion-spinner class="default-spinner" ng-show="loadingProfileImg"></ion-spinner>
+                    <img ng-src="{{currentProfile.pictures[0]}}" ng-load-image="imageLoaded()" ng-hide="loadingProfileImg" width="100%" height="100%">
+                </div>
+            </div>
 
             <div class="side-columns-match">
-                <a class="button button-icon" style="padding: 0; position: absolute; bottom: 50%; margin-bottom: 20px;right: 10px;">
+                <a class="button button-icon" style="position: absolute; bottom: 50%; margin-bottom: 15px;right: 11px;" ng-disabled="posProfile == listMatches.length - 1" ng-click="skipProfile()">
                     <div class="btn-skip-profile"></div>
                 </a>
             </div>
@@ -43,14 +60,10 @@
 
             <div class="btn-likedis-container">
                 <div style="width: 50%; height: 100%">
-                    <div class="button-dislike" ontouchstart="" ng-click="dislikeProfile()">
-                        <i class="icon ion-android-close"></i>
-                    </div>
+                    <button class="button button-icon icon ion-close-round button-dislike" ng-click="dislikeProfile()" ng-disabled="currentProfile.profileDisLiked"></button>
                 </div>
                 <div style="width: 50%; height: 100%">
-                    <div class="button-like" ontouchstart="" ng-click="likeProfile()">
-                        <i class="icon ion-android-favorite-outline"></i>
-                    </div>
+                    <button class="button button-icon icon ion-android-favorite-outline button-like" ng-click="likeProfile()" ng-disabled="currentProfile.profileLiked"></button>
                 </div>
             </div>
 
@@ -58,41 +71,35 @@
         </div>
     </div>
 
+
     <div class="info-section-container">
         <div class="row">
-            <a class="button button-icon" style="padding: 0">
+            <a class="button button-icon" style="padding: 0" ng-click="goToUserProfile()">
                 <div class="btn-profile"></div>
             </a>
 
-            <div class="col" style="margin-top: 25px">
+            <div class="col" style="margin-top: 10px">
                 <div class="row location-row">
                     <i class="icon ion-location"></i>
-                    <span>{{profile.location}}</span>
+                    <span>{{currentProfile.location}}</span>
                 </div>
                 <div class="row location-row">
                     <img src="img/language.svg" width="17">
-                    <span>{{profile.languages}}</span>
+                    <span>{{currentProfile.languages}}</span>
                 </div>
             </div>
-            <a class="button button-icon" style="padding: 0">
+            <a class="button button-icon" style="padding: 0" ng-click="seeMorePics()">
                 <div class="btn-more-pics"></div>
             </a>
         </div>
-        <div class="row" style="padding-top: 0">
+        <div class="row" style="padding-top: 0!important;">
             <div class="col">
                 <span style="font-family: LeituraSansBold">About Me</span>
                 <p class="about-me-desc">
-                    {{profile.aboutMe}}
-                </p>
-            </div>
-        </div>
-        <div class="row" style="padding-top: 0">
-            <div class="col">
-                <span style="font-family: LeituraSansBold">Work & Education</span>
-                <p class="about-me-desc">
-                    {{profile.work_education}}
+                    {{currentProfile.aboutme}}
                 </p>
             </div>
         </div>
     </div>
+
 </ion-content>

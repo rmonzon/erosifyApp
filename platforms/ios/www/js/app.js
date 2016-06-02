@@ -23,9 +23,23 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
     });
 })
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider, $urlRouterProvider, $compileProvider, $animateProvider, $ionicConfigProvider) {
+    $compileProvider.debugInfoEnabled(false);
+    $animateProvider.classNameFilter( /\banimated\b/ );
+    $ionicConfigProvider.scrolling.jsScrolling(false);
     $stateProvider
+        .state('home', {
+            url: '/home',
+            templateUrl: 'templates/home.html',
+            controller: 'HomeController',
+            resolve: {
+                factoryInitialized: function (mainFactory) {
+                    return mainFactory.initApp();
+                }
+            }
+        })
         .state('login', {
+            cache: false,
             url: '/login',
             templateUrl: 'templates/login.html',
             controller: 'LoginController',
@@ -36,6 +50,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('signup', {
+            cache: false,
             url: '/signup',
             templateUrl: 'templates/signup.html',
             controller: 'SignUpController',
@@ -77,6 +92,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
         })
 
         .state('app', {
+            cache: false,
             url: '/app',
             abstract: true,
             templateUrl: 'templates/menu.html',
@@ -97,11 +113,22 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.myprofile', {
+            cache: false,
             url: '/myprofile',
             views: {
                 'menuContent': {
                     templateUrl: 'templates/my_profile.html',
                     controller: 'MyProfileController'
+                }
+            }
+        })
+        .state('app.userprofile', {
+            cache: false,
+            url: '/profile/:userId',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/user_profile.html',
+                    controller: 'UserProfileController'
                 }
             }
         })
@@ -115,6 +142,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.peoplenearby', {
+            cache: false,
             url: '/peoplenearby',
             views: {
                 'menuContent': {
@@ -123,7 +151,18 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
                 }
             }
         })
+        .state('app.search', {
+            cache: false,
+            url: '/search',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/search.html',
+                    controller: 'SearchController'
+                }
+            }
+        })
         .state('app.visitors', {
+            cache: false,
             url: '/visitors',
             views: {
                 'menuContent': {
@@ -133,6 +172,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.matches', {
+            cache: false,
             url: '/matches',
             views: {
                 'menuContent': {
@@ -142,6 +182,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.likes', {
+            cache: false,
             url: '/likes',
             views: {
                 'menuContent': {
@@ -151,6 +192,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.favorites', {
+            cache: false,
             url: '/favorites',
             views: {
                 'menuContent': {
@@ -160,6 +202,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.messages', {
+            cache: false,
             url: '/messages',
             views: {
                 'menuContent': {
@@ -169,7 +212,7 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
 
-        .state('app.single', {
+        .state('app.chat', {
             url: '/messages/:userId',
             views: {
                 'menuContent': {
@@ -179,5 +222,5 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         });
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/add_photos');
+    $urlRouterProvider.otherwise('/home');
 });

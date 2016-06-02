@@ -22,7 +22,7 @@ angular.module('controllers').controller('MatchingController', function ($scope,
         };
         var pageLoad = {
             "id": $scope.userProfile.id,
-            "email": $scope.getUserFromLS(),
+            "email": $scope.getUserFromLS().email,
             "gender": $scope.filters.gender,
             "looking_to": $scope.filters.interest,
             "ages": { ageFrom: $scope.filters.ageFrom, ageTo: $scope.filters.ageTo }
@@ -50,9 +50,15 @@ angular.module('controllers').controller('MatchingController', function ($scope,
     }
 
     function filterMatchesByDistance() {
-        return $scope.listMatches.filter(function (elem) {
-            return $scope.filters.miles >= $scope.calculateDistanceToUser(elem);
-        });
+        if ($scope.filters.miles == 100) {
+            return $scope.listMatches;
+        }
+        else {
+            return $scope.listMatches.filter(function (elem) {
+                var dist = $scope.calculateDistanceToUser(elem);
+                return $scope.filters.miles >= dist;
+            });
+        }
     }
 
     $scope.likeProfile = function () {
@@ -187,7 +193,7 @@ angular.module('controllers').controller('MatchingController', function ($scope,
     $scope.applyFilters = function () {
         var filters = {
             "id": $scope.userProfile.id,
-            "email": $scope.getUserFromLS(),
+            "email": $scope.getUserFromLS().email,
             "looking_to": $scope.filters.interest,
             "ages": { ageFrom: $scope.filters.ageFrom, ageTo: $scope.filters.ageTo }
         };

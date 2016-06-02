@@ -165,7 +165,7 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
 
     function successCallBack(response) {
         $scope.hideMessage();
-        $scope.setUserToLS($scope.user.email);
+        $scope.setUserToLS({ email: $scope.user.email, password: $scope.user.password });
         User.setToken(response.data.token);
         response.data.user = $scope.parseDataFromDB(response.data.user);
         User.setUser(response.data.user);

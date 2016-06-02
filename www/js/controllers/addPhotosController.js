@@ -7,8 +7,9 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
         GenericController.init($scope);
 
         $scope.picNumber = 0;
+        $scope.totalPics = 0;
         $scope.loadedPics = true;
-        $scope.pics = [];
+        $scope.pics = ["", "", "", "", "", ""];
     }
 
     // Triggered on a button click, or some other target
@@ -35,14 +36,15 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
         });
     };
 
-    $scope.addPic = function () {
-        $scope.picNumber++;
+    $scope.addPic = function (index) {
+        $scope.totalPics++;
+        $scope.picNumber = index + 1;
         $scope.showActionSheet();
     };
 
     $scope.removePic = function (index) {
         mainFactory.removeImageFromS3({ user_id: User.getUser().id, file_name: $scope.picNumber + ".jpg" }).then(function (response) {
-            $scope.picNumber--;
+            $scope.totalPics--;
             $scope.pics.splice(index, 1);
         }, function (err) {
             $scope.showMessage(err, 2000);
@@ -51,7 +53,7 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
 
     function createArrayOfImgs() {
         var pics = [];
-        for (var i = 1; i <= $scope.picNumber; ++i) {
+        for (var i = 1; i <= $scope.totalPics; ++i) {
             pics.push(i + ".jpg");
         }
         pics = "'{" + pics.join(",") + "}'";
@@ -59,8 +61,12 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
     }
 
     $scope.continueToMatching = function () {
-        if ($scope.picNumber < 1) {
+        if ($scope.totalPics < 1) {
             $scope.showMessage("You must upload at least one picture!", 2000);
+            return;
+        }
+        if (!$scope.pics[0]) {
+            $scope.showMessage("You have to select a profile picture!", 2000);
             return;
         }
         //update user pictures in the db
@@ -158,7 +164,7 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
         };
         $cordovaFileTransfer.upload(data.baseUrl, imageURI, Uoptions)
             .then(function (result) {
-                $scope.pics.push(data.url);
+                $scope.pics[$scope.picNumber - 1] = data.url;
                 $scope.hideMessage();
                 $scope.loadedPics = true;
             }, function (err) {

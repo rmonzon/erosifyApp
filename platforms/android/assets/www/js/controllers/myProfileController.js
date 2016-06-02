@@ -15,7 +15,7 @@ angular.module('controllers').controller('MyProfileController', function ($scope
     }
 
     $scope.getMyInfo = function () {
-        mainFactory.me({ "email": $scope.getUserFromLS() }).then(successCallback, errorCallback);
+        mainFactory.me({ "email": $scope.getUserFromLS().email }).then(successCallback, errorCallback);
     };
 
     function successCallback(response) {
@@ -34,16 +34,12 @@ angular.module('controllers').controller('MyProfileController', function ($scope
         $scope.editingProfile = true;
     };
 
-    function escapeInvalidChars(str) {
-        return str.replace("'", "''");
-    }
-
     $scope.saveProfileChanges = function () {
         var obj = {
             user_id: $scope.user.id,
-            work: $scope.user.work ? escapeInvalidChars($scope.user.work) : "",
-            education: $scope.user.education ? escapeInvalidChars($scope.user.education) : "",
-            aboutme: $scope.user.aboutme ? escapeInvalidChars($scope.user.aboutme) : "",
+            work: $scope.user.work ? $scope.escapeInvalidChars($scope.user.work) : "",
+            education: $scope.user.education ? $scope.escapeInvalidChars($scope.user.education) : "",
+            aboutme: $scope.user.aboutme ? $scope.escapeInvalidChars($scope.user.aboutme) : "",
             languages: $scope.user.languages ? "{" + $scope.user.languages + "}" : "{English}",
             looking_to: $scope.user.looking_to ? $scope.user.looking_to : null
         };

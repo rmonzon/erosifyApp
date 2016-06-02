@@ -2,23 +2,32 @@
  * Created by raul on 2/24/16.
  */
 
-angular.module('controllers').controller('FavoritesController', function ($scope, GenericController) {
+angular.module('controllers').controller('FavoritesController', function ($scope, GenericController, mainFactory, User) {
 
     function init() {
         GenericController.init($scope);
-        $scope.matches = [
-                {name: 'Amanda', id: 1, age: "23", online: false,verified: false,  pic: "img/avatar.png"},
-                {name: 'Jennifer', id: 2, age: "27", online: true,verified: false,  pic: "img/profile.png"},
-                {name: 'Ashley', id: 3, age: "19", online: false,verified: false,  pic: "img/avatar.png"},
-                {name: 'Diana', id: 4, age: "31", online: false,verified: true,  pic: "img/avatar.png"},
-                {name: 'Samantha', id: 5, age: "28", online: true,verified: false,  pic: "img/avatar.png"},
-                {name: 'April', id: 6, age: "25", online: false,verified: true,  pic: "img/avatar.png"}
-        ];
+        $scope.listFavorites = [];
+        $scope.loadingFavs = true;
+        $scope.noResults = false;
+        $scope.getListOfFavorites();
     }
 
-    $scope.goToProfile = function (name) {
-        console.log("go to profile " + name);
+    $scope.getListOfFavorites = function () {
+        mainFactory.getFavoritesByUser({ profile_id: User.getUser().id }).then(getFavoritesSuccess, getFavoritesError);
     };
+
+    function getFavoritesSuccess(response) {
+        $scope.listFavorites = $scope.parseDataFromDB(response.data.favorites);
+        if ($scope.listFavorites.length == 0) {
+            $scope.noResults = true;
+        }
+        $scope.loadingFavs = false;
+    }
+
+    function getFavoritesError(response) {
+        $scope.showMessage(response.data.error, 2500);
+        $scope.loadingFavs = false;
+    }
 
     init();
 });

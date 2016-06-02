@@ -5,7 +5,8 @@
     <div class="title-views" style="margin-right: 0">
         <span>My Profile</span>
     </div>
-    <a class="button button-icon icon ion-edit"></a>
+    <a class="button button-icon icon ion-edit" ng-click="enableEditProfile()" ng-hide="editingProfile"></a>
+    <a class="button button-icon icon ion-checkmark-round" ng-click="saveProfileChanges()" ng-show="editingProfile"></a>
 </ion-header-bar>
 <ion-content>
     <div class="myprofile-pics-bg">
@@ -14,9 +15,8 @@
 
         <ion-slide-box style="height: 100%;" on-slide-changed="slideChanged($index)" show-pager="true">
             <ion-slide ng-repeat="imageUrl in user.pictures">
-                <div class="pic-container">
+                <div class="pic-container" ng-style="{background:'url(' + imageUrl + ')'}">
                     <!--<img ng-src="{{imageUrl}}">-->
-                    <img id="img" src="">
                 </div>
             </ion-slide>
         </ion-slide-box>
@@ -28,8 +28,9 @@
                 <span class="profile-name">
                     <span style="font-family: LeituraSansBold">{{user.name}}</span>, {{user.age}}
                 </span>
-                <div class="verified-icon-profile"></div>
-                <div class="online-icon-profile"></div>
+                <!--<div class="verified-icon-profile"></div>-->
+                <i class="icon ion-checkmark-circled verified-icon" style="margin-top: -6px;margin-left: 8px;" ng-show="user.verified == 1"></i>
+                <div class="online-icon-profile" ng-show="user.status == 1"></div>
             </div>
         </div>
 
@@ -45,38 +46,76 @@
             <div class="col">
                 <i class="icon ion-briefcase"></i>
                 <b>Work</b>
-                <p class="about-me-desc">
+                <p class="about-me-desc" ng-hide="editingProfile">
                     {{user.work}}
                 </p>
+                <div class="list" ng-show="editingProfile">
+                    <label class="item item-input">
+                        <input type="text" placeholder="Enter you work" ng-model="user.work">
+                    </label>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <i class="icon ion-university"></i>
                 <b>Education</b>
-                <p class="about-me-desc">
+                <p class="about-me-desc" ng-hide="editingProfile">
                     {{user.education}}
                 </p>
+                <div class="list" ng-show="editingProfile">
+                    <label class="item item-input">
+                        <input type="text" placeholder="Enter you education" ng-model="user.education">
+                    </label>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <i class="icon ion-person" style="margin-right: 8px;"></i>
                 <b>About Me</b>
-                <p class="about-me-desc">
+                <p class="about-me-desc" ng-hide="editingProfile">
                     {{user.aboutme}}
                 </p>
+                <div class="list" ng-show="editingProfile">
+                    <label class="item item-input">
+                        <input type="text" placeholder="Enter a description about you" ng-model="user.aboutme">
+                    </label>
+                </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <i class="icon ion-earth"></i>
                 <b>Languages</b>
-                <p class="about-me-desc">
-                    English, Spanish
+                <p class="about-me-desc" ng-hide="editingProfile">
+                    {{user.languages}}
                 </p>
+                <div class="list" ng-show="editingProfile">
+                    <label class="item item-input">
+                        <input type="text" placeholder="Enter languages separated by comma" ng-model="user.languages">
+                    </label>
+                </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col">
+                <i class="icon ion-heart"></i>
+                <b>I'm here to</b>
+                <p class="about-me-desc" ng-hide="editingProfile">
+                    {{user.looking_to}}
+                </p>
+                <div class="combobox" ng-show="editingProfile" style="border: 1px solid #BBB5B5;">
+                    <select ng-model="user.looking_to" style="color: black">
+                        <option value="">Select one option</option>
+                        <option value="Date">Date</option>
+                        <option value="Chat">Chat</option>
+                        <option value="Friends">Make new friends</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col">
                 <i class="icon ion-ribbon-b" style="margin-right: 8px;"></i>

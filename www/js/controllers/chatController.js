@@ -56,7 +56,6 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
             name = conversation[i].sender_id == $scope.user.id ? $scope.user.name : $scope.userInfo.name;
             $scope.addMessageToListFromDB(name, true, conversation[i].message, conversation[i].sent_date, conversation[i].time);
         }
-        console.log($scope.messages);
     }
 
     $scope.addMessageToListFromDB = function (name, style_type, message, sent_date, time) {
@@ -187,7 +186,7 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
         var req = {
             sender_id: $scope.user.id,
             receiver_id: $scope.userInfo.id,
-            msg: $scope.chat.message,
+            msg: $scope.escapeInvalidChars($scope.chat.message),
             sent_date: $scope.getDateTimeFormatted(new Date()),
             unread: 1
         };
@@ -198,6 +197,7 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
         socket.emit('new message', $scope.chat.message);
         $scope.addMessageToList($scope.user.name, true, $scope.chat.message);
         socket.emit('stop typing');
+
         $scope.chat.message = "";
     }
 

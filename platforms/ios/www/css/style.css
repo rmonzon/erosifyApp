@@ -27,61 +27,148 @@ p {
     margin: 0;
 }
 
+.home-container {
+    font-family: LeituraSansGrot;
+    color: white;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background: url("../img/bg-img-couple.png") no-repeat 50%;
+    background-size: cover;
+    letter-spacing: 1px;
+    padding: 25px 25px 15px;
+}
+
 .login-container {
     font-family: LeituraSansGrot;
     color: white;
     width: 100%;
     height: 100%;
     margin: 0;
-    padding: 25px 40px;
-    background: url("../img/bg-img-couple.png") no-repeat 50%;
-    background-size: cover;
+    padding: 0 40px 25px;
     letter-spacing: 1px;
-    /*
-    background: rgba(0,189,179,1);
-    background: -moz-linear-gradient(top, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(0,189,179,1)), color-stop(77%, rgba(255,98,129,1)), color-stop(100%, rgba(255,98,129,1)));
-    background: -webkit-linear-gradient(top, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    background: -o-linear-gradient(top, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    background: -ms-linear-gradient(top, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    background: linear-gradient(to bottom, rgba(0,189,179,1) 0%, rgba(255,98,129,1) 77%, rgba(255,98,129,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bdb3', endColorstr='#ff6281', GradientType=0 );
-    */
 }
 
 .gradient-bg {
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#00bdb3+0,aca4a6+20,ff6281+80 */
-    background: #00bdb3; /* Old browsers */
-    background: -moz-linear-gradient(top,  #00bdb3 0%, #aca4a6 20%, #ff6281 80%); /* FF3.6-15 */
-    background: -webkit-linear-gradient(top,  #00bdb3 0%,#aca4a6 20%,#ff6281 80%); /* Chrome10-25,Safari5.1-6 */
-    background: linear-gradient(to bottom,  #00bdb3 0%,#aca4a6 20%,#ff6281 80%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00bdb3', endColorstr='#ff6281',GradientType=0 ); /* IE6-9 */
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#65beb3+0,f75f7c+100 */
+    background: #65beb3; /* Old browsers */
+    background: -moz-linear-gradient(top,  #65beb3 0%, #f75f7c 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  #65beb3 0%,#f75f7c 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  #65beb3 0%,#f75f7c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#65beb3', endColorstr='#f75f7c',GradientType=0 ); /* IE6-9 */
 }
 
-.slogan span {
-    font-size: 30px;
-    line-height: 30px;
+.home-container .logo-container {
+    padding: 10px 25px 0;
+    position: absolute;
+    top: 10%;
+    font-size: 17px;
 }
 
-.logo-container, .slogan {
-    margin-bottom: 15px;
+.login-container .logo-container {
+    margin-top: 10px;
+}
+
+.logo-container {
+    margin-bottom: 35px;
     text-align: center;
 }
 
-.button-login {
-    width: 100%;
-    height: 45px;
+.btn-link-fb {
+    color: white!important;
+    font-family: LeituraSansGrot!important;
+}
+
+.get-started-btn {
     background: rgba(120, 54, 67, 0.78);
-    padding: 15px;
-    margin-bottom: 25px;
-    text-align: center;
-    font-size: 16px;
+    color: whitesmoke;
+    border-radius: 0;
+    position: absolute;
+    bottom: 140px;
+    padding-top: 3px;
+    text-transform: uppercase;
+    font-family: LeituraSansGrot;
+    width: 100%;
+    height: 55px;
+    font-size: 17px;
     opacity: 0.92;
     transition: background-color 0.2s linear;
 }
 
-.button-login:active, .button-signup:active {
-    background: rgba(102, 51, 51, 0.78);
+.get-started-btn-fb {
+    background: rgba(120, 54, 67, 0.78);
+    color: whitesmoke;
+    border-radius: 0;
+    position: absolute;
+    bottom: 40px;
+    padding-top: 3px;
+    text-transform: uppercase;
+    font-family: LeituraSansGrot;
+    width: 100%;
+    height: 55px;
+    font-size: 17px;
+    opacity: 0.92;
+    transition: background-color 0.2s linear;
+}
+
+.get-started-btn-fb i {
+    float: left;
+    position: relative;
+    bottom: 1px;
+    left: 10px;
+}
+
+.get-started-btn:hover, .get-started-btn-fb:hover, .button-login:hover {
+    color: white;
+}
+
+.get-started-btn.activated, .button-login.activated, .button-signup.activated, .get-started-btn-fb.activated {
+    background: rgba(82, 38, 38, 0.78);
+}
+
+.bottom-link-home {
+    font-size: 14px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -95px;
+}
+
+.bottom-link-home a {
+    text-decoration: none;
+    color: white;
+    font-family: LeituraSansBold;
+}
+
+.divider-home {
+    width: 100%;
+    height: 1px;
+    background: rgba(211, 211, 211, 0.5);
+    margin-bottom: 15px;
+}
+
+.btn-back {
+    color: white;
+    font-family: LeituraSansGrot;
+    padding-left: 2px;
+    padding-bottom: 25px;
+}
+
+.btn-back:hover {
+    color: white;
+}
+
+.button-login {
+    background: rgba(120, 54, 67, 0.78);
+    color: whitesmoke;
+    border-radius: 0;
+    padding-top: 3px;
+    text-transform: uppercase;
+    font-family: LeituraSansGrot;
+    width: 100%;
+    height: 55px;
+    font-size: 17px;
+    opacity: 0.92;
 }
 
 .button-signup {
@@ -116,6 +203,10 @@ p {
     text-decoration: none;
     color: white;
     font-family: LeituraSansBold;
+}
+
+.button-container {
+    margin-top: 7%;
 }
 
 
@@ -164,7 +255,7 @@ label.left-labels {
 }
 
 /* active state */
-.group input:focus ~ label, .group input:valid ~ label {
+.group input:focus ~ label, .group input:not(.ng-empty) ~ label {
     top:-20px;
     font-size:14px;
     /*margin-left: -40px;*/
@@ -236,6 +327,16 @@ ion-item i {
     -ms-flex: 0 0 15%;
     flex: 0 0 15%;
     max-width: 15%;
+}
+
+.col-27 {
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 0 27%;
+    -moz-box-flex: 0;
+    -moz-flex: 0 0 27%;
+    -ms-flex: 0 0 27%;
+    flex: 0 0 27%;
+    max-width: 27%;
 }
 
 .col-30 {
@@ -313,6 +414,7 @@ ion-item i {
     text-align: center;
     font-size: 11px;
     margin-bottom: 20px;
+    margin-top: 10px;
 }
 
 .bottom-link {
@@ -409,12 +511,37 @@ hr {
     background-size: cover;
 }
 
+/* iPhone 6 Plus */
+@media only screen and (min-height: 736px) {
+    .info-section-container {
+        height: 40%!important;
+    }
+}
+
+/* iPhone 6 */
+@media only screen and (min-height: 667px) {
+
+}
+
+/* iPhone 5 */
+@media only screen and (max-height: 568px) {
+    .info-section-container {
+        padding: 35px 15px!important;
+    }
+    .btn-likedis-container {
+        margin-top: 10px!important;
+    }
+}
+
 .info-section-container {
-    width: 100%;
-    height: 50%;
+    padding: 45px 15px;
+    height: 45%;
     background: url("../img/image_profile.png") no-repeat 50%;
-    position: absolute;
-    bottom: 0;
+}
+
+.match-container .scroll {
+    height: 100%;
+    transform: none!important;
 }
 
 .photo-section-container {
@@ -442,8 +569,12 @@ hr {
     height: 41px;
 }
 
-.top-name-container .button {
-    color: white;
+.match-no-favorite {
+    color: white!important;
+}
+
+.match-favorite {
+    color: #FFB932!important;
 }
 
 .online-icon {
@@ -452,77 +583,84 @@ hr {
     background: green;
     border-radius: 5px;
     margin-top: 18px;
+    margin-left: 8px;
+    position: absolute;
+    top: 0;
+    right: 10px;
+}
+
+.online-icon-hidden {
+    width: 10px;
+    height: 10px;
+    background: rgba(128, 128, 128, 0.71);
+    border-radius: 5px;
+    margin-top: 18px;
+    margin-left: 8px;
+    position: absolute;
+    top: 0;
+    right: 10px;
 }
 
 .verified-icon {
-    width: 16px;
-    height: 12px;
-    background: url("../img/verified.svg") no-repeat;
-    margin: 17px 5px 0 5px;
+    font-size: 22px;
+    color: #00BF61;
+    margin-top: 13px;
+    /*width: 16px;*/
+    /*height: 12px;*/
+    /*background: url("../img/verified.svg") no-repeat;*/
+    /*margin: 17px 5px 0 5px;*/
+}
+
+.verified-icon-matching {
+    font-size: 22px;
+    color: #00BF61;
+    margin-left: 7px;
+    position: absolute;
+    top: 12px;
+}
+
+.name-age-matching {
+    font-size: 28px;
+    position: relative;
+    top: 16px;
+    margin-right: 5px;
 }
 
 .circular-pic-container {
     width: 70%;
     height: 100%;
     border-radius: 50%;
-    background: url("../img/user-pic.jpg") center;
+    /*background: url("../img/profile.png") center;*/
+    background: rgba(165, 165, 165, 0.70);
     background-size: cover;
     box-shadow: 0 0 15px #000;
 }
 
-.scroll {
-    transform: translate3d(0px, 0px, 0px) scale(1)!important;
-    height: 100%;
-}
-
-.info-section-container .row {
-    padding: 15px 15px 0;
-    margin-top: 15%;
-}
-
-@media only screen and (min-height: 568px) {
-    .info-section-container .row {
-        margin-top: 12%;
-    }
-}
-
-@media only screen and (min-height: 736px) {
-    .info-section-container .row {
-        margin-top: 15%;
-    }
-}
-
 .button-like {
-    width: 120px;
-    height: 46px;
-    font-size: 35px;
-    padding: 5px;
-    border-radius: 23px;
+    width: 100px;
+    height: 50px;
+    border-radius: 30px;
     float: left;
-    margin-left: 5px;
     background: #00BF61;
     text-align: center;
-}
-
-.button-like:active {
-    background: green;
-    color: gray;
+    margin-left: 10px;
+    z-index: 10;
+    color: whitesmoke;
 }
 
 .button-dislike {
-    width: 120px;
-    height: 46px;
-    font-size: 37px;
-    padding: 5px;
-    border-radius: 23px;
+    width: 100px;
+    height: 50px;
+    border-radius: 30px;
     float: right;
-    margin-right: 5px;
     background: #FF4842;
     text-align: center;
-}
-
-.button-like i, .button-dislike {
-    color: white;
+    margin-right: 10px;
+    /*position: absolute;*/
+    /*left: 50%;*/
+    /*margin-left: -90px;*/
+    z-index: 10;
+    color: whitesmoke;
 }
 
 .btn-skip-profile {
@@ -535,8 +673,8 @@ hr {
 .btn-undo-action {
     background: url("../img/back.svg") no-repeat;
     background-size: contain;
-    width: 45px;
-    height: 45px;
+    width: 50px;
+    height: 49px;
     position: relative;
     left: 10px;
 }
@@ -547,7 +685,10 @@ hr {
 }
 
 .btn-likedis-container {
-    width: 70%; height: 100%; display: flex;margin-top: 6px;
+    width: 70%;
+    height: 100%;
+    display: flex;
+    margin-top: 20px;
 }
 
 .match-bottom-section {
@@ -614,6 +755,7 @@ i.ion-ios-chatbubble-outline {
 
 .messages-row img {
     width: 65px;
+    height: 65px;
     border-radius: 50%;
 }
 
@@ -623,9 +765,9 @@ i.ion-ios-chatbubble-outline {
 }
 
 .msg-date {
-    font-size: 10px;
+    font-size: 11px;
     position: relative;
-    top: 15px;
+    top: 7px;
 }
 
 .no-favorite-msg {
@@ -644,14 +786,14 @@ i.ion-ios-chatbubble-outline {
 }
 
 .status-icon-sm {
-    width: 6px;
-    height: 6px;
-    border-radius: 3px;
-    margin: 6px 0 0 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    margin: 5px 0 0 5px;
 }
 
 .online {
-    background: limegreen;
+    background: green;
 }
 
 .offline {
@@ -734,6 +876,10 @@ ion-header-bar .ion-android-search:before {
     font-size: 38px!important;
 }
 
+.ion-navicon {
+    display: block!important;
+}
+
 .location-row {
     padding: 0 20px!important;
     margin-top: 0!important;
@@ -793,10 +939,12 @@ ion-header-bar .ion-android-search:before {
     width: 24px!important;
     position: absolute;
     right: 25px;
+    top: 57px;
 }
 
 .prof-pic-match {
     width: 70%;
+    height: 20vw;
     border-radius: 50%;
 }
 
@@ -845,12 +993,12 @@ ion-header-bar .ion-android-search:before {
     color: white;
 }
 
-.ion-android-send {
+.ion-paper-airplane {
     width: 45px;
     min-height: 45px!important;
     margin-top: 1px;
-    padding-left: 11px;
-    /* border: 1px solid white; */
+    padding-top: 1px!important;
+    padding-left: 3px!important;
     border-radius: 50%;
     color: white!important;
     background: #00bdb3;
@@ -871,7 +1019,7 @@ ion-header-bar .ion-android-search:before {
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    border: 1px solid white;
+    border: 2px solid white;
 }
 
 .chat-title-top {
@@ -969,7 +1117,7 @@ ion-header-bar .ion-android-search:before {
     height: 60px;
 }
 
-a.ion-android-send:before {
+a.ion-paper-airplane:before {
     margin-top: 5px!important;
 }
 
@@ -1046,7 +1194,8 @@ a.ion-android-send:before {
 }
 .messages.other span {
     color: black !important;
-    background-color: lightgray !important;
+    background-color: rgb(226, 226, 226) !important;
+    font-weight: bold;
 }
 
 span.msg {
@@ -1057,6 +1206,7 @@ span.msg {
     border-radius: 5px !important;
     text-align: left !important;
     max-width: 240px !important;
+    font-weight: bold!important;
 }
 
 .left-msg span:after {
@@ -1077,12 +1227,28 @@ span.msg {
     position: absolute;
     border-style: solid;
     border-width: 0 0 18px 16px;
-    border-color: transparent lightgray;
+    border-color: transparent rgb(226, 226, 226);
     display: block;
     width: 0;
     z-index: 1;
     right: 8px!important;
     top: 5px;
+}
+
+.sm-time-chat {
+    font-size: 10px;
+    float: right;
+    font-weight: 100!important;
+}
+
+.date-divider {
+    /*font-family: LeituraSansBold;*/
+    font-size: 11px;
+    position: relative;
+    right: 50%;
+    margin-right: -35px;
+    margin-top: 7px;
+    margin-bottom: 3px;
 }
 
 .myprofile-info-bg {
@@ -1119,13 +1285,26 @@ span.msg {
     width: 101%;
 }
 
+.myprofile-pics-bg .slider-pager .slider-pager-page {
+    color: #BF3636!important;
+}
+
 .profile-name {
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .pic-container {
     height: 100%;
-    background: white;
+    background-color: #161616!important;
+    background-repeat: no-repeat!important;
+    background-size: contain!important;
+    background-position: 50%!important;
+}
+
+.matching-pic-container {
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
 }
 
 .verified-icon-profile {
@@ -1139,10 +1318,10 @@ span.msg {
 .online-icon-profile {
     width: 10px;
     height: 10px;
-    background: green;
+    background: #0EB50E;
     border-radius: 5px;
-    margin-left: 10px;
-    margin-top: 3px;
+    margin-left: 8px;
+    margin-top: 4px;
 }
 
 .myprofile-info-bg i {
@@ -1177,22 +1356,6 @@ span.msg {
     transition: background-color 0.2s linear;
 }
 
-.button-delete-account {
-    width: 100%;
-    height: 45px;
-    background: rgba(120, 54, 67, 0.78);
-    padding: 15px;
-    text-align: center;
-    font-size: 16px;
-    color: whitesmoke;
-    font-family: LeituraSansGrot3;
-    transition: background-color 0.2s linear;
-}
-
-.button-delete-account:active {
-    background: rgba(97, 48, 48, 0.78);
-}
-
 .button-logout:active {
     background: #e4e4e4;
     -webkit-tap-highlight-color: #e4e4e4;
@@ -1220,8 +1383,8 @@ span.msg {
 }
 
 .loading-nearby svg {
-    width: 60px;
-    height: 60px;
+    width: 120px;
+    height: 120px;
     stroke: #444;
     fill: #444;
     margin-top: 130px;
@@ -1267,6 +1430,7 @@ span.msg {
 .left-menu-pic {
     max-width: 47px!important;
     max-height: 47px!important;
+
 }
 
 .male {
@@ -1345,4 +1509,454 @@ span.msg {
 .action-sheet-title {
     font-size: 18px;
     font-weight: bolder;
+}
+
+.ion-funnel {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+}
+
+.button.button-icon.icon.ion-funnel:before {
+    font-size: 25px;
+    color: gray;
+}
+
+.button.button-icon.icon.ion-android-favorite-outline.button-like:before {
+    font-size: 37px;
+    margin-top: 4px;
+}
+
+.button.button-icon.button-clear.ion-close-round:before, .button.button-icon.button-clear.ion-checkmark-round:before {
+    font-size: 25px;
+}
+
+.def-spinner-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -20px;
+    margin-top: -65px;
+}
+
+.matching-spinner-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -96px;
+    margin-top: -75px;
+}
+
+.default-spinner.spinner svg {
+    width: 40px;
+    height: 40px;
+    stroke: whitesmoke;
+    fill: whitesmoke;
+}
+
+.no-data-container {
+    padding: 30px;
+    font-size: 16px;
+    color: whitesmoke;
+    margin-top: 30%;
+    text-align: center;
+}
+
+.is-match-popup {
+    text-align: center;
+}
+
+.is-match-popup .popup-head {
+    display: none;
+}
+
+.is-match-popup .popup {
+    width: 80%;
+    padding: 10px;
+    border-radius: 15px;
+    background: rgba(47, 47, 47, 0.95);
+    color: lightgray;
+}
+
+.match-popup-headline {
+    text-align: center;
+    font-family: LeituraSansGrot3;
+    font-size: 17px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding: 0 10px;
+}
+
+.popup-body .button.button-balanced.button-outline {
+    border-color: #00BDB3;
+    background: transparent;
+    color: #00BDB3;
+}
+
+.popup-body .button.button-balanced.button-outline.active, .popup-body .button.button-balanced.button-outline.activated {
+    background-color: #00BDB3;
+    color: white;
+}
+
+.match-popup-pic {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.profile-info-bg {
+    width: 100%;
+    background: #F3F3F3;
+    color: #3E3E3E;
+    padding: 5px 5px 90px 5px;
+}
+
+.view-more-btn {
+    position: absolute;
+    right: 10px;
+    font-size: 30px;
+    top: 60%;
+    color: #6F6D6D;
+}
+
+.btns-likedislike-cont {
+    position: fixed;
+    bottom: 0;
+    padding-bottom: 15px;
+    -webkit-box-shadow: inset 0px -30px 45px -17px rgba(128,128,128,1);
+    -moz-box-shadow: inset 0px -30px 45px -17px rgba(128,128,128,1);
+    box-shadow: inset 0px -30px 45px -17px rgba(128,128,128,1);
+}
+
+.button-like-profile {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    float: right;
+    background: #00BF61;
+    text-align: center;
+    z-index: 10;
+    color: whitesmoke;
+    padding-top: 4px;
+}
+
+.button-dislike-profile {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    float: left;
+    background: #FF4842;
+    text-align: center;
+    z-index: 10;
+    color: whitesmoke;
+}
+
+.button-msg-profile {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #00BDB3;
+    /*background: #ff6281;*/
+    text-align: center;
+    z-index: 10;
+    color: whitesmoke;
+    margin-top: 7px;
+}
+
+.button-like-profile.icon:before {
+    font-size: 32px;
+}
+
+.row-divider {
+    border-bottom: 1px solid #B9B9B9
+}
+
+.row-divider .slider {
+    padding-top: 25px;
+}
+
+.row-divider .slider-pager {
+    position: absolute;
+    top: -2px;
+    right: 0;
+    width: auto;
+}
+
+.popover {
+    height: 55px;
+}
+
+.button-full {
+    margin-top: 0!important;
+}
+
+.platform-ios .popover .scroll-content {
+    margin: 2px 0;
+}
+
+.report-dialog-icon {
+    font-size: 40px;
+}
+.report-popup-headline {
+    text-align: center;
+    font-family: LeituraSansGrot3;
+    font-size: 20px;
+    margin-bottom: 15px;
+    margin-top: 5px;
+    padding: 0 5px;
+}
+
+.profile-info-bg .button.icon:before {
+    line-height: 10px;
+}
+
+.profile-info-bg a.button {
+    line-height: 10px;
+    min-height: 30px;
+    padding-left: 0;
+    margin-right: 10px;
+}
+
+.search-divider {
+    width: 100%;
+    height: 1px;
+    margin-top: 12px;
+    background: rgba(211,211,211,0.3);
+}
+
+.search-container {
+    margin: 10px;
+    background: transparent;
+}
+
+.search-container.list-inset .item.item-input input {
+    padding-right: 10px;
+}
+
+.search-container input {
+    padding-left: 15px;
+    color: white;
+    padding-bottom: 5px;
+}
+
+.search-container input::-webkit-input-placeholder {
+    color: white;
+}
+
+.search-container input:-moz-placeholder { /* Firefox 18- */
+    color: white;
+}
+
+.search-container input::-moz-placeholder {  /* Firefox 19+ */
+    color: white;
+}
+
+.search-container input:-ms-input-placeholder {
+    color: white;
+}
+
+.login-inputs-container .ion-eye, .login-inputs-container .ion-eye-disabled {
+    position: absolute;
+    right: 0;
+    bottom: -5px;
+    color: white;
+}
+
+.bottom-btn {
+    padding: 10px;
+    position: absolute;
+    bottom: -10px;
+}
+
+.addpics-title {
+    padding-bottom: 15px;
+    color: white;
+    font-size: 17px;
+    text-align: center;
+}
+
+.matching-pic-container .default-spinner {
+    position: absolute;
+    top: 25%;
+    left: 45%;
+}
+
+.profile-desc-icon .icon {
+    font-size: 20px;
+    margin-right: 5px;
+    position: relative;
+    top: 2px;
+}
+
+.about-me-desc {
+    margin-top: 5px;
+}
+
+.pics-grid-container {
+    background: #2A363C;
+}
+
+.square-thumbnail {
+    width:25%;
+    height:25vw;
+    /*margin:1%;*/
+    float:left;
+    border: 1px solid rgba(0, 0, 0, 0.30);
+    font-size: 25px;
+    text-align: center;
+    background-repeat: no-repeat!important;
+    background-size: cover!important;
+    background-position-y: 50%!important;
+}
+
+.square-thumbnail i {
+    position: relative;
+    top: 31%;
+}
+
+.grid-fullscreen-container {
+    background: black;
+}
+
+.grid-fullscreen-container .ion-close-round {
+    position: absolute;
+    right: 5px;
+    z-index: 5;
+}
+
+.thumbnail-container {
+    padding: 5px;
+}
+
+.fullscreen-img {
+    background-repeat: no-repeat!important;
+    background-size: contain!important;
+    background-position-y: 50%!important;
+    height: 100%;
+}
+
+.myprofile-info-bg .item {
+    background-color: transparent;
+    border-color: transparent;
+}
+
+#profile-menu-icon {
+    display: block!important;
+}
+
+.new-msg-badge {
+    width: 22px;
+    height: 22px;
+    background: rgba(244, 67, 54, 0.82);
+    border-radius: 50%;
+    color: whitesmoke;
+    position: relative;
+    top: 20px;
+    left: 50%;
+    padding: 2px 8px;
+    font-size: 13px;
+    font-family: LeituraSansBold;
+}
+
+.sm-profile-pic {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: red;
+}
+
+
+
+
+
+
+
+
+/* CSS to create the pink bg on matching view */
+/*
+div{
+    width:50%;
+    height:300px;
+    position:relative;
+    overflow:hidden;
+}
+div:before{
+    content:'';
+    position:absolute;
+    bottom:80%;
+    width:100%;
+    height: 60%;
+    border-radius:60%;
+    box-shadow: 0px 300px 0px 300px #448CCB;
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Styles for multi-range input (double slider) */
+
+ui-multi-range {
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
+    -moz-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    position: relative;
+    height: 50px;
+}
+ui-multi-range input[type=range] {
+    position: absolute;
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0 2px;
+    overflow: hidden;
+    border: 0;
+    border-radius: 1px;
+    outline: none;
+    pointer-events: none;
+}
+ui-multi-range input[type=range]:active, ui-multi-range input[type=range]:focus {
+    outline: none;
+}
+ui-multi-range input[type=range]::-webkit-slider-thumb {
+    position: relative;
+    cursor: pointer;
+    pointer-events: all;
+}
+ui-multi-range input[type=range]::-webkit-slider-thumb::before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: 13px;
+    left: 100%;
+    width: 2000px;
+    height: 2px;
+}
+ui-multi-range input[type=range]:nth-child(2) {
+    background: none;
+}
+ui-multi-range input[type=range]:nth-child(2)::-webkit-slider-thumb::before {
+    background-color: #ccc;
 }

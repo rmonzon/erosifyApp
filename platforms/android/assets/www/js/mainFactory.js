@@ -117,6 +117,10 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.post(factory.connectionStr + "/save_message", req);
     };
 
+    factory.getConversation = function (id) {
+        return $http.get(factory.connectionStr + "/conversation", { headers: { token: User.getToken(), my_id: User.getUser().id, user_id: id }});
+    };
+
 
     
 

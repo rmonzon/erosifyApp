@@ -18,15 +18,15 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
             $scope.goToPage('app/profile/' + id);
         };
 
-        $scope.showMessageWithIcon = function(message, time) {
+        $scope.showMessageWithIcon = function (message, time) {
             $ionicLoading.show({
                 duration: time,
-                noBackdrop: true,
-                template: '<p class="item-icon-left">' + message + '<ion-spinner icon="lines"/></p>'
+                noBackdrop: false,
+                template: '<p class="item-icon-left">' + message + '<ion-spinner></ion-spinner></p>'
             });
         };
 
-        $scope.showMessage = function(message, time) {
+        $scope.showMessage = function (message, time) {
             $ionicLoading.show({
                 duration: time === 0 ? 1000000 : time,
                 noBackdrop: true,
@@ -34,33 +34,32 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
             });
         };
 
-        $scope.hideMessage = function() {
+        $scope.hideMessage = function () {
             $ionicLoading.hide();
         };
 
         $scope.logout = function () {
+            if (User.getUserFb().userID) {
+                $cordovaFacebook.logout().then(function (success) {
+                    $scope.goToPage('home');
+                }, function (error) {
+                    $scope.showMessage(error, 2000);
+                });
+            }
+            else {
+                mainFactory.doLogOut({"email": $scope.getUserFromLS().email}).then(successLogout, errorLogout);
+            }
             $scope.removeUserFromLS();
-            mainFactory.doLogOut({"email": $scope.getUserFromLS()}).then(successLogout, errorLogout);
         };
 
         function successLogout(response) {
             $scope.goToPage('home');
         }
 
-        function errorLogout (response) {
+        function errorLogout(response) {
             $scope.hideMessage();
             $scope.showMessage(response.data.error, 2500);
         }
-
-        $scope.logoutFacebook = function() {
-            User.setData({});
-            $cordovaFacebook.logout()
-                .then(function(success) {
-                    $scope.showMessage("You've been logged out successfully.", 2000);
-                }, function (error) {
-                    $scope.showMessage(error, 2000);
-                });
-        };
 
         $scope.validateEmail = function (email) {
             var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
@@ -74,29 +73,30 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
             }, 100);
         };
 
-        $scope.setUserToLS = function(user_data) {
-            $window.localStorage.setItem('userId', user_data);
-            //$window.localStorage.starter_facebook_user = JSON.stringify(user_data);
+        $scope.setUserToLS = function (user_data) {
+            $window.localStorage.setItem('userInfo', JSON.stringify(user_data));
         };
 
-        $scope.getUserFromLS = function() {
-            return $window.localStorage && $window.localStorage.getItem('userId');
-            //return JSON.parse($window.localStorage.starter_facebook_user || window.localStorage.userLogin || '{}');
+        $scope.getUserFromLS = function () {
+            var obj = null;
+            if ($window.localStorage.facebook_user) {
+                obj = JSON.parse($window.localStorage.facebook_user);
+            }
+            if ($window.localStorage.userInfo) {
+                obj = JSON.parse($window.localStorage.userInfo);
+            }
+            return obj;
         };
 
         $scope.removeUserFromLS = function () {
-            $window.localStorage.removeItem('userId');
+            $window.localStorage.removeItem('userInfo');
         };
 
-        $scope.showPassword = function () {
-            $scope.inputType = 'text';
+        $scope.showHidePassword = function () {
+            $scope.inputType = $scope.inputType == 'text' ? 'password' : 'text';
         };
 
-        $scope.hidePassword = function () {
-            $scope.inputType = 'password';
-        };
-
-        $scope.getDateFormatted = function(today) {
+        $scope.getDateFormatted = function (today) {
             var dd = today.getDate();
             var mm = today.getMonth() + 1; //January is 0!
             var yyyy = today.getFullYear();
@@ -161,7 +161,8 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
                     }
                     if (users[i].sent_date) {
                         //review date time coming from DB, check if it's UTC or not
-                        users[i].full_date = $scope.convertFromUTCtoLocalTime(users[i].sent_date);
+                        //users[i].full_date = $scope.convertFromUTCtoLocalTime(users[i].sent_date);
+                        users[i].full_date = $scope.getDateTimeFormatted(new Date(users[i].sent_date));
                         t = $scope.formatDateToTime(new Date(users[i].full_date));
                         d = users[i].full_date.split(' ')[0].split('-');
                         users[i].sent_date = d[0] + "/" + d[1] + "/" + d[2];
@@ -184,7 +185,8 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
                     users.location = parseAddress(users.location);
                 }
                 if (users.sent_date) {
-                    users.full_date = $scope.convertFromUTCtoLocalTime(users.sent_date);
+                    //users.full_date = $scope.convertFromUTCtoLocalTime(users.sent_date);
+                    users.full_date = $scope.getDateTimeFormatted(new Date(users.sent_date));
                     t = $scope.formatDateToTime(new Date(users.full_date));
                     d = users.full_date.split(' ')[0].split('-');
                     users.sent_date = d[0] + "/" + d[1] + "/" + d[2];
@@ -200,7 +202,7 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
         function parseAddress(address) {
             address = address.split(',');
             var l = address.length;
-            address = address[l-3] + "," + address[l-2] + "," + address[l-1];
+            address = address[l - 3] + "," + address[l - 2] + "," + address[l - 1];
             if (address[0] == " ") {
                 address = spliceSlice(address, 0, 1);
             }
@@ -231,5 +233,9 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
             }
             return [];
         }
+
+        $scope.escapeInvalidChars = function (str) {
+            return str.replace("'", "''");
+        };
     };
 });
