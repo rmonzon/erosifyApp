@@ -13,6 +13,8 @@ angular.module('controllers').controller('UserProfileController', function ($sco
         $scope.commonFriends = [];
         $scope.profileLiked = false;
         $scope.profileDisLiked = false;
+        $scope.loadingProfile = true;
+        $scope.loadingNum = 0;
         $scope.getCommonFriends();
         $scope.numConnections = calculateNumConnections($scope.commonFriends);
         $scope.getUserInfoFromDB();
@@ -68,7 +70,6 @@ angular.module('controllers').controller('UserProfileController', function ($sco
 
     function saveLikeOrDislikeSuccess(response) {
         if (response.data.isMatch) {
-            console.log("It's a match!");
             $scope.showMutualMatchMsg();
         }
     }
@@ -222,6 +223,14 @@ angular.module('controllers').controller('UserProfileController', function ($sco
         }
         return num;
     }
+
+    $scope.imageLoaded = function () {
+        $scope.loadingNum++;
+        if ($scope.loadingNum == $scope.user.pictures.length) {
+            $scope.loadingProfile = false;
+            $scope.loadingNum = 0;
+        }
+    };
     
     init();
 });

@@ -1,18 +1,18 @@
 <ion-view view-title="Erosify">
-    <ion-content class="login-container gradient-bg">
-        <div class="login-inputs-container">
-            <button class="button button-icon ion-ios-arrow-back btn-back" ng-click="$ionicGoBack()"> Back</button>
+    <ion-header-bar align-title="left" style="background: #65beb3!important;">
+        <div class="buttons">
+            <button class="button button-icon ion-ios-arrow-back btn-back" ng-click="$ionicGoBack()"></button>
+        </div>
+    </ion-header-bar>
 
+    <ion-content class="login-container gradient-bg">
+        <div class="login-inputs-container" style="padding-top: 30px;">
             <form class="signup-form" ng-submit="signUp()">
                 <div class="group">
                     <input type="email" ng-model="user.email" ng-blur="checkAccountAvailability()" autocapitalize="off">
                     <span class="bar-input"></span>
                     <label class="left-labels">Email</label>
                 </div>
-
-                <!--<div style="margin-bottom: 20px;font-size: 12px;margin-left: 5px">-->
-                    <!--<span>This is going to be your username</span>-->
-                <!--</div>-->
 
                 <div class="group">
                     <input type="{{inputType}}" ng-model="user.password" autocapitalize="off">

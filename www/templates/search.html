@@ -9,9 +9,9 @@
 <ion-content class="gradient-bg">
     <form ng-submit="getSearchResults()">
         <div class="list list-inset search-container">
-            <label class="item item-input" style="border-radius: 25px; background: transparent;padding: 3px">
+            <label class="item item-input" style="border-radius: 5px; background: transparent;padding: 3px">
                 <input type="text" placeholder="Search people..." ng-model="uiData.searchTerms" autocapitalize="off" required>
-                <button class="button button-icon ion-ios-search placeholder-icon" style="font-size: 25px;color: white;line-height: 26px;min-height: 25px;padding-right: 15px"></button>
+                <button class="button button-icon ion-ios-search placeholder-icon" style="font-size: 25px;color: white;line-height: 26px;min-height: 25px;padding-right: 10px"></button>
             </label>
         </div>
     </form>
@@ -21,7 +21,7 @@
     <div class="row" ng-repeat="res in listResults" style="border-bottom: 1px solid rgba(211,211,211,0.3);padding-top: 5px" ng-hide="loadingResults">
         <div class="col-20 text-center">
             <a class="button button-icon" style="line-height: 0; margin: 5px 0;" ng-click="goToProfile(res.id)">
-                <img class="user-fav-pic" src="{{res.pictures[0]}}">
+                <img class="user-fav-pic" ng-src="{{res.pictures[0]}}" ng-load-image="imageLoaded()">
             </a>
         </div>
         <div class="col-60" style="padding-top: 15px">

@@ -1,10 +1,16 @@
 <ion-view view-title="Erosify">
-  <ion-content class="login-container gradient-bg">
-      <button class="button button-icon ion-ios-arrow-back btn-back" ng-click="$ionicGoBack()" style="padding-top: 10px"> Back</button>
-      <div class="logo-container">
-          <img src="img/logo.png" width="80%">
-      </div>
-      <div class="login-inputs-container">
+    <ion-header-bar align-title="left" style="background: #65beb3!important;">
+        <div class="buttons">
+            <button class="button button-icon ion-ios-arrow-back btn-back" ng-click="$ionicGoBack()"></button>
+        </div>
+    </ion-header-bar>
+
+    <ion-content class="login-container gradient-bg">
+        <!--<button class="button button-icon ion-ios-arrow-back btn-back" ng-click="$ionicGoBack()" style="padding-top: 10px"> Back</button>-->
+        <div class="logo-container">
+            <img src="img/logo.png" width="80%">
+        </div>
+        <div class="login-inputs-container">
           <form ng-submit="loginWithEmail()" novalidate>
               <div class="group">
                   <input type="email" ng-model="user.email" autocapitalize="off">
@@ -28,6 +34,6 @@
                   <a class="button button-clear btn-link-fb" ng-click="loginWithFacebook()">Sign In with <b>Facebook</b></a>
               </div>
           </form>
-      </div>
-  </ion-content>
+        </div>
+    </ion-content>
 </ion-view>

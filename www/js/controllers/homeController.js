@@ -2,7 +2,7 @@
  * Created by raul on 1/5/16.
  */
 
-angular.module('controllers').controller('HomeController', function ($scope, $q, $cordovaFacebook, $cordovaGeolocation, GenericController, User, mainFactory) {
+angular.module('controllers').controller('HomeController', function ($scope, $q, $timeout, $cordovaFacebook, $cordovaGeolocation, GenericController, User, mainFactory) {
 
     function init() {
         GenericController.init($scope);
@@ -13,8 +13,10 @@ angular.module('controllers').controller('HomeController', function ($scope, $q,
     $scope.checkUserLoggedIn = function () {
         $scope.user = $scope.getUserFromLS();
         if ($scope.user) {
-            $scope.showMessageWithIcon("Retrieving location...");
-            $scope.getCurrentLocation();
+            $timeout (function () {
+                $scope.showMessageWithIcon("Retrieving location...");
+                $scope.getCurrentLocation();
+            }, 500);
         }
     };
 
@@ -52,7 +54,7 @@ angular.module('controllers').controller('HomeController', function ($scope, $q,
                     var credentials = {
                         "email": $scope.user.email,
                         "password": $scope.user.password,
-                        "location": results[0].formatted_address,
+                        "location": results[0].formatted_address.replace('EE. UU.', 'USA'),
                         "coords": latlng
                     };
                     mainFactory.authenticate(credentials).then(authenticateSuccess, authenticateError);

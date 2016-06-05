@@ -2,35 +2,23 @@
  * Created by raul on 2/24/16.
  */
 
-angular.module('controllers').controller('PeopleNearbyController', function ($scope, $timeout, $cordovaGeolocation, GenericController) {
+angular.module('controllers').controller('PeopleNearbyController', function ($scope, $timeout, $cordovaGeolocation, $ionicModal, GenericController, mainFactory, User) {
 
     function init() {
         GenericController.init($scope);
-        $scope.matches = [
-            [
-                {name: 'Amanda', id: 1, distance: "0.2 mi", online: false,verified: false,  pic: "img/avatar.png"},
-                {name: 'Jennifer', id: 2, distance: "4.5 mi", online: true,verified: false,  pic: "img/profile.png"},
-                {name: 'rigoberta', id: 3, distance: "1.3 mi", online: false,verified: true,  pic: "img/avatar.png"}
-            ],
-            [
-                {name: 'Diana', id: 4, distance: "1.3 mi", online: false,verified: false,  pic: "img/avatar.png"},
-                {name: 'Samantha', id: 5, distance: "1.4 mi", online: true,verified: true,  pic: "img/avatar.png"},
-                {name: 'April', id: 6, distance: "0.3 mi", online: false,verified: false,  pic: "img/avatar.png"}
-            ],
-            [
-                {name: 'Amanda', id: 1, distance: "4.0 mi", online: false,verified: false,  pic: "img/avatar.png"},
-                {name: 'Jennifer', id: 2, distance: "8.1 mi", online: true,verified: false,  pic: "img/profile.png"},
-                {name: 'Lucy', id: 3, distance: "2.0 mi", online: false,verified: false,  pic: "img/avatar.png"}
-            ],
-            [
-                {name: 'Diana', id: 4, distance: "1.3 mi", online: false,verified: false,  pic: "img/avatar.png"},
-                {name: 'Samantha', id: 5, distance: "1.3 mi", online: true,verified: false,  pic: "img/avatar.png"},
-                {name: 'April', id: 6, distance: "1.3 mi", online: false,verified: false,  pic: "img/avatar.png"}
-            ]
-        ];
-        $scope.totalFound = $scope.matches.length;
+        $scope.totalFound = 0;
         $scope.searching = true;
         $scope.humanAddress = "";
+        $scope.loadingNum = 0;
+        $scope.filters = {
+            miles: 30,
+            ageMin: 18,
+            ageMax: 55,
+            ageFrom: 18,
+            ageTo: 35,
+            gender: User.getUser().gender == 'Male' ? 'Female' : 'Male',
+            interest: User.getUser().looking_to
+        };
         $scope.findPeopleNearby();
     }
 
@@ -55,17 +43,10 @@ angular.module('controllers').controller('PeopleNearbyController', function ($sc
         geocoder.geocode({'location': latlng}, function (results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
                 if (results[1]) {
-                    //results[0] = Full street address
-                    //results[1] = locality address
-                    //results[2] = postal code address
-                    //results[3] = county address
-                    //results[4] = state address
-                    //results[5] = country address
-
-                    $scope.searching = false;
-                    $scope.humanAddress = results[2].formatted_address;
-                    console.log(results);
-                    $scope.$apply();
+                    $scope.humanAddress = results[0].formatted_address.replace('EE. UU.', 'USA');
+                    User.updateAttr('coordinates', JSON.stringify(latlng));
+                    User.updateAttr('location', $scope.humanAddress);
+                    $scope.getPeopleNearbyFromDB(latlng);
                 } else {
                     $scope.showMessage('No results found', 2500);
                 }
@@ -74,6 +55,90 @@ angular.module('controllers').controller('PeopleNearbyController', function ($sc
             }
         });
     }
+    
+    $scope.getPeopleNearbyFromDB = function () {
+        var state = $scope.humanAddress.split(',');
+        state = state[state.length - 2].split(' ')[1];
+        var req = {
+            id: User.getUser().id,
+            state: state,
+            looking_to: $scope.filters.interest,
+            ages: { ageFrom: $scope.filters.ageFrom, ageTo: $scope.filters.ageTo }
+        };
+        if ($scope.filters.gender != "Everyone") {
+            req.gender = $scope.filters.gender;
+        }
+        mainFactory.findPeopleNearMe(req).then(findPeopleNearMeSuccess, findPeopleNearMeError);
+    };
+
+    function findPeopleNearMeSuccess(response) {
+        $scope.people = $scope.parseDataFromDB(response.data.people);
+        parseDataForUI();
+    }
+
+    function findPeopleNearMeError(response) {
+        $scope.showMessage(response.data.error, 2000);
+        $scope.searching = false;
+    }
+
+    function parseDataForUI() {
+        $scope.totalFound = 0;
+        var newArray = [[]], three = 0;
+        for (var i = 0, len = $scope.people.length; i < len; ++i) {
+            var dist = $scope.calculateDistanceToUser($scope.people[i]);
+            if (dist <= $scope.filters.miles) {
+                if (newArray[three].length == 3) {
+                    newArray.push([]);
+                    three++;
+                }
+                $scope.people[i].distance = dist;
+                newArray[three].push($scope.people[i]);
+                $scope.totalFound++;
+            }
+        }
+        $scope.people = newArray;
+    }
+
+    $scope.imageLoaded = function () {
+        $scope.loadingNum++;
+        if ($scope.loadingNum == $scope.totalFound) {
+            $scope.searching = false;
+            $scope.loadingNum = 0;
+        }
+    };
+
+    $ionicModal.fromTemplateUrl('templates/matching_filters.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.modalFilters = modal;
+    });
+
+    $scope.openFilterOptions = function () {
+        $scope.modalFilters.show();
+    };
+
+    $scope.applyFilters = function () {
+        $scope.searching = true;
+        var state = $scope.humanAddress.split(',');
+        state = state[state.length - 2].split(' ')[1];
+        var req = {
+            id: User.getUser().id,
+            state: state,
+            ages: { ageFrom: $scope.filters.ageFrom, ageTo: $scope.filters.ageTo }
+        };
+        if ($scope.filters.interest) {
+            req.looking_to = $scope.filters.interest;
+        }
+        if ($scope.filters.gender != "Everyone") {
+            req.gender = $scope.filters.gender;
+        }
+        mainFactory.findPeopleNearMe(req).then(findPeopleNearMeSuccess, findPeopleNearMeError);
+        $scope.closeModal();
+    };
+
+    $scope.closeModal = function() {
+        $scope.modalFilters.hide();
+    };
 
     init();
 });

@@ -9,6 +9,7 @@ angular.module('controllers').controller('VisitorsController', function ($scope,
         $scope.myVisitors = [];
         $scope.loadingVisitors = true;
         $scope.noResults = false;
+        $scope.loadingNum = 0;
         $scope.getListOfVisitors();
     }
 
@@ -22,7 +23,6 @@ angular.module('controllers').controller('VisitorsController', function ($scope,
         if ($scope.listVisitors.length == 0) {
             $scope.noResults = true;
         }
-        $scope.loadingVisitors = false;
     }
 
     function getMyVisitorsError(response) {
@@ -35,6 +35,14 @@ angular.module('controllers').controller('VisitorsController', function ($scope,
             $scope.myVisitors.push($scope.listVisitors.slice(i, i + 3));
         }
     }
+
+    $scope.imageLoaded = function () {
+        $scope.loadingNum++;
+        if ($scope.loadingNum == $scope.listVisitors.length) {
+            $scope.loadingVisitors = false;
+            $scope.loadingNum = 0;
+        }
+    };
 
     init();
 });

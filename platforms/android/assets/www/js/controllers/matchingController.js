@@ -172,7 +172,9 @@ angular.module('controllers').controller('MatchingController', function ($scope,
         }
         else {
             $scope.posProfile++;
-            $scope.currentProfile = $scope.listMatches[$scope.posProfile];
+            if ($scope.posProfile < $scope.listMatches.length) {
+                $scope.currentProfile = $scope.listMatches[$scope.posProfile];
+            }
         }
     }
 
@@ -194,9 +196,11 @@ angular.module('controllers').controller('MatchingController', function ($scope,
         var filters = {
             "id": $scope.userProfile.id,
             "email": $scope.getUserFromLS().email,
-            "looking_to": $scope.filters.interest,
             "ages": { ageFrom: $scope.filters.ageFrom, ageTo: $scope.filters.ageTo }
         };
+        if ($scope.filters.interest) {
+            filters.looking_to = $scope.filters.interest;
+        }
         if ($scope.filters.gender != "Everyone") {
             filters.gender = $scope.filters.gender;
         }

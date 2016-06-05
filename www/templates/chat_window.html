@@ -35,6 +35,6 @@
         <div class="test">
             <input type="text" class="chat-inputbox" autocomplete="off" placeholder="Type a message" ng-change="updateTyping()" ng-enter="sendMessage()" ng-model="chat.message" />
         </div>
-        <a class="button button-icon icon ion-paper-airplane" ng-click="sendMessage()" ng-disabled="!chat.message"></a>
+        <button class="button button-icon icon ion-paper-airplane" ng-click="sendMessage($event)" ng-disabled="!chat.message"></button>
     </div>
 </ion-footer-bar>

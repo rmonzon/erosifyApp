@@ -21,7 +21,25 @@
     </div>
 </ion-content>
 
-<ion-content class="match-container" ng-hide="loadingMatches || listMatches.length == 0"> <!--  || listMatches.length == 0 !-->
+<ion-content class="login-container gradient-bg" ng-show="posProfile == listMatches.length && !loadingMatches">
+    <div class="coffe-icon-container">
+        <i class="icon ion-coffee"></i>
+    </div>
+    <div class="text-center" style="margin-top: 55%">
+        <p class="text-center" style="font-size: 20px;font-weight: bold">Check back soon!</p>
+        <p class="text-center" style="margin-top: 40px">
+            We're learning your tastes and will have more people shortly. In the mean time try to change some filters and maybe we could find more
+            matches for you.
+        </p>
+    </div>
+
+
+    <div class="" style="position: absolute;bottom: 15%;left: 50%;margin-left: -41px">
+        <a class="button button-clear btn-link-fb" ng-click="openFilterOptions()"><b>Edit Filters</b></a>
+    </div>
+</ion-content>
+
+<ion-content class="match-container" ng-hide="loadingMatches || listMatches.length == 0 || posProfile == listMatches.length">
     <div class="photo-section-container" ng-hide="loadingMatches">
         <div class="top-name-container">
             <a class="button button-icon icon" ng-class="currentProfile.favorite ? 'match-favorite ion-ios-star' : 'match-no-favorite ion-ios-star-outline'" style="float: left;margin-left: 15px" ng-click="addRemoveFavorite()"></a>
@@ -44,7 +62,7 @@
             <div class="circular-pic-container">
                 <div class="matching-pic-container">
                     <ion-spinner class="default-spinner" ng-show="loadingProfileImg"></ion-spinner>
-                    <img ng-src="{{currentProfile.pictures[0]}}" ng-load-image="imageLoaded()" ng-hide="loadingProfileImg" width="100%" height="100%">
+                    <img ng-src="{{currentProfile.pictures[0]}}" ng-load-image="imageLoaded()" ng-hide="loadingProfileImg" ng-click="openPicFullScreen(0)" width="100%" height="100%">
                 </div>
             </div>
 

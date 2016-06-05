@@ -10,6 +10,7 @@ angular.module('controllers').controller('LikesController', function ($scope, Ge
         $scope.myLikes = [];
         $scope.loadingLikes = true;
         $scope.noResults = false;
+        $scope.loadingNum = 0;
         $scope.getListOfLikes();
     }
 
@@ -26,7 +27,6 @@ angular.module('controllers').controller('LikesController', function ($scope, Ge
         if ($scope.listLikes.length == 0) {
             $scope.noResults = true;
         }
-        $scope.loadingLikes = false;
     }
 
     function getMyLikesError(response) {
@@ -39,6 +39,14 @@ angular.module('controllers').controller('LikesController', function ($scope, Ge
             $scope.myLikes.push($scope.listLikes.slice(i, i + 3));
         }
     }
+
+    $scope.imageLoaded = function () {
+        $scope.loadingNum++;
+        if ($scope.loadingNum == $scope.listLikes.length) {
+            $scope.loadingLikes = false;
+            $scope.loadingNum = 0;
+        }
+    };
 
     init();
 });

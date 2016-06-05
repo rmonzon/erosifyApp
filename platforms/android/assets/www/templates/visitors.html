@@ -7,11 +7,11 @@
   </div>
 </ion-header-bar>
 <ion-content class="gradient-bg">
-    <div style="margin: 5% 0">
+    <div style="padding-top: 15px" ng-hide="loadingVisitors">
         <div class="row matches-row" ng-repeat="row in myVisitors">
             <div class="col-33 text-center" ng-repeat="m in row">
                 <a class="button button-icon" style="width: 100%; position: relative" ng-click="goToProfile(m.id)">
-                    <img class="prof-pic-match" src="{{m.pictures[0]}}">
+                    <img class="prof-pic-match" ng-src="{{m.pictures[0]}}" ng-load-image="imageLoaded()">
                     <img src="img/verified-circle.svg" ng-show="m.verified == 1" class="verified-profile-icon-match">
                     <div ng-show="m.new == 1" class="new-visitor"><span>NEW</span></div>
                 </a>
@@ -38,7 +38,7 @@
         </div>
     </div>
 </ion-content>
-<div class="bar bar-footer row">
+<div class="bar bar-footer row" ng-hide="noResults">
     <div class="text-left footer-text col-33">Show users:</div>
     <button class=" button button-clear col-33" style="color: white; font-weight: bold; font-size: 18px">Online</button>
     <div class="div-divider"></div>

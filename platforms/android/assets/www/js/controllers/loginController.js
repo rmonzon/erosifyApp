@@ -63,7 +63,7 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
                     var credentials = {
                         "email": $scope.user.email,
                         "password": $scope.user.password,
-                        "location": results[0].formatted_address,
+                        "location": results[0].formatted_address.replace('EE. UU.', 'USA'),
                         "coords": latlng
                     };
                     mainFactory.authenticate(credentials).then(authenticateSuccess, authenticateError);
