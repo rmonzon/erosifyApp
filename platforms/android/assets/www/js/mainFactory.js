@@ -25,6 +25,10 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.post(factory.connectionStr + "/create_account", req);
     };
 
+    factory.createAccountFacebook = function (req) {
+        return $http.post(factory.connectionStr + "/create_fb_account", req);
+    };
+
     factory.authenticate = function (req) {
         return $http.post(factory.connectionStr + "/authentication", req);
     };

@@ -239,10 +239,10 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     // SUB-PROJECT DEPENDENCIES START
-    debugCompile project(path: "phonegap-facebook-plugin:erosify780476-FacebookLib", configuration: "debug")
-    releaseCompile project(path: "phonegap-facebook-plugin:erosify780476-FacebookLib", configuration: "release")
     debugCompile project(path: "CordovaLib", configuration: "debug")
     releaseCompile project(path: "CordovaLib", configuration: "release")
+    debugCompile project(path: "phonegap-facebook-plugin:FacebookLib", configuration: "debug")
+    releaseCompile project(path: "phonegap-facebook-plugin:FacebookLib", configuration: "release")
     // SUB-PROJECT DEPENDENCIES END
 }
 

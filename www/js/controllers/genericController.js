@@ -2,7 +2,7 @@
  * Created by raul on 1/7/16.
  */
 
-angular.module('controllers').service('GenericController', function($ionicLoading, $location, $timeout, $window, $cordovaFacebook, User, mainFactory) {
+angular.module('controllers').service('GenericController', function($q, $ionicLoading, $location, $timeout, $window, $cordovaGeolocation, User, mainFactory) {
     var $scope = null;
 
     this.init = function (_$scope) {
@@ -39,15 +39,12 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
         };
 
         $scope.logout = function () {
-            if (User.getUserFb().userID) {
-                $cordovaFacebook.logout().then(function (success) {
-                    $scope.goToPage('home');
-                }, function (error) {
-                    $scope.showMessage(error, 2000);
-                });
+            if ($scope.getUserFromLS().password) {
+                mainFactory.doLogOut({"email": $scope.getUserFromLS().email}).then(successLogout, errorLogout);
             }
             else {
-                mainFactory.doLogOut({"email": $scope.getUserFromLS().email}).then(successLogout, errorLogout);
+                // Facebook logout
+                facebookConnectPlugin.logout(function () { $scope.goToPage('home'); }, function (fail) { $scope.showMessage(fail, 2000); });
             }
             $scope.removeUserFromLS();
         };
@@ -94,6 +91,16 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
 
         $scope.showHidePassword = function () {
             $scope.inputType = $scope.inputType == 'text' ? 'password' : 'text';
+        };
+
+        $scope.calculateAge = function (user) {
+            var today = new Date();
+            var dd = today.getDate();
+            var mm = today.getMonth() + 1; //January is 0!
+            var yyyy = today.getFullYear();
+            var diffYears = yyyy - parseInt(user.year);
+            var a = mm * 30 + dd, b = parseInt(user.month) * 30 + parseInt(user.day);
+            return a < b ? diffYears - 1 : diffYears;
         };
 
         $scope.getDateFormatted = function (today) {
@@ -227,15 +234,81 @@ angular.module('controllers').service('GenericController', function($ionicLoadin
 
         function cleanImagesUrls(user) {
             if (user.pictures) {
-                return user.pictures.map(function (u) {
-                    return ENV.AMAZON_S3 + "/profiles/user_" + user.id + "/" + u;
-                });
+                if (!user.facebook_id) {
+                    return user.pictures.map(function (u) {
+                        return ENV.AMAZON_S3 + "/profiles/user_" + user.id + "/" + u;
+                    });   
+                }
+                else {
+                    return user.pictures;
+                }
             }
             return [];
         }
 
         $scope.escapeInvalidChars = function (str) {
             return str.replace("'", "''");
+        };
+
+        $scope.parseFacebookData = function (user) {
+            if (user.languages && user.languages.length > 0) {
+                for (var i = 0; i < user.languages.length; i++) {
+                    user.languages[i] = user.languages[i].name;
+                }
+            }
+            if (user.gender) {
+                //to capitalize first letter
+                user.gender = user.gender.charAt(0).toUpperCase() + user.gender.slice(1);
+            }
+            if (user.work && user.work.length > 0) {
+                user.work = user.work[0].employer.name;
+            }
+            if (user.education && user.education.length > 0) {
+                user.education = user.education[user.education.length - 1].school.name;
+            }
+            if (user.birthday) {
+                var dob = user.birthday.split('/');
+                user.birthday = dob[0] + "-" + dob[1] + "-" + dob[2];
+            }
+            if (user.friends && user.friends.length > 0) {
+                user.friends = user.friends.data;
+            }
+            if (user.picture) {
+                user.pictureSm = user.picture.data.url;
+                user.picture = "http://graph.facebook.com/" + user.id + "/picture?type=large";
+            }
+            return user;
+        };
+
+        // This method is to get the user profile info from the facebook api
+        $scope.getFacebookProfileInfo = function (authResponse) {
+            var info = $q.defer();
+            ///id,first_name,name,email,picture,gender,birthday,languages,about,education,friends
+            facebookConnectPlugin.api('/me?fields=email,first_name,name,gender,picture,friends&access_token=' + authResponse.accessToken, null,
+                function (response) {
+                    info.resolve(response);
+                },
+                function (response) {
+                    console.log(response);
+                    info.reject(response);
+                }
+            );
+            return info.promise;
+        };
+
+        $scope.getCurrentLocation = function () {
+            var posOptions = {timeout: 10000, enableHighAccuracy: false};
+            return $cordovaGeolocation.getCurrentPosition(posOptions);
+        };
+
+        $scope.errorGetLocation = function (err) {
+            $scope.hideMessage();
+            console.log(err);
+            if (err.code == 1) {
+                $scope.showMessage("Please enable GPS service to continue.", 3000);
+                return;
+            }
+            $scope.showMessage("Error getting your current location.", 3000);
         };
     };
 });

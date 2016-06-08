@@ -9,7 +9,27 @@
                 "parents": {
                     "/*": [
                         {
+                            "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"org.apache.cordova.camera.CameraLauncher\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"FileTransfer\"><param name=\"android-package\" value=\"org.apache.cordova.filetransfer.FileTransfer\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Geolocation\"><param name=\"android-package\" value=\"org.apache.cordova.geolocation.Geolocation\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
                             "count": 1
                         },
                         {
@@ -26,10 +46,6 @@
                         },
                         {
                             "xml": "<feature name=\"Keyboard\"><param name=\"android-package\" value=\"io.ionic.keyboard.IonicKeyboard\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
                             "count": 1
                         },
                         {
@@ -55,21 +71,33 @@
                         {
                             "xml": "<access origin=\"https://*.akamaihd.net\" />",
                             "count": 1
+                        }
+                    ]
+                }
+            },
+            "AndroidManifest.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+                            "count": 3
                         },
                         {
-                            "xml": "<feature name=\"Geolocation\"><param name=\"android-package\" value=\"org.apache.cordova.geolocation.Geolocation\" /></feature>",
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Camera\"><param name=\"android-package\" value=\"org.apache.cordova.camera.CameraLauncher\" /></feature>",
+                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",
+                            "count": 1
+                        }
+                    ],
+                    "application": [
+                        {
+                            "xml": "<meta-data android:name=\"com.facebook.sdk.ApplicationId\" android:value=\"@string/fb_app_id\" />",
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"File\"><param name=\"android-package\" value=\"org.apache.cordova.file.FileUtils\" /><param name=\"onload\" value=\"true\" /></feature>",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<feature name=\"FileTransfer\"><param name=\"android-package\" value=\"org.apache.cordova.filetransfer.FileTransfer\" /></feature>",
+                            "xml": "<activity android:label=\"@string/fb_app_name\" android:name=\"com.facebook.LoginActivity\" android:theme=\"@android:style/Theme.Translucent.NoTitleBar\" />",
                             "count": 1
                         }
                     ]
@@ -88,68 +116,17 @@
                         }
                     ]
                 }
-            },
-            "AndroidManifest.xml": {
-                "parents": {
-                    "application": [
-                        {
-                            "xml": "<meta-data android:name=\"com.facebook.sdk.ApplicationId\" android:value=\"@string/fb_app_id\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<activity android:label=\"@string/fb_app_name\" android:name=\"com.facebook.LoginActivity\" android:theme=\"@android:style/Theme.Translucent.NoTitleBar\" />",
-                            "count": 1
-                        }
-                    ],
-                    "/*": [
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",
-                            "count": 1
-                        },
-                        {
-                            "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
-                            "count": 3
-                        }
-                    ]
-                }
             }
         }
     },
     "installed_plugins": {
-        "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.ionicframework.erosify780476"
-        },
-        "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.ionicframework.erosify780476"
-        },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.ionicframework.erosify780476"
-        },
-        "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "com.ionicframework.erosify780476"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.ionicframework.erosify780476"
-        },
-        "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "com.ionicframework.erosify780476"
-        },
-        "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "com.ionicframework.erosify780476"
-        },
-        "phonegap-facebook-plugin": {
-            "APP_ID": "1544924485832128",
-            "APP_NAME": "Erosify",
-            "PACKAGE_NAME": "com.ionicframework.erosify780476"
-        },
-        "cordova-plugin-geolocation": {
+        "cordova-plugin-camera": {
             "PACKAGE_NAME": "com.ionicframework.erosify"
         },
-        "cordova-plugin-camera": {
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.ionicframework.erosify"
+        },
+        "cordova-plugin-device": {
             "PACKAGE_NAME": "com.ionicframework.erosify"
         },
         "cordova-plugin-file": {
@@ -157,80 +134,33 @@
         },
         "cordova-plugin-file-transfer": {
             "PACKAGE_NAME": "com.ionicframework.erosify"
+        },
+        "cordova-plugin-geolocation": {
+            "PACKAGE_NAME": "com.ionicframework.erosify"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.ionicframework.erosify"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.ionicframework.erosify"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.ionicframework.erosify"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ionicframework.erosify"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.ionicframework.erosify"
+        },
+        "phonegap-facebook-plugin": {
+            "APP_ID": "1544924485832128",
+            "APP_NAME": "Erosify",
+            "PACKAGE_NAME": "com.ionicframework.erosify"
         }
     },
     "dependent_plugins": {},
     "modules": [
-        {
-            "file": "plugins/cordova-plugin-device/www/device.js",
-            "id": "cordova-plugin-device.device",
-            "pluginId": "cordova-plugin-device",
-            "clobbers": [
-                "device"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
-            "id": "cordova-plugin-splashscreen.SplashScreen",
-            "pluginId": "cordova-plugin-splashscreen",
-            "clobbers": [
-                "navigator.splashscreen"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
-            "id": "cordova-plugin-statusbar.statusbar",
-            "pluginId": "cordova-plugin-statusbar",
-            "clobbers": [
-                "window.StatusBar"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-whitelist/whitelist.js",
-            "id": "cordova-plugin-whitelist.whitelist",
-            "pluginId": "cordova-plugin-whitelist",
-            "runs": true
-        },
-        {
-            "file": "plugins/ionic-plugin-keyboard/www/android/keyboard.js",
-            "id": "ionic-plugin-keyboard.keyboard",
-            "pluginId": "ionic-plugin-keyboard",
-            "clobbers": [
-                "cordova.plugins.Keyboard"
-            ],
-            "runs": true
-        },
-        {
-            "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
-            "id": "cordova-plugin-inappbrowser.inappbrowser",
-            "pluginId": "cordova-plugin-inappbrowser",
-            "clobbers": [
-                "cordova.InAppBrowser.open",
-                "window.open"
-            ]
-        },
-        {
-            "file": "plugins/phonegap-facebook-plugin/facebookConnectPlugin.js",
-            "id": "phonegap-facebook-plugin.FacebookConnectPlugin",
-            "pluginId": "phonegap-facebook-plugin",
-            "clobbers": [
-                "facebookConnectPlugin"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
-            "id": "cordova-plugin-geolocation.geolocation",
-            "pluginId": "cordova-plugin-geolocation",
-            "clobbers": [
-                "navigator.geolocation"
-            ]
-        },
-        {
-            "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
-            "id": "cordova-plugin-geolocation.PositionError",
-            "pluginId": "cordova-plugin-geolocation",
-            "runs": true
-        },
         {
             "file": "plugins/cordova-plugin-camera/www/CameraConstants.js",
             "id": "cordova-plugin-camera.Camera",
@@ -257,6 +187,13 @@
             "id": "cordova-plugin-camera.CameraPopoverHandle",
             "clobbers": [
                 "CameraPopoverHandle"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-device/www/device.js",
+            "id": "cordova-plugin-device.device",
+            "clobbers": [
+                "device"
             ]
         },
         {
@@ -423,20 +360,74 @@
             "clobbers": [
                 "window.FileTransfer"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
+            "id": "cordova-plugin-geolocation.geolocation",
+            "clobbers": [
+                "navigator.geolocation"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-geolocation/www/PositionError.js",
+            "id": "cordova-plugin-geolocation.PositionError",
+            "runs": true
+        },
+        {
+            "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+            "id": "cordova-plugin-inappbrowser.inappbrowser",
+            "clobbers": [
+                "cordova.InAppBrowser.open",
+                "window.open"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+            "id": "cordova-plugin-splashscreen.SplashScreen",
+            "clobbers": [
+                "navigator.splashscreen"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+            "id": "cordova-plugin-statusbar.statusbar",
+            "clobbers": [
+                "window.StatusBar"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-whitelist/whitelist.js",
+            "id": "cordova-plugin-whitelist.whitelist",
+            "runs": true
+        },
+        {
+            "file": "plugins/ionic-plugin-keyboard/www/android/keyboard.js",
+            "id": "ionic-plugin-keyboard.keyboard",
+            "clobbers": [
+                "cordova.plugins.Keyboard"
+            ],
+            "runs": true
+        },
+        {
+            "file": "plugins/phonegap-facebook-plugin/facebookConnectPlugin.js",
+            "id": "phonegap-facebook-plugin.FacebookConnectPlugin",
+            "clobbers": [
+                "facebookConnectPlugin"
+            ]
         }
     ],
     "plugin_metadata": {
+        "cordova-plugin-camera": "2.1.1",
         "cordova-plugin-console": "1.0.2",
         "cordova-plugin-device": "1.1.0",
+        "cordova-plugin-file": "4.1.1",
+        "cordova-plugin-file-transfer": "1.5.0",
+        "cordova-plugin-geolocation": "2.1.0",
+        "cordova-plugin-inappbrowser": "1.1.2-dev",
         "cordova-plugin-splashscreen": "3.0.0",
         "cordova-plugin-statusbar": "2.0.0",
         "cordova-plugin-whitelist": "1.2.0",
         "ionic-plugin-keyboard": "1.0.8",
-        "cordova-plugin-inappbrowser": "1.1.2-dev",
-        "phonegap-facebook-plugin": "0.12.0",
-        "cordova-plugin-geolocation": "2.1.0",
-        "cordova-plugin-camera": "2.1.1",
-        "cordova-plugin-file": "4.1.1",
-        "cordova-plugin-file-transfer": "1.5.0"
+        "phonegap-facebook-plugin": "0.12.0"
     }
 }

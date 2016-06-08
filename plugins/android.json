@@ -7,39 +7,39 @@
         "files": {}
     },
     "installed_plugins": {
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.ionicframework.erosify"
+        },
         "cordova-plugin-console": {
-            "PACKAGE_NAME": "com.ionicframework.erosify780476"
+            "PACKAGE_NAME": "com.ionicframework.erosify"
         },
         "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.ionicframework.erosify780476"
+            "PACKAGE_NAME": "com.ionicframework.erosify"
         },
-        "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "com.ionicframework.erosify780476"
-        },
-        "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "com.ionicframework.erosify780476"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.ionicframework.erosify780476"
-        },
-        "ionic-plugin-keyboard": {
-            "PACKAGE_NAME": "com.ionicframework.erosify780476"
-        },
-        "cordova-plugin-inappbrowser": {
-            "PACKAGE_NAME": "com.ionicframework.erosify780476"
-        },
-        "phonegap-facebook-plugin": {
-            "APP_ID": "1544924485832128",
-            "APP_NAME": "Erosify",
-            "PACKAGE_NAME": "com.ionicframework.erosify780476"
+        "cordova-plugin-file-transfer": {
+            "PACKAGE_NAME": "com.ionicframework.erosify"
         },
         "cordova-plugin-geolocation": {
             "PACKAGE_NAME": "com.ionicframework.erosify"
         },
-        "cordova-plugin-camera": {
+        "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.ionicframework.erosify"
         },
-        "cordova-plugin-file-transfer": {
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.ionicframework.erosify"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.ionicframework.erosify"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.ionicframework.erosify"
+        },
+        "ionic-plugin-keyboard": {
+            "PACKAGE_NAME": "com.ionicframework.erosify"
+        },
+        "phonegap-facebook-plugin": {
+            "APP_ID": "1544924485832128",
+            "APP_NAME": "Erosify",
             "PACKAGE_NAME": "com.ionicframework.erosify"
         }
     },

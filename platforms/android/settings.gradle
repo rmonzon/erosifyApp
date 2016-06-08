@@ -1,4 +1,5 @@
 // GENERATED FILE - DO NOT EDIT
 include ":"
-include ":phonegap-facebook-plugin:erosify780476-FacebookLib"
 include ":CordovaLib"
+include ":phonegap-facebook-plugin:FacebookLib"
+project(":phonegap-facebook-plugin:FacebookLib").projectDir = new File("phonegap-facebook-plugin/erosify-FacebookLib")

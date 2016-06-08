@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <!-- From: file:/Users/raul/Desktop/erosify_project/erosify/platforms/android/phonegap-facebook-plugin/erosify780476-FacebookLib/res/values-xhdpi/dimens.xml -->
-    <eat-comment/>
-    <dimen name="com_facebook_picker_divider_width">2px</dimen>
-</resources>

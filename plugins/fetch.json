@@ -56,18 +56,6 @@
         "is_top_level": true,
         "variables": {}
     },
-    "phonegap-facebook-plugin": {
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Wizcorp/phonegap-facebook-plugin.git",
-            "subdir": "."
-        },
-        "is_top_level": true,
-        "variables": {
-            "APP_ID": "1544924485832128",
-            "APP_NAME": "Erosify"
-        }
-    },
     "cordova-plugin-geolocation": {
         "source": {
             "type": "registry",
@@ -99,5 +87,17 @@
         },
         "is_top_level": false,
         "variables": {}
+    },
+    "phonegap-facebook-plugin": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/phonegap/phonegap-facebook-plugin.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {
+            "APP_ID": "1544924485832128",
+            "APP_NAME": "Erosify"
+        }
     }
 }

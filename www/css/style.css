@@ -1552,10 +1552,9 @@ span.msg {
 }
 
 .no-data-container {
-    padding: 30px;
     font-size: 16px;
     color: whitesmoke;
-    margin-top: 30%;
+    padding-top: 50%;
     text-align: center;
 }
 

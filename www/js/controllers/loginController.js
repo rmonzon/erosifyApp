@@ -26,24 +26,11 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
             return;
         }
         $scope.showMessageWithIcon("Retrieving location...");
-        $scope.getCurrentLocation();
+        $scope.getCurrentLocation().then(successGetLocation, $scope.errorGetLocation);
     };
-
-    $scope.getCurrentLocation = function () {
-        var posOptions = {timeout: 10000, enableHighAccuracy: false};
-        $cordovaGeolocation.getCurrentPosition(posOptions).then(successGetLocation, errorGetLocation);
-    };
-
+    
     function successGetLocation(position) {
         geocodeLatLng(position.coords.latitude, position.coords.longitude);
-    }
-
-    function errorGetLocation(err) {
-        $scope.hideMessage();
-        console.log(err);
-        if (err.code == 1 || err.code == 3) {
-            $scope.showMessage("Please enable GPS service to continue.", 3000);
-        }
     }
 
     function geocodeLatLng(lat, long) {
@@ -52,12 +39,6 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
         geocoder.geocode({'location': latlng}, function (results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
                 if (results[0]) {
-                    //results[0] = Full street address
-                    //results[1] = locality address
-                    //results[2] = postal code address
-                    //results[3] = county address
-                    //results[4] = state address
-                    //results[5] = country address
                     $scope.hideMessage();
                     $scope.showMessageWithIcon("Verifying credentials...");
                     var credentials = {
@@ -109,27 +90,25 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
                 // The user is logged in and has authenticated your app, and response.authResponse supplies
                 // the user's ID, a valid access token, a signed request, and the time the access token
                 // and signed request each expire
-                console.log('getLoginStatus', success.status);
                 // Check if we have our user saved
-                var user = User.getUser('facebook');
-                if (!user.userID) {
-                    getFacebookProfileInfo(success.authResponse).then(function (profileInfo) {
+                var user = $scope.getUserFromLS();
+                if (!user.email) {
+                    $scope.getFacebookProfileInfo(success.authResponse).then(function (profileInfo) {
                         console.log(profileInfo);
                         // For the purpose of this example I will store user data on local storage
-                        User.setUserFb({
-                            authResponse: success.authResponse,
-                            userID: profileInfo.id,
-                            name: profileInfo.name,
-                            email: profileInfo.email,
-                            picture: "http://graph.facebook.com/" + success.authResponse.userID + "/picture?type=large"
-                        });
-                        $scope.hideMessage();
-                        $scope.goToPage('app/matching');
+                        $scope.setUserToLS({ email: profileInfo.email, password: "" });
+                        $scope.user.email = profileInfo.email;
+
+                        $scope.showMessageWithIcon("Retrieving location...");
+                        $scope.getCurrentLocation();
                     }, function (error) {
                         $scope.showMessage(error, 2000);
                     });
                 } else {
-                    $scope.goToPage('app/matching');
+                    $scope.setUserToLS({ email: user.email, password: "" });
+                    $scope.user.email = user.email;
+                    $scope.showMessageWithIcon("Retrieving location...");
+                    $scope.getCurrentLocation();
                 }
             } else {
                 // If (success.status === 'not_authorized') the user is logged in to Facebook,
@@ -138,9 +117,15 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
                 // so we're not sure if they are logged into this app or not.
                 console.log('getLoginStatus', success.status);
                 $scope.showMessageWithIcon("Verifying credentials...");
-                // Ask the permissions you need. You can learn more about
-                // FB permissions here: https://developers.facebook.com/docs/facebook-login/permissions/v2.4
-                $cordovaFacebook.login(['email', 'public_profile'], fbLoginSuccess, fbLoginError);
+                $cordovaFacebook.login([
+                    'email',
+                    'public_profile',
+                    'user_friends',
+                    'user_birthday',
+                    'user_likes',
+                    'user_work_history',
+                    'user_education_history'
+                ], fbLoginSuccess, fbLoginError);
             }
         });
     };
@@ -151,8 +136,7 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
             return;
         }
         var authResponse = response.authResponse;
-        getFacebookProfileInfo(authResponse).then(function (profileInfo) {
-            // For the purpose of this example I will store user data on local storage
+        $scope.getFacebookProfileInfo(authResponse).then(function (profileInfo) {
             User.setUser({
                 authResponse: authResponse,
                 userID: profileInfo.id,
@@ -171,21 +155,6 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
     var fbLoginError = function (error) {
         console.log('fbLoginError', error);
         $scope.hideMessage();
-    };
-
-    // This method is to get the user profile info from the facebook api
-    var getFacebookProfileInfo = function (authResponse) {
-        var info = $q.defer();
-        $cordovaFacebook.api('/me?fields=email,name&access_token=' + authResponse.accessToken, null).then(function (response) {
-                console.log(response);
-                info.resolve(response);
-            },
-            function (response) {
-                console.log(response);
-                info.reject(response);
-            }
-        );
-        return info.promise;
     };
 
     init();
