@@ -8,18 +8,60 @@
     <a class="button button-icon icon ion-edit" ng-click="enableEditProfile()" ng-hide="editingProfile"></a>
     <a class="button button-icon icon ion-checkmark-round" ng-click="saveProfileChanges()" ng-show="editingProfile"></a>
 </ion-header-bar>
-<ion-content>
+<ion-content ng-hide="loadingProfile">
     <div class="myprofile-pics-bg">
-        <button class="button button-icon button-clear ion-chevron-left" ng-click="previousPic()"></button>
-        <button class="button button-icon button-clear ion-chevron-right" ng-click="nextPic()"></button>
+        <button class="button button-icon button-clear ion-chevron-left" ng-click="previousPic()" ng-hide="editingProfile"></button>
+        <button class="button button-icon button-clear ion-chevron-right" ng-click="nextPic()" ng-hide="editingProfile"></button>
 
-        <ion-slide-box style="height: 100%;" on-slide-changed="slideChanged($index)" show-pager="true">
+        <ion-slide-box style="height: 100%;" on-slide-changed="slideChanged($index)" show-pager="true" ng-hide="editingProfile">
             <ion-slide ng-repeat="imageUrl in user.pictures">
-                <div class="pic-container" ng-style="{background:'url(' + imageUrl + ')'}">
-                    <!--<img ng-src="{{imageUrl}}">-->
+                <!--ng-style="{background:'url(' + imageUrl + ')'}"-->
+                <div class="pic-container">
+                    <ion-spinner class="default-spinner" ng-show="loadingProfilePics"></ion-spinner>
+                    <img ng-src="{{imageUrl}}" ng-load-image="imageLoaded()" ng-hide="loadingProfilePics">
                 </div>
             </ion-slide>
         </ion-slide-box>
+
+        <div class="row row-pictures" ng-show="editingProfile">
+            <div class="col-66" style="padding: 5px">
+                <div class="col preview-pic-container">
+                    <button ng-click="pics[0] ? removePic(0) : addPic(0)" ng-class="pics[0] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
+                    <img ng-src="{{pics[0] ? pics[0] : 'img/profile.png'}}" class="main-img-profile">
+                    <div class="upload-progress-main" ng-style="{'width': progressW[0] + 'vw'}"></div>
+                </div>
+            </div>
+            <div class="col-34" style="padding: 5px">
+                <div class="col preview-pic-container">
+                    <button ng-click="pics[1] ? removePic(1) : addPic(1)" ng-class="pics[1] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
+                    <img ng-src="{{pics[1] ? pics[1] : 'img/profile.png'}}" class="edit-img-profile">
+                    <div class="upload-progress-two" ng-style="{'width': progressW[1] + 'vw'}"></div>
+                </div>
+                <div class="col preview-pic-container">
+                    <button ng-click="pics[2] ? removePic(2) : addPic(2)" ng-class="pics[2] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
+                    <img ng-src="{{pics[2] ? pics[2] : 'img/profile.png'}}" class="edit-img-profile">
+                    <div class="upload-progress-three" ng-style="{'width': progressW[2] + 'vw'}"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-pictures" ng-show="editingProfile">
+            <div class="col-33 preview-pic-container">
+                <button ng-click="pics[3] ? removePic(3) : addPic(3)" ng-class="pics[3] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
+                <img ng-src="{{pics[3] ? pics[3] : 'img/profile.png'}}" class="edit-img-profile">
+                <div class="upload-progress-four" ng-style="{'width': progressW[3] + 'vw'}"></div>
+            </div>
+            <div class="col-33 preview-pic-container">
+                <button ng-click="pics[4] ? removePic(4) : addPic(4)" ng-class="pics[4] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
+                <img ng-src="{{pics[4] ? pics[4] : 'img/profile.png'}}" class="edit-img-profile">
+                <div class="upload-progress-four" ng-style="{'width': progressW[4] + 'vw'}"></div>
+            </div>
+            <div class="col-33 preview-pic-container">
+                <button ng-click="pics[5] ? removePic(5) : addPic(5)" ng-class="pics[5] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
+                <img ng-src="{{pics[5] ? pics[5] : 'img/profile.png'}}" class="edit-img-profile">
+                <div class="upload-progress-four" ng-style="{'width': progressW[5] + 'vw'}"></div>
+            </div>
+        </div>
     </div>
 
     <div class="myprofile-info-bg">
@@ -141,3 +183,8 @@
 </ion-content>
 
 
+<ion-content class="profile-info-bg" ng-show="loadingProfile">
+    <div class="text-center def-spinner-container">
+        <ion-spinner class="default-spinner"></ion-spinner>
+    </div>
+</ion-content>

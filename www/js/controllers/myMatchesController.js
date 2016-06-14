@@ -19,7 +19,7 @@ angular.module('controllers').controller('MyMatchesController', function ($scope
 
     function getMyMatchesSuccess(response) {
         $scope.listMatches = $scope.parseDataFromDB(response.data.matches);
-        convertDataForUI();
+        $scope.myMatches = $scope.convertDataForUI($scope.listMatches);
         if ($scope.listMatches.length == 0) {
             $scope.noResults = true;
         }
@@ -29,12 +29,6 @@ angular.module('controllers').controller('MyMatchesController', function ($scope
     function getMyMatchesError(response) {
         $scope.showMessage(response.data.error, 2500);
         $scope.loadingMatches = false;
-    }
-
-    function convertDataForUI() {
-        for (var i = 0, len = $scope.listMatches.length; i < len; i+=3) {
-            $scope.myMatches.push($scope.listMatches.slice(i, i + 3));
-        }
     }
 
     init();

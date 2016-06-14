@@ -10,6 +10,7 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
         $scope.totalPics = 0;
         $scope.loadedPics = true;
         $scope.pics = ["", "", "", "", "", ""];
+        $scope.progressW = [0, 0, 0, 0, 0, 0];
     }
 
     // Triggered on a button click, or some other target
@@ -69,8 +70,9 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
             $scope.showMessage("You have to select a profile picture!", 2000);
             return;
         }
+        
         //update user pictures in the db
-        $scope.showMessageWithIcon("Updating your profile...");
+        $scope.showMessageWithIcon("Saving your photos...");
         var pics = createArrayOfImgs();
         mainFactory.updateNewUserPics({ user_id: User.getUser().id, pics: pics }).then(function (response) {
             response.data.user = $scope.parseDataFromDB(response.data.user);
@@ -85,15 +87,16 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
 
     $scope.takePictureWithCamera = function() {
         var options = {
-            quality: 50,
+            quality: 70,
             destinationType: Camera.DestinationType.FILE_URL,
             sourceType: Camera.PictureSourceType.CAMERA,
-            targetWidth: 500,
-            targetHeight: 800,
+            targetWidth: 1000,
+            targetHeight: 1000,
             allowEdit: false,
             encodingType: Camera.EncodingType.JPEG,
             popoverOptions: CameraPopoverOptions,
-            saveToPhotoAlbum: false
+            saveToPhotoAlbum: false,
+            correctOrientation: true
         };
         $cordovaCamera.getPicture(options).then(function (imageURI) {
             $scope.showMessage("Uploading picture...");
@@ -108,11 +111,11 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
 
     $scope.selectPictureFromLib = function() {
         var options = {
-            quality: 50,
+            quality: 70,
             destinationType: Camera.DestinationType.FILE_URI,
             sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-            targetWidth: 500,
-            targetHeight: 800,
+            targetWidth: 1000,
+            targetHeight: 1000,
             allowEdit: false,
             encodingType: Camera.EncodingType.JPEG,
             popoverOptions: CameraPopoverOptions,
@@ -171,8 +174,7 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
                 $scope.hideMessage();
                 $scope.showMessage("Upload image failed!", 2000);
             }, function (progress) {
-                console.log("Uploading progress... ", progress);
-                //todo: make a progress bar at bottom of the images
+                $scope.progressW[$scope.picNumber - 1] = $scope.picNumber - 1 === 0 ? progress.loaded * 59 / progress.total : progress.loaded * 27 / progress.total;
             });
     };
 

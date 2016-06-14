@@ -129,29 +129,8 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.post(factory.connectionStr + "/peoplenearby", req);
     };
 
-
-    
-
-    /*** Store user's info in session store, it'll be removed when log out ***/
-
-    factory.setUserToStorage = function (user) {
-        $window.sessionStorage && $window.sessionStorage.setItem('user', user);
-        return this;
-    };
-
-    factory.getUserFromStorage = function () {
-        return $window.sessionStorage && $window.sessionStorage.getItem('user');
-    };
-
-    /*** Store playerID in local storage if user checked that option  ***/
-
-    factory.setUserToLocalStorage = function (id) {
-        $window.localStorage && $window.localStorage.setItem('playerID', id);
-        return this;
-    };
-
-    factory.getUserFromLocalStorage = function () {
-        return $window.localStorage && $window.localStorage.getItem('playerID');
+    factory.getCommonFriends = function (uid) {
+        return $http.get(factory.connectionStr + "/common_friends/" + uid, { headers: { token: User.getToken(), my_id: User.getUser().id }});
     };
 
     return factory;

@@ -11,7 +11,8 @@
         <ion-slide-box style="height: 100%;" on-slide-changed="slideChanged($index)" show-pager="true">
             <ion-slide ng-repeat="imageUrl in user.pictures">
                 <div class="pic-container">
-                    <img ng-src="{{imageUrl}}" ng-load-image="imageLoaded()">
+                    <ion-spinner class="default-spinner" ng-show="loadingProfilePics"></ion-spinner>
+                    <img ng-src="{{imageUrl}}" ng-load-image="imageLoaded()" ng-hide="loadingProfilePics">
                 </div>
             </ion-slide>
         </ion-slide-box>
@@ -76,14 +77,14 @@
                 </p>
             </div>
         </div>
-        <div class="row row-divider">
+        <div class="row row-divider" ng-show="numConnections > 0">
             <div class="col">
                 <b style="position: absolute;">{{numConnections}} Common Connections</b>
                 <ion-slide-box show-pager="true">
                     <ion-slide ng-repeat="section in commonFriends">
                         <div class="row" ng-repeat="row in section">
                             <div class="col-33 text-center" ng-repeat="m in row">
-                                <img class="prof-pic-match" ng-src="{{m.pic}}" width="100%">
+                                <img class="prof-pic-match" ng-src="{{m.pictures[0]}}" width="100%">
                                 <br>
                                 <div style="display: inline-flex; text-align: center">
                                     <span class="match-user" style="font-size: 15px">{{m.name}}</span>
@@ -98,8 +99,11 @@
             <div class="col">
                 <i class="icon ion-ribbon-b"></i>
                 <b>Premium Membership</b>
-                <p class="about-me-desc">
-                    Not activated - <a>Activate Now</a>
+                <p class="about-me-desc" ng-show="user.premium_member == 0">
+                    Not activated
+                </p>
+                <p class="about-me-desc" ng-show="user.premium_member == 1">
+                    Activated
                 </p>
             </div>
         </div>

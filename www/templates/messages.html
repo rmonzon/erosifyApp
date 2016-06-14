@@ -23,7 +23,7 @@
                 <i class="icon ion-checkmark-circled verified-icon" ng-show="m.verified == 1" style="font-size: 14px;color: #016501;margin-right: 0;margin-left: 6px;margin-top: 0"></i>
                 <div class="status-icon-sm" ng-class="m.status == 1 ? 'online' : ''" style="margin: 4px 0 0 8px;"></div>
             </div>
-            <span class="msg-lastmsg" ng-class="m.unread == 1 ? 'unread-msg' : ''">{{m.message}}</span>
+            <span class="msg-lastmsg" ng-class="m.unread == 1 && m.sender_id != userId ? 'unread-msg' : ''">{{m.message}}</span>
         </div>
         <div class="text-right">
             <span class="msg-date">{{m.sent_date}}</span>

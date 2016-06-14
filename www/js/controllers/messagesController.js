@@ -2,13 +2,14 @@
  * Created by raul on 2/3/16.
  */
 
-angular.module('controllers').controller('MessagesController', function ($scope, $timeout, GenericController, mainFactory) {
+angular.module('controllers').controller('MessagesController', function ($scope, $timeout, GenericController, User, mainFactory) {
 
     function init() {
         GenericController.init($scope);
         $scope.searchTerm = "";
         $scope.loadingMessages = true;
         $scope.messages = [];
+        $scope.userId = User.getUser().id;
         $scope.getMessages();
     }
 

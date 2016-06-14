@@ -7,16 +7,16 @@
         <div class="text-center profile-empty-container" ng-hide="loadedPics">
             <img src="img/profile_emptypic.png" width="100">
             <br />
-            <button class="button button-clear add-pics-link" ng-click="showActionSheet()">Add pictures to your profile</button>
+            <button class="button button-clear add-pics-link" ng-click="showActionSheet()">Add photos to your profile</button>
         </div>
 
         <div class="add-pic-info" ng-hide="loadedPics">
-            <span>We can't show you off until you add at least one picture of you.</span>
+            <span>We can't show you off until you add at least one photo of you.</span>
         </div>
 
         <div class="row addpics-title" ng-show="loadedPics">
             <div class="col">
-                <span>Upload up to <b>6</b> of your best pictures</span>
+                <span>Add up to <b>6</b> of your best photos</span>
             </div>
         </div>
 
@@ -24,19 +24,19 @@
             <div class="col-66" style="padding: 5px">
                 <div class="col preview-pic-container">
                     <button ng-click="pics[0] ? removePic(0) : addPic(0)" ng-class="pics[0] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
-                    <span>1</span>
+                    <!--<span>1</span>-->
                     <img ng-src="{{pics[0] ? pics[0] : 'img/profile.png'}}" width="100%">
                 </div>
             </div>
             <div class="col-34" style="padding: 5px">
                 <div class="col preview-pic-container">
                     <button ng-click="pics[1] ? removePic(1) : addPic(1)" ng-class="pics[1] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
-                    <span>2</span>
+                    <!--<span>2</span>-->
                     <img ng-src="{{pics[1] ? pics[1] : 'img/profile.png'}}" width="100%">
                 </div>
                 <div class="col preview-pic-container">
                     <button ng-click="pics[2] ? removePic(2) : addPic(2)" ng-class="pics[2] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
-                    <span>3</span>
+                    <!--<span>3</span>-->
                     <img ng-src="{{pics[2] ? pics[2] : 'img/profile.png'}}" width="100%">
                 </div>
             </div>
@@ -45,17 +45,17 @@
         <div class="row row-pictures" ng-show="loadedPics">
             <div class="col-33 preview-pic-container">
                 <button ng-click="pics[3] ? removePic(3) : addPic(3)" ng-class="pics[3] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
-                <span>4</span>
+                <!--<span>4</span>-->
                 <img ng-src="{{pics[3] ? pics[3] : 'img/profile.png'}}" width="100%">
             </div>
             <div class="col-33 preview-pic-container">
                 <button ng-click="pics[4] ? removePic(4) : addPic(4)" ng-class="pics[4] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
-                <span>5</span>
+                <!--<span>5</span>-->
                 <img ng-src="{{pics[4] ? pics[4] : 'img/profile.png'}}" width="100%">
             </div>
             <div class="col-33 preview-pic-container">
                 <button ng-click="pics[5] ? removePic(5) : addPic(5)" ng-class="pics[5] ? 'ion-minus-round minus-btn' : 'ion-plus-round plus-btn'" class="button button-icon"></button>
-                <span>6</span>
+                <!--<span>6</span>-->
                 <img ng-src="{{pics[5] ? pics[5] : 'img/profile.png'}}" width="100%">
             </div>
         </div>

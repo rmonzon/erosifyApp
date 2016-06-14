@@ -21,6 +21,7 @@ angular.module('controllers').controller('FavoritesController', function ($scope
         $scope.listFavorites = $scope.parseDataFromDB(response.data.favorites);
         if ($scope.listFavorites.length == 0) {
             $scope.noResults = true;
+            $scope.loadingFavs = false;
         }
     }
 

@@ -23,7 +23,7 @@ angular.module('controllers').controller('LikesController', function ($scope, Ge
             response.data.likes[i].id = response.data.likes[i].user_one_id;
         }
         $scope.listLikes = $scope.parseDataFromDB(response.data.likes);
-        convertDataForUI();
+        $scope.myLikes = $scope.convertDataForUI($scope.listLikes);
         if ($scope.listLikes.length == 0) {
             $scope.noResults = true;
         }
@@ -32,12 +32,6 @@ angular.module('controllers').controller('LikesController', function ($scope, Ge
     function getMyLikesError(response) {
         $scope.showMessage(response.data.error, 2500);
         $scope.loadingLikes = false;
-    }
-    
-    function convertDataForUI() {
-        for (var i = 0, len = $scope.listLikes.length; i < len; i+=3) {
-            $scope.myLikes.push($scope.listLikes.slice(i, i + 3));
-        }
     }
 
     $scope.imageLoaded = function () {

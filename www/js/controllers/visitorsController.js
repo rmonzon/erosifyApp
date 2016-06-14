@@ -19,7 +19,7 @@ angular.module('controllers').controller('VisitorsController', function ($scope,
 
     function getMyVisitorsSuccess(response) {
         $scope.listVisitors = $scope.parseDataFromDB(response.data.visitors);
-        convertDataForUI();
+        $scope.myVisitors = $scope.convertDataForUI($scope.listVisitors);
         if ($scope.listVisitors.length == 0) {
             $scope.noResults = true;
         }
@@ -28,12 +28,6 @@ angular.module('controllers').controller('VisitorsController', function ($scope,
     function getMyVisitorsError(response) {
         $scope.showMessage(response.data.error, 2500);
         $scope.loadingVisitors = false;
-    }
-
-    function convertDataForUI() {
-        for (var i = 0, len = $scope.listVisitors.length; i < len; i+=3) {
-            $scope.myVisitors.push($scope.listVisitors.slice(i, i + 3));
-        }
     }
 
     $scope.imageLoaded = function () {

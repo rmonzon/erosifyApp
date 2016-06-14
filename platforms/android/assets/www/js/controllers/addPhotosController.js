@@ -69,8 +69,9 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
             $scope.showMessage("You have to select a profile picture!", 2000);
             return;
         }
+        
         //update user pictures in the db
-        $scope.showMessageWithIcon("Updating your profile...");
+        $scope.showMessageWithIcon("Saving your photos...");
         var pics = createArrayOfImgs();
         mainFactory.updateNewUserPics({ user_id: User.getUser().id, pics: pics }).then(function (response) {
             response.data.user = $scope.parseDataFromDB(response.data.user);
@@ -85,15 +86,16 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
 
     $scope.takePictureWithCamera = function() {
         var options = {
-            quality: 50,
+            quality: 70,
             destinationType: Camera.DestinationType.FILE_URL,
             sourceType: Camera.PictureSourceType.CAMERA,
-            targetWidth: 500,
-            targetHeight: 800,
+            targetWidth: 1000,
+            targetHeight: 1000,
             allowEdit: false,
             encodingType: Camera.EncodingType.JPEG,
             popoverOptions: CameraPopoverOptions,
-            saveToPhotoAlbum: false
+            saveToPhotoAlbum: false,
+            correctOrientation: true
         };
         $cordovaCamera.getPicture(options).then(function (imageURI) {
             $scope.showMessage("Uploading picture...");
@@ -108,11 +110,11 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
 
     $scope.selectPictureFromLib = function() {
         var options = {
-            quality: 50,
+            quality: 70,
             destinationType: Camera.DestinationType.FILE_URI,
             sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-            targetWidth: 500,
-            targetHeight: 800,
+            targetWidth: 1000,
+            targetHeight: 1000,
             allowEdit: false,
             encodingType: Camera.EncodingType.JPEG,
             popoverOptions: CameraPopoverOptions,

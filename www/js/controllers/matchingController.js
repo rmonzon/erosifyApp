@@ -32,6 +32,8 @@ angular.module('controllers').controller('MatchingController', function ($scope,
 
     $scope.getListOfMatches = function (filters) {
         $scope.loadingMatches = true;
+        $scope.posProfile = 0;
+        $scope.loadingProfileImg = true;
         mainFactory.getMatchesByUser(filters).then(getMatchesSuccess, getMatchesError);
     };
 
@@ -62,18 +64,21 @@ angular.module('controllers').controller('MatchingController', function ($scope,
     }
 
     $scope.likeProfile = function () {
+        $scope.loadingProfileImg = true;
         $scope.listMatches[$scope.posProfile].profileLiked = true;
         $scope.listMatches[$scope.posProfile].profileDisLiked = false;
         setLikeOrDislike(1);
     };
 
     $scope.dislikeProfile = function () {
+        $scope.loadingProfileImg = true;
         $scope.listMatches[$scope.posProfile].profileLiked = false;
         $scope.listMatches[$scope.posProfile].profileDisLiked = true;
         setLikeOrDislike(0);
     };
 
     $scope.skipProfile = function () {
+        $scope.loadingProfileImg = true;
         if ($scope.posProfile < $scope.listMatches.length - 1) {
             $scope.posProfile++;
             $scope.currentProfile = $scope.listMatches[$scope.posProfile];
@@ -81,6 +86,7 @@ angular.module('controllers').controller('MatchingController', function ($scope,
     };
 
     $scope.goPreviousProfile = function () {
+        $scope.loadingProfileImg = true;
         if ($scope.posProfile > 0) {
             $scope.posProfile--;
             $scope.currentProfile = $scope.listMatches[$scope.posProfile];
@@ -224,6 +230,11 @@ angular.module('controllers').controller('MatchingController', function ($scope,
         $scope.mutualMatchPopup.close();
         $scope.posProfile++;
         $scope.currentProfile = $scope.listMatches[$scope.posProfile];
+    };
+
+    $scope.sendMessageToUser = function () {
+        $scope.mutualMatchPopup.close();
+        $scope.goToPage('app/messages/' + $scope.currentProfile.id);
     };
 
     $scope.imageLoaded = function () {

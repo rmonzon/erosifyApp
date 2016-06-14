@@ -14,9 +14,10 @@ angular.module('controllers').controller('UserProfileController', function ($sco
         $scope.profileLiked = false;
         $scope.profileDisLiked = false;
         $scope.loadingProfile = true;
+        $scope.loadingFriends = false;
+        $scope.loadingProfilePics = true;
         $scope.loadingNum = 0;
-        $scope.getCommonFriends();
-        $scope.numConnections = calculateNumConnections($scope.commonFriends);
+        $scope.numConnections = 0;
         $scope.getUserInfoFromDB();
     }
 
@@ -31,11 +32,14 @@ angular.module('controllers').controller('UserProfileController', function ($sco
             $scope.profileLiked = $scope.user.liked == 1;
             $scope.profileDisLiked = $scope.user.liked == 0;
         }
+        $scope.loadingProfile = false;
         $scope.markProfileAsVisited();
+        $scope.getCommonFriends();
         $ionicSlideBoxDelegate.update();
     }
 
     function errorCallback(response) {
+        $scope.loadingProfile = false;
         $scope.showMessage(response.data.error, 2500);
         $scope.logout();
     }
@@ -122,12 +126,7 @@ angular.module('controllers').controller('UserProfileController', function ($sco
     }
 
     $scope.sendMessageToUser = function () {
-        //open chat window with that user
         $scope.goToPage('app/messages/' + $scope.user.id);
-    };
-
-    $scope.sendMessage = function () {
-        //open chat window with that user
     };
 
     $scope.closePopup = function () {
@@ -189,48 +188,41 @@ angular.module('controllers').controller('UserProfileController', function ($sco
     });
 
     $scope.getCommonFriends = function () {
-        $scope.commonFriends = [
-            [
-                [
-                    { name: "Samantha", pic: ENV.AMAZON_S3 + "/profiles/user_20/1.jpg" },
-                    { name: "Emily", pic: ENV.AMAZON_S3 + "/profiles/user_21/1.jpg" },
-                    { name: "Jessica", pic: ENV.AMAZON_S3 + "/profiles/user_23/1.jpg" }
-                ],
-                [
-                    { name: "Bethany", pic: ENV.AMAZON_S3 + "/profiles/user_27/1.jpg" },
-                    { name: "Nathan", pic: ENV.AMAZON_S3 + "/profiles/user_28/1.jpg" },
-                    { name: "Keith", pic: ENV.AMAZON_S3 + "/profiles/user_30/1.jpg" }
-                ]
-            ],
-            [
-                [
-                    { name: "Lola", pic: ENV.AMAZON_S3 + "/profiles/user_26/1.jpg" },
-                    { name: "Emily", pic: ENV.AMAZON_S3 + "/profiles/user_21/1.jpg" },
-                    { name: "Jessica", pic: ENV.AMAZON_S3 + "/profiles/user_23/1.jpg" }
-                ]
-            ]
-        ];
+        $scope.loadingFriends = true;
+        mainFactory.getCommonFriends($scope.user.id).then(getCommonFriendsSuccess, getCommonFriendsError);
     };
 
-    function calculateNumConnections() {
-        var num = 0;
-        for (var i = 0, len = $scope.commonFriends.length; i < len; ++i) {
-            for (var j = 0, leng = $scope.commonFriends[i].length; j < leng; ++j) {
-                for (var k = 0, lengt = $scope.commonFriends[i][j].length; k < lengt; ++k) {
-                    num++;
-                }
-            }
-        }
-        return num;
+    function getCommonFriendsSuccess(response) {
+        $scope.loadingFriends = false;
+        $scope.numConnections = response.data.total;
+        $scope.commonFriends = convertCommonFriendsForUI(response.data.commonFriends);
+    }
+
+    function getCommonFriendsError(response) {
+        $scope.loadingFriends = false;
+        $scope.showMessage(response.data, 2000);
+        console.log(response);
     }
 
     $scope.imageLoaded = function () {
         $scope.loadingNum++;
         if ($scope.loadingNum == $scope.user.pictures.length) {
-            $scope.loadingProfile = false;
+            $scope.loadingProfilePics = false;
             $scope.loadingNum = 0;
         }
     };
+
+    function convertCommonFriendsForUI(array) {
+        var res = [[]];
+        for (var i = 0, j = 0; i < array.length; i+=3) {
+            if (i % 6 === 0 && i > 0) {
+                j++;
+                res.push([]);
+            }
+            res[j].push(array.slice(i, i + 3));
+        }
+        return res;
+    }
     
     init();
 });

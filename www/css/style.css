@@ -79,6 +79,10 @@ p {
     font-family: LeituraSansGrot!important;
 }
 
+.btn-link-fb b {
+    font-family: LeituraSansGrot3;
+}
+
 .get-started-btn {
     background: rgba(120, 54, 67, 0.78);
     color: whitesmoke;
@@ -940,7 +944,7 @@ ion-header-bar .ion-android-search:before {
 }
 
 .prof-pic-match {
-    width: 70%;
+    width: 20vw;
     height: 20vw;
     border-radius: 50%;
 }
@@ -990,17 +994,14 @@ ion-header-bar .ion-android-search:before {
     color: white;
 }
 
-.ion-paper-airplane {
+.ion-android-send {
     width: 45px;
     min-height: 45px!important;
-    margin-top: 1px;
-    padding-top: 1px!important;
-    padding-left: 3px!important;
     border-radius: 50%;
-    color: white!important;
-    background: #00bdb3;
+    color: #00bdb3!important;
     position: fixed;
-    right: 10px;
+    right: 12px;
+    bottom: 7px;
 }
 
 .chat-inputbox-container {
@@ -1036,37 +1037,28 @@ ion-header-bar .ion-android-search:before {
 
 .chat-inputbox {
     width: 100%;
-    margin-top: 5px!important;
     height: 37px!important;
     border-radius: 7px 0 7px 7px;
-    padding: 7px 15px 7px 45px!important;
+    padding: 7px 50px 7px 45px!important;
     font-family: LeituraSansGrot;
     font-weight: bold;
 }
 
 .test {
     position: relative;
-    width: 82%;
+    width: 97%;
     height: 45px;
-    padding: 0px;
+    padding: 0;
     background: #FFFFFF;
     -webkit-border-radius: 7px 0 7px 7px;
     -moz-border-radius: 7px 0 7px 7px;
-    border-radius: 7px 0 7px 7px;
+    border-radius: 7px;
+    margin: 2px 0;
 }
 
-.test:after
-{
-    content: '';
-    position: absolute;
-    border-style: solid;
-    border-width: 0 0 18px 16px;
-    border-color: transparent #FFFFFF;
-    display: block;
-    width: 0;
-    z-index: 1;
-    right: -15px;
-    top: 0;
+.test .item.item-input {
+    border: none;
+    background: none;
 }
 
 .chat-inputbox-container .ion-android-happy {
@@ -1076,7 +1068,7 @@ ion-header-bar .ion-android-search:before {
     width: 45px;
     height: 40px;
     padding: 0;
-    margin-top: 5px;
+    bottom: 3px;
 }
 
 .top-name-container .button-icon .icon:before, .button-icon.icon:before {
@@ -1114,7 +1106,7 @@ ion-header-bar .ion-android-search:before {
     height: 60px;
 }
 
-a.ion-paper-airplane:before {
+a.ion-android-send:before {
     margin-top: 5px!important;
 }
 
@@ -1262,8 +1254,7 @@ span.msg {
     background: #D4D4D4;
 }
 
-.myprofile-pics-bg button {
-    color: black;
+.myprofile-pics-bg button.ion-chevron-left, .myprofile-pics-bg button.ion-chevron-right {
     font-size: 30px;
     position: absolute;
     top: 25%;
@@ -1296,6 +1287,13 @@ span.msg {
     background-repeat: no-repeat!important;
     background-size: contain!important;
     background-position: 50%!important;
+}
+
+.pic-container ion-spinner {
+    position: absolute;
+    left: 50%;
+    margin-left: -20px;
+    top: 40%;
 }
 
 .matching-pic-container {
@@ -1471,27 +1469,27 @@ span.msg {
 .plus-btn {
     border: 3px double rgba(128, 0, 0, 0.13);
     position: absolute;
-    margin-left: -14px;
-    margin-top: -14px;
+    margin-left: 5px;
+    margin-top: 5px;
 }
 
 .minus-btn {
     border: 3px double white;
     position: absolute;
-    margin-left: -14px;
-    margin-top: -14px;
+    margin-left: 5px;
+    margin-top: 5px;
 }
 
 .row-pictures .button-icon {
-    font-size: 18px;
+    font-size: 17px;
     background: salmon;
     color: white;
-    min-height: 28px;
-    height: 28px;
-    width: 28px;
+    min-height: 25px;
+    height: 25px;
+    width: 25px;
     border-radius: 50%;
     line-height: 0;
-    padding-left: 4px;
+    padding-left: 3px;
 }
 
 .preview-pic-container span {
@@ -1886,7 +1884,51 @@ span.msg {
     color: whitesmoke!important;
 }
 
+.edit-img-profile {
+    max-width: 27vw;
+    max-height: 27vw;
+    width: 27vw;
+    height: 27vw;
+}
 
+.main-img-profile {
+    max-width: 59vw;
+    max-height: 59vw;
+    width: 59vw;
+    height: 59vw;
+}
+
+.upload-progress-main {
+    width: 19vw;
+    height: 6px;
+    background: #00BDB3;
+    position: absolute;
+    top: 60vw;
+}
+
+.upload-progress-two {
+    width: 19vw;
+    height: 6px;
+    background: #00BDB3;
+    position: absolute;
+    top: 28vw;
+}
+
+.upload-progress-three {
+    width: 19vw;
+    height: 6px;
+    background: #00BDB3;
+    position: absolute;
+    top: 60vw;
+}
+
+.upload-progress-four {
+    width: 19vw;
+    height: 6px;
+    background: #00BDB3;
+    position: absolute;
+    top: 92.7vw;
+}
 
 /* CSS to create the pink bg on matching view */
 /*

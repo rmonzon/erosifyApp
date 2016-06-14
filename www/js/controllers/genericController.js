@@ -44,7 +44,13 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
             }
             else {
                 // Facebook logout
-                facebookConnectPlugin.logout(function () { $scope.goToPage('home'); }, function (fail) { $scope.showMessage(fail, 2000); });
+                facebookConnectPlugin.logout(function () {
+                    $timeout(function () {
+                        $scope.goToPage('home');
+                    }, 500);
+                }, function (fail) {
+                    $scope.showMessage(fail, 2000);
+                });
             }
             $scope.removeUserFromLS();
         };
@@ -159,7 +165,6 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
                     if (users[i].languages)
                         users[i].languages = users[i].languages.join(', ');
                     if (users[i].date) {
-                        //users[i].date = $scope.convertFromUTCtoLocalTime(users[i].date);
                         d = users[i].date.split('T')[0].split('-');
                         users[i].date = d[1] + "/" + d[2] + "/" + d[0];
                     }
@@ -167,8 +172,6 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
                         users[i].location = parseAddress(users[i].location);
                     }
                     if (users[i].sent_date) {
-                        //review date time coming from DB, check if it's UTC or not
-                        //users[i].full_date = $scope.convertFromUTCtoLocalTime(users[i].sent_date);
                         users[i].full_date = $scope.getDateTimeFormatted(new Date(users[i].sent_date));
                         t = $scope.formatDateToTime(new Date(users[i].full_date));
                         d = users[i].full_date.split(' ')[0].split('-');
@@ -184,7 +187,6 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
                 if (users.languages)
                     users.languages = users.languages.join(', ');
                 if (users.date) {
-                    //users.date = $scope.convertFromUTCtoLocalTime(users.date);
                     d = users.date.split('T')[0].split('-');
                     users.date = d[1] + "/" + d[2] + "/" + d[0];
                 }
@@ -192,7 +194,6 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
                     users.location = parseAddress(users.location);
                 }
                 if (users.sent_date) {
-                    //users.full_date = $scope.convertFromUTCtoLocalTime(users.sent_date);
                     users.full_date = $scope.getDateTimeFormatted(new Date(users.sent_date));
                     t = $scope.formatDateToTime(new Date(users.full_date));
                     d = users.full_date.split(' ')[0].split('-');
@@ -234,14 +235,14 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
 
         function cleanImagesUrls(user) {
             if (user.pictures) {
-                if (!user.facebook_id) {
-                    return user.pictures.map(function (u) {
+                return user.pictures.map(function (u) {
+                    if (u.indexOf('http') === -1) {
                         return ENV.AMAZON_S3 + "/profiles/user_" + user.id + "/" + u;
-                    });   
-                }
-                else {
-                    return user.pictures;
-                }
+                    }
+                    else {
+                        return u;
+                    }
+                });
             }
             return [];
         }
@@ -270,7 +271,7 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
                 var dob = user.birthday.split('/');
                 user.birthday = dob[0] + "-" + dob[1] + "-" + dob[2];
             }
-            if (user.friends && user.friends.length > 0) {
+            if (user.friends) {
                 user.friends = user.friends.data;
             }
             if (user.picture) {
@@ -310,5 +311,13 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
             }
             $scope.showMessage("Error getting your current location.", 3000);
         };
+
+        $scope.convertDataForUI = function (array) {
+            var newArray = [];
+            for (var i = 0, len = array.length; i < len; i += 3) {
+                newArray.push(array.slice(i, i + 3));
+            }
+            return newArray;
+        }
     };
 });

@@ -30,11 +30,13 @@
 </ion-content>
 
 <ion-footer-bar class="footer-chat" keyboard-attach>
-    <div class="chat-inputbox-container">
-        <a class="button button-icon icon ion-android-happy"></a>
-        <div class="test">
-            <input type="text" class="chat-inputbox" autocomplete="off" placeholder="Type a message" ng-change="updateTyping()" ng-enter="sendMessage()" ng-model="chat.message" />
+    <form ng-submit="sendMessage($event)" class="chat-inputbox-container">
+        <div class="list list-inset test">
+            <label class="item item-input" style="padding-left: 0">
+                <a class="button button-icon icon ion-android-happy"></a>
+                <input type="text" class="chat-inputbox" placeholder="Type a message" ng-model="chat.message" autocapitalize="off" required>
+                <button class="button button-icon ion-android-send placeholder-icon" style="font-size: 25px;color: white;line-height: 26px;min-height: 25px;padding-right: 10px"></button>
+            </label>
         </div>
-        <button class="button button-icon icon ion-paper-airplane" ng-click="sendMessage($event)" ng-disabled="!chat.message"></button>
-    </div>
+    </form>
 </ion-footer-bar>
