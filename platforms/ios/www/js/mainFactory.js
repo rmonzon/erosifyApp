@@ -25,6 +25,10 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.post(factory.connectionStr + "/create_account", req);
     };
 
+    factory.createAccountFacebook = function (req) {
+        return $http.post(factory.connectionStr + "/create_fb_account", req);
+    };
+
     factory.authenticate = function (req) {
         return $http.post(factory.connectionStr + "/authentication", req);
     };
@@ -121,29 +125,24 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.get(factory.connectionStr + "/conversation", { headers: { token: User.getToken(), my_id: User.getUser().id, user_id: id }});
     };
 
-
-    
-
-    /*** Store user's info in session store, it'll be removed when log out ***/
-
-    factory.setUserToStorage = function (user) {
-        $window.sessionStorage && $window.sessionStorage.setItem('user', user);
-        return this;
+    factory.findPeopleNearMe = function (req) {
+        return $http.post(factory.connectionStr + "/peoplenearby", req);
     };
 
-    factory.getUserFromStorage = function () {
-        return $window.sessionStorage && $window.sessionStorage.getItem('user');
+    factory.getCommonFriends = function (uid) {
+        return $http.get(factory.connectionStr + "/common_friends/" + uid, { headers: { token: User.getToken(), my_id: User.getUser().id }});
     };
 
-    /*** Store playerID in local storage if user checked that option  ***/
-
-    factory.setUserToLocalStorage = function (id) {
-        $window.localStorage && $window.localStorage.setItem('playerID', id);
-        return this;
+    factory.getMessagesAndLikesTotal = function () {
+        return $http.get(factory.connectionStr + "/messages_likes", { headers: { token: User.getToken(), my_id: User.getUser().id }});
     };
 
-    factory.getUserFromLocalStorage = function () {
-        return $window.localStorage && $window.localStorage.getItem('playerID');
+    factory.deleteAccount = function (req) {
+        return $http.post(factory.connectionStr + "/delete_account", req);
+    };
+
+    factory.markMessageAsViewedByUser = function (req) {
+        return $http.post(factory.connectionStr + "/message_viewed", req);
     };
 
     return factory;

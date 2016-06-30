@@ -9,6 +9,7 @@ angular.module('controllers').controller('FavoritesController', function ($scope
         $scope.listFavorites = [];
         $scope.loadingFavs = true;
         $scope.noResults = false;
+        $scope.loadingNum = 0;
         $scope.getListOfFavorites();
     }
 
@@ -20,14 +21,23 @@ angular.module('controllers').controller('FavoritesController', function ($scope
         $scope.listFavorites = $scope.parseDataFromDB(response.data.favorites);
         if ($scope.listFavorites.length == 0) {
             $scope.noResults = true;
+            $scope.loadingFavs = false;
         }
-        $scope.loadingFavs = false;
+        $scope.getNotifications();
     }
 
     function getFavoritesError(response) {
         $scope.showMessage(response.data.error, 2500);
         $scope.loadingFavs = false;
     }
+
+    $scope.imageLoaded = function () {
+        $scope.loadingNum++;
+        if ($scope.loadingNum == $scope.listFavorites.length) {
+            $scope.loadingFavs = false;
+            $scope.loadingNum = 0;
+        }
+    };
 
     init();
 });

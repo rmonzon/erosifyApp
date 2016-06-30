@@ -11,24 +11,25 @@ angular.module('controllers').controller('HomeController', function ($scope, $q,
         //$scope.checkUserLoggedIn();
     }
 
-    $scope.sigUpWithFacebook = function() {
+    $scope.signUpWithFacebook = function() {
         facebookConnectPlugin.getLoginStatus(function (success) {
             if (success.status === 'connected') {
                 console.log("User connected to FB already");
                 $scope.loginStatusFb = success.status;
 
                 $scope.getFacebookProfileInfo(success.authResponse).then(function (profileInfo) {
-                    console.log(profileInfo);
+                    profileInfo.fb_token = success.authResponse.accessToken;
                     $scope.user = $scope.parseFacebookData(profileInfo);
                     $scope.showMessageWithIcon("Retrieving location...");
                     $scope.getCurrentLocation().then(successGetLocation, $scope.errorGetLocation);
                 }, function (fail) {
                     console.log('profile info fail', fail);
+                    $scope.signUpWithFacebook();
                 });
             } else {
                 console.log('getLoginStatus', success.status);
                 $scope.loginStatusFb = success.status;
-                facebookConnectPlugin.login(['email', 'public_profile', 'user_friends'], fbLoginSuccess, fbLoginError);
+                facebookConnectPlugin.login(['email', 'public_profile', 'user_friends', 'user_about_me', 'user_likes', 'user_photos', 'user_birthday', 'user_education_history', 'user_work_history'], fbLoginSuccess, fbLoginError);
             }
         });
     };
@@ -41,7 +42,7 @@ angular.module('controllers').controller('HomeController', function ($scope, $q,
         }
         var authResponse = response.authResponse;
         $scope.getFacebookProfileInfo(authResponse).then(function (profileInfo) {
-            console.log(profileInfo);
+            profileInfo.fb_token = authResponse.accessToken;
             $scope.user = $scope.parseFacebookData(profileInfo);
             //check if user has an account
             mainFactory.checkEmailAvailability({"email": $scope.user.email}).then(successCheckEmail, errorCheckEmail);
@@ -84,12 +85,14 @@ angular.module('controllers').controller('HomeController', function ($scope, $q,
                             "password": "",
                             "name": $scope.user.first_name,
                             "full_name": $scope.user.name,
-                            "dob": "02-06-1988", //$scope.user.month + "-" + $scope.user.day + "-" + $scope.user.year,
+                            "dob": $scope.user.birthday,
                             "gender": $scope.user.gender,
-                            "age": "28", //$scope.calculateAge($scope.user),
+                            "age": $scope.calculateAge($scope.user),
+                            "work": $scope.user.work,
+                            "education": $scope.user.education,
                             "location": results[0].formatted_address.replace('EE. UU.', 'USA'),
-                            "pictures": "'{" + $scope.user.picture + "}'",
-                            "languages": "'{English}'", //$scope.user.languages
+                            "facebook_photos": "'{" + $scope.user.photos.join(',') + "}'",
+                            "languages": "'{" + $scope.user.languages.join(',') + "}'",
                             "coords": latlng,
                             "looking_to": "Date", //todo:find a way to get this from the user. $scope.user.looking_to
                             "facebook_id": $scope.user.id,
@@ -121,7 +124,7 @@ angular.module('controllers').controller('HomeController', function ($scope, $q,
     function errorCallBack(response) {
         $scope.hideMessage();
         console.log(response);
-        $scope.showMessage(response.data.error, 3000);
+        $scope.showMessage("Something went wrong, please try again.", 3000);
     }
 
     /* Callbacks for authenticate */

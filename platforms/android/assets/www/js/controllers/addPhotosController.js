@@ -10,6 +10,7 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
         $scope.totalPics = 0;
         $scope.loadedPics = true;
         $scope.pics = ["", "", "", "", "", ""];
+        $scope.progressW = [0, 0, 0, 0, 0, 0];
     }
 
     // Triggered on a button click, or some other target
@@ -173,8 +174,7 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
                 $scope.hideMessage();
                 $scope.showMessage("Upload image failed!", 2000);
             }, function (progress) {
-                console.log("Uploading progress... ", progress);
-                //todo: make a progress bar at bottom of the images
+                $scope.progressW[$scope.picNumber - 1] = $scope.picNumber - 1 === 0 ? progress.loaded * 59 / progress.total : progress.loaded * 27 / progress.total;
             });
     };
 

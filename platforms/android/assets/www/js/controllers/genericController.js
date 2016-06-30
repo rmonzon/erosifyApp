@@ -2,7 +2,7 @@
  * Created by raul on 1/7/16.
  */
 
-angular.module('controllers').service('GenericController', function($q, $ionicLoading, $location, $timeout, $window, $cordovaGeolocation, User, mainFactory) {
+angular.module('controllers').service('GenericController', function($q, $ionicLoading, $rootScope, $location, $timeout, $window, $cordovaGeolocation, $cordovaToast, User, mainFactory) {
     var $scope = null;
 
     this.init = function (_$scope) {
@@ -161,7 +161,7 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
             var d = [], t = "", a = {};
             if (Array.isArray(users)) {
                 for (var i = 0, len = users.length; i < len; ++i) {
-                    users[i].pictures = cleanImagesUrls(users[i]);
+                    cleanImagesUrls(users[i]);
                     if (users[i].languages)
                         users[i].languages = users[i].languages.join(', ');
                     if (users[i].date) {
@@ -183,7 +183,7 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
                 }
             }
             else {
-                users.pictures = cleanImagesUrls(users);
+                cleanImagesUrls(users);
                 if (users.languages)
                     users.languages = users.languages.join(', ');
                 if (users.date) {
@@ -234,17 +234,21 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
         }
 
         function cleanImagesUrls(user) {
-            if (user.pictures) {
-                return user.pictures.map(function (u) {
-                    if (u.indexOf('http') === -1) {
-                        return ENV.AMAZON_S3 + "/profiles/user_" + user.id + "/" + u;
-                    }
-                    else {
-                        return u;
-                    }
-                });
+            user.photos = [];
+            if (user.facebook_id) {
+                user.photos.push("https://graph.facebook.com/" + user.facebook_id + "/picture?type=large");
             }
-            return [];
+            if (user.facebook_photos) {
+                for (var i = 0, len = user.facebook_photos.length; i < len; ++i) {
+                    //user.photos.push("https://graph.facebook.com/" + user.facebook_photos[i] + "/picture?access_token=" + $scope.getUserFromLS().fbToken);
+                    user.photos.push(user.facebook_photos[i]);
+                }
+            }
+            if (user.pictures) {
+                for (i = 0, len = user.pictures.length; i < len; ++i) {
+                    user.photos.push(ENV.AMAZON_S3 + "/profiles/user_" + user.id + "/" + user.pictures[i]);
+                }
+            }
         }
 
         $scope.escapeInvalidChars = function (str) {
@@ -270,6 +274,9 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
             if (user.birthday) {
                 var dob = user.birthday.split('/');
                 user.birthday = dob[0] + "-" + dob[1] + "-" + dob[2];
+                user.day = dob[1];
+                user.month = dob[0];
+                user.year = dob[2];
             }
             if (user.friends) {
                 user.friends = user.friends.data;
@@ -278,14 +285,20 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
                 user.pictureSm = user.picture.data.url;
                 user.picture = "http://graph.facebook.com/" + user.id + "/picture?type=large";
             }
+            if (user.photos) {
+                var photos = [];
+                for (i = 0; i < user.photos.data.length; i++) {
+                    photos.push("https://graph.facebook.com/" + user.photos.data[i].id + "/picture?access_token=" + user.fb_token);
+                }
+                user.photos = photos;
+            }
             return user;
         };
 
         // This method is to get the user profile info from the facebook api
         $scope.getFacebookProfileInfo = function (authResponse) {
             var info = $q.defer();
-            ///id,first_name,name,email,picture,gender,birthday,languages,about,education,friends
-            facebookConnectPlugin.api('/me?fields=email,first_name,name,gender,picture,friends&access_token=' + authResponse.accessToken, null,
+            facebookConnectPlugin.api('/me?fields=id,first_name,name,email,picture,gender,birthday,languages,about,education,work,friends,photos&access_token=' + authResponse.accessToken, null,
                 function (response) {
                     info.resolve(response);
                 },
@@ -318,6 +331,40 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
                 newArray.push(array.slice(i, i + 3));
             }
             return newArray;
+        };
+
+        $scope.getNotifications = function () {
+            mainFactory.getNewNotifications().then(getNewNotificationsSuccess, getNewNotificationsError);
+        };
+
+        function getNewNotificationsSuccess(response) {
+            $rootScope.notifications = response.data.notifications;
+            $rootScope.notifications.newNotif = $rootScope.notifications.new_likes > 0 || $rootScope.notifications.new_matches > 0 || $rootScope.notifications.new_visitors > 0 || $rootScope.notifications.unread_msg > 0;
+            if ($rootScope.notifications.newNotif) {
+                $scope.showNativeToast('You have new notifications');
+            }
         }
+
+        function getNewNotificationsError(response) {
+            $scope.showMessage(response.data.error, 2500);
+        }
+
+        /**
+         * Cantor pairing function to generate a uniquely encoded number based off two different numbers, a < b must be true
+         * @param a
+         * @param b
+         * @returns {*}
+         */
+        $scope.generateUniqueNumber = function (a, b) {
+            return 1 / 2 * (a + b) * (a + b + 1) + b;
+        };
+
+        $scope.showNativeToast = function (msg) {
+            $cordovaToast.show(msg, 'long', 'bottom').then(function (success) {
+                // success
+            }, function (error) {
+                // error
+            });
+        };
     };
 });

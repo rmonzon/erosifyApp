@@ -22,7 +22,7 @@ angular.module('controllers').controller('MatchingController', function ($scope,
         };
         var pageLoad = {
             "id": $scope.userProfile.id,
-            "email": $scope.getUserFromLS(),
+            "email": $scope.getUserFromLS().email,
             "gender": $scope.filters.gender,
             "looking_to": $scope.filters.interest,
             "ages": { ageFrom: $scope.filters.ageFrom, ageTo: $scope.filters.ageTo }
@@ -32,6 +32,8 @@ angular.module('controllers').controller('MatchingController', function ($scope,
 
     $scope.getListOfMatches = function (filters) {
         $scope.loadingMatches = true;
+        $scope.posProfile = 0;
+        $scope.loadingProfileImg = true;
         mainFactory.getMatchesByUser(filters).then(getMatchesSuccess, getMatchesError);
     };
 
@@ -42,6 +44,7 @@ angular.module('controllers').controller('MatchingController', function ($scope,
             $scope.currentProfile = $scope.listMatches[0];
         }
         $scope.loadingMatches = false;
+        $scope.getNotifications();
     }
 
     function getMatchesError(response) {
@@ -55,24 +58,28 @@ angular.module('controllers').controller('MatchingController', function ($scope,
         }
         else {
             return $scope.listMatches.filter(function (elem) {
-                return $scope.filters.miles >= $scope.calculateDistanceToUser(elem);
+                var dist = $scope.calculateDistanceToUser(elem);
+                return $scope.filters.miles >= dist;
             });
         }
     }
 
     $scope.likeProfile = function () {
+        $scope.loadingProfileImg = true;
         $scope.listMatches[$scope.posProfile].profileLiked = true;
         $scope.listMatches[$scope.posProfile].profileDisLiked = false;
         setLikeOrDislike(1);
     };
 
     $scope.dislikeProfile = function () {
+        $scope.loadingProfileImg = true;
         $scope.listMatches[$scope.posProfile].profileLiked = false;
         $scope.listMatches[$scope.posProfile].profileDisLiked = true;
         setLikeOrDislike(0);
     };
 
     $scope.skipProfile = function () {
+        $scope.loadingProfileImg = true;
         if ($scope.posProfile < $scope.listMatches.length - 1) {
             $scope.posProfile++;
             $scope.currentProfile = $scope.listMatches[$scope.posProfile];
@@ -80,6 +87,7 @@ angular.module('controllers').controller('MatchingController', function ($scope,
     };
 
     $scope.goPreviousProfile = function () {
+        $scope.loadingProfileImg = true;
         if ($scope.posProfile > 0) {
             $scope.posProfile--;
             $scope.currentProfile = $scope.listMatches[$scope.posProfile];
@@ -171,7 +179,9 @@ angular.module('controllers').controller('MatchingController', function ($scope,
         }
         else {
             $scope.posProfile++;
-            $scope.currentProfile = $scope.listMatches[$scope.posProfile];
+            if ($scope.posProfile < $scope.listMatches.length) {
+                $scope.currentProfile = $scope.listMatches[$scope.posProfile];
+            }
         }
     }
 
@@ -192,10 +202,12 @@ angular.module('controllers').controller('MatchingController', function ($scope,
     $scope.applyFilters = function () {
         var filters = {
             "id": $scope.userProfile.id,
-            "email": $scope.getUserFromLS(),
-            "looking_to": $scope.filters.interest,
+            "email": $scope.getUserFromLS().email,
             "ages": { ageFrom: $scope.filters.ageFrom, ageTo: $scope.filters.ageTo }
         };
+        if ($scope.filters.interest) {
+            filters.looking_to = $scope.filters.interest;
+        }
         if ($scope.filters.gender != "Everyone") {
             filters.gender = $scope.filters.gender;
         }
@@ -219,6 +231,11 @@ angular.module('controllers').controller('MatchingController', function ($scope,
         $scope.mutualMatchPopup.close();
         $scope.posProfile++;
         $scope.currentProfile = $scope.listMatches[$scope.posProfile];
+    };
+
+    $scope.sendMessageToUser = function () {
+        $scope.mutualMatchPopup.close();
+        $scope.goToPage('app/messages/' + $scope.currentProfile.id);
     };
 
     $scope.imageLoaded = function () {

@@ -8,7 +8,9 @@ angular.module('controllers').controller('VisitorsController', function ($scope,
         $scope.listVisitors = [];
         $scope.myVisitors = [];
         $scope.loadingVisitors = true;
+        $scope.loadingImg = true;
         $scope.noResults = false;
+        $scope.loadingNum = 0;
         $scope.getListOfVisitors();
     }
 
@@ -18,11 +20,14 @@ angular.module('controllers').controller('VisitorsController', function ($scope,
 
     function getMyVisitorsSuccess(response) {
         $scope.listVisitors = $scope.parseDataFromDB(response.data.visitors);
-        convertDataForUI();
+        $scope.myVisitors = $scope.convertDataForUI($scope.listVisitors);
         if ($scope.listVisitors.length == 0) {
             $scope.noResults = true;
+            $scope.loadingImg = false;
         }
         $scope.loadingVisitors = false;
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.getNotifications();
     }
 
     function getMyVisitorsError(response) {
@@ -30,11 +35,13 @@ angular.module('controllers').controller('VisitorsController', function ($scope,
         $scope.loadingVisitors = false;
     }
 
-    function convertDataForUI() {
-        for (var i = 0, len = $scope.listVisitors.length; i < len; i+=3) {
-            $scope.myVisitors.push($scope.listVisitors.slice(i, i + 3));
+    $scope.imageLoaded = function () {
+        $scope.loadingNum++;
+        if ($scope.loadingNum == $scope.listVisitors.length) {
+            $scope.loadingImg = false;
+            $scope.loadingNum = 0;
         }
-    }
+    };
 
     init();
 });

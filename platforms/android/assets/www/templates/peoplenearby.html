@@ -23,10 +23,12 @@
         </div>
     </div>
 
+    <ion-refresher on-refresh="findPeopleNearby()" spinner="ios"></ion-refresher>
+
     <div class="row" ng-repeat="row in people" ng-hide="searching">
         <div class="col-33 text-center" ng-repeat="m in row">
             <a class="button button-icon" style="width: 100%;line-height: 25px;" ng-click="goToProfile(m.name)">
-                <img class="prof-pic-match" ng-src="{{m.pictures[0]}}" ng-load-image="imageLoaded()">
+                <img class="prof-pic-match" ng-src="{{m.photos[0]}}" ng-load-image="imageLoaded()">
                 <img src="img/verified-circle.svg" ng-show="m.verified == 1" class="verified-profile-icon-match">
             </a>
             <br>

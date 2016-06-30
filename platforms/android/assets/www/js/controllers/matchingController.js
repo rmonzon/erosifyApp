@@ -44,6 +44,7 @@ angular.module('controllers').controller('MatchingController', function ($scope,
             $scope.currentProfile = $scope.listMatches[0];
         }
         $scope.loadingMatches = false;
+        $scope.getNotifications();
     }
 
     function getMatchesError(response) {

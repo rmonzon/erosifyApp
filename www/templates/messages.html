@@ -10,12 +10,12 @@
 
     <div class="text-center def-spinner-container" ng-show="loadingMessages">
         <ion-spinner class="default-spinner"></ion-spinner>
-        <!--<p class="text-center">Loading your favorites...</p>-->
     </div>
 
+    <ion-refresher on-refresh="getMessages()" spinner="ios"></ion-refresher>
     <div class="row messages-row" ng-repeat="m in messages" ng-click="goToPage('app/messages/' + m.id)" ng-hide="loadingMessages">
         <div class="col-25">
-            <img ng-src="{{m.pictures[0]}}" width="100%">
+            <img ng-src="{{m.photos[0]}}" width="100%">
         </div>
         <div class="col">
             <div class="row">

@@ -10,6 +10,8 @@ angular.module('controllers').controller('LikesController', function ($scope, Ge
         $scope.myLikes = [];
         $scope.loadingLikes = true;
         $scope.noResults = false;
+        $scope.loadingImg = true;
+        $scope.loadingNum = 0;
         $scope.getListOfLikes();
     }
 
@@ -22,23 +24,28 @@ angular.module('controllers').controller('LikesController', function ($scope, Ge
             response.data.likes[i].id = response.data.likes[i].user_one_id;
         }
         $scope.listLikes = $scope.parseDataFromDB(response.data.likes);
-        convertDataForUI();
+        $scope.myLikes = $scope.convertDataForUI($scope.listLikes);
         if ($scope.listLikes.length == 0) {
             $scope.noResults = true;
+            $scope.loadingImg = false;
         }
         $scope.loadingLikes = false;
+        $scope.$broadcast('scroll.refreshComplete');
+        $scope.getNotifications();
     }
 
     function getMyLikesError(response) {
         $scope.showMessage(response.data.error, 2500);
         $scope.loadingLikes = false;
     }
-    
-    function convertDataForUI() {
-        for (var i = 0, len = $scope.listLikes.length; i < len; i+=3) {
-            $scope.myLikes.push($scope.listLikes.slice(i, i + 3));
+
+    $scope.imageLoaded = function () {
+        $scope.loadingNum++;
+        if ($scope.loadingNum == $scope.listLikes.length) {
+            $scope.loadingImg = false;
+            $scope.loadingNum = 0;
         }
-    }
+    };
 
     init();
 });

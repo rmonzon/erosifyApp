@@ -9,7 +9,9 @@ angular.module('controllers').controller('MyMatchesController', function ($scope
         $scope.listMatches = [];
         $scope.myMatches = [];
         $scope.loadingMatches = true;
+        $scope.loadingImg = true;
         $scope.noResults = false;
+        $scope.loadingNum = 0;
         $scope.getListMatches();
     }
 
@@ -22,14 +24,24 @@ angular.module('controllers').controller('MyMatchesController', function ($scope
         $scope.myMatches = $scope.convertDataForUI($scope.listMatches);
         if ($scope.listMatches.length == 0) {
             $scope.noResults = true;
+            $scope.loadingImg = false;
         }
         $scope.loadingMatches = false;
+        $scope.$broadcast('scroll.refreshComplete');
     }
 
     function getMyMatchesError(response) {
         $scope.showMessage(response.data.error, 2500);
         $scope.loadingMatches = false;
     }
+
+    $scope.imageLoaded = function () {
+        $scope.loadingNum++;
+        if ($scope.loadingNum == $scope.listMatches.length) {
+            $scope.loadingImg = false;
+            $scope.loadingNum = 0;
+        }
+    };
 
     init();
 });

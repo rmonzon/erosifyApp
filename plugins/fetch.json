@@ -88,16 +88,24 @@
         "is_top_level": false,
         "variables": {}
     },
-    "phonegap-facebook-plugin": {
+    "cordova-plugin-facebook4": {
         "source": {
-            "type": "git",
-            "url": "https://github.com/phonegap/phonegap-facebook-plugin.git",
-            "subdir": "."
+            "type": "registry",
+            "id": "cordova-plugin-facebook4"
         },
         "is_top_level": true,
         "variables": {
             "APP_ID": "1544924485832128",
             "APP_NAME": "Erosify"
         }
+    },
+    "cordova-plugin-x-toast": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

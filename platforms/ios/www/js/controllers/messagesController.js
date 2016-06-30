@@ -2,13 +2,14 @@
  * Created by raul on 2/3/16.
  */
 
-angular.module('controllers').controller('MessagesController', function ($scope, $timeout, GenericController, mainFactory) {
+angular.module('controllers').controller('MessagesController', function ($scope, $timeout, GenericController, User, mainFactory) {
 
     function init() {
         GenericController.init($scope);
         $scope.searchTerm = "";
         $scope.loadingMessages = true;
         $scope.messages = [];
+        $scope.userId = User.getUser().id;
         $scope.getMessages();
     }
 
@@ -19,6 +20,7 @@ angular.module('controllers').controller('MessagesController', function ($scope,
     function getUserMessagesSuccess(response) {
         $scope.messages = $scope.parseDataFromDB(response.data.messages);
         $scope.loadingMessages = false;
+        $scope.$broadcast('scroll.refreshComplete');
     }
 
     function getUserMessagesError(response) {
@@ -31,8 +33,11 @@ angular.module('controllers').controller('MessagesController', function ($scope,
         $scope.loadingMessages = false;
     }
 
-    $scope.clearSearch = function () {
-        $scope.searchTerm = "";
+    $scope.refreshTasks = function() {
+        console.log('Refreshing');
+        $timeout(function() {
+            $scope.$broadcast('scroll.refreshComplete');
+        }, 100000);
     };
 
     init();

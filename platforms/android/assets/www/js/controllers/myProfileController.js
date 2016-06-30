@@ -2,7 +2,7 @@
  * Created by raul on 4/1/16.
  */
 
-angular.module('controllers').controller('MyProfileController', function ($scope, $timeout, $interval, $ionicSlideBoxDelegate, $cordovaCamera, $cordovaFileTransfer, $ionicActionSheet, GenericController, User, mainFactory) {
+angular.module('controllers').controller('MyProfileController', function ($scope, $timeout, $ionicModal, $ionicPopup, $ionicSlideBoxDelegate, $cordovaCamera, $cordovaFileTransfer, $ionicActionSheet, GenericController, User, mainFactory) {
 
     function init() {
         GenericController.init($scope);
@@ -15,11 +15,9 @@ angular.module('controllers').controller('MyProfileController', function ($scope
         $scope.loadingProfilePics = true;
 
         $scope.picNumber = 0;
-        $scope.totalPics = 0;
         $scope.loadedPics = true;
-        $scope.picsEdited = false;
-        $scope.pics = ["", "", "", "", "", ""];
-        $scope.progressW = [0, 0, 0, 0, 0, 0];
+        $scope.photos_edited = { amazon_pics: [], facebook_pics: [] };
+        $scope.progressW = 0;
         
         $scope.getMyInfo();
         $scope.removeHideClass('#profile-menu-icon');
@@ -34,10 +32,10 @@ angular.module('controllers').controller('MyProfileController', function ($scope
         User.setUser(response.data.data);
         $scope.user = User.getUser();
         $scope.loadingProfile = false;
-        $ionicSlideBoxDelegate.update();
-        for (var i = 0; i < $scope.user.pictures.length; i++) {
-            $scope.pics[i] = $scope.user.pictures[i];
+        if ($scope.user.pictures) {
+            $scope.picNumber = $scope.user.pictures.length;
         }
+        $ionicSlideBoxDelegate.update();
     }
 
     function errorCallback(response) {
@@ -45,26 +43,40 @@ angular.module('controllers').controller('MyProfileController', function ($scope
         $scope.showMessage(response.data.error, 2500);
         $scope.logout();
     }
+
+    $scope.openPicFullScreen = function (index) {
+        $ionicSlideBoxDelegate.slide(index);
+        $scope.modalGalleryFullScreen.show();
+    };
+
+    $ionicModal.fromTemplateUrl('templates/gallery_fullscreen_options.html', {
+        scope: $scope
+    }).then(function(modal) {
+        $scope.modalGalleryFullScreen = modal;
+    });
+
+    $scope.closeGalleryFullScreen = function () {
+        $scope.modalGalleryFullScreen.hide();
+    };
     
     $scope.enableEditProfile = function () {
         $scope.editingProfile = true;
     };
 
     $scope.saveProfileChanges = function () {
-        if ($scope.totalPics < 1) {
-            $scope.showMessage("You must upload at least one picture!", 2000);
-            return;
-        }
-        if (!$scope.pics[0]) {
+        if (!$scope.user.photos[0]) {
             $scope.showMessage("You have to select a profile picture!", 2000);
             return;
         }
-
         //update user pictures in the db
         $scope.showMessageWithIcon("Saving your photos...");
-        var pics = createArrayOfImgs();
-        console.log(pics);
-        mainFactory.updateNewUserPics({ user_id: User.getUser().id, pics: pics }).then(function (response) {
+        createArrayOfImgs();
+        var req = {
+            user_id: User.getUser().id,
+            amazon_pics: "'{" + $scope.photos_edited.amazon_pics.join(",") + "}'",
+            facebook_pics: "'{" + $scope.photos_edited.facebook_pics.join(",") + "}'"
+        };
+        mainFactory.updateNewUserPics(req).then(function (response) {
             response.data.user = $scope.parseDataFromDB(response.data.user);
             User.setUser(response.data.user);
             $scope.hideMessage();
@@ -90,6 +102,7 @@ angular.module('controllers').controller('MyProfileController', function ($scope
         $scope.user = User.getUser();
         $scope.showMessage("Profile update successfully!", 1500);
         $scope.editingProfile = false;
+        $ionicSlideBoxDelegate.slide(0);
         $ionicSlideBoxDelegate.update();
     }
 
@@ -99,6 +112,7 @@ angular.module('controllers').controller('MyProfileController', function ($scope
     }
 
     $scope.nextPic = function() {
+        console.log("next");
         $ionicSlideBoxDelegate.next();
     };
 
@@ -106,35 +120,32 @@ angular.module('controllers').controller('MyProfileController', function ($scope
         $ionicSlideBoxDelegate.previous();
     };
 
-    // Called each time the slide changes
-    $scope.slideChanged = function(index) {
-        $scope.slideIndex = index;
-    };
-
     $scope.imageLoaded = function () {
         $scope.loadingNum++;
-        if ($scope.loadingNum == $scope.user.pictures.length) {
+        if ($scope.loadingNum == $scope.user.photos.length) {
             $scope.loadingProfilePics = false;
             $scope.loadingNum = 0;
         }
     };
 
-
-
-    $scope.addPic = function (index) {
-        $scope.totalPics++;
-        $scope.picNumber = index + 1;
+    $scope.addPic = function () {
+        $scope.picNumber++;
         $scope.showActionSheet();
     };
 
-    $scope.removePic = function (index) {
-        mainFactory.removeImageFromS3({ user_id: User.getUser().id, file_name: $scope.picNumber + ".jpg" }).then(function (response) {
-            $scope.totalPics--;
-            $scope.pics.splice(index, 1);
-            $scope.picsEdited = true;
-        }, function (err) {
-            $scope.showMessage(err, 2000);
-        });
+    $scope.removePic = function () {
+        $scope.closeDeletePhotoConfirm();
+        var index = $scope.deletePhotoIndex;
+        //remove the photo from amazon s3
+        if ($scope.user.photos[index].indexOf('amazon') !== -1) {
+            mainFactory.removeImageFromS3({ user_id: User.getUser().id, file_name: $scope.picNumber + ".jpg" }).then(function (response) {
+                $scope.picNumber--;
+            }, function (err) {
+                $scope.showMessage(err, 2000);
+            });
+        }
+        $scope.closeGalleryFullScreen();
+        $scope.user.photos.splice(index, 1);
     };
 
     // Triggered on a button click, or some other target
@@ -242,36 +253,46 @@ angular.module('controllers').controller('MyProfileController', function ($scope
         };
         $cordovaFileTransfer.upload(data.baseUrl, imageURI, Uoptions)
             .then(function (result) {
-                $scope.pics[$scope.picNumber - 1] = data.url;
+                $scope.user.photos.splice(0, 0, data.url);
                 $scope.hideMessage();
                 $scope.loadedPics = true;
-                $scope.picsEdited = true;
-                $scope.progressW[$scope.picNumber - 1] = 0;
+                $scope.progressW = 0;
             }, function (err) {
                 $scope.hideMessage();
                 $scope.showMessage("Upload image failed!", 2000);
-                $scope.progressW[$scope.picNumber - 1] = 0;
+                $scope.progressW = 0;
             }, function (progress) {
-                console.log("Uploading progress... ", progress);
-                $scope.progressW[$scope.picNumber - 1] = $scope.picNumber - 1 === 0 ? progress.loaded * 59 / progress.total : progress.loaded * 27 / progress.total;
+                $scope.progressW = progress.loaded * 27 / progress.total;
             });
     };
 
+    $scope.openDeletePhotoConfirm = function (index) {
+        $scope.deletePhotoIndex = index;
+        $scope.deletePhotoPopup = $ionicPopup.show({
+            templateUrl: 'templates/remove_photo_dialog.html',
+            cssClass: 'delete-photo-popup',
+            scope: $scope
+        });
+    };
+
+    $scope.closeDeletePhotoConfirm = function () {
+        $scope.deletePhotoPopup.close();
+    };
+
     function createArrayOfImgs() {
-        var pics = [];
-        for (var i = 0; i < $scope.pics.length; ++i) {
-            if ($scope.pics[i]) {
-                if ($scope.pics[i].indexOf('facebook') == -1) {
-                    var p = i + 1;
-                    pics.push(p + ".jpg");
-                }
-                else {
-                    pics.push($scope.pics[i]);
+        var last = null;
+        for (var i = 0; i < $scope.user.photos.length; ++i) {
+            last = $scope.user.photos[i].split('/');
+            if ($scope.user.photos[i].indexOf('amazon') === -1) {
+                //avoid to add the facebook profile id as a photo id
+                if (last[last.length - 2] != $scope.user.facebook_id) {
+                    $scope.photos_edited.facebook_pics.push(last[last.length - 2]);
                 }
             }
+            else {
+                $scope.photos_edited.amazon_pics.push(last[last.length - 1]);
+            }
         }
-        pics = "'{" + pics.join(",") + "}'";
-        return pics;
     }
     
     init();

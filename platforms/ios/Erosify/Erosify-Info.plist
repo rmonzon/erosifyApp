@@ -24,20 +24,6 @@
     <string>0.0.1</string>
     <key>CFBundleSignature</key>
     <string>????</string>
-    <key>CFBundleVersion</key>
-    <string>0.0.1</string>
-    <key>LSRequiresIPhoneOS</key>
-    <true/>
-    <key>NSMainNibFile</key>
-    <string/>
-    <key>NSMainNibFile~ipad</key>
-    <string/>
-    <key>UIRequiresFullScreen</key>
-    <true/>
-    <key>FacebookAppID</key>
-    <string>1544924485832128</string>
-    <key>FacebookDisplayName</key>
-    <string>Erosify</string>
     <key>CFBundleURLTypes</key>
     <array>
       <dict>
@@ -47,8 +33,21 @@
         </array>
       </dict>
     </array>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string/>
+    <key>CFBundleVersion</key>
+    <string>0.0.1</string>
+    <key>FacebookAppID</key>
+    <string>1544924485832128</string>
+    <key>FacebookDisplayName</key>
+    <string>Erosify</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>fbapi</string>
+      <string>fb-messenger-api</string>
+      <string>fbauth2</string>
+      <string>fbshareextension</string>
+    </array>
+    <key>LSRequiresIPhoneOS</key>
+    <true/>
     <key>NSAppTransportSecurity</key>
     <dict>
       <key>NSAllowsArbitraryLoads</key>
@@ -73,5 +72,13 @@
         </dict>
       </dict>
     </dict>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string/>
+    <key>NSMainNibFile</key>
+    <string/>
+    <key>NSMainNibFile~ipad</key>
+    <string/>
+    <key>UIRequiresFullScreen</key>
+    <true/>
   </dict>
 </plist>

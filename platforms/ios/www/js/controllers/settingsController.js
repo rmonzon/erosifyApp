@@ -2,11 +2,10 @@
  * Created by raul on 4/4/16.
  */
 
-angular.module('controllers').controller('SettingsController', function ($scope, GenericController, User, mainFactory) {
+angular.module('controllers').controller('SettingsController', function ($scope, GenericController, $ionicPopup, mainFactory, User) {
 
     function init() {
         GenericController.init($scope);
-        $scope.user = {};
         $scope.removeHideClass('#settings-menu-icon');
     }
 
@@ -15,7 +14,37 @@ angular.module('controllers').controller('SettingsController', function ($scope,
     };
 
     $scope.deleteAccount = function () {
-        console.log("Are you sure you want to delete your account?");
+        $scope.deleteAccountPopup = $ionicPopup.show({
+            templateUrl: 'templates/delete_account_dialog.html',
+            cssClass: 'delete-photo-popup',
+            scope: $scope
+        });
+    };
+
+    $scope.deleteAccountPermanently = function () {
+        mainFactory.deleteAccount({my_id: User.getUser().id}).then(deleteAccountSuccess, deleteAccountError);
+    };
+
+    function deleteAccountSuccess(response) {
+        $scope.deleteAccountPopup.close();
+        $scope.goToPage('home');
+    }
+
+    function deleteAccountError(response) {
+        $scope.deleteAccountPopup.close();
+        $scope.showMessage("There was something wrong, please try again.", 2500);
+    }
+
+    $scope.closeDeleteAccountConfirm = function () {
+        $scope.deleteAccountPopup.close();
+    };
+
+    $scope.openTermsOfService = function () {
+        window.open('http://www.erosify.com/pages/terms.html', '_system');
+    };
+
+    $scope.openPrivacyPolicy = function () {
+        window.open('http://www.erosify.com/pages/privacy.html', '_system');
     };
 
     init();

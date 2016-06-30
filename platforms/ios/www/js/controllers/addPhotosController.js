@@ -7,8 +7,10 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
         GenericController.init($scope);
 
         $scope.picNumber = 0;
+        $scope.totalPics = 0;
         $scope.loadedPics = true;
-        $scope.pics = [];
+        $scope.pics = ["", "", "", "", "", ""];
+        $scope.progressW = [0, 0, 0, 0, 0, 0];
     }
 
     // Triggered on a button click, or some other target
@@ -35,14 +37,15 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
         });
     };
 
-    $scope.addPic = function () {
-        $scope.picNumber++;
+    $scope.addPic = function (index) {
+        $scope.totalPics++;
+        $scope.picNumber = index + 1;
         $scope.showActionSheet();
     };
 
     $scope.removePic = function (index) {
         mainFactory.removeImageFromS3({ user_id: User.getUser().id, file_name: $scope.picNumber + ".jpg" }).then(function (response) {
-            $scope.picNumber--;
+            $scope.totalPics--;
             $scope.pics.splice(index, 1);
         }, function (err) {
             $scope.showMessage(err, 2000);
@@ -51,7 +54,7 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
 
     function createArrayOfImgs() {
         var pics = [];
-        for (var i = 1; i <= $scope.picNumber; ++i) {
+        for (var i = 1; i <= $scope.totalPics; ++i) {
             pics.push(i + ".jpg");
         }
         pics = "'{" + pics.join(",") + "}'";
@@ -59,12 +62,17 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
     }
 
     $scope.continueToMatching = function () {
-        if ($scope.picNumber < 1) {
+        if ($scope.totalPics < 1) {
             $scope.showMessage("You must upload at least one picture!", 2000);
             return;
         }
+        if (!$scope.pics[0]) {
+            $scope.showMessage("You have to select a profile picture!", 2000);
+            return;
+        }
+        
         //update user pictures in the db
-        $scope.showMessageWithIcon("Updating your profile...");
+        $scope.showMessageWithIcon("Saving your photos...");
         var pics = createArrayOfImgs();
         mainFactory.updateNewUserPics({ user_id: User.getUser().id, pics: pics }).then(function (response) {
             response.data.user = $scope.parseDataFromDB(response.data.user);
@@ -79,15 +87,16 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
 
     $scope.takePictureWithCamera = function() {
         var options = {
-            quality: 50,
+            quality: 70,
             destinationType: Camera.DestinationType.FILE_URL,
             sourceType: Camera.PictureSourceType.CAMERA,
-            targetWidth: 500,
-            targetHeight: 800,
+            targetWidth: 1000,
+            targetHeight: 1000,
             allowEdit: false,
             encodingType: Camera.EncodingType.JPEG,
             popoverOptions: CameraPopoverOptions,
-            saveToPhotoAlbum: false
+            saveToPhotoAlbum: false,
+            correctOrientation: true
         };
         $cordovaCamera.getPicture(options).then(function (imageURI) {
             $scope.showMessage("Uploading picture...");
@@ -102,11 +111,11 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
 
     $scope.selectPictureFromLib = function() {
         var options = {
-            quality: 50,
+            quality: 70,
             destinationType: Camera.DestinationType.FILE_URI,
             sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-            targetWidth: 500,
-            targetHeight: 800,
+            targetWidth: 1000,
+            targetHeight: 1000,
             allowEdit: false,
             encodingType: Camera.EncodingType.JPEG,
             popoverOptions: CameraPopoverOptions,
@@ -158,15 +167,14 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
         };
         $cordovaFileTransfer.upload(data.baseUrl, imageURI, Uoptions)
             .then(function (result) {
-                $scope.pics.push(data.url);
+                $scope.pics[$scope.picNumber - 1] = data.url;
                 $scope.hideMessage();
                 $scope.loadedPics = true;
             }, function (err) {
                 $scope.hideMessage();
                 $scope.showMessage("Upload image failed!", 2000);
             }, function (progress) {
-                console.log("Uploading progress... ", progress);
-                //todo: make a progress bar at bottom of the images
+                $scope.progressW[$scope.picNumber - 1] = $scope.picNumber - 1 === 0 ? progress.loaded * 59 / progress.total : progress.loaded * 27 / progress.total;
             });
     };
 

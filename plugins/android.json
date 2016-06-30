@@ -37,9 +37,12 @@
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ionicframework.erosify"
         },
-        "phonegap-facebook-plugin": {
+        "cordova-plugin-facebook4": {
             "APP_ID": "1544924485832128",
             "APP_NAME": "Erosify",
+            "PACKAGE_NAME": "com.ionicframework.erosify"
+        },
+        "cordova-plugin-x-toast": {
             "PACKAGE_NAME": "com.ionicframework.erosify"
         }
     },

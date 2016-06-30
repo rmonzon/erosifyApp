@@ -5,7 +5,7 @@
     <div class="title-views" style="margin-right: 0">
         <span>People Nearby</span>
     </div>
-    <a class="button button-icon icon ion-android-options"></a>
+    <a class="button button-icon icon ion-android-options" ng-click="openFilterOptions()"></a>
 </ion-header-bar>
 <ion-content class="gradient-bg">
     <div class="row" ng-show="searching">
@@ -19,23 +19,25 @@
     <div class="row" ng-hide="searching">
         <div class="col text-center" style="padding-left: 15px;padding-right: 15px">
             <i class="icon ion-location people-nearby-icon"></i>
-            <span><b>{{totalFound}}</b> people available within a 10 mi. radius of <br /><b>{{humanAddress}}</b></span>
+            <span><b>{{totalFound}}</b> people available within a {{filters.miles}} mi. radius.</span>
         </div>
     </div>
 
-    <div class="row matches-row" ontouchstart="" ng-repeat="row in matches" ng-hide="searching">
+    <ion-refresher on-refresh="findPeopleNearby()" spinner="ios"></ion-refresher>
+
+    <div class="row" ng-repeat="row in people" ng-hide="searching">
         <div class="col-33 text-center" ng-repeat="m in row">
-            <a class="button button-icon" style="width: 100%" ng-click="goToProfile(m.name)">
-                <img class="prof-pic-match" src="{{m.pic}}">
-                <img src="img/verified-circle.svg" ng-show="m.verified" class="verified-profile-icon-match">
+            <a class="button button-icon" style="width: 100%;line-height: 25px;" ng-click="goToProfile(m.name)">
+                <img class="prof-pic-match" ng-src="{{m.photos[0]}}" ng-load-image="imageLoaded()">
+                <img src="img/verified-circle.svg" ng-show="m.verified == 1" class="verified-profile-icon-match">
             </a>
             <br>
             <div style="display: inline-flex; text-align: center">
                <span class="match-user">{{m.name}}</span>
-               <div class="status-icon-md online" ng-show="m.online"></div>
+               <div class="status-icon-md online" ng-show="m.status == 1"></div>
             </div>
             <br>
-            <span class="match-date">{{m.distance}}</span>
+            <span class="match-date">{{m.distance}} mi</span>
         </div>
     </div>
 </ion-content>

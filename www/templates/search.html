@@ -10,7 +10,7 @@
     <form ng-submit="getSearchResults()">
         <div class="list list-inset search-container">
             <label class="item item-input" style="border-radius: 5px; background: transparent;padding: 3px">
-                <input type="text" placeholder="Search people..." ng-model="uiData.searchTerms" autocapitalize="off" required>
+                <input id="search-input" type="text" placeholder="Search people..." ng-model="uiData.searchTerms" autocapitalize="off" required>
                 <button class="button button-icon ion-ios-search placeholder-icon" style="font-size: 25px;color: white;line-height: 26px;min-height: 25px;padding-right: 10px"></button>
             </label>
         </div>
@@ -18,33 +18,36 @@
 
     <div class="search-divider"></div>
 
-    <div class="row" ng-repeat="res in listResults" style="border-bottom: 1px solid rgba(211,211,211,0.3);padding-top: 5px" ng-hide="loadingResults">
-        <div class="col-20 text-center">
-            <a class="button button-icon" style="line-height: 0; margin: 5px 0;" ng-click="goToProfile(res.id)">
-                <img class="user-fav-pic" ng-src="{{res.pictures[0]}}" ng-load-image="imageLoaded()">
-            </a>
+    <ion-scroll ng-hide="loadingResults || loadingImg || noResults" ng-style="{'height': heightScroll + 'px'}">
+        <div class="row" ng-repeat="res in listResults" style="border-bottom: 1px solid rgba(211,211,211,0.3);padding-top: 5px">
+            <div class="col-20 text-center">
+                <a class="button button-icon" style="line-height: 0; margin: 5px 0;" ng-click="goToProfile(res.id)">
+                    <img class="user-fav-pic" ng-src="{{res.photos[0]}}" ng-load-image="imageLoaded()">
+                </a>
+            </div>
+            <div class="col-60" style="padding-top: 15px">
+                <span style="font-size: 15px"><b>{{res.name}}, {{res.age}}</b></span>
+                <i class="icon ion-checkmark-circled verified-icon" ng-show="res.verified == 1" style="font-size: 14px;color: #016501;margin-right: 5px;margin-left: 3px;"></i>
+                <br />
+                <i class="icon ion-ios-location-outline"></i>
+                <span style="font-size: 13px;line-height: 30px">{{res.location}}</span>
+            </div>
+            <div class="col-20 text-center" style="padding-top: 25px">
+                <span class="fav-online" ng-class="res.status == 1 ? 'online-txt' : 'offline-txt'">{{res.status == 1 ? 'Online Now!' : ''}}</span>
+            </div>
         </div>
-        <div class="col-60" style="padding-top: 15px">
-            <span style="font-size: 15px"><b>{{res.name}}, {{res.age}}</b></span>
-            <i class="icon ion-checkmark-circled verified-icon" ng-show="res.verified == 1" style="font-size: 14px;color: #016501;margin-right: 5px;margin-left: 3px;"></i>
-            <br />
-            <i class="icon ion-ios-location-outline"></i>
-            <span style="font-size: 13px;line-height: 30px">{{res.location}}</span>
-        </div>
-        <div class="col-20 text-center" style="padding-top: 25px">
-            <span class="fav-online" ng-class="res.status == 1 ? 'online-txt' : 'offline-txt'">{{res.status == 1 ? 'Online Now!' : ''}}</span>
-        </div>
-    </div>
+    </ion-scroll>
+
+
 
     <div class="row no-data-container" ng-show="noResults">
         <div class="col">
             <i class="icon ion-sad" style="font-size: 50px"></i>
-            <p class="text-center">No one around here yet.</p>
-            <p class="text-center">Future likes are waiting for you, don't give up!</p>
+            <p class="text-center">Your search didn't produce any result.</p>
         </div>
     </div>
 
-    <div class="text-center def-spinner-container" ng-show="loadingResults">
+    <div class="text-center def-spinner-container" ng-show="loadingResults || loadingImg">
         <ion-spinner class="default-spinner"></ion-spinner>
     </div>
 </ion-content>

@@ -97,6 +97,7 @@ angular.module('controllers').controller('PeopleNearbyController', function ($sc
             }
         }
         $scope.people = newArray;
+        $scope.$broadcast('scroll.refreshComplete');
     }
 
     $scope.imageLoaded = function () {

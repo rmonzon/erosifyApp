@@ -9,7 +9,9 @@ angular.module('controllers').controller('MyMatchesController', function ($scope
         $scope.listMatches = [];
         $scope.myMatches = [];
         $scope.loadingMatches = true;
+        $scope.loadingImg = true;
         $scope.noResults = false;
+        $scope.loadingNum = 0;
         $scope.getListMatches();
     }
 
@@ -19,11 +21,13 @@ angular.module('controllers').controller('MyMatchesController', function ($scope
 
     function getMyMatchesSuccess(response) {
         $scope.listMatches = $scope.parseDataFromDB(response.data.matches);
-        convertDataForUI();
+        $scope.myMatches = $scope.convertDataForUI($scope.listMatches);
         if ($scope.listMatches.length == 0) {
             $scope.noResults = true;
+            $scope.loadingImg = false;
         }
         $scope.loadingMatches = false;
+        $scope.$broadcast('scroll.refreshComplete');
     }
 
     function getMyMatchesError(response) {
@@ -31,11 +35,13 @@ angular.module('controllers').controller('MyMatchesController', function ($scope
         $scope.loadingMatches = false;
     }
 
-    function convertDataForUI() {
-        for (var i = 0, len = $scope.listMatches.length; i < len; i+=3) {
-            $scope.myMatches.push($scope.listMatches.slice(i, i + 3));
+    $scope.imageLoaded = function () {
+        $scope.loadingNum++;
+        if ($scope.loadingNum == $scope.listMatches.length) {
+            $scope.loadingImg = false;
+            $scope.loadingNum = 0;
         }
-    }
+    };
 
     init();
 });

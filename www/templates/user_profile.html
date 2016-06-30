@@ -5,11 +5,11 @@
 </ion-header-bar>
 <ion-content ng-hide="loadingProfile">
     <div class="myprofile-pics-bg">
-        <button class="button button-icon button-clear ion-chevron-left" ng-click="previousPic()"></button>
-        <button class="button button-icon button-clear ion-chevron-right" ng-click="nextPic()"></button>
+        <button class="button button-icon button-clear ion-chevron-left" ng-click="previousPic()" ng-hide="slideIndex == 0"></button>
+        <button class="button button-icon button-clear ion-chevron-right" ng-click="nextPic()" ng-hide="slideIndex == user.photos.length - 1"></button>
 
-        <ion-slide-box style="height: 100%;" on-slide-changed="slideChanged($index)" show-pager="true">
-            <ion-slide ng-repeat="imageUrl in user.pictures">
+        <ion-slide-box style="height: 100%;" on-slide-changed="slideChanged($index)" show-pager="{{user.photos.length <= 10}}">
+            <ion-slide ng-repeat="imageUrl in user.photos">
                 <div class="pic-container">
                     <ion-spinner class="default-spinner" ng-show="loadingProfilePics"></ion-spinner>
                     <img ng-src="{{imageUrl}}" ng-load-image="imageLoaded()" ng-hide="loadingProfilePics">
@@ -84,7 +84,7 @@
                     <ion-slide ng-repeat="section in commonFriends">
                         <div class="row" ng-repeat="row in section">
                             <div class="col-33 text-center" ng-repeat="m in row">
-                                <img class="prof-pic-match" ng-src="{{m.pictures[0]}}" width="100%">
+                                <img class="prof-pic-match" ng-src="{{m.photos[0]}}" width="100%">
                                 <br>
                                 <div style="display: inline-flex; text-align: center">
                                     <span class="match-user" style="font-size: 15px">{{m.name}}</span>
@@ -112,10 +112,10 @@
                 <i class="icon ion-flame"></i>
                 <b>Erosify Score&reg;</b>
                 <p class="about-me-desc">
-                    Current score is <b>{{user.score}}</b>
+                    Current score: <b>{{user.score}}</b>
                 </p>
                 <p class="about-me-desc">
-                    <b>70%</b> popular
+                    Popularity rank: <b>1642</b>
                 </p>
             </div>
         </div>

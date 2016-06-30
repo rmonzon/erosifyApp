@@ -206,7 +206,7 @@ angular.module('controllers').controller('UserProfileController', function ($sco
 
     $scope.imageLoaded = function () {
         $scope.loadingNum++;
-        if ($scope.loadingNum == $scope.user.pictures.length) {
+        if ($scope.loadingNum == $scope.user.photos.length) {
             $scope.loadingProfilePics = false;
             $scope.loadingNum = 0;
         }

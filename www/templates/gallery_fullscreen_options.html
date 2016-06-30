@@ -1,0 +1,12 @@
+<ion-modal-view class="grid-fullscreen-container">
+    <ion-content>
+        <button class="button button-icon button-clear ion-close-round" ng-click="closeGalleryFullScreen()"></button>
+
+        <ion-slide-box style="height: 100%;" on-slide-changed="slideChanged($index)" show-pager="false">
+            <ion-slide ng-repeat="img in user.photos">
+                <div class="fullscreen-img" ng-style="{background:'url(' + img + ')'}"></div>
+                <button class="button button-icon button-clear ion-ios-trash" ng-click="openDeletePhotoConfirm($index)"></button>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-content>
+</ion-modal-view>

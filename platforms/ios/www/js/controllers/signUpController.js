@@ -27,7 +27,7 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
         //     email: "heidi@gmail.com",
         //     password: "123123123",
         //     name: "Heidi",
-        //     lastname: "Smith",
+        //     full_name: "Smith",
         //     dob: "11-27-1991",
         //     gender: "Female",
         //     looking_to: "Date",
@@ -109,27 +109,11 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
             return;
         }
         $scope.showMessageWithIcon("Creating account...");
-        $scope.getCurrentLocation();
-    };
-
-    $scope.getCurrentLocation = function () {
-        var posOptions = {timeout: 10000, enableHighAccuracy: false};
-        $cordovaGeolocation.getCurrentPosition(posOptions).then(successGetLocation, errorGetLocation);
+        $scope.getCurrentLocation().then(successGetLocation, $scope.errorGetLocation);
     };
 
     function successGetLocation(position) {
         geocodeLatLng(position.coords.latitude, position.coords.longitude);
-    }
-
-    function errorGetLocation(err) {
-        $scope.hideMessage();
-        console.log(err);
-        if (err.code == 1) {
-            $scope.showMessage("Please enable GPS service to continue.", 3000);
-        }
-        else {
-            $scope.showMessage("Error getting your current location.", 3000);
-        }
     }
 
     function geocodeLatLng(lat, long) {
@@ -142,11 +126,11 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
                         "email": $scope.user.email,
                         "password": $scope.user.password,
                         "name": $scope.user.name,
-                        "lastname": "Rivero",
+                        "full_name": "",
                         "dob": $scope.user.month + "-" + $scope.user.day + "-" + $scope.user.year,
                         "gender": $scope.user.gender,
-                        "age": calculateAge(),
-                        "location": results[0].formatted_address,
+                        "age": $scope.calculateAge($scope.user),
+                        "location": results[0].formatted_address.replace('EE. UU.', 'USA'),
                         "pictures": "'{1.jpg}'",
                         "languages": "'{English}'",
                         "coords": latlng,
@@ -165,7 +149,7 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
 
     function successCallBack(response) {
         $scope.hideMessage();
-        $scope.setUserToLS($scope.user.email);
+        $scope.setUserToLS({ email: $scope.user.email, password: $scope.user.password });
         User.setToken(response.data.token);
         response.data.user = $scope.parseDataFromDB(response.data.user);
         User.setUser(response.data.user);
@@ -176,16 +160,6 @@ angular.module('controllers').controller('SignUpController', function ($scope, $
         $scope.hideMessage();
         console.log(response);
         $scope.showMessage(response.data.error, 3000);
-    }
-
-    function calculateAge() {
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1; //January is 0!
-        var yyyy = today.getFullYear();
-        var diffYears = yyyy - parseInt($scope.user.year);
-        var a = mm * 30 + dd, b = parseInt($scope.user.month) * 30 + parseInt($scope.user.day);
-        return a < b ? diffYears - 1 : diffYears;
     }
 
     init();

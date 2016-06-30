@@ -7,12 +7,14 @@
     </div>
 </ion-header-bar>
 <ion-content class="gradient-bg">
-    <div style="margin: 5% 0">
+    <ion-refresher on-refresh="getListMatches()" spinner="ios"></ion-refresher>
+    <div style="padding-top: 15px" ng-hide="loadingMatches">
         <div class="row matches-row" ng-repeat="row in myMatches">
             <div class="col-33 text-center" ng-repeat="m in row">
-                <a class="button button-icon" style="width: 100%" ng-click="goToProfile(m.id)">
-                    <img class="prof-pic-match" src="{{m.pictures[0]}}">
-                    <img src="img/verified-circle.svg" ng-show="m.verified == 1" class="verified-profile-icon-match">
+                <ion-spinner class="default-spinner" ng-show="loadingImg"></ion-spinner>
+                <a class="button button-icon" style="width: 100%" ng-click="goToProfile(m.id)" ng-hide="loadingImg">
+                    <img class="prof-pic-match" ng-src="{{m.photos[0]}}" ng-load-image="imageLoaded()">
+                    <div ng-show="m.unread == 1" class="new-visitor"><span>NEW</span></div>
                 </a>
                 <br>
                 <div style="display: inline-flex; text-align: center">
@@ -28,13 +30,11 @@
             <div class="col">
                 <i class="icon ion-sad" style="font-size: 50px"></i>
                 <p class="text-center">No one around here yet.</p>
-                <p class="text-center">Start liking some profiles until you find your best match!</p>
             </div>
         </div>
+    </div>
 
-        <div class="text-center def-spinner-container" ng-show="loadingMatches">
-            <ion-spinner class="default-spinner"></ion-spinner>
-            <!--<p class="text-center">Loading your favorites...</p>-->
-        </div>
+    <div class="text-center def-spinner-container" ng-show="loadingMatches">
+        <ion-spinner class="default-spinner"></ion-spinner>
     </div>
 </ion-content>

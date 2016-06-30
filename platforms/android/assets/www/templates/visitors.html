@@ -7,17 +7,19 @@
   </div>
 </ion-header-bar>
 <ion-content class="gradient-bg">
+    <ion-refresher on-refresh="getListOfVisitors()" spinner="ios"></ion-refresher>
     <div style="padding-top: 15px" ng-hide="loadingVisitors">
         <div class="row matches-row" ng-repeat="row in myVisitors">
             <div class="col-33 text-center" ng-repeat="m in row">
-                <a class="button button-icon" style="width: 100%; position: relative" ng-click="goToProfile(m.id)">
-                    <img class="prof-pic-match" ng-src="{{m.pictures[0]}}" ng-load-image="imageLoaded()">
-                    <img src="img/verified-circle.svg" ng-show="m.verified == 1" class="verified-profile-icon-match">
-                    <div ng-show="m.new == 1" class="new-visitor"><span>NEW</span></div>
+                <ion-spinner class="default-spinner" ng-show="loadingImg"></ion-spinner>
+                <a class="button button-icon" style="width: 100%; position: relative" ng-click="goToProfile(m.id)" ng-hide="loadingImg">
+                    <img class="prof-pic-match" ng-src="{{m.photos[0]}}" ng-load-image="imageLoaded()">
+                    <div ng-show="m.unread == 1" class="new-visitor"><span>NEW</span></div>
                 </a>
                 <br>
                 <div style="display: inline-flex; text-align: center">
                     <span class="match-user">{{m.name}}</span>
+                    <i class="icon ion-checkmark-circled verified-icon-list" ng-show="m.verified == 1"></i>
                 </div>
                 <br>
                 <span class="match-date">{{m.date}}</span>
@@ -34,7 +36,6 @@
 
         <div class="text-center def-spinner-container" ng-show="loadingVisitors">
             <ion-spinner class="default-spinner"></ion-spinner>
-            <!--<p class="text-center">Loading your favorites...</p>-->
         </div>
     </div>
 </ion-content>

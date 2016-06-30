@@ -10,7 +10,7 @@
     <div class="row" ng-repeat="fav in listFavorites" style="border-bottom: 1px solid rgba(211,211,211,0.3);padding-top: 5px" ng-hide="loadingFavs">
         <div class="col-20 text-center">
             <a class="button button-icon" style="line-height: 0; margin: 5px 0;" ng-click="goToProfile(fav.id)">
-                <img class="user-fav-pic" src="{{fav.pictures[0]}}">
+                <img class="user-fav-pic" ng-src="{{fav.photos[0]}}" ng-load-image="imageLoaded()">
                 <img src="img/verified-circle.svg" ng-show="fav.verified == 1" class="verified-user-fav">
             </a>
         </div>
@@ -20,7 +20,7 @@
             <span class="fav-online" ng-class="fav.status == 1 ? 'online-txt' : 'offline-txt'">{{fav.status == 1 ? 'Online' : 'Offline'}}</span>
         </div>
         <div class="col-20 text-center">
-            <button class="button button-icon send-msg-button ion-ios-chatboxes-outline"></button>
+            <button class="button button-icon send-msg-button ion-ios-chatboxes-outline" ng-click="goToPage('app/messages/' + fav.id)"></button>
         </div>
     </div>
 

@@ -20,6 +20,7 @@ angular.module('controllers').controller('MessagesController', function ($scope,
     function getUserMessagesSuccess(response) {
         $scope.messages = $scope.parseDataFromDB(response.data.messages);
         $scope.loadingMessages = false;
+        $scope.$broadcast('scroll.refreshComplete');
     }
 
     function getUserMessagesError(response) {
@@ -32,8 +33,11 @@ angular.module('controllers').controller('MessagesController', function ($scope,
         $scope.loadingMessages = false;
     }
 
-    $scope.clearSearch = function () {
-        $scope.searchTerm = "";
+    $scope.refreshTasks = function() {
+        console.log('Refreshing');
+        $timeout(function() {
+            $scope.$broadcast('scroll.refreshComplete');
+        }, 100000);
     };
 
     init();

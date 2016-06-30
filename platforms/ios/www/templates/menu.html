@@ -1,12 +1,5 @@
 <ion-side-menus enable-menu-with-back-views="false">
     <ion-side-menu-content>
-        <!--<ion-nav-bar class="bar-stable">-->
-              <!--<ion-nav-back-button></ion-nav-back-button>-->
-
-              <!--<ion-nav-buttons side="left">-->
-                    <!--<button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>-->
-              <!--</ion-nav-buttons>-->
-        <!--</ion-nav-bar>-->
         <ion-nav-view name="menuContent"></ion-nav-view>
     </ion-side-menu-content>
 
@@ -14,10 +7,10 @@
         <ion-content>
             <ion-list>
                 <a menu-close class="item item-avatar" ng-click="goToPage('app/myprofile')">
-                    <img class="left-menu-pic" ng-class="user.gender == 'Male' ? 'male' : 'female'" ng-src="{{user.pictures[0]}}">
+                    <img class="left-menu-pic" ng-class="user.gender == 'Male' ? 'male' : 'female'" ng-src="{{user.photos[0]}}">
                     <h2>{{user.name}}</h2>
-                    <i class="icon ion-android-favorite-outline"> <b>123</b></i>
-                    <i class="icon ion-ios-chatbubble-outline"> <b>45</b></i>
+                    <i class="icon ion-android-favorite-outline"> <b>{{user.totalLikes}}</b></i>
+                    <i class="icon ion-ios-chatbubble-outline"> <b>{{user.totalMsgs}}</b></i>
                     <button class="button button-icon icon ion-gear-a" menu-close ng-click="goToSettings($event)"></button>
                 </a>
                 <ion-item menu-close href="#/app/matching">
@@ -30,19 +23,22 @@
                 </ion-item>
                 <ion-item menu-close href="#/app/search">
                     <i class="icon ion-search"></i>
-                    Search
+                    Search People
                 </ion-item>
                 <ion-item menu-close href="#/app/visitors">
                     <i class="icon ion-eye"></i>
                     Visitors
+                    <span class="badge badge-assertive" ng-show="notifications.new_visitors > 0">{{notifications.new_visitors}}</span>
                 </ion-item>
                 <ion-item menu-close href="#/app/matches">
                     <i class="icon ion-ios-people"></i>
                     My Matches
+                    <span class="badge badge-assertive" ng-show="notifications.new_matches > 0">{{notifications.new_matches}}</span>
                 </ion-item>
                 <ion-item menu-close href="#/app/likes">
                     <i class="icon ion-heart"></i>
                     Who Liked Me
+                    <span class="badge badge-assertive" ng-show="notifications.new_likes > 0">{{notifications.new_likes}}</span>
                 </ion-item>
                 <ion-item menu-close href="#/app/favorites">
                     <i class="icon ion-star"></i>
@@ -51,16 +47,16 @@
                 <ion-item menu-close href="#/app/messages">
                     <i class="icon ion-chatbubbles"></i>
                     Messages
-                    <span class="badge badge-assertive" ng-show="notifications.unreadMessages > 0">{{notifications.unreadMessages}}</span>
+                    <span class="badge badge-assertive" ng-show="notifications.unread_msg > 0">{{notifications.unread_msg}}</span>
                 </ion-item>
                 <!--<ion-item menu-close href="#/app/messages">-->
                     <!--<i class="icon ion-card"></i>-->
                     <!--Erosify Premium-->
                 <!--</ion-item>-->
-                <ion-item menu-close href="http://www.erosify.com">
-                    <i class="icon ion-help-circled"></i>
-                    Help & FAQs
-                </ion-item>
+                <!--<ion-item menu-close href="http://www.erosify.com">-->
+                    <!--<i class="icon ion-help-circled"></i>-->
+                    <!--Help & FAQs-->
+                <!--</ion-item>-->
             </ion-list>
         </ion-content>
     </ion-side-menu>

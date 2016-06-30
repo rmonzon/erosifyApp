@@ -133,6 +133,18 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.get(factory.connectionStr + "/common_friends/" + uid, { headers: { token: User.getToken(), my_id: User.getUser().id }});
     };
 
+    factory.getMessagesAndLikesTotal = function () {
+        return $http.get(factory.connectionStr + "/messages_likes", { headers: { token: User.getToken(), my_id: User.getUser().id }});
+    };
+
+    factory.deleteAccount = function (req) {
+        return $http.post(factory.connectionStr + "/delete_account", req);
+    };
+
+    factory.markMessageAsViewedByUser = function (req) {
+        return $http.post(factory.connectionStr + "/message_viewed", req);
+    };
+
     return factory;
 }).factory('socket', function(socketFactory) {
     var myIoSocket = io.connect(ENV.CHAT_SERVER_URL);

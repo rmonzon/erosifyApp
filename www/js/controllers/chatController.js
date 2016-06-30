@@ -9,12 +9,9 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
         $scope.user = User.getUser();
         $scope.chat = { connected: false };
         $scope.messages = [];
-
         $scope.typing = false;
         $scope.lastTypingTime = null;
         $scope.TYPING_TIMER_LENGTH = 400;
-
-        //var isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
 
         //Add colors
         $scope.COLORS = [
@@ -22,7 +19,14 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
             '#58dc00', '#287b00', '#a8f07a', '#4ae8c4',
             '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
         ];
+        getConversationId();
         $scope.getUserInfoFromDB();
+    }
+
+    function getConversationId() {
+        var a = parseInt($stateParams.userId) < $scope.user.id ? parseInt($stateParams.userId) : $scope.user.id;
+        var b = parseInt($stateParams.userId) > $scope.user.id ? parseInt($stateParams.userId) : $scope.user.id;
+        $scope.conversation_id = $scope.generateUniqueNumber(a, b);
     }
 
     $scope.getUserInfoFromDB = function () {
@@ -77,13 +81,17 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
     };
 
     socket.on('connect',function() {
+        socket.emit('subscribe', $scope.conversation_id);
+
         //Add name of the connected user
         $scope.chat.connected = true;
-        socket.emit('add user', $scope.user.name);
+        socket.emit('add user', { name: $scope.user.name, room: $scope.conversation_id });
 
         socket.on('new message', function (data) {
             if (data.message && data.name) {
                 $scope.addMessageToList(data.name, true, data.message);
+                //mark message received as viewed
+                mainFactory.markMessageAsViewedByUser({my_id: User.getUser().id, user_id: $scope.userInfo.id}).then(function(response) { console.log(response.data); }, function(response) { console.log(response.data); });
             }
         });
 
@@ -98,16 +106,16 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
         });
 
         // Whenever the server emits 'user joined', log it in the chat body
-        socket.on('user joined', function (data) {
-            $scope.addMessageToList("", false, data.name + " joined");
-            $scope.addMessageToList("", false, message_string(data.numUsers));
-        });
-
-        // Whenever the server emits 'user left', log it in the chat body
-        socket.on('user left', function (data) {
-            $scope.addMessageToList("", false, data.name + " left");
-            $scope.addMessageToList("", false, message_string(data.numUsers));
-        });
+        // socket.on('user joined', function (data) {
+        //     $scope.addMessageToList("", false, data.name + " joined");
+        //     $scope.addMessageToList("", false, message_string(data.numUsers));
+        // });
+        //
+        // // Whenever the server emits 'user left', log it in the chat body
+        // socket.on('user left', function (data) {
+        //     $scope.addMessageToList("", false, data.name + " left");
+        //     $scope.addMessageToList("", false, message_string(data.numUsers));
+        // });
     });
 
     // Return message string depending on the number of users
@@ -143,7 +151,7 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
         if ($scope.chat.connected) {
             if (!$scope.typing) {
                 $scope.typing = true;
-                socket.emit('typing');
+                socket.emit('typing', $scope.conversation_id);
             }
         }
         $scope.lastTypingTime = (new Date()).getTime();
@@ -151,7 +159,7 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
             var typingTimer = (new Date()).getTime();
             var timeDiff = typingTimer - $scope.lastTypingTime;
             if (timeDiff >= $scope.TYPING_TIMER_LENGTH && $scope.typing) {
-                socket.emit('stop typing');
+                socket.emit('stop typing', $scope.conversation_id);
                 $scope.typing = false;
             }
         }, $scope.TYPING_TIMER_LENGTH);
@@ -194,15 +202,18 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
     };
 
     function saveMessageSuccess(response) {
-        socket.emit('new message', $scope.chat.message);
+        socket.emit('new message', {
+            room: $scope.conversation_id,
+            message: $scope.chat.message
+        });
+        //socket.emit('new message', $scope.chat.message);
         $scope.addMessageToList($scope.user.name, true, $scope.chat.message);
-        socket.emit('stop typing');
-
+        socket.emit('stop typing', $scope.conversation_id);
         $scope.chat.message = "";
     }
 
     function saveMessageError(response) {
-        socket.emit('stop typing');
+        socket.emit('stop typing', $scope.conversation_id);
         $scope.showMessage(response.data.error, 2500);
     }
 
