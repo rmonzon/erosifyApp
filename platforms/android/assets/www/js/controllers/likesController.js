@@ -31,7 +31,6 @@ angular.module('controllers').controller('LikesController', function ($scope, Ge
         }
         $scope.loadingLikes = false;
         $scope.$broadcast('scroll.refreshComplete');
-        $scope.getNotifications();
     }
 
     function getMyLikesError(response) {

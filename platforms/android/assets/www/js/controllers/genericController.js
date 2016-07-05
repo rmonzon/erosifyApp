@@ -360,7 +360,7 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
         };
 
         $scope.showNativeToast = function (msg) {
-            $cordovaToast.show(msg, 'long', 'bottom').then(function (success) {
+            $cordovaToast.show(msg, 'short', 'bottom').then(function (success) {
                 // success
             }, function (error) {
                 // error

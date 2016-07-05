@@ -2,7 +2,7 @@
  * Created by raul on 2/24/16.
  */
 
-angular.module('controllers').controller('MyMatchesController', function ($scope, GenericController, mainFactory, User) {
+angular.module('controllers').controller('MyMatchesController', function ($scope, $rootScope, GenericController, mainFactory, User) {
 
     function init() {
         GenericController.init($scope);
@@ -20,6 +20,7 @@ angular.module('controllers').controller('MyMatchesController', function ($scope
     };
 
     function getMyMatchesSuccess(response) {
+        $rootScope.notifications.new_matches = 0;
         $scope.listMatches = $scope.parseDataFromDB(response.data.matches);
         $scope.myMatches = $scope.convertDataForUI($scope.listMatches);
         if ($scope.listMatches.length == 0) {

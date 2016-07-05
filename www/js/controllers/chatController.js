@@ -80,18 +80,25 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
         $ionicScrollDelegate.scrollBottom(true);
     };
 
-    socket.on('connect',function() {
+    socket.on('connect', function() {
         socket.emit('subscribe', $scope.conversation_id);
 
         //Add name of the connected user
         $scope.chat.connected = true;
-        socket.emit('add user', { name: $scope.user.name, room: $scope.conversation_id });
+        socket.emit('add user', {name: $scope.user.name, room: $scope.conversation_id});
 
         socket.on('new message', function (data) {
             if (data.message && data.name) {
                 $scope.addMessageToList(data.name, true, data.message);
                 //mark message received as viewed
-                mainFactory.markMessageAsViewedByUser({my_id: User.getUser().id, user_id: $scope.userInfo.id}).then(function(response) { console.log(response.data); }, function(response) { console.log(response.data); });
+                mainFactory.markMessageAsViewedByUser({
+                    my_id: User.getUser().id,
+                    user_id: $scope.userInfo.id
+                }).then(function (response) {
+                    console.log(response.data);
+                }, function (response) {
+                    console.log(response.data);
+                });
             }
         });
 
@@ -117,11 +124,6 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
         //     $scope.addMessageToList("", false, message_string(data.numUsers));
         // });
     });
-
-    // Return message string depending on the number of users
-    function message_string(number_of_users) {
-        return number_of_users === 1 ? "there's 1 participant" : "there are " + number_of_users + " participants";
-    }
 
     // Adds the visual chat typing message
     function addChatTyping (data) {
@@ -206,7 +208,12 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
             room: $scope.conversation_id,
             message: $scope.chat.message
         });
-        //socket.emit('new message', $scope.chat.message);
+        socket.emit('new message notif', {
+            sender_id: $scope.user.id,
+            user_id: $stateParams.userId,
+            name: $scope.user.name,
+            picture: $scope.user.photos[0]
+        });
         $scope.addMessageToList($scope.user.name, true, $scope.chat.message);
         socket.emit('stop typing', $scope.conversation_id);
         $scope.chat.message = "";

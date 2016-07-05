@@ -635,7 +635,7 @@ hr {
 }
 
 .button-like {
-    width: 100px;
+    width: 110px;
     height: 50px;
     border-radius: 30px;
     float: left;
@@ -647,16 +647,13 @@ hr {
 }
 
 .button-dislike {
-    width: 100px;
+    width: 110px;
     height: 50px;
     border-radius: 30px;
     float: right;
     background: #FF4842;
     text-align: center;
     margin-right: 10px;
-    /*position: absolute;*/
-    /*left: 50%;*/
-    /*margin-left: -90px;*/
     z-index: 10;
     color: whitesmoke;
 }
@@ -1982,6 +1979,33 @@ span.msg {
 
 .delete-photo-popup .button-dark {
     border-radius: 0;
+}
+
+.notification-container {
+    width: 95%;
+    height: 55px;
+    position: absolute;
+    bottom: 0;
+    background: #c7c7c7;
+    margin: 10px;
+    font-size: 17px;
+    border-radius: 5px;
+    z-index: 20;
+    outline: none;
+}
+.notification-container .col-20 {
+    padding-left: 0;
+}
+.notification-container .col-80 {
+    padding-top: 13px;
+}
+
+.notif-photo {
+    width: 50px;
+    height: 50px;
+    margin: 2px;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 /* CSS to create the pink bg on matching view */

@@ -635,7 +635,7 @@ hr {
 }
 
 .button-like {
-    width: 100px;
+    width: 110px;
     height: 50px;
     border-radius: 30px;
     float: left;
@@ -647,16 +647,13 @@ hr {
 }
 
 .button-dislike {
-    width: 100px;
+    width: 110px;
     height: 50px;
     border-radius: 30px;
     float: right;
     background: #FF4842;
     text-align: center;
     margin-right: 10px;
-    /*position: absolute;*/
-    /*left: 50%;*/
-    /*margin-left: -90px;*/
     z-index: 10;
     color: whitesmoke;
 }

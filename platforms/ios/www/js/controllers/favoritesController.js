@@ -23,7 +23,6 @@ angular.module('controllers').controller('FavoritesController', function ($scope
             $scope.noResults = true;
             $scope.loadingFavs = false;
         }
-        $scope.getNotifications();
     }
 
     function getFavoritesError(response) {

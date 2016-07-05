@@ -366,5 +366,22 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
                 // error
             });
         };
+
+        $scope.showNotification = function (notif) {
+            $scope.notification = notif;
+            $scope.notification.visible = true;
+            $timeout(function () {
+                if ($scope.notification) {
+                    $scope.notification.visible = false;
+                }
+            }, 6000);
+        };
+
+        $scope.viewNotification = function () {
+            if ($scope.notification.is_message) {
+                $scope.notification.visible = false;
+                $scope.goToPage('app/messages/' + $scope.notification.sender_id);   
+            }
+        };
     };
 });

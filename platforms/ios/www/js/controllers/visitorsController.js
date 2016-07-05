@@ -27,7 +27,6 @@ angular.module('controllers').controller('VisitorsController', function ($scope,
         }
         $scope.loadingVisitors = false;
         $scope.$broadcast('scroll.refreshComplete');
-        $scope.getNotifications();
     }
 
     function getMyVisitorsError(response) {

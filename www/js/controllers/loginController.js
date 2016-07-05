@@ -6,8 +6,8 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
 
     function init() {
         GenericController.init($scope);
-        $scope.user = {email: "heidi@gmail.com", password: "123123123"};
-        //$scope.user = {email: "", password: ""};
+        //$scope.user = {email: "heidi@gmail.com", password: "123123123"};
+        $scope.user = {email: "", password: ""};
     }
 
     $scope.loginWithEmail = function () {

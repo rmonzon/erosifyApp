@@ -2,7 +2,7 @@
  * Created by raul on 4/1/16.
  */
 
-angular.module('controllers').controller('UserProfileController', function ($scope, $stateParams, $ionicPopover, $ionicPopup, $ionicSlideBoxDelegate, GenericController, User, mainFactory) {
+angular.module('controllers').controller('UserProfileController', function ($scope, $stateParams, $ionicPopover, $ionicPopup, $ionicSlideBoxDelegate, GenericController, socket, User, mainFactory) {
 
     function init() {
         GenericController.init($scope);
@@ -22,6 +22,11 @@ angular.module('controllers').controller('UserProfileController', function ($sco
     }
 
     $scope.getUserInfoFromDB = function () {
+        socket.emit('new visitor notif', {
+            user_id: $stateParams.userId,
+            name: User.getUser().name,
+            picture: User.getUser().photos[0]
+        });
         mainFactory.getUserInfo($stateParams.userId).then(successCallback, errorCallback);
     };
 
@@ -74,6 +79,13 @@ angular.module('controllers').controller('UserProfileController', function ($sco
 
     function saveLikeOrDislikeSuccess(response) {
         if (response.data.isMatch) {
+            $scope.userProfile = User.getUser();
+            $scope.currentProfile = $scope.user;
+            socket.emit('new match notif', {
+                user_id: $scope.user.id,
+                name: $scope.user.name,
+                picture: $scope.user.photos[0]
+            });
             $scope.showMutualMatchMsg();
         }
     }
@@ -126,6 +138,7 @@ angular.module('controllers').controller('UserProfileController', function ($sco
     }
 
     $scope.sendMessageToUser = function () {
+        $scope.mutualMatchPopup.close();
         $scope.goToPage('app/messages/' + $scope.user.id);
     };
 

@@ -40,9 +40,8 @@
                 <span class="profile-name">
                     <span style="font-family: LeituraSansBold">{{user.name}}</span>, {{user.age}}
                 </span>
-                <!--<div class="verified-icon-profile"></div>-->
                 <i class="icon ion-checkmark-circled verified-icon" style="margin-top: -6px;margin-left: 8px;" ng-show="user.verified == 1"></i>
-                <div class="online-icon-profile" ng-show="user.status == 1"></div>
+                <!--<div class="online-icon-profile" ng-show="user.status == 1"></div>-->
             </div>
         </div>
 
@@ -158,3 +157,5 @@
         <ion-spinner class="default-spinner"></ion-spinner>
     </div>
 </ion-content>
+
+<div ng-include="'templates/notification_msg.html'"></div>

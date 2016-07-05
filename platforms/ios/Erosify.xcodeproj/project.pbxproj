@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		002F254298C545208B67A425 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B867A5F0D4C49179C5B4BE0 /* libsqlite3.dylib */; };
 		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
@@ -33,16 +34,16 @@
 		97A9F36D74ED4768B73D31D5 /* CDVStatusBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 131A5414F94D42F0BB12D974 /* CDVStatusBar.m */; };
 		A5320F231E3745C3AC4E6E01 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9114CE63C7B542A6A768D12B /* ImageIO.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		B19174FF7FA945D5B4E97F5E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F3788E82D064D9BAD67C1E5 /* AVFoundation.framework */; };
+		BC8E63FEF61A49BE99BD2EE2 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = D65344E9CA144A59A6FB2711 /* Toast+UIView.m */; };
 		BD0B1577E1F24FA6B513CCD9 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8964FEEC07774DFB85251A60 /* FBSDKShareKit.framework */; };
+		C9131AB1DC764976AEF7B6E0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2FFCACC3AB4C398EBA44F2 /* QuartzCore.framework */; };
 		CC89CDFE84D64F2FBCA2151A /* CDVJpegHeaderWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = A16E4D07F22940E1B9383D3A /* CDVJpegHeaderWriter.m */; };
 		D0AC08925BB34AF9AB900773 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B134885DFA7148B082B913FD /* FBSDKLoginKit.framework */; };
 		D994037A1B824DBC9E0F3E01 /* CDVSplashScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 0274604F35E14E89BCCC3B26 /* CDVSplashScreen.m */; };
 		DB723C1A7D9141558E6EB26E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 562A572668B34353951FB940 /* Bolts.framework */; };
 		DDF04B797D8E4F009A7F41AF /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4E82BCC80366494AA15E523E /* CDVInAppBrowser.m */; };
-		FC4E7600E89C4C2190409B82 /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E7FB03F63B49BFBF409921 /* CDVLocation.m */; };
-		BC8E63FEF61A49BE99BD2EE2 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = D65344E9CA144A59A6FB2711 /* Toast+UIView.m */; };
 		E021A748D40546F59FAA11CC /* Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 87A1BA32D0C141459888E064 /* Toast.m */; };
-		C9131AB1DC764976AEF7B6E0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA2FFCACC3AB4C398EBA44F2 /* QuartzCore.framework */; };
+		FC4E7600E89C4C2190409B82 /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E7FB03F63B49BFBF409921 /* CDVLocation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		404A657A8A3E4A7A8175EA20 /* UIWebViewExtension.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = UIWebViewExtension.h; path = "ionic-plugin-keyboard/UIWebViewExtension.h"; sourceTree = "<group>"; };
 		49AD27404EBE4DE3865F752E /* CDVInAppBrowser.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVInAppBrowser.h; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.h"; sourceTree = "<group>"; };
 		4E82BCC80366494AA15E523E /* CDVInAppBrowser.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVInAppBrowser.m; path = "cordova-plugin-inappbrowser/CDVInAppBrowser.m"; sourceTree = "<group>"; };
+		542C5ABB88E24EE5ABB9F131 /* Toast.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = Toast.h; path = "cordova-plugin-x-toast/Toast.h"; sourceTree = "<group>"; };
 		562A572668B34353951FB940 /* Bolts.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "Erosify/Plugins/cordova-plugin-facebook4/Bolts.framework"; sourceTree = "<group>"; };
 		5F3788E82D064D9BAD67C1E5 /* AVFoundation.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		603C2DFC6BE84129BB6130AE /* CDVCamera.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVCamera.h; path = "cordova-plugin-camera/CDVCamera.h"; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 		7B41E3634358443EA8954695 /* CDVViewController+SplashScreen.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "CDVViewController+SplashScreen.h"; path = "cordova-plugin-splashscreen/CDVViewController+SplashScreen.h"; sourceTree = "<group>"; };
 		7D70587F637D42208884DFB4 /* CDVAssetLibraryFilesystem.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVAssetLibraryFilesystem.h; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.h"; sourceTree = "<group>"; };
 		80117FC8607248B18A248849 /* FacebookConnectPlugin.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = FacebookConnectPlugin.h; path = "cordova-plugin-facebook4/FacebookConnectPlugin.h"; sourceTree = "<group>"; };
+		87A1BA32D0C141459888E064 /* Toast.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = Toast.m; path = "cordova-plugin-x-toast/Toast.m"; sourceTree = "<group>"; };
 		8964FEEC07774DFB85251A60 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "Erosify/Plugins/cordova-plugin-facebook4/FBSDKShareKit.framework"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Erosify-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Erosify-Info.plist"; path = "Erosify/Erosify-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = SOURCE_ROOT; };
 		9114CE63C7B542A6A768D12B /* ImageIO.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
@@ -117,8 +120,10 @@
 		B81207CAC037453B904E0070 /* CDVFile.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVFile.h; path = "cordova-plugin-file/CDVFile.h"; sourceTree = "<group>"; };
 		BC486ECD62C1490FA645C72A /* UIImage+CropScaleOrientation.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "UIImage+CropScaleOrientation.m"; path = "cordova-plugin-camera/UIImage+CropScaleOrientation.m"; sourceTree = "<group>"; };
 		C259F860345A43FF8BE712F7 /* Social.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		CF32E4035F184D3D931F496F /* Toast+UIView.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "Toast+UIView.h"; path = "cordova-plugin-x-toast/Toast+UIView.h"; sourceTree = "<group>"; };
 		CF9DCEBF952747ACB41DD5EF /* CDVViewController+SplashScreen.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "CDVViewController+SplashScreen.m"; path = "cordova-plugin-splashscreen/CDVViewController+SplashScreen.m"; sourceTree = "<group>"; };
 		D4E7FB03F63B49BFBF409921 /* CDVLocation.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVLocation.m; path = "cordova-plugin-geolocation/CDVLocation.m"; sourceTree = "<group>"; };
+		D65344E9CA144A59A6FB2711 /* Toast+UIView.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = "Toast+UIView.m"; path = "cordova-plugin-x-toast/Toast+UIView.m"; sourceTree = "<group>"; };
 		E179C8586D8444EABC86A248 /* CDVFile.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVFile.m; path = "cordova-plugin-file/CDVFile.m"; sourceTree = "<group>"; };
 		E1C73076F8E44FF4947D01B3 /* CDVLogger.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVLogger.h; path = "cordova-plugin-console/CDVLogger.h"; sourceTree = "<group>"; };
 		E9E19FD7DD0B4FADABC7C5AC /* CDVJpegHeaderWriter.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVJpegHeaderWriter.h; path = "cordova-plugin-camera/CDVJpegHeaderWriter.h"; sourceTree = "<group>"; };
@@ -127,12 +132,8 @@
 		ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
 		F283C336EE9E48E694190B68 /* CDVLocalFilesystem.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVLocalFilesystem.h; path = "cordova-plugin-file/CDVLocalFilesystem.h"; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = Erosify/config.xml; sourceTree = "<group>"; };
+		FA2FFCACC3AB4C398EBA44F2 /* QuartzCore.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FD2E7CB28897417CA44AD7BE /* CDVDevice.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVDevice.m; path = "cordova-plugin-device/CDVDevice.m"; sourceTree = "<group>"; };
-		D65344E9CA144A59A6FB2711 /* Toast+UIView.m */ = {isa = PBXFileReference; name = "Toast+UIView.m"; path = "cordova-plugin-x-toast/Toast+UIView.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		87A1BA32D0C141459888E064 /* Toast.m */ = {isa = PBXFileReference; name = "Toast.m"; path = "cordova-plugin-x-toast/Toast.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		CF32E4035F184D3D931F496F /* Toast+UIView.h */ = {isa = PBXFileReference; name = "Toast+UIView.h"; path = "cordova-plugin-x-toast/Toast+UIView.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		542C5ABB88E24EE5ABB9F131 /* Toast.h */ = {isa = PBXFileReference; name = "Toast.h"; path = "cordova-plugin-x-toast/Toast.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		FA2FFCACC3AB4C398EBA44F2 /* QuartzCore.framework */ = {isa = PBXFileReference; name = "QuartzCore.framework"; path = "System/Library/Frameworks/QuartzCore.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
