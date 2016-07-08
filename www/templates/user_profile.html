@@ -84,7 +84,7 @@
                     <ion-slide ng-repeat="section in commonFriends">
                         <div class="row" ng-repeat="row in section">
                             <div class="col-33 text-center" ng-repeat="m in row">
-                                <img class="prof-pic-match" ng-src="{{m.photos[0]}}" width="100%">
+                                <img class="prof-pic-match" ng-src="{{'http://graph.facebook.com/' + m.facebook_id + '/picture?type=large'}}" width="100%">
                                 <br>
                                 <div style="display: inline-flex; text-align: center">
                                     <span class="match-user" style="font-size: 15px">{{m.name}}</span>
@@ -97,18 +97,6 @@
         </div>
         <div class="row profile-desc-icon">
             <div class="col">
-                <i class="icon ion-ribbon-b"></i>
-                <b>Premium Membership</b>
-                <p class="about-me-desc" ng-show="user.premium_member == 0">
-                    Not activated
-                </p>
-                <p class="about-me-desc" ng-show="user.premium_member == 1">
-                    Activated
-                </p>
-            </div>
-        </div>
-        <div class="row profile-desc-icon">
-            <div class="col">
                 <i class="icon ion-flame"></i>
                 <b>Erosify Score&reg;</b>
                 <p class="about-me-desc">
@@ -116,6 +104,18 @@
                 </p>
                 <p class="about-me-desc">
                     Popularity rank: <b>1642</b>
+                </p>
+            </div>
+        </div>
+        <div class="row profile-desc-icon">
+            <div class="col">
+                <i class="icon ion-ribbon-b"></i>
+                <b>Premium Membership</b>
+                <p class="about-me-desc" ng-show="user.premium_member == 0">
+                    Not activated
+                </p>
+                <p class="about-me-desc" ng-show="user.premium_member == 1">
+                    Activated
                 </p>
             </div>
         </div>

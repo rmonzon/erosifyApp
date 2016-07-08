@@ -286,7 +286,7 @@ angular.module('controllers').controller('MyProfileController', function ($scope
             if ($scope.user.photos[i].indexOf('amazon') === -1) {
                 //avoid to add the facebook profile id as a photo id
                 if (last[last.length - 2] != $scope.user.facebook_id) {
-                    $scope.photos_edited.facebook_pics.push(last[last.length - 2]);
+                    $scope.photos_edited.facebook_pics.push($scope.user.photos[i]);
                 }
             }
             else {

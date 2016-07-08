@@ -39,13 +39,5 @@ angular.module('controllers').controller('SettingsController', function ($scope,
         $scope.deleteAccountPopup.close();
     };
 
-    $scope.openTermsOfService = function () {
-        window.open('http://www.erosify.com/pages/terms.html', '_system');
-    };
-
-    $scope.openPrivacyPolicy = function () {
-        window.open('http://www.erosify.com/pages/privacy.html', '_system');
-    };
-
     init();
 });

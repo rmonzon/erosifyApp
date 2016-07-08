@@ -2,7 +2,7 @@
  * Created by raul on 2/25/16.
  */
 
-angular.module('controllers').controller('VisitorsController', function ($scope, GenericController, mainFactory, User) {
+angular.module('controllers').controller('VisitorsController', function ($scope, $rootScope, GenericController, mainFactory, User) {
     function init() {
         GenericController.init($scope);
         $scope.listVisitors = [];
@@ -19,6 +19,7 @@ angular.module('controllers').controller('VisitorsController', function ($scope,
     };
 
     function getMyVisitorsSuccess(response) {
+        $rootScope.notifications.new_visitors = 0;
         $scope.listVisitors = $scope.parseDataFromDB(response.data.visitors);
         $scope.myVisitors = $scope.convertDataForUI($scope.listVisitors);
         if ($scope.listVisitors.length == 0) {

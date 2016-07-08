@@ -2,7 +2,7 @@
  * Created by raul on 2/24/16.
  */
 
-angular.module('controllers').controller('LikesController', function ($scope, GenericController, mainFactory, User) {
+angular.module('controllers').controller('LikesController', function ($scope, $rootScope, GenericController, mainFactory, User) {
 
     function init() {
         GenericController.init($scope);
@@ -20,6 +20,7 @@ angular.module('controllers').controller('LikesController', function ($scope, Ge
     };
 
     function getMyLikesSuccess(response) {
+        $rootScope.notifications.new_likes = 0;
         for (var i = 0, len = response.data.likes.length; i < len; ++i) {
             response.data.likes[i].id = response.data.likes[i].user_one_id;
         }

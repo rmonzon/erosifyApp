@@ -54,7 +54,7 @@ angular.module('controllers').controller('UserProfileController', function ($sco
     };
 
     function markProfileVisitedSuccess(response) {
-        console.log(response.data);
+        
     }
 
     function markProfileVisitedError(response) {
@@ -138,7 +138,9 @@ angular.module('controllers').controller('UserProfileController', function ($sco
     }
 
     $scope.sendMessageToUser = function () {
-        $scope.mutualMatchPopup.close();
+        if ($scope.mutualMatchPopup) {
+            $scope.mutualMatchPopup.close();
+        }
         $scope.goToPage('app/messages/' + $scope.user.id);
     };
 

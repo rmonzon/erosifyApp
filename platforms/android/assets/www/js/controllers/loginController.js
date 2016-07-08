@@ -140,7 +140,7 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
                 });
             } else {
                 $scope.loginStatusFb = success.status;
-                facebookConnectPlugin.login(['email', 'public_profile', 'user_friends', 'user_about_me', 'user_likes', 'user_photos', 'user_birthday', 'user_education_history', 'user_work_history'], fbLoginSuccess, fbLoginError);
+                facebookConnectPlugin.login(['email', 'public_profile', 'user_friends', 'user_likes', 'user_photos', 'user_birthday', 'user_education_history', 'user_work_history'], fbLoginSuccess, fbLoginError);
             }
         });
     };

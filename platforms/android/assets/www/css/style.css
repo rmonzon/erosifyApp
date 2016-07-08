@@ -1630,8 +1630,8 @@ span.msg {
 }
 
 .button-like-profile {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     float: right;
     background: #00BF61;
@@ -1642,8 +1642,8 @@ span.msg {
 }
 
 .button-dislike-profile {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     float: left;
     background: #FF4842;
@@ -1653,8 +1653,8 @@ span.msg {
 }
 
 .button-msg-profile {
-    width: 45px;
-    height: 45px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     background: #00BDB3;
     /*background: #ff6281;*/
@@ -1737,24 +1737,23 @@ span.msg {
 
 .search-container input {
     padding-left: 12px;
-    color: white;
     padding-bottom: 5px;
 }
 
 .search-container input::-webkit-input-placeholder {
-    color: white;
+    color: gray;
 }
 
 .search-container input:-moz-placeholder { /* Firefox 18- */
-    color: white;
+    color: gray;
 }
 
 .search-container input::-moz-placeholder {  /* Firefox 19+ */
-    color: white;
+    color: gray;
 }
 
 .search-container input:-ms-input-placeholder {
-    color: white;
+    color: gray;
 }
 
 .login-inputs-container .ion-eye, .login-inputs-container .ion-eye-disabled {
@@ -1979,6 +1978,38 @@ span.msg {
 
 .delete-photo-popup .button-dark {
     border-radius: 0;
+}
+
+.notification-container {
+    width: 95%;
+    height: 55px;
+    position: absolute;
+    bottom: 0;
+    background: #c7c7c7;
+    margin: 10px;
+    font-size: 17px;
+    border-radius: 5px;
+    z-index: 20;
+    outline: none;
+}
+.notification-container .col-20 {
+    padding-left: 0;
+}
+.notification-container .col-80 {
+    padding-top: 13px;
+}
+
+.notif-photo {
+    width: 50px;
+    height: 50px;
+    margin: 2px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.search-form {
+    height: 62px;
+    background-color: rgb(58, 58, 58);
 }
 
 /* CSS to create the pink bg on matching view */

@@ -4,7 +4,7 @@
 
 var ENV = {
     //SERVICE_URL: 'http://10.0.0.8:5001',
-    //SERVICE_URL: 'http://192.168.1.18:5001',
+    //SERVICE_URL: 'http://192.168.1.16:5001',
     //CHAT_SERVER_URL: 'http://192.168.1.16:3000/',
     SERVICE_URL: 'http://erosify-server.herokuapp.com',
     CHAT_SERVER_URL: 'https://erosify-chat-server.herokuapp.com/',

@@ -7,7 +7,7 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
     function init() {
         GenericController.init($scope);
         $scope.user = User.getUser();
-        $scope.chat = { connected: false };
+        $scope.chat = { connected: true };
         $scope.messages = [];
         $scope.typing = false;
         $scope.lastTypingTime = null;
@@ -20,6 +20,7 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
             '#3b88eb', '#3824aa', '#a700ff', '#d300e7'
         ];
         getConversationId();
+        initChatSocket();
         $scope.getUserInfoFromDB();
     }
 
@@ -79,51 +80,6 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
         // Scroll to bottom to read the latest
         $ionicScrollDelegate.scrollBottom(true);
     };
-
-    socket.on('connect', function() {
-        socket.emit('subscribe', $scope.conversation_id);
-
-        //Add name of the connected user
-        $scope.chat.connected = true;
-        socket.emit('add user', {name: $scope.user.name, room: $scope.conversation_id});
-
-        socket.on('new message', function (data) {
-            if (data.message && data.name) {
-                $scope.addMessageToList(data.name, true, data.message);
-                //mark message received as viewed
-                mainFactory.markMessageAsViewedByUser({
-                    my_id: User.getUser().id,
-                    user_id: $scope.userInfo.id
-                }).then(function (response) {
-                    console.log(response.data);
-                }, function (response) {
-                    console.log(response.data);
-                });
-            }
-        });
-
-        //Whenever the server emits 'typing', show the typing message
-        socket.on('typing', function (data) {
-            addChatTyping(data);
-        });
-
-        // Whenever the server emits 'stop typing', kill the typing message
-        socket.on('stop typing', function (data) {
-            removeChatTyping(data.name);
-        });
-
-        // Whenever the server emits 'user joined', log it in the chat body
-        // socket.on('user joined', function (data) {
-        //     $scope.addMessageToList("", false, data.name + " joined");
-        //     $scope.addMessageToList("", false, message_string(data.numUsers));
-        // });
-        //
-        // // Whenever the server emits 'user left', log it in the chat body
-        // socket.on('user left', function (data) {
-        //     $scope.addMessageToList("", false, data.name + " left");
-        //     $scope.addMessageToList("", false, message_string(data.numUsers));
-        // });
-    });
 
     // Adds the visual chat typing message
     function addChatTyping (data) {
@@ -193,35 +149,86 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
     };
 
     $scope.sendMessage = function () {
-        var req = {
-            sender_id: $scope.user.id,
-            receiver_id: $scope.userInfo.id,
-            msg: $scope.escapeInvalidChars($scope.chat.message),
-            sent_date: $scope.getDateTimeFormatted(new Date()),
-            unread: 1
-        };
-        mainFactory.saveMessage(req).then(saveMessageSuccess, saveMessageError);
+        if ($scope.chat.message) {
+            socket.emit('new message', {
+                room: $scope.conversation_id,
+                message: $scope.chat.message
+            });
+            socket.emit('new message notif', {
+                sender_id: $scope.user.id,
+                user_id: $stateParams.userId,
+                name: $scope.user.name,
+                picture: $scope.user.photos[0]
+            });
+            $scope.addMessageToList($scope.user.name, true, $scope.chat.message);
+            socket.emit('stop typing', $scope.conversation_id);
+
+            var req = {
+                sender_id: $scope.user.id,
+                receiver_id: $scope.userInfo.id,
+                msg: $scope.escapeInvalidChars($scope.chat.message),
+                sent_date: $scope.getDateTimeFormatted(new Date()),
+                unread: 1
+            };
+            mainFactory.saveMessage(req).then(saveMessageSuccess, saveMessageError);
+        }
     };
 
     function saveMessageSuccess(response) {
-        socket.emit('new message', {
-            room: $scope.conversation_id,
-            message: $scope.chat.message
-        });
-        socket.emit('new message notif', {
-            sender_id: $scope.user.id,
-            user_id: $stateParams.userId,
-            name: $scope.user.name,
-            picture: $scope.user.photos[0]
-        });
-        $scope.addMessageToList($scope.user.name, true, $scope.chat.message);
-        socket.emit('stop typing', $scope.conversation_id);
         $scope.chat.message = "";
     }
 
     function saveMessageError(response) {
         socket.emit('stop typing', $scope.conversation_id);
         $scope.showMessage(response.data.error, 2500);
+    }
+
+    function initChatSocket() {
+        socket.emit('subscribe', $scope.conversation_id);
+
+        //Add name of the connected user
+        socket.emit('add user', {name: $scope.user.name, room: $scope.conversation_id});
+
+        socket.on('new message', function (data) {
+            if (data.message && data.name) {
+                $scope.addMessageToList(data.name, true, data.message);
+                //mark message received as viewed
+                mainFactory.markMessageAsViewedByUser({
+                    my_id: User.getUser().id,
+                    user_id: $scope.userInfo.id
+                }).then(function (response) {
+                    console.log(response.data);
+                }, function (response) {
+                    console.log(response.data);
+                });
+            }
+        });
+
+        //Whenever the server emits 'typing', show the typing message
+        socket.on('typing', function (data) {
+            addChatTyping(data);
+        });
+
+        // Whenever the server emits 'stop typing', kill the typing message
+        socket.on('stop typing', function (data) {
+            removeChatTyping(data.name);
+        });
+
+        // Whenever the server emits 'user joined', log it in the chat body
+        // socket.on('user joined', function (data) {
+        //     $scope.addMessageToList("", false, data.name + " joined");
+        //     $scope.addMessageToList("", false, message_string(data.numUsers));
+        // });
+        //
+        // // Whenever the server emits 'user left', log it in the chat body
+        // socket.on('user left', function (data) {
+        //     $scope.addMessageToList("", false, data.name + " left");
+        //     $scope.addMessageToList("", false, message_string(data.numUsers));
+        // });
+
+        // socket.on('connect', function() {
+        //
+        // });
     }
 
     init();

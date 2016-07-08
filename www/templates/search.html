@@ -7,16 +7,14 @@
     </div>
 </ion-header-bar>
 <ion-content class="gradient-bg">
-    <form ng-submit="getSearchResults()">
+    <form class="search-form" ng-submit="getSearchResults()">
         <div class="list list-inset search-container">
-            <label class="item item-input" style="border-radius: 5px; background: transparent;padding: 3px">
+            <label class="item item-input" style="padding: 3px">
                 <input id="search-input" type="text" placeholder="Search people..." ng-model="uiData.searchTerms" autocapitalize="off" required>
-                <button class="button button-icon ion-ios-search placeholder-icon" style="font-size: 25px;color: white;line-height: 26px;min-height: 25px;padding-right: 10px"></button>
+                <button class="button button-icon ion-android-search placeholder-icon" style="font-size: 25px;color: #65beb3;line-height: 26px;min-height: 25px;padding-right: 10px"></button>
             </label>
         </div>
     </form>
-
-    <div class="search-divider"></div>
 
     <ion-scroll ng-hide="loadingResults || loadingImg || noResults" ng-style="{'height': heightScroll + 'px'}">
         <div class="row" ng-repeat="res in listResults" style="border-bottom: 1px solid rgba(211,211,211,0.3);padding-top: 5px">

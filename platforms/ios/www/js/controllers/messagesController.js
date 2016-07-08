@@ -40,5 +40,12 @@ angular.module('controllers').controller('MessagesController', function ($scope,
         }, 100000);
     };
 
+    $scope.openConversation = function (m) {
+        if (m.numUnreadMsg) {
+            $rootScope.notifications.unread_msg -= m.numUnreadMsg;
+        }
+        $scope.goToPage('app/messages/' + m.id);
+    };
+
     init();
 });

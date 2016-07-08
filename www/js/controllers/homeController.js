@@ -7,54 +7,12 @@ angular.module('controllers').controller('HomeController', function ($scope, $q,
     function init() {
         GenericController.init($scope);
         $scope.user = {};
-        $scope.loginStatusFb = "";
         //$scope.checkUserLoggedIn();
     }
 
     $scope.signUpWithFacebook = function() {
-        facebookConnectPlugin.getLoginStatus(function (success) {
-            if (success.status === 'connected') {
-                console.log("User connected to FB already");
-                $scope.loginStatusFb = success.status;
-
-                $scope.getFacebookProfileInfo(success.authResponse).then(function (profileInfo) {
-                    profileInfo.fb_token = success.authResponse.accessToken;
-                    $scope.user = $scope.parseFacebookData(profileInfo);
-                    $scope.showMessageWithIcon("Retrieving location...");
-                    $scope.getCurrentLocation().then(successGetLocation, $scope.errorGetLocation);
-                }, function (fail) {
-                    console.log('profile info fail', fail);
-                    $scope.signUpWithFacebook();
-                });
-            } else {
-                console.log('getLoginStatus', success.status);
-                $scope.loginStatusFb = success.status;
-                facebookConnectPlugin.login(['email', 'public_profile', 'user_friends', 'user_about_me', 'user_likes', 'user_photos', 'user_birthday', 'user_education_history', 'user_work_history'], fbLoginSuccess, fbLoginError);
-            }
-        });
-    };
-
-    // This is the success callback from the login method
-    var fbLoginSuccess = function(response) {
-        if (!response.authResponse) {
-            fbLoginError("Cannot find the authResponse");
-            return;
-        }
-        var authResponse = response.authResponse;
-        $scope.getFacebookProfileInfo(authResponse).then(function (profileInfo) {
-            profileInfo.fb_token = authResponse.accessToken;
-            $scope.user = $scope.parseFacebookData(profileInfo);
-            //check if user has an account
-            mainFactory.checkEmailAvailability({"email": $scope.user.email}).then(successCheckEmail, errorCheckEmail);
-        }, function (fail) {
-            console.log('profile info fail', fail);
-        });
-    };
-
-    // This is the fail callback from the login method
-    var fbLoginError = function(error){
-        console.log('fbLoginError', error);
-        $scope.showMessage(error.errorUserMessage, 3000);
+        $scope.showMessageWithIcon("Retrieving location...");
+        $scope.getCurrentLocation().then(successGetLocation, $scope.errorGetLocation);
     };
 
     function successGetLocation(position) {
@@ -67,41 +25,19 @@ angular.module('controllers').controller('HomeController', function ($scope, $q,
         geocoder.geocode({'location': latlng}, function (results, status) {
             if (status === google.maps.GeocoderStatus.OK) {
                 if (results[1]) {
-                    if ($scope.loginStatusFb === 'connected') {
-                        $scope.hideMessage();
-                        $scope.showMessageWithIcon("Verifying credentials...");
-                        var credentials = {
-                            "email": $scope.user.email,
-                            "password": "",
-                            "location": results[0].formatted_address.replace('EE. UU.', 'USA'),
-                            "coords": latlng,
-                            "friends": $scope.user.friends
-                        };
-                        mainFactory.authenticate(credentials).then(authenticateSuccess, authenticateError);
-                    }
-                    else {
-                        var userObj = {
-                            "email": $scope.user.email,
-                            "password": "",
-                            "name": $scope.user.first_name,
-                            "full_name": $scope.user.name,
-                            "dob": $scope.user.birthday,
-                            "gender": $scope.user.gender,
-                            "age": $scope.calculateAge($scope.user),
-                            "work": $scope.user.work,
-                            "education": $scope.user.education,
-                            "location": results[0].formatted_address.replace('EE. UU.', 'USA'),
-                            "facebook_photos": "'{" + $scope.user.photos.join(',') + "}'",
-                            "languages": "'{" + $scope.user.languages.join(',') + "}'",
-                            "coords": latlng,
-                            "looking_to": "Date", //todo:find a way to get this from the user. $scope.user.looking_to
-                            "facebook_id": $scope.user.id,
-                            "friends": $scope.user.friends
-                        };
-                        $scope.hideMessage();
-                        $scope.showMessageWithIcon("Registering your account...");
-                        mainFactory.createAccountFacebook(userObj).then(successCallBack, errorCallBack);
-                    }
+                    $scope.hideMessage();
+                    $scope.geoResults = { results: results, latlng: latlng };
+
+                    facebookConnectPlugin.getLoginStatus(function (success) {
+                        if (success.status === 'connected') {
+                            $scope.fbResponse = success;
+                            getFbProfileInfo();
+                        } else {
+                            $scope.loginStatusFb = success.status;
+                            facebookConnectPlugin.login(['email', 'public_profile', 'user_friends', 'user_likes', 'user_photos', 'user_birthday', 'user_education_history', 'user_work_history'], fbLoginSuccess, fbLoginError);
+                        }
+                    });
+
                 } else {
                     $scope.showMessage('No results found', 2500);
                 }
@@ -109,6 +45,80 @@ angular.module('controllers').controller('HomeController', function ($scope, $q,
                 $scope.showMessage('Geocoder failed due to: ' + status, 2500);
             }
         });
+    }
+
+    function getFbProfileInfo() {
+        $scope.getFacebookProfileInfo($scope.fbResponse.authResponse).then(function (profileInfo) {
+            profileInfo.fb_token = $scope.fbResponse.authResponse.accessToken;
+            $scope.user = $scope.parseFacebookData(profileInfo);
+            $scope.showMessageWithIcon("Verifying credentials...");
+            mainFactory.checkEmailAvailability({"email": $scope.user.email}).then(successCheckEmail, errorCheckEmail);
+        }, function (fail) {
+            console.log('profile info fail', fail);
+        });
+    }
+
+    function doAuthentication() {
+        $scope.hideMessage();
+        $scope.showMessageWithIcon("Verifying credentials...");
+        var credentials = {
+            "email": $scope.user.email,
+            "password": "",
+            "location": $scope.geoResults.results[0].formatted_address.replace('EE. UU.', 'USA'),
+            "coords": $scope.geoResults.latlng,
+            "friends": $scope.user.friends
+        };
+        mainFactory.authenticate(credentials).then(authenticateSuccess, authenticateError);
+    }
+
+    // This is the success callback from the login method
+    var fbLoginSuccess = function(response) {
+        if (!response.authResponse) {
+            fbLoginError("Cannot find the authResponse");
+            return;
+        }
+        $scope.fbResponse = response;
+        //check if user has an account
+        getFbProfileInfo();
+    };
+
+    // This is the fail callback from the login method
+    var fbLoginError = function(error){
+        console.log('fbLoginError', error);
+        $scope.showMessage(error.errorUserMessage, 3000);
+    };
+
+    function successCheckEmail(response) {
+        if (response.data.existEmail) {
+            doAuthentication();
+        }
+        else {
+            var userObj = {
+                "email": $scope.user.email,
+                "password": "",
+                "name": $scope.user.first_name,
+                "full_name": $scope.user.name,
+                "dob": $scope.user.birthday,
+                "gender": $scope.user.gender,
+                "age": $scope.calculateAge($scope.user),
+                "work": $scope.user.work,
+                "education": $scope.user.education,
+                "location": $scope.geoResults.results[0].formatted_address.replace('EE. UU.', 'USA'),
+                "facebook_photos": "'{" + $scope.user.photos.join(',') + "}'",
+                "languages": "'{" + $scope.user.languages.join(',') + "}'",
+                "coords": $scope.geoResults.latlng,
+                "looking_to": "Date", //todo:find a way to get this from the user. $scope.user.looking_to
+                "facebook_id": $scope.user.id,
+                "friends": $scope.user.friends
+            };
+            $scope.hideMessage();
+            $scope.showMessageWithIcon("Registering your account...");
+            mainFactory.createAccountFacebook(userObj).then(successCallBack, errorCallBack);
+        }
+    }
+
+    function errorCheckEmail(response) {
+        $scope.showMessage(response.data ? response.data.error : "Server error connection", 3000);
     }
 
     /* Callbacks for create account */
@@ -153,19 +163,6 @@ angular.module('controllers').controller('HomeController', function ($scope, $q,
             $scope.showMessage("Something went wrong with the request!", 2500);
         }
     }
-
-    function successCheckEmail(response) {
-        if (response.data.existEmail) {
-            $scope.loginStatusFb = 'connected';
-        }
-        $scope.showMessageWithIcon("Retrieving location...");
-        $scope.getCurrentLocation().then(successGetLocation, $scope.errorGetLocation);
-    }
-
-    function errorCheckEmail(response) {
-        $scope.showMessage(response.data ? response.data.error : "Server error connection", 3000);
-    }
-
 
     // $scope.checkUserLoggedIn = function () {
     //     $scope.user = $scope.getUserFromLS();

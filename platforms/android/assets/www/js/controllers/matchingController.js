@@ -2,7 +2,7 @@
  * Created by raul on 2/3/16.
  */
 
-angular.module('controllers').controller('MatchingController', function ($scope, $ionicSlideBoxDelegate, $ionicModal, $ionicPopup, GenericController, User, mainFactory) {
+angular.module('controllers').controller('MatchingController', function ($scope, $ionicSlideBoxDelegate, $ionicModal, $ionicPopup, GenericController, socket, User, mainFactory) {
 
     function init() {
         GenericController.init($scope);
@@ -173,7 +173,11 @@ angular.module('controllers').controller('MatchingController', function ($scope,
 
     function saveLikeOrDislikeSuccess(response) {
         if (response.data.isMatch) {
-            console.log("It's a match!");
+            socket.emit('new match notif', {
+                user_id: $scope.currentProfile.id,
+                name: $scope.currentProfile.name,
+                picture: $scope.currentProfile.photos[0]
+            });
             $scope.showMutualMatchMsg();
         }
         else {

@@ -13,7 +13,7 @@
     </div>
 
     <ion-refresher on-refresh="getMessages()" spinner="ios"></ion-refresher>
-    <div class="row messages-row" ng-repeat="m in messages" ng-click="goToPage('app/messages/' + m.id)" ng-hide="loadingMessages">
+    <div class="row messages-row" ng-repeat="m in messages" ng-click="openConversation(m)" ng-hide="loadingMessages">
         <div class="col-25">
             <img ng-src="{{m.photos[0]}}" width="100%">
         </div>

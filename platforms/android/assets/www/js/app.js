@@ -68,16 +68,6 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
                 }
             }
         })
-        .state('privacy', {
-            url: '/privacy',
-            templateUrl: 'templates/privacy.html',
-            controller: 'PrivacyController',
-            resolve: {
-                factoryInitialized: function (mainFactory) {
-                    return mainFactory.initApp();
-                }
-            }
-        })
         .state('forgot_password', {
             url: '/forgot_password',
             templateUrl: 'templates/forgot_password.html',

@@ -261,6 +261,9 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
                     user.languages[i] = user.languages[i].name;
                 }
             }
+            else {
+                user.languages = ["English"];
+            }
             if (user.gender) {
                 //to capitalize first letter
                 user.gender = user.gender.charAt(0).toUpperCase() + user.gender.slice(1);
@@ -268,8 +271,14 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
             if (user.work && user.work.length > 0) {
                 user.work = user.work[0].employer.name;
             }
+            else {
+                user.work = "";
+            }
             if (user.education && user.education.length > 0) {
                 user.education = user.education[user.education.length - 1].school.name;
+            }
+            else {
+                user.education = "";
             }
             if (user.birthday) {
                 var dob = user.birthday.split('/');
@@ -298,7 +307,7 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
         // This method is to get the user profile info from the facebook api
         $scope.getFacebookProfileInfo = function (authResponse) {
             var info = $q.defer();
-            facebookConnectPlugin.api('/me?fields=id,first_name,name,email,picture,gender,birthday,languages,about,education,work,friends,photos&access_token=' + authResponse.accessToken, null,
+            facebookConnectPlugin.api('/me?fields=id,first_name,name,email,picture,gender,birthday,languages,education,work,friends,photos&access_token=' + authResponse.accessToken, null,
                 function (response) {
                     info.resolve(response);
                 },
@@ -365,6 +374,31 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
             }, function (error) {
                 // error
             });
+        };
+
+        $scope.showNotification = function (notif) {
+            $scope.notification = notif;
+            $scope.notification.visible = true;
+            $timeout(function () {
+                if ($scope.notification) {
+                    $scope.notification.visible = false;
+                }
+            }, 6000);
+        };
+
+        $scope.viewNotification = function () {
+            if ($scope.notification.is_message) {
+                $scope.notification.visible = false;
+                $scope.goToPage('app/messages/' + $scope.notification.sender_id);   
+            }
+        };
+
+        $scope.openTermsOfService = function () {
+            window.open('http://www.erosify.com/pages/terms.html', '_system');
+        };
+
+        $scope.openPrivacyPolicy = function () {
+            window.open('http://www.erosify.com/pages/privacy.html', '_system');
         };
     };
 });
