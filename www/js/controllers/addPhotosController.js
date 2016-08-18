@@ -74,14 +74,14 @@ angular.module('controllers').controller('AddPhotosController', function ($scope
         //update user pictures in the db
         $scope.showMessageWithIcon("Saving your photos...");
         var pics = createArrayOfImgs();
-        mainFactory.updateNewUserPics({ user_id: User.getUser().id, pics: pics }).then(function (response) {
+        mainFactory.updateNewUserPics({ user_id: User.getUser().id, amazon_pics: pics }).then(function (response) {
             response.data.user = $scope.parseDataFromDB(response.data.user);
             User.setUser(response.data.user);
             $scope.hideMessage();
             $scope.goToPage('app/matching');
         }, function (err) {
             $scope.hideMessage();
-            $scope.showMessage(err);
+            $scope.showMessage("Something went wrong with the request!", 2000);
         });
     };
 

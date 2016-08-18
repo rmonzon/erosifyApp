@@ -269,7 +269,7 @@ angular.module('controllers').service('GenericController', function($q, $ionicLo
                 user.gender = user.gender.charAt(0).toUpperCase() + user.gender.slice(1);
             }
             if (user.work && user.work.length > 0) {
-                user.work = user.work[0].employer.name;
+                user.work = user.work[0].position.name + " at " + user.work[0].employer.name;
             }
             else {
                 user.work = "";

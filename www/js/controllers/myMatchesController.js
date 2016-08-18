@@ -23,6 +23,7 @@ angular.module('controllers').controller('MyMatchesController', function ($scope
         $rootScope.notifications.new_matches = 0;
         $scope.listMatches = $scope.parseDataFromDB(response.data.matches);
         $scope.myMatches = $scope.convertDataForUI($scope.listMatches);
+        $scope.noResults = false;
         if ($scope.listMatches.length == 0) {
             $scope.noResults = true;
             $scope.loadingImg = false;

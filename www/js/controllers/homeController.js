@@ -7,7 +7,7 @@ angular.module('controllers').controller('HomeController', function ($scope, $q,
     function init() {
         GenericController.init($scope);
         $scope.user = {};
-        //$scope.checkUserLoggedIn();
+        $scope.checkUserLoggedIn();
     }
 
     $scope.signUpWithFacebook = function() {
@@ -26,7 +26,7 @@ angular.module('controllers').controller('HomeController', function ($scope, $q,
             if (status === google.maps.GeocoderStatus.OK) {
                 if (results[1]) {
                     $scope.hideMessage();
-                    $scope.geoResults = { results: results, latlng: latlng };
+                    $scope.geoResults = {results: results, latlng: latlng};
 
                     facebookConnectPlugin.getLoginStatus(function (success) {
                         if (success.status === 'connected') {
@@ -37,7 +37,6 @@ angular.module('controllers').controller('HomeController', function ($scope, $q,
                             facebookConnectPlugin.login(['email', 'public_profile', 'user_friends', 'user_likes', 'user_photos', 'user_birthday', 'user_education_history', 'user_work_history'], fbLoginSuccess, fbLoginError);
                         }
                     });
-
                 } else {
                     $scope.showMessage('No results found', 2500);
                 }
@@ -164,15 +163,14 @@ angular.module('controllers').controller('HomeController', function ($scope, $q,
         }
     }
 
-    // $scope.checkUserLoggedIn = function () {
-    //     $scope.user = $scope.getUserFromLS();
-    //     if ($scope.user) {
-    //         $timeout (function () {
-    //             $scope.showMessageWithIcon("Retrieving location...");
-    //             $scope.getCurrentLocation();
-    //         }, 500);
-    //     }
-    // };
+    $scope.checkUserLoggedIn = function () {
+        $scope.user = $scope.getUserFromLS();
+        if (!$scope.user.password) {
+            $timeout (function () {
+                $scope.signUpWithFacebook();
+            }, 500);
+        }
+    };
 
     init();
 });

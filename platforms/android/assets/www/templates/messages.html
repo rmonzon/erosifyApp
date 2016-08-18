@@ -1,19 +1,21 @@
 <ion-header-bar align-title="left">
     <div class="buttons">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+        <button class="button button-icon button-clear ion-navicon" ng-hide="deleteMode" menu-toggle="left"></button>
+        <button class="button button-icon button-clear ion-ios-arrow-back" ng-show="deleteMode" ng-click="disableDeleteMode()"></button>
+        <span class="num-selected-elems" ng-show="selectedItems > 0 && deleteMode">({{ selectedItems }})</span>
     </div>
-    <div class="title-views">
+    <div class="title-views" ng-hide="deleteMode">
         <span>Messages</span>
     </div>
+    <a class="button button-icon icon ion-trash-b" ng-show="selectedItems > 0" ng-click="removeMultiMessages()"></a>
 </ion-header-bar>
 <ion-content class="gradient-bg">
-
     <div class="text-center def-spinner-container" ng-show="loadingMessages">
         <ion-spinner class="default-spinner"></ion-spinner>
     </div>
 
     <ion-refresher on-refresh="getMessages()" spinner="ios"></ion-refresher>
-    <div class="row messages-row" ng-repeat="m in messages" ng-click="openConversation(m)" ng-hide="loadingMessages">
+    <div class="row messages-row" ng-repeat="m in messages" ng-class="m.selected ? 'selected' : ''" on-hold="enterDeleteMode($index)" on-tap="clickOnMessage($index)" ng-hide="loadingMessages">
         <div class="col-25">
             <img ng-src="{{m.photos[0]}}" width="100%">
         </div>
@@ -38,3 +40,4 @@
     </div>
 </ion-content>
 
+<div ng-include="'templates/notification_msg.html'"></div>

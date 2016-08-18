@@ -790,6 +790,13 @@ i.ion-ios-chatbubble-outline {
     margin: 5px 0 0 5px;
 }
 
+.status-icon-small {
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    margin: 5px 7px 0 0;
+}
+
 .online {
     background: green;
 }
@@ -834,8 +841,8 @@ i.ion-ios-chatbubble-outline {
     font-family: LeituraSansBold;
 }
 
-.messages-row:active {
-    background: rgb(10, 189, 160);
+.messages-row.selected {
+    background-color: rgba(211, 211, 211, 0.4);
 }
 
 .messages-row .col-25 {
@@ -1630,8 +1637,8 @@ span.msg {
 }
 
 .button-like-profile {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     float: right;
     background: #00BF61;
@@ -1642,8 +1649,8 @@ span.msg {
 }
 
 .button-dislike-profile {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     float: left;
     background: #FF4842;
@@ -1653,8 +1660,8 @@ span.msg {
 }
 
 .button-msg-profile {
-    width: 45px;
-    height: 45px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     background: #00BDB3;
     /*background: #ff6281;*/
@@ -2010,6 +2017,23 @@ span.msg {
 .search-form {
     height: 62px;
     background-color: rgb(58, 58, 58);
+}
+
+.ion-trash-b {
+    position: absolute;
+    right: 3px;
+    bottom: 4px;
+    color: lightgray;
+}
+.ion-trash-b::before {
+    font-size: 28px!important;
+}
+
+.num-selected-elems {
+    font-size: 17px;
+    margin-top: 8px;
+    margin-left: 10px;
+    font-weight: bold;
 }
 
 /* CSS to create the pink bg on matching view */

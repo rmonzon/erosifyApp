@@ -83,8 +83,8 @@ angular.module('controllers').controller('UserProfileController', function ($sco
             $scope.currentProfile = $scope.user;
             socket.emit('new match notif', {
                 user_id: $scope.user.id,
-                name: $scope.user.name,
-                picture: $scope.user.photos[0]
+                name: User.getUser().name,
+                picture: User.getUser().photos[0]
             });
             $scope.showMutualMatchMsg();
         }

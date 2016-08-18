@@ -18,8 +18,9 @@
                 </a>
                 <br>
                <div style="display: inline-flex; text-align: center">
+                   <div class="status-icon-small online" ng-show="m.status == 1"></div>
                    <span class="match-user">{{m.name}}</span>
-                   <div class="status-icon-md online" ng-show="m.status == 1"></div>
+                   <i class="icon ion-checkmark-circled verified-icon-list" ng-show="m.verified == 1"></i>
                </div>
                 <br>
                 <span class="match-date">{{m.date}}</span>

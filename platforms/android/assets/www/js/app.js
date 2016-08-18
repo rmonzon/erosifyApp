@@ -6,7 +6,7 @@
 // 'starter.controllers' is found in mainController.js
 angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCordova', 'ngSanitize', 'btford.socket-io'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, mainFactory, User) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
@@ -23,11 +23,19 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
     //handle Cordova resume (enter foreground) and pause (enter background events)
     $ionicPlatform.on('resume', function() {
         console.log("App is active again!");
+        mainFactory.setUserStatus({ my_id: User.getUser().id, status: 1 }).then(function (response) {
+        }, function (response) {
+            console.log(response);
+        });
     });
 
     $ionicPlatform.on('pause', function() {
         //Do something here on entering background
         console.log("App is in background mode");
+        mainFactory.setUserStatus({ my_id: User.getUser().id, status: 0 }).then(function (response) {
+        }, function (response) {
+            console.log(response);
+        });
     });
 })
 
@@ -141,7 +149,6 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.peoplenearby', {
-            cache: false,
             url: '/peoplenearby',
             views: {
                 'menuContent': {
@@ -201,7 +208,6 @@ angular.module('starter', ['ionic', 'controllers', 'models', 'services', 'ngCord
             }
         })
         .state('app.messages', {
-            cache: false,
             url: '/messages',
             views: {
                 'menuContent': {

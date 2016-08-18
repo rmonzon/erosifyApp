@@ -36,7 +36,8 @@
         <div class="list list-inset test">
             <label class="item item-input" style="padding-left: 0">
                 <a class="button button-icon icon ion-android-happy"></a>
-                <input type="text" class="chat-inputbox" placeholder="Type a message" ng-model="chat.message" autocapitalize="off" required>
+                <textarea cols="40" rows="5" class="chat-inputbox" placeholder="Type a message" ng-model="chat.message" autocapitalize="off" required></textarea>
+                <!--<input type="text" class="chat-inputbox" placeholder="Type a message" ng-model="chat.message" autocapitalize="off" required>-->
                 <button class="button button-icon ion-android-send placeholder-icon" style="font-size: 25px;color: white;line-height: 26px;min-height: 25px;padding-right: 10px" ng-disabled="!chat.message"></button>
             </label>
         </div>

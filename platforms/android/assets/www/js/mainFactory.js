@@ -145,6 +145,14 @@ angular.module('services', []).factory('mainFactory', function($http, $q, $windo
         return $http.post(factory.connectionStr + "/message_viewed", req);
     };
 
+    factory.setUserStatus = function (req) {
+        return $http.post(factory.connectionStr + "/user_status", req);
+    };
+
+    factory.deleteConversations = function (req) {
+        return $http.post(factory.connectionStr + "/remove_messages", req);
+    };
+
     return factory;
 }).factory('socket', function(socketFactory) {
     var myIoSocket = io.connect(ENV.CHAT_SERVER_URL);

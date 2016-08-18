@@ -790,6 +790,13 @@ i.ion-ios-chatbubble-outline {
     margin: 5px 0 0 5px;
 }
 
+.status-icon-small {
+    width: 8px;
+    height: 8px;
+    border-radius: 6px;
+    margin: 5px 7px 0 0;
+}
+
 .online {
     background: green;
 }
@@ -834,8 +841,8 @@ i.ion-ios-chatbubble-outline {
     font-family: LeituraSansBold;
 }
 
-.messages-row:active {
-    background: rgb(10, 189, 160);
+.messages-row.selected {
+    background-color: rgba(211, 211, 211, 0.4);
 }
 
 .messages-row .col-25 {
@@ -1043,7 +1050,7 @@ ion-header-bar .ion-android-search:before {
     width: 100%;
     height: 37px!important;
     border-radius: 7px 0 7px 7px;
-    padding: 7px 50px 7px 45px!important;
+    padding: 11px 50px 7px 45px!important;
     font-family: LeituraSansGrot;
     font-weight: bold;
 }
@@ -2010,6 +2017,27 @@ span.msg {
 .search-form {
     height: 62px;
     background-color: rgb(58, 58, 58);
+}
+
+.ion-trash-b {
+    position: absolute;
+    right: 3px;
+    bottom: 4px;
+    color: lightgray;
+}
+.ion-trash-b::before {
+    font-size: 28px!important;
+}
+
+.num-selected-elems {
+    font-size: 17px;
+    margin-top: 8px;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+textarea {
+    resize: none;
 }
 
 /* CSS to create the pink bg on matching view */

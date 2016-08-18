@@ -132,7 +132,7 @@ angular.module('controllers').controller('ChatController', function($scope, $sta
 
         // Push the messages to the messages list.
         $scope.messages.push({
-            content: message == " is typing" ? name + $sanitize(message) : $sanitize(message),
+            content: message == " is typing" ? name + message : message,
             style: style_type,
             name: name,
             color: color,

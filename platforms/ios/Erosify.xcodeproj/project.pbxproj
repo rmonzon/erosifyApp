@@ -344,7 +344,7 @@
 				LastUpgradeCheck = 730;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = 86V73N9JGN;
+						DevelopmentTeam = PUD5Z6B5T5;
 					};
 				};
 			};
@@ -479,7 +479,7 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "Erosify/Erosify-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ionicframework.erosify;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ionicframework.erosifyapp;
 				PRODUCT_NAME = Erosify;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -511,7 +511,7 @@
 				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "Erosify/Erosify-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ionicframework.erosify;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ionicframework.erosifyapp;
 				PRODUCT_NAME = Erosify;
 				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;

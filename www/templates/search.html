@@ -17,9 +17,9 @@
     </form>
 
     <ion-scroll ng-hide="loadingResults || loadingImg || noResults" ng-style="{'height': heightScroll + 'px'}">
-        <div class="row" ng-repeat="res in listResults" style="border-bottom: 1px solid rgba(211,211,211,0.3);padding-top: 5px">
+        <div class="row" ng-repeat="res in listResults" style="border-bottom: 1px solid rgba(211,211,211,0.3);padding-top: 5px" ng-click="goToProfile(res.id)">
             <div class="col-20 text-center">
-                <a class="button button-icon" style="line-height: 0; margin: 5px 0;" ng-click="goToProfile(res.id)">
+                <a class="button button-icon" style="line-height: 0; margin: 5px 0;">
                     <img class="user-fav-pic" ng-src="{{res.photos[0]}}" ng-load-image="imageLoaded()">
                 </a>
             </div>
