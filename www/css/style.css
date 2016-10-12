@@ -859,11 +859,13 @@ i.ion-ios-chatbubble-outline {
     margin-left: -55px;
 }
 
-.bar-header a.ion-android-search {
-    position: absolute;
-    right: 3px;
-    bottom: 5px;
-    color: white;
+.ion-android-search {
+    font-size: 25px;
+    color: #65beb3;
+    line-height: 26px;
+    min-height: 25px;
+    padding-right: 10px;
+    padding-top: 5px;
 }
 
 .tabs .tab-item .badge.badge-assertive, .badge.badge-assertive {
@@ -1744,7 +1746,7 @@ span.msg {
 
 .search-container input {
     padding-left: 12px;
-    padding-bottom: 5px;
+    padding-bottom: 2px;
 }
 
 .search-container input::-webkit-input-placeholder {
@@ -1989,13 +1991,13 @@ span.msg {
 
 .notification-container {
     width: 95%;
-    height: 55px;
+    height: 54px;
     position: absolute;
     bottom: 0;
-    background: #c7c7c7;
+    background: #eac4c4;
     margin: 10px;
     font-size: 17px;
-    border-radius: 5px;
+    border-radius: 3px;
     z-index: 20;
     outline: none;
 }
@@ -2003,15 +2005,17 @@ span.msg {
     padding-left: 0;
 }
 .notification-container .col-80 {
-    padding-top: 13px;
+    padding-top: 15px;
 }
 
 .notif-photo {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     margin: 2px;
     background-size: contain;
     background-repeat: no-repeat;
+    border-radius: 50%;
+    border: 2px solid white;
 }
 
 .search-form {
@@ -2038,6 +2042,25 @@ span.msg {
 
 textarea {
     resize: none;
+}
+
+.gender-button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #c5c5c5;
+    margin: 10px 0 5px -25px;
+    position: relative;
+    left: 50%;
+    padding: 5px 18px;
+}
+
+.gender-button i {
+    font-size: 35px;
+}
+
+.gender-selected {
+    background: #c5c5c5;
 }
 
 /* CSS to create the pink bg on matching view */

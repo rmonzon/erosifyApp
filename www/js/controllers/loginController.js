@@ -6,8 +6,8 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
 
     function init() {
         GenericController.init($scope);
-        //$scope.user = {email: "heidi@gmail.com", password: "123123123"};
-        $scope.user = {email: "", password: ""};
+        $scope.user = {email: "heidi@gmail.com", password: "123123123"};
+        //$scope.user = {email: "", password: ""};
     }
 
     $scope.loginWithEmail = function () {
@@ -29,7 +29,7 @@ angular.module('controllers').controller('LoginController', function ($scope, $q
         $scope.showMessageWithIcon("Retrieving location...");
         $scope.getCurrentLocation().then(successGetLocation, $scope.errorGetLocation);
     };
-    
+
     function successGetLocation(position) {
         geocodeLatLng(position.coords.latitude, position.coords.longitude);
     }

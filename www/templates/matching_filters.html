@@ -11,24 +11,35 @@
         </div>
     </ion-header-bar>
     <ion-content class="padding">
+
         <div class="list">
-            <div class="item item-divider">Show Me:</span></div>
-            <ion-list>
-                <ion-radio ng-model="filters.gender" ng-value="'Male'">Men</ion-radio>
-                <ion-radio ng-model="filters.gender" ng-value="'Female'">Women</ion-radio>
-                <ion-radio ng-model="filters.gender" ng-value="'Everyone'">Everyone</ion-radio>
-            </ion-list>
+            <div class="item item-divider">Show Me:</div>
+
+            <div class="item row" style="width: auto">
+                <div class="col-50 text-center">
+                    <div class="gender-button" ng-click="selectGender('Male')" ng-class="filters.gender['Male'] ? 'gender-selected' : ''">
+                        <i class="icon ion-man"></i>
+                    </div>
+                    Men
+                </div>
+                <div class="col-50 text-center">
+                    <div class="gender-button" ng-click="selectGender('Female')" ng-class="filters.gender['Female'] ? 'gender-selected' : ''">
+                        <i class="icon ion-woman"></i>
+                    </div>
+                    Women
+                </div>
+            </div>
         </div>
 
         <div class="list">
             <div class="item item-divider">Who are:</span></div>
             <label class="item item-input item-select">
-                <div class="input-label">Looking to</div>
+                <div class="input-label">Interested in</div>
                 <select ng-model="filters.interest">
                     <option value="Date" selected>Date</option>
                     <option value="Chat">Chat</option>
                     <option value="Friends">Make new friends</option>
-                    <option value="">Show Everyone</option>
+                    <option value="">Everyone</option>
                 </select>
             </label>
         </div>

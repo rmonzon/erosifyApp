@@ -165,10 +165,12 @@ angular.module('controllers').controller('HomeController', function ($scope, $q,
 
     $scope.checkUserLoggedIn = function () {
         $scope.user = $scope.getUserFromLS();
-        if (!$scope.user.password) {
-            $timeout (function () {
-                $scope.signUpWithFacebook();
-            }, 500);
+        if ($scope.user) {
+            if (!$scope.user.password) {
+                $timeout (function () {
+                    $scope.signUpWithFacebook();
+                }, 500);
+            }
         }
     };
 

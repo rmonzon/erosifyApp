@@ -17,13 +17,13 @@ angular.module('controllers').controller('MatchingController', function ($scope,
             ageMax: 55,
             ageFrom: 18,
             ageTo: 35,
-            gender: $scope.userProfile.gender == 'Male' ? 'Female' : 'Male',
+            gender: {'Female' : $scope.userProfile.gender == 'Male', 'Male': $scope.userProfile.gender == 'Female'},
             interest: $scope.userProfile.looking_to
         };
         var pageLoad = {
             "id": $scope.userProfile.id,
             "email": $scope.getUserFromLS().email,
-            "gender": $scope.filters.gender,
+            "gender": $scope.userProfile.gender,
             "looking_to": $scope.filters.interest,
             "ages": { ageFrom: $scope.filters.ageFrom, ageTo: $scope.filters.ageTo }
         };
@@ -211,11 +211,15 @@ angular.module('controllers').controller('MatchingController', function ($scope,
         if ($scope.filters.interest) {
             filters.looking_to = $scope.filters.interest;
         }
-        if ($scope.filters.gender != "Everyone") {
-            filters.gender = $scope.filters.gender;
+        if (!$scope.filters.gender['Male'] || !$scope.filters.gender['Female']) {
+            filters.gender = $scope.filters.gender['Male'] ? 'Male' : 'Female';
         }
         $scope.getListOfMatches(filters);
         $scope.closeModal();
+    };
+
+    $scope.selectGender = function(option) {
+        $scope.filters.gender[option] = !$scope.filters.gender[option];
     };
 
     $scope.closeModal = function() {
